@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium Shop</title>
-    <!-- Telegram Web App SDK -->
+    <title>Mrshop20 Premium Shop</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
@@ -12,38 +11,34 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        
+
         :root {
-            /* Variabili dinamiche basate sul tema nativo di Telegram */
-            --bg-color: var(--tg-theme-bg-color, #0e0e10);
-            --secondary-bg: var(--tg-theme-secondary-bg-color, #1c1c1e);
-            --text-color: var(--tg-theme-text-color, #ffffff);
-            --hint-color: var(--tg-theme-hint-color, #8e8e93);
-            --link-color: var(--tg-theme-link-color, #30d158);
-            --button-color: var(--tg-theme-button-color, #34c759);
-            --button-text: var(--tg-theme-button-text-color, #ffffff);
-            --accent-danger: #ff453a;
-            --accent-warning: #ff9f0a;
+            --bg-dark: #0b0b0e;
+            --bg-card: #16161e;
+            --primary-neon: #00ff66;
+            --secondary-neon: #00e5ff;
+            --accent-purple: #9d4edd;
+            --text-main: #ffffff;
+            --text-hint: #8e8e93;
+            --danger: #ff3b30;
+            --warning: #ffcc00;
         }
-        
+
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             min-height: 100vh;
-            padding-bottom: 90px;
+            padding-bottom: 100px;
             overflow-x: hidden;
         }
-        
-        /* Age Gate Obligatorio 18+ */
+
+        /* Age Gate */
         .age-gate {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, #0a0a0c 0%, #121218 100%);
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, #1a102f 0%, #050508 100%);
             z-index: 99999;
             display: flex;
             flex-direction: column;
@@ -52,60 +47,710 @@
             padding: 30px;
             text-align: center;
         }
-        
         .age-gate.hidden { display: none; }
-        .age-gate .emoji { font-size: 64px; margin-bottom: 20px; }
-        .age-gate h2 { font-size: 28px; color: var(--accent-danger); margin-bottom: 15px; font-weight: 800; }
-        .age-gate p { color: var(--hint-color); margin-bottom: 35px; line-height: 1.5; font-size: 15px; max-width: 320px; }
-        
-        .btn-action {
-            width: 100%;
-            max-width: 260px;
-            padding: 16px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.1s ease;
-        }
-        .btn-action.primary { background: var(--button-color); color: var(--button-text); }
-        .btn-action.secondary { background: #2c2c2e; color: #ffffff; }
-        .btn-action:active { transform: scale(0.97); }
-        
-        /* Header */
-        .header {
-            padding: 24px 16px;
+        .logo-animation { font-size: 70px; margin-bottom: 10px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        /* Top Header & Logo */
+        .brand-header {
+            padding: 20px;
             text-align: center;
-            background: linear-gradient(to bottom, var(--secondary-bg), var(--bg-color));
+            background: linear-gradient(180deg, rgba(157, 78, 221, 0.2) 0%, transparent 100%);
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
         }
-        .header h1 { font-size: 26px; font-weight: 800; color: var(--button-color); letter-spacing: -0.5px; }
-        .header p { font-size: 13px; color: var(--hint-color); margin-top: 6px; }
-        
-        /* Categorie Navigation Swiper */
-        .categories-container {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: var(--bg-color);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 12px 0;
-        }
-        .categories {
+        .main-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            border-radius: 50%;
             display: flex;
-            overflow-x: auto;
-            padding: 0 16px;
-            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 900;
+            color: #000;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+        }
+        .brand-header h1 { font-size: 28px; font-weight: 800; tracking-spacing: -1px; }
+
+        /* Lingue */
+        .lang-selector {
+            position: absolute;
+            top: 15px; right: 15px;
+            display: flex; gap: 5px;
+        }
+        .lang-btn {
+            background: #222; border: 1px solid #444; border-radius: 6px;
+            padding: 4px 6px; font-size: 14px; cursor: pointer; color: white;
+        }
+        .lang-btn.active { border-color: var(--primary-neon); background: rgba(0,255,102,0.1); }
+
+        /* Promo Banner */
+        .promo-banner {
+            background: linear-gradient(90deg, #9d4edd, #ff007f);
+            margin: 15px; padding: 12px; border-radius: 12px;
+            font-weight: 700; text-align: center; font-size: 14px;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+        }
+
+        /* Categorie Grandi */
+        .categories-scroller {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(11, 11, 14, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .categories-list {
+            display: flex; overflow-x: auto; padding: 0 15px; gap: 10px;
             scrollbar-width: none;
         }
-        .categories::-webkit-scrollbar { display: none; }
-        .cat-btn {
-            flex-shrink: 0;
-            padding: 10px 18px;
-            background: var(--secondary-bg);
-            border: 1px solid rgba(255,255,255,0.05);
+        .categories-list::-webkit-scrollbar { display: none; }
+        .cat-card {
+            flex-shrink: 0; padding: 16px 28px;
+            background: var(--bg-card); border: 2px solid #2c2c35;
+            border-radius: 16px; color: var(--text-main);
+            font-size: 18px; font-weight: 800; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cat-card.active {
+            background: linear-gradient(135deg, var(--primary-neon), #00b344);
+            color: #000; border-color: var(--primary-neon);
+            box-shadow: 0 5px 15px rgba(0, 255, 102, 0.3);
+        }
+
+        /* Schermate Principali */
+        .app-view { display: none; padding: 15px; }
+        .app-view.active { display: block; }
+
+        /* Grid Prodotti */
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        .product-card {
+            background: var(--bg-card); border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column;
+            transition: transform 0.2s;
+        }
+        .product-card:active { transform: scale(0.98); }
+        .product-img { width: 100%; height: 140px; object-fit: cover; background: #222; }
+        .product-info { padding: 12px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+        .product-desc { font-size: 11px; color: var(--text-hint); height: 32px; overflow: hidden; line-height: 1.3; margin-bottom: 10px; }
+        
+        /* Controlli Grammi Grammi */
+        .gram-selector {
+            display: flex; align-items: center; justify-content: space-between;
+            background: #222; border-radius: 12px; padding: 4px; margin-top: auto;
+        }
+        .gram-btn {
+            width: 32px; height: 32px; background: #333; border: none;
+            color: white; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer;
+        }
+        .gram-btn:active { background: #444; }
+        .gram-value { font-weight: 700; font-size: 14px; color: var(--primary-neon); }
+
+        /* Info Box ed Elementi Guida */
+        .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
+        .info-section h3 { color: var(--secondary-neon); margin-bottom: 10px; font-size: 18px; }
+        .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
+        .video-placeholder {
+            width: 100%; height: 180px; background: #000; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; margin: 15px 0;
+            border: 1px dashed var(--accent-purple); color: var(--text-hint); font-size: 14px;
+        }
+
+        /* Form di Cassa nel Carrello */
+        .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 16px; margin-top: 20px; border: 1px solid #333; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; color: var(--text-hint); margin-bottom: 4px; font-weight: 600; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px; background: #222; border: 1px solid #444;
+            border-radius: 10px; color: white; font-size: 14px;
+        }
+        .form-group input:focus { border-color: var(--primary-neon); outline: none; }
+
+        /* Metodi Pagamento Opzioni */
+        .pay-option {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px; background: #222; border: 1px solid #444;
+            border-radius: 10px; margin-bottom: 8px; cursor: pointer;
+        }
+        .pay-option.active { border-color: var(--secondary-neon); background: rgba(0,229,255,0.05); }
+        .pay-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+        .badge-crypto { background: #f0a500; color: #000; }
+        .badge-card { background: #0052ff; color: #fff; }
+        .badge-off { background: #555; color: #aaa; }
+
+        /* Recensioni */
+        .review-card { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-bottom: 10px; border-left: 4px solid var(--accent-purple); }
+        .review-stars { color: var(--warning); font-size: 14px; margin-bottom: 4px; }
+        .review-user { font-size: 12px; color: var(--text-hint); font-weight: bold; }
+
+        /* Tab Bar di Navigazione Inferiore Rigida */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100vw;
+            background: rgba(22, 22, 30, 0.96); backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex; justify-content: space-around; padding: 10px 0; z-index: 999;
+        }
+        .nav-tab {
+            background: none; border: none; color: var(--text-hint);
+            display: flex; flex-direction: column; align-items: center;
+            font-size: 12px; font-weight: 600; cursor: pointer; position: relative;
+        }
+        .nav-tab .icon { font-size: 22px; margin-bottom: 2px; }
+        .nav-tab.active { color: var(--primary-neon); }
+        .badge-cart-count {
+            position: absolute; top: -2px; right: 10px;
+            background: var(--danger); color: white; border-radius: 50%;
+            width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Checkout floating line */
+        .cart-summary-floating {
+            background: var(--primary-neon); color: #000; font-weight: 800;
+            padding: 12px; text-align: center; border-radius: 12px; margin-top: 15px;
+            cursor: pointer; font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Age Gate -->
+    <div class="age-gate" id="ageGate">
+        <div class="logo-animation">🍁</div>
+        <h2 id="txt-age-title">VERIFICA RIGIDA</h2>
+        <p id="txt-age-desc">Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.</p>
+        <button class="lang-btn" style="margin-bottom:20px; padding:8px 16px;" onclick="verifyAge()">ENTRA (+18)</button>
+    </div>
+
+    <!-- Header -->
+    <div class="brand-header">
+        <div class="main-logo">M20</div>
+        <h1>Mrshop20</h1>
+        <p id="txt-header-sub">Direct From Source • Official Delivery Network</p>
+
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="setLanguage('it')">IT</button>
+            <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
+            <button class="lang-btn" onclick="setLanguage('de')">DE</button>
+            <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
+        </div>
+    </div>
+
+    <div class="promo-banner" id="txt-promo">
+        🔥 PROMO: Ordina più di 10g totali (anche misti) per sbloccare lo sconto automatico speciale!
+    </div>
+
+    <!-- ================= SCHERMATA: MENU ================= -->
+    <div id="view-menu" class="app-view active">
+        <div class="categories-scroller">
+            <div class="categories-list" id="catList">
+                <!-- Generato da JS -->
+            </div>
+        </div>
+        <div id="productsDisplay">
+            <!-- Generato da JS -->
+        </div>
+    </div>
+
+    <!-- ================= SCHERMATA: CHAT / CARRELLO ================= -->
+    <div id="view-chat" class="app-view">
+        <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Il Tuo Carrello</h2>
+        <div id="cartItemsContainer"></div>
+        
+        <div class="checkout-form" id="checkoutFormBlock" style="display:none;">
+            <h3 id="txt-delivery-details" style="margin-bottom:10px; color:var(--primary-neon);">Dati Spedizione / Spedizioni</h3>
+            
+            <div class="form-group">
+                <label id="lbl-city">CITTÀ</label>
+                <input type="text" id="input-city" placeholder="Milano, Roma, ecc...">
+            </div>
+            <div class="form-group">
+                <label id="lbl-address">INDIRIZZO</label>
+                <input type="text" id="input-address" placeholder="Via/Piazza e Numero Civico">
+            </div>
+            <div class="form-group">
+                <label id="lbl-cap">CAP</label>
+                <input type="text" id="input-cap" placeholder="00100">
+            </div>
+            <div class="form-group">
+                <label id="lbl-time">ORARIO DI CONSEGNA PREFERITO</label>
+                <select id="select-time">
+                    <option value="Appena possibile / As soon as possible" id="opt-asap">Appena possibile / ASAP</option>
+                    <option value="Spedizione 24/48h / Shipping 24-48h" id="opt-ship">Spedizione Express 24/48h</option>
+                    <option value="Specifico / Specific Time">Fascia Oraria Specifica (Scrivi sotto)</option>
+                </select>
+                <input type="text" id="input-time-spec" placeholder="Es: Tra le 14:00 e le 16:00" style="margin-top:6px; display:none;">
+            </div>
+
+            <h3 id="txt-pay-title" style="margin-top:15px; margin-bottom:10px; color:var(--secondary-neon);">Metodo di Pagamento</h3>
+            
+            <div class="pay-option active" onclick="setPaymentMethod('crypto', this)">
+                <div>
+                    <strong style="display:block;">Crypto (BTC, USDT, LTC, ETH)</strong>
+                    <small id="txt-crypto-sub">Ricevi l'indirizzo esatto per il pagamento diretto</small>
+                </div>
+                <span class="pay-badge badge-crypto">CRYPTO</span>
+            </div>
+
+            <div class="pay-option" onclick="setPaymentMethod('moonpay', this)">
+                <div>
+                    <strong style="display:block;">Carta di Credito / Debito (MoonPay)</strong>
+                    <small id="txt-moonpay-sub">Ti guideremo su come comprare Bitcoin all'istante con carta</small>
+                </div>
+                <span class="pay-badge badge-card">CARD VIA CRYPTO</span>
+            </div>
+
+            <div class="pay-option" onclick="setPaymentMethod('paypal', this)">
+                <div>
+                    <strong style="display:block; color:#aaa;">PayPal</strong>
+                    <small id="txt-paypal-sub" style="color:#777;">Non sempre disponibile. Chiedi approvazione in chat</small>
+                </div>
+                <span class="pay-badge badge-off">RICHIESTA DISP.</span>
+            </div>
+
+            <div class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
+                CONFERMA E INVIA ORDINE
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SCHERMATA: INFO ================= -->
+    <div id="view-info" class="app-view">
+        <div class="info-section">
+            <h3 id="info-p1-t">📦 Processo di Delivery</h3>
+            <p id="info-p1-d">Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata ermeticamente sotto vuoto e priva di qualsiasi odore esterno o indicazione sul contenuto, assicurando una privacy al 100% fino alle tue mani.</p>
+        </div>
+        <div class="info-section">
+            <h3 id="info-p2-t">💳 Metodi di Pagamento Ammessi</h3>
+            <p id="info-p2-d">Siamo un network sicuro basato su transazioni protette. Accettiamo tutte le principali Criptovalute (Bitcoin, USDT, Litecoin). Se non possiedi criptovalute, l'app ti guiderà all'acquisto istantaneo tramite MoonPay usando la tua comune carta di credito o prepagata.</p>
+        </div>
+        <div class="info-section">
+            <h3 id="info-p3-t">📺 Guida all'acquisto Crypto</h3>
+            <p id="info-p3-d">Ecco un video tutorial rapido che spiega dettagliatamente come configurare e inviare un pagamento cripto in pochissimi minuti senza verifiche complesse.</p>
+            <div class="video-placeholder">
+                🎬 [Video Guida MoonPay / Crypto Integrata]
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SCHERMATA: RECENSIONI ================= -->
+    <div id="view-reviews" class="app-view">
+        <h2 style="margin-bottom:15px;" id="txt-rev-title">Recensioni Verificate clienti (@mrshop20)</h2>
+        <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>"Consegna a Milano effettuata in meno di due ore, qualità della Gelato pazzesca, confezione impeccabile."</p>
+            <div class="review-user">@luca_pro - 2 giorni fa</div>
+        </div>
+        <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>"Spedizione arrivata in 24 ore in Calabria. Tutto sigillato al millimetro, ho pagato con MoonPay in modo facilissimo."</p>
+            <div class="review-user">@mario_k - 5 giorni fa</div>
+        </div>
+        <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>"Top shop. I prezzi scendono un sacco se prendi grammi misti, ho fatto 15 grammi misti e ho risparmiato tantissimo."</p>
+            <div class="review-user">@alex_terps - 1 settimana fa</div>
+        </div>
+    </div>
+
+    <!-- Tab Bar Inferiore Rigida -->
+    <div class="bottom-nav">
+        <button class="nav-tab active" onclick="switchTab('menu', this)">
+            <span class="icon">🌿</span>
+            <span id="tab-menu">Menu</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab('chat', this)">
+            <span class="icon">🛒</span>
+            <span id="tab-cart">Carrello</span>
+            <span class="badge-cart-count" id="cartBadge" style="display:none;">0</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab('info', this)">
+            <span class="icon">ℹ️</span>
+            <span id="tab-info">Info</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab('reviews', this)">
+            <span class="icon">⭐</span>
+            <span id="tab-reviews">Recensioni</span>
+        </button>
+    </div>
+
+    <script>
+        const tg = window.Telegram?.WebApp;
+        if (tg) { tg.expand(); tg.ready(); }
+
+        // Vocabolario Multilingua Completo
+        const i18n = {
+            it: {
+                all: "Tutte", ageTitle: "VERIFICA RIGIDA", ageDesc: "Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.",
+                sub: "Direct From Source • Official Delivery Network", promo: "🔥 PROMO: Ordina più di 10g totali (anche misti) per sbloccare lo sconto automatico speciale!",
+                cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
+                city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE"
+            },
+            en: {
+                all: "All", ageTitle: "AGE VERIFICATION", ageDesc: "You must be 18+ to unlock the official Mrshop20 catalog.",
+                sub: "Direct From Source • Official Delivery Network", promo: "🔥 PROMO: Order more than 10g total (mixed too) for an automatic mega discount!",
+                cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
+                city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND ORDER"
+            },
+            fr: {
+                all: "Toutes", ageTitle: "VÉRIFICATION", ageDesc: "Vous devez avere +18 ans pour débloquer le catalogue Mrshop20.",
+                sub: "Direct de la source • Réseau de livraison officiel", promo: "🔥 PROMO: Commandez plus de 10g (mélangés inclus) per un rabais automatique!",
+                cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide!",
+                city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE"
+            },
+            de: {
+                all: "Alle", ageTitle: "ALTERSVERIFIKATION", ageDesc: "Sie müssen 18+ sein, um das Mrshop20-Menü aufzurufen.",
+                sub: "Direkt von der Quelle • Offizielles Liefernetzwerk", promo: "🔥 PROMO: Bestellen Sie mehr als 10g gesamt für automatischen Rabatt!",
+                cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer!",
+                city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN"
+            },
+            ru: {
+                all: "Все", ageTitle: "ПРОВЕРКА ВОЗРАСТА", ageDesc: "Вам должно быть 18+ лет для доступа к меню Mrshop20.",
+                sub: "Прямые поставки • Официальная сеть доставки", promo: "🔥 ПРОМО: Закажите более 10 г (можно микс) для автоматической скидки!",
+                cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", empty: "Ваша корзина пуста!",
+                city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ"
+            }
+        };
+
+        let currentLang = 'it';
+        let currentSelectedPayment = 'crypto';
+
+        // Database dei Prodotti con Foto e Prezzi Originali
+        const productsData = [
+            // FLOWERS
+            { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/OEID9J5.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
+            { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/xJbwEnS.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
+            { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/DSI9CUX.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
+            { id: "f4", name: "Purple Platinum", category: "flowers", price: 12, img: "https://i.imgur.com/HDugCb7.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
+            { id: "f5", name: "Moonrock", category: "flowers", price: 12, img: "https://i.imgur.com/gg7aY8w.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent", isGramAsset: true },
+            { id: "f6", name: "Cookies", category: "flowers", price: 12, img: "https://i.imgur.com/sq6oxsn.jpg", desc: "Premium Indoor • 26% THC • Sweet & Earthy", isGramAsset: true },
+            { id: "f7", name: "Green Crack", category: "flowers", price: 12, img: "https://i.imgur.com/z4pk53p.jpg", desc: "Premium Indoor • 25% THC • Energetic & Citrus", isGramAsset: true },
+            { id: "f8", name: "White Widow", category: "flowers", price: 12, img: "https://i.imgur.com/89Jx71M.jpg", desc: "Premium Indoor • 26% THC • Classic & Balanced", isGramAsset: true },
+            { id: "f9", name: "Lemon Cherry", category: "flowers", price: 12, img: "https://i.imgur.com/Iq0lfP9.jpg", desc: "Premium Indoor • 27% THC • Citrus & Sweet", isGramAsset: true },
+            { id: "f10", name: "Blue Dream", category: "flowers", price: 12, img: "https://i.imgur.com/YBIwKwr.jpg", desc: "Premium Indoor • 25% THC • Berry & Herbal", isGramAsset: true },
+            { id: "f11", name: "Northern Lights", category: "flowers", price: 12, img: "https://i.imgur.com/KohotAS.jpg", desc: "Premium Indoor • 26% THC • Spicy & Sweet", isGramAsset: true },
+            { id: "f12", name: "Sour Diesel", category: "flowers", price: 12, img: "https://i.imgur.com/SYnzMLV.jpg", desc: "Premium Indoor • 27% THC • Diesel & Pungent", isGramAsset: true },
+            { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://i.imgur.com/VoKcbTT.jpg", desc: "Premium Indoor • 28% THC • Colorful & Exotic", isGramAsset: true },
+            { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://i.imgur.com/FuC2OLt.jpg", desc: "Premium Indoor • 26% THC • Sweet & Fruity", isGramAsset: true },
+            { id: "f15", name: "Premium Selection", category: "flowers", price: 12, img: "https://i.imgur.com/sfc65w2.jpg", desc: "Rotating Stock • Ask for availability", isGramAsset: true },
+            // HASH
+            { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/Y6pN82b.jpg", desc: "Traditional Hash • 35% THC", isGramAsset: true },
+            { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://i.imgur.com/xM4Qknx.jpg", desc: "Full Bubble • 50% THC • Top Quality", isGramAsset: true },
+            { id: "h3", name: "Premium Selection Hash", category: "hash", price: 12, img: "https://i.imgur.com/FFc2dkD.jpg", desc: "Various Strains • High Quality", isGramAsset: true },
+            // EDIBLES
+            { id: "e1", name: "THC Edibles 600mg", category: "edibles", price: 40, img: "https://i.imgur.com/CsZL6x4.jpg", desc: "600mg THC • Multiple Flavors", isGramAsset: false },
+            { id: "e2", name: "THC Edibles 1000mg", category: "edibles", price: 60, img: "https://i.imgur.com/CsZL6x4.jpg", desc: "1000mg THC • High Potency", isGramAsset: false },
+            // VAPES
+            { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/6JgjcuH.jpg", desc: "0.5ml • 85% THC", isGramAsset: false },
+            { id: "v2", name: "Runtz / Cookie Vape", category: "vapes", price: 65, img: "https://i.imgur.com/dggm9MQ.jpg", desc: "0.5ml • 85% THC", isGramAsset: false },
+            // SHROOMS
+            { id: "m1", name: "Albinos / Golden Teacher", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Potent", isGramAsset: true },
+            // SPECIAL
+            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "Pure Fishscale • 1 Gram", isGramAsset: true },
+            { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/oytn91Q.jpg", desc: "Liquid • 1ml • 200µg", isGramAsset: false }
+        ];
+
+        const categoriesMap = {
+            all: "Tutte", flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", special: "🔥 Special"
+        };
+
+        let cart = {}; // Struttura: { id_prodotto: quantita }
+
+        function verifyAge() {
+            localStorage.setItem('mrshopAge', '18');
+            document.getElementById('ageGate').classList.add('hidden');
+        }
+        if (localStorage.getItem('mrshopAge') === '18') {
+            document.getElementById('ageGate').classList.add('hidden');
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event?.target.classList.add('active');
+
+            // Traduzione scritte statiche
+            document.getElementById('txt-age-title').innerText = i18n[lang].ageTitle;
+            document.getElementById('txt-age-desc').innerText = i18n[lang].ageDesc;
+            document.getElementById('txt-header-sub').innerText = i18n[lang].sub;
+            document.getElementById('txt-promo').innerText = i18n[lang].promo;
+            document.getElementById('tab-menu').innerText = i18n[lang].menu;
+            document.getElementById('tab-cart').innerText = i18n[lang].cart;
+            document.getElementById('tab-info').innerText = i18n[lang].info;
+            document.getElementById('tab-reviews').innerText = i18n[lang].reviews;
+            
+            renderCategoryTabs();
+            renderProducts('all');
+            updateCartUI();
+        }
+
+        function renderCategoryTabs() {
+            const container = document.getElementById('catList');
+            container.innerHTML = '';
+            Object.keys(categoriesMap).forEach(key => {
+                const label = key === 'all' ? i18n[currentLang].all : categoriesMap[key];
+                const card = document.createElement('div');
+                card.className = `cat-card ${key === 'all' ? 'active' : ''}`;
+                card.id = `cat-${key}`;
+                card.innerText = label;
+                card.onclick = () => {
+                    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    renderProducts(key);
+                };
+                container.appendChild(card);
+            });
+        }
+
+        function renderProducts(filterCategory) {
+            const container = document.getElementById('productsDisplay');
+            container.innerHTML = '';
+
+            const grid = document.createElement('div');
+            grid.className = 'products-grid';
+
+            const filtered = filterCategory === 'all' ? productsData : productsData.filter(p => p.category === filterCategory);
+
+            filtered.forEach(p => {
+                const qty = cart[p.id] || 0;
+                const unitLabel = p.isGramAsset ? 'g' : 'pz';
+                
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img class="product-img" src="${p.img}" alt="${p.name}">
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="gram-selector">
+                            <button class="gram-btn" onclick="modifyQty('${p.id}', -1)">-</button>
+                            <span class="gram-value" id="qty-${p.id}">${qty}${unitLabel}</span>
+                            <button class="gram-btn" onclick="modifyQty('${p.id}', 1)">+</button>
+                        </div>
+                        <div style="font-size:14px; font-weight:bold; color:var(--primary-neon); margin-top:8px; text-align:center;">
+                            €${p.price}/${p.isGramAsset ? 'g' : 'unit'}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            container.appendChild(grid);
+        }
+
+        function modifyQty(id, change) {
+            const p = productsData.find(prod => prod.id === id);
+            let current = cart[id] || 0;
+            current += change;
+            if (current <= 0) {
+                delete cart[id];
+                current = 0;
+            } else {
+                cart[id] = current;
+            }
+            
+            const unitLabel = p.isGramAsset ? 'g' : 'pz';
+            const el = document.getElementById(`qty-${id}`);
+            if (el) el.innerText = `${current}${unitLabel}`;
+            
+            updateCartUI();
+        }
+
+        // Calcolo Algoritmo Sconto Grammi Misti / Quantitativi
+        function calculateCartMetrics() {
+            let totalGramAssetsCount = 0;
+            let gramAssetsCost = 0;
+            let normalAssetsCost = 0;
+            let itemsCount = 0;
+
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                const qty = cart[id];
+                itemsCount += qty;
+
+                if (p.isGramAsset) {
+                    totalGramAssetsCount += qty;
+                    gramAssetsCost += (p.price * qty);
+                } else {
+                    normalAssetsCost += (p.price * qty);
+                }
+            });
+
+            let finalGramCost = gramAssetsCost;
+            let promoApplied = false;
+
+            // Se la somma dei grammi comprati (anche misti) supera i 10 grammi totali, scatta la promo "PizzaTerps style"
+            if (totalGramAssetsCount >= 10) {
+                promoApplied = true;
+                // Esempio logico matematico: sconto scalare progressivo del 25% sul prezzo standard dei grammi
+                finalGramCost = gramAssetsCost * 0.75; 
+            }
+
+            const finalTotal = finalGramCost + normalAssetsCost;
+
+            return {
+                itemsCount,
+                totalGramAssetsCount,
+                originalGramCost: gramAssetsCost,
+                finalGramCost,
+                finalTotal,
+                promoApplied
+            };
+        }
+
+        function updateCartUI() {
+            const metrics = calculateCartMetrics();
+            const badge = document.getElementById('cartBadge');
+            
+            if (metrics.itemsCount > 0) {
+                badge.innerText = metrics.itemsCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+
+            // Aggiorna la vista carrello se aperta
+            renderCartPage();
+        }
+
+        function renderCartPage() {
+            const container = document.getElementById('cartItemsContainer');
+            const formBlock = document.getElementById('checkoutFormBlock');
+            
+            if (Object.keys(cart).length === 0) {
+                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint);">${i18n[currentLang].empty}</p>`;
+                formBlock.style.display = 'none';
+                return;
+            }
+
+            formBlock.style.display = 'block';
+            let html = '';
+
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                const qty = cart[id];
+                const unitLabel = p.isGramAsset ? 'g' : 'pz';
+                html += `
+                    <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
+                        <div>
+                            <strong>${p.name}</strong> <span style="color:var(--primary-neon); font-weight:bold;">x${qty}${unitLabel}</span>
+                        </div>
+                        <div>€${(p.price * qty).toFixed(2)}</div>
+                    </div>
+                `;
+            });
+
+            const metrics = calculateCartMetrics();
+            if (metrics.promoApplied) {
+                html += `
+                    <div style="background:rgba(0,255,102,0.1); border:1px dashed var(--primary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--primary-neon); font-size:13px;">
+                        🎉 <strong>Sconto Grammi Misti Attivato!</strong> Prezzo grammi ridotto da €${metrics.originalGramCost.toFixed(2)} a €${metrics.finalGramCost.toFixed(2)}!
+                    </div>
+                `;
+            }
+
+            html += `
+                <div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">
+                    Totale Effettivo: <span style="color:var(--primary-neon);">€${metrics.finalTotal.toFixed(2)}</span>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function setPaymentMethod(method, element) {
+            currentSelectedPayment = method;
+            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(`view-${tabId}`).classList.add('active');
+            btn.classList.add('active');
+
+            if (tabId === 'chat') {
+                renderCartPage();
+            }
+        }
+
+        // Listener per orario specifico
+        document.getElementById('select-time').addEventListener('change', function() {
+            const specInput = document.getElementById('input-time-spec');
+            if (this.value.includes('Specifico')) {
+                specInput.style.display = 'block';
+            } else {
+                specInput.style.display = 'none';
+            }
+        });
+
+        // Generazione stringa finale ed invio a Telegram
+        function processOrderSend() {
+            const citta = document.getElementById('input-city').value.trim();
+            const indirizzo = document.getElementById('input-address').value.trim();
+            const cap = document.getElementById('input-cap').value.trim();
+            let orario = document.getElementById('select-time').value;
+
+            if (orario.includes('Specifico')) {
+                orario = "Ora Specifica: " + document.getElementById('input-time-spec').value.trim();
+            }
+
+            if (!citta || !indirizzo || !cap) {
+                alert("Per favore inserisci Città, Indirizzo e CAP completi per la consegna!");
+                return;
+            }
+
+            const metrics = calculateCartMetrics();
+            
+            let msg = `🛒 *NUOVO ORDINE @mrshop20*\n`;
+            msg += `----------------------------------------\n`;
+            
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                const qty = cart[id];
+                const unitLabel = p.isGramAsset ? 'g' : 'pz';
+                msg += `• *${p.name}*: ${qty}${unitLabel}\n`;
+            });
+
+            msg += `----------------------------------------\n`;
+            if (metrics.promoApplied) {
+                msg += `🎁 *Sconto applicato su ${metrics.totalGramAssetsCount}g misti!*\n`;
+            }
+            msg += `💰 *IMPORTO ESATTO:* €${metrics.finalTotal.toFixed(2)}\n\n`;
+            
+            msg += `📍 *DATI CONSEGNA / DELIVERY:*\n`;
+            msg += `🏙️ Città: ${citta}\n`;
+            msg += `🏠 Indirizzo: ${indirizzo}\n`;
+            msg += `📮 CAP: ${cap}\n`;
+            msg += `⏰ Orario: ${orario}\n\n`;
+
+            msg += `💳 *METODO DI PAGAMENTO SELEZIONATO:*\n`;
+            if (currentSelectedPayment === 'crypto') {
+                msg += `➡ *Criptovalute* (Invia l'address relativo)\n`;
+            } else if (currentSelectedPayment === 'moonpay') {
+                msg += `➡ *Carta di Credito via MoonPay* (Suggerito per comprare BTC istantaneamente)\n`;
+            } else if (currentSelectedPayment === 'paypal') {
+                msg += `➡ *PayPal* (Disponibilità da verificare con l'operatore)\n`;
+            }
+
+            // Invio nativo tramite WebApp Telegram o Fallback Link
+            if (tg && tg.sendData) {
+                tg.sendData(msg);
+            } else {
+                const url = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
+                window.open(url, '_blank');
+            }
+        }
+
+        // Avvio automatico in Italiano
+        setLanguage('it');
+    </script>
+</body>
+</html>
             border-radius: 20px;
             color: var(--text-color);
             font-size: 14px;
