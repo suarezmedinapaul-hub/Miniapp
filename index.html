@@ -59,6 +59,8 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: relative;
         }
+        
+        /* Requisito 3: Icona a cerchio con Logo Ufficiale */
         .main-logo-container {
             width: 85px;
             height: 85px;
@@ -77,7 +79,7 @@
         }
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
 
-        /* Lingue Rimpicciolite */
+        /* Requisito 2: Selettore Lingue Rimpicciolito */
         .lang-selector {
             position: absolute;
             top: 10px; right: 10px;
@@ -167,6 +169,12 @@
         .info-section h3 { color: var(--secondary-neon); margin-bottom: 10px; font-size: 18px; }
         .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
         
+        /* Requisito 10: Immagine hostata di cartine e filtri al posto del video */
+        .papers-hosted-img {
+            width: 100%; height: 190px; object-fit: cover; border-radius: 12px;
+            margin: 15px 0; border: 1px solid rgba(255,255,255,0.1);
+        }
+
         .tg-link-btn {
             display: block; text-align: center; background: #0088cc; color: white;
             padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold;
@@ -229,7 +237,6 @@
 </head>
 <body>
 
-    <!-- Age Gate -->
     <div class="age-gate" id="ageGate">
         <div class="logo-animation">🍁</div>
         <h2 id="txt-age-title">AGE VERIFICATION</h2>
@@ -237,7 +244,6 @@
         <button class="lang-btn" style="margin-top:20px; padding:12px 24px; font-size: 14px; border-color:var(--primary-neon);" id="btn-age-enter" onclick="verifyAge()">ENTER (+18)</button>
     </div>
 
-    <!-- Header -->
     <div class="brand-header">
         <div class="main-logo-container">
             <img src="https://i.imgur.com/OEID9J5.jpg" alt="Logo Mrshop20">
@@ -258,7 +264,6 @@
         🔥 PROMO: Order more than 10g total (mixed too) for an automatic mega discount!
     </div>
 
-    <!-- Banner Omaggi Sempre Attivo -->
     <div class="gift-banner">
         <img class="gift-thumb" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Gifts">
         <div class="gift-text">
@@ -267,19 +272,15 @@
         </div>
     </div>
 
-    <!-- ================= SCHERMATA: MENU ================= -->
     <div id="view-menu" class="app-view active">
         <div class="categories-scroller">
             <div class="categories-list" id="catList">
-                <!-- Generato Dinamicamente -->
-            </div>
+                </div>
         </div>
         <div id="productsDisplay">
-            <!-- Generato Dinamicamente -->
-        </div>
+            </div>
     </div>
 
-    <!-- ================= SCHERMATA: CARRELLO ================= -->
     <div id="view-chat" class="app-view">
         <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Your Cart</h2>
         <div id="cartItemsContainer"></div>
@@ -341,7 +342,6 @@
         </div>
     </div>
 
-    <!-- ================= SCHERMATA: INFO ================= -->
     <div id="view-info" class="app-view">
         <div class="info-section">
             <h3 id="info-p1-t">📦 Delivery Process</h3>
@@ -352,25 +352,27 @@
             <p id="info-p2-d">We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.</p>
         </div>
         <div class="info-section">
+            <h3 id="info-p3-t">🌿 Premium Rolling Papers & Accessories</h3>
+            <p id="info-p3-d">We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.</p>
+            <img class="papers-hosted-img" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Rolling Papers and Filters Showcase">
+        </div>
+        <div class="info-section">
             <h3 id="info-p4-t">💬 Direct Contact & Support</h3>
             <p id="info-p4-d">Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.</p>
             <a href="https://t.me/mrshop20" target="_blank" class="tg-link-btn" id="btn-contact-tg">💬 Chat with @mrshop20</a>
         </div>
     </div>
 
-    <!-- ================= SCHERMATA: RECENSIONI ================= -->
     <div id="view-reviews" class="app-view">
         <h2 style="margin-bottom:5px;" id="txt-rev-title">Verified Customer Reviews</h2>
         <p style="font-size:13px; color:var(--text-hint); margin-bottom:15px;" id="txt-rev-sub">Real reviews extracted directly from our live feed.</p>
         
-        <a href="https://t.me/+V8_bQn04S9VkNTNk" target="_blank" class="tg-link-btn" style="margin-bottom:20px; background:#0088cc;" id="btn-group-rev">⭐️ Open Telegram Reviews Group</a>
+        <a href="https://t.me/+-6IEl9aA30AxZDc0" target="_blank" class="tg-link-btn" style="margin-bottom:20px; background:#0088cc;" id="btn-group-rev">⭐️ Open Telegram Reviews Group</a>
 
         <div id="reviewsContainer">
-            <!-- Renderizzato in base alla lingua -->
-        </div>
+            </div>
     </div>
 
-    <!-- Tab Bar Inferiore Rigida -->
     <div class="bottom-nav">
         <button class="nav-tab active" id="tab-btn-menu" onclick="switchTab('menu')">
             <span class="icon">🌿</span>
@@ -395,7 +397,7 @@
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
 
-        // Dizionario Completo Unificato Senza Compromessi
+        // Requisito 4 e 8: Traduzione radicale senza lingue miste
         const i18n = {
             en: {
                 all: "All", ageTitle: "AGE VERIFICATION", ageDesc: "You must be 18+ to unlock the official Mrshop20 catalog.", ageEnter: "ENTER (+18)",
@@ -409,7 +411,8 @@
                 ppSub: "Not always available. Ask in chat for approval", reqAvail: "REQUEST AVAIL.",
                 infT1: "📦 Delivery Process", infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding or content indicators to protect your privacy 100%.",
                 infT2: "💳 Accepted Payments", infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.",
-                infT3: "💬 Direct Contact & Support", infD3: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
+                infT3: "🌿 Premium Rolling Papers & Accessories", infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
+                infT4: "💬 Direct Contact & Support", infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
                 btnContact: "💬 Chat with @mrshop20", revTitle: "Verified Customer Reviews", revSub: "Real reviews extracted directly from our live feed.", btnGroupRev: "⭐️ Open Telegram Reviews Group",
                 actPromo: "🎉 Mixed Grams Discount Activated! Grams price reduced by 25%!", totEff: "Total Price", free: "FREE",
                 cats: { flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", special: "🔥 Special" },
@@ -431,7 +434,8 @@
                 ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
                 infT1: "📦 Processo di Delivery", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto, assicurando una privacy al 100%.",
                 infT2: "💳 Metodi di Pagamento Ammessi", infD2: "Siamo un network sicuro basato su transazioni protette. Accettiamo le principali Criptovalute. Se non le possiedi, l'app ti guiderà all'acquisto istantaneo via MoonPay con la tua carta.",
-                infT3: "💬 Contatto Diretto & Supporto", infD3: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
+                infT3: "🌿 Cartine e Accessori Premium", infD3: "Selezioniamo solo cartine sottilissime non sbiancate e filtri organici di altissima qualità per la nostra community, inclusi come dotazione standard del nostro catalogo.",
+                infT4: "💬 Contatto Diretto & Supporto", infD4: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
                 btnContact: "💬 Parla con @mrshop20", revTitle: "Recensioni Verificate Clienti", revSub: "Recensioni reali estratte direttamente dal nostro canale.", btnGroupRev: "⭐️ Apri Gruppo Recensioni Telegram",
                 actPromo: "🎉 Sconto Grammi Misti Attivato! Quota grammi scontata del 25%!", totEff: "Totale Effettivo", free: "GRATIS",
                 cats: { flowers: "🌿 Fiori", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Funghi", special: "🔥 Speciali" },
@@ -453,7 +457,8 @@
                 ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
                 infT1: "📦 Processus de Livraison", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Chaque paquet est scellé hermétiquement sous vide, totalement inodore.",
                 infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies. Si vous n'en avez pas, l'application vous guidera pour un achat instantané via MoonPay avec votre carte bancaire.",
-                infT3: "💬 Contact Direct & Support", infD3: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
+                infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies et des filtres organiques pour notre communauté.",
+                infT4: "💬 Contact Direct & Support", infD3: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
                 actPromo: "🎉 Remise Grammes Mélangés Activée! Prix des grammes réduit de 25%!", totEff: "Total Effectif", free: "GRATUIT",
                 cats: { flowers: "🌿 Fleurs", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Champignons", special: "🔥 Spécial" },
@@ -475,7 +480,8 @@
                 ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
                 infT1: "📦 Lieferprozess", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Jedes Paket ist hermetisch vakuumversiegelt, absolut geruchlos und ohne äußere Hinweise.",
                 infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Wenn Sie keine Kryptowährungen besitzen, führt Sie unsere App zum Sofortkauf über MoonPay mit Ihrer Kreditkarte.",
-                infT3: "💬 Direkter Kontakt & Support", infD3: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
+                infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten ultradünnen ungebleichten Blättchen und Bio-Filter für unsere Community aus.",
+                infT4: "💬 Direkter Kontakt & Support", infD3: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
                 actPromo: "🎉 Rabatt für gemischte Gramm aktiviert! Grammpreis um 25% reduziert!", totEff: "Gesamtsumme", free: "GRATIS",
                 cats: { flowers: "🌿 Blüten", hash: "🍯 Hasch", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Pilze", special: "🔥 Spezial" },
@@ -495,9 +501,10 @@
                 p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_spec: "Пример: Между 14:00 и 16:00",
                 delDetails: "Данные доставки", cryptoSub: "Получите точный адрес для оплаты в чате", cardSub: "Мы поможем вам мгновенно купить Биткоин с карты",
                 ppSub: "Доступно не всегда. Уточняйте у оператора в чате", reqAvail: "ПО ЗАПРОСУ",
-                infT1: "📦 Процесс доставки", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Каждая посылка герметично упакована в вакуум, не имеет запаха и внешних обозначений содержимого.",
+                infT1: "📦 Процесс доставки", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Каждая посылка герметично упакована в вакуум, не имеет запаха и внешних обозначений содержимом.",
                 infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты. Если у вас нет крипты, приложение поможет вам мгновенно купить ее через MoonPay с помощью вашей обычной карты.",
-                infT3: "💬 Прямая связь и поддержка", infD3: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
+                infT3: "🌿 Бумага и аксессуары премиум-класса", infD3: "Мы выбираем только тончайшую неотбеленную бумагу и органические фильтры высшего качества для нашего сообщества.",
+                infT4: "💬 Прямая связь и поддержка", infD3: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
                 btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
                 actPromo: "🎉 Скидка на микс активирована! Стоимость граммов снижена на 25%!", totEff: "Итого к оплате", free: "БЕСПЛАТНО",
                 cats: { flowers: "🌿 Цветы", hash: "🍯 Гашиш", edibles: "🍫 Сладости", vapes: "💨 Вейпы", mushrooms: "🍄 Грибы", special: "🔥 Особое" },
@@ -509,7 +516,7 @@
             }
         };
 
-        let currentLang = 'en';
+        let currentLang = 'en'; // Requisito 8: default inglese
         let currentSelectedPayment = 'crypto';
         let activeCategoryFilter = 'all';
 
@@ -551,7 +558,7 @@
             document.getElementById('ageGate').classList.add('hidden');
         }
 
-        // Funzione Fisher-Yates per mescolare l'array in modalità casuale pura
+        // Requisito 1: Funzione per randomizzare la lista prodotti nella sezione "Tutte"
         function getShuffledProducts() {
             let arr = [...productsData];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -566,7 +573,6 @@
             document.querySelectorAll('.lang-selector .lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(`lang-btn-${lang}`).classList.add('active');
 
-            // Traduzione globale elementi fissi
             const dict = i18n[lang];
             document.getElementById('txt-age-title').innerText = dict.ageTitle;
             document.getElementById('txt-age-desc').innerText = dict.ageDesc;
@@ -608,13 +614,14 @@
             document.getElementById('info-p2-d').innerText = dict.infD2;
             document.getElementById('info-p3-t').innerText = dict.infT3;
             document.getElementById('info-p3-d').innerText = dict.infD3;
+            document.getElementById('info-p4-t').innerText = dict.infT4;
+            document.getElementById('info-p4-d').innerText = dict.infD4;
             document.getElementById('btn-contact-tg').innerText = dict.btnContact;
 
             document.getElementById('txt-rev-title').innerText = dict.revTitle;
             document.getElementById('txt-rev-sub').innerText = dict.revSub;
             document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
 
-            // Renderizza recensioni in lingua
             const revBlock = document.getElementById('reviewsContainer');
             revBlock.innerHTML = '';
             dict.revs.forEach(r => {
@@ -636,7 +643,6 @@
             const container = document.getElementById('catList');
             container.innerHTML = '';
             
-            // Bottone "Tutte" / "All"
             const allCard = document.createElement('div');
             allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
             allCard.innerText = i18n[currentLang].all;
@@ -648,7 +654,6 @@
             };
             container.appendChild(allCard);
 
-            // Altre categorie tradotte
             Object.keys(i18n[currentLang].cats).forEach(key => {
                 const card = document.createElement('div');
                 card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
@@ -670,7 +675,7 @@
             const grid = document.createElement('div');
             grid.className = 'products-grid';
 
-            // Requisito 1: Se seleziona "Tutte", mescola gli elementi in modo casuale
+            // Requisito 1: Mix casuale per la categoria "All"
             const sourceArray = filterCategory === 'all' ? getShuffledProducts() : productsData.filter(p => p.category === filterCategory);
 
             sourceArray.forEach(p => {
@@ -702,215 +707,5 @@
         function modifyQty(id, change) {
             const p = productsData.find(prod => prod.id === id);
             let current = cart[id] || 0;
-            current += change;
-            if (current <= 0) {
-                delete cart[id];
-                current = 0;
-            } else {
-                cart[id] = current;
-            }
-            
-            const unitLabel = p.isGramAsset ? 'g' : 'pz';
-            const el = document.getElementById(`qty-${id}`);
-            if (el) el.innerText = `${current}${unitLabel}`;
-            
-            updateCartUI();
-        }
-
-        function calculateCartMetrics() {
-            let totalGramAssetsCount = 0;
-            let gramAssetsCost = 0;
-            let normalAssetsCost = 0;
-            let itemsCount = 0;
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                const qty = cart[id];
-                itemsCount += qty;
-
-                if (p.isGramAsset) {
-                    totalGramAssetsCount += qty;
-                    gramAssetsCost += (p.price * qty);
-                } else {
-                    normalAssetsCost += (p.price * qty);
-                }
-            });
-
-            let finalGramCost = gramAssetsCost;
-            let promoApplied = false;
-
-            if (totalGramAssetsCount >= 10) {
-                promoApplied = true;
-                finalGramCost = gramAssetsCost * 0.75;
-            }
-
-            const finalTotal = finalGramCost + normalAssetsCost;
-
-            return {
-                itemsCount,
-                totalGramAssetsCount,
-                originalGramCost: gramAssetsCost,
-                finalGramCost,
-                finalTotal,
-                promoApplied
-            };
-        }
-
-        function updateCartUI() {
-            const metrics = calculateCartMetrics();
-            const badge = document.getElementById('cartBadge');
-            
-            if (metrics.itemsCount > 0) {
-                badge.innerText = metrics.itemsCount;
-                badge.style.display = 'flex';
-            } else {
-                badge.style.display = 'none';
-            }
-            renderCartPage();
-        }
-
-        function renderCartPage() {
-            const container = document.getElementById('cartItemsContainer');
-            const formBlock = document.getElementById('checkoutFormBlock');
-            
-            if (Object.keys(cart).length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint);">${i18n[currentLang].empty}</p>`;
-                formBlock.style.display = 'none';
-                return;
-            }
-
-            formBlock.style.display = 'block';
-            let html = '';
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                const qty = cart[id];
-                const unitLabel = p.isGramAsset ? 'g' : 'pz';
-                html += `
-                    <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
-                        <div>
-                            <strong>${p.name}</strong> <span style="color:var(--primary-neon); font-weight:bold;">x${qty}${unitLabel}</span>
-                        </div>
-                        <div>€${(p.price * qty).toFixed(2)}</div>
-                    </div>
-                `;
-            });
-
-            // Kit Omaggi Integrato
-            html += `
-                <div style="background:rgba(0,229,255,0.05); border:1px dashed var(--secondary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--secondary-neon); font-size:12px; display:flex; justify-content:space-between;">
-                    <span>🎁 Kit Gifts (Lighter + Papers + Filters)</span>
-                    <strong>${i18n[currentLang].free}</strong>
-                </div>
-            `;
-
-            const metrics = calculateCartMetrics();
-            if (metrics.promoApplied) {
-                html += `
-                    <div style="background:rgba(0,255,102,0.1); border:1px dashed var(--primary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--primary-neon); font-size:13px;">
-                        ${i18n[currentLang].actPromo}
-                    </div>
-                `;
-            }
-
-            html += `
-                <div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">
-                    ${i18n[currentLang].totEff}: <span style="color:var(--primary-neon);">€${metrics.finalTotal.toFixed(2)}</span>
-                </div>
-            `;
-
-            container.innerHTML = html;
-        }
-
-        function setPaymentMethod(method) {
-            currentSelectedPayment = method;
-            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
-            document.getElementById(`pay-opt-${method}`).classList.add('active');
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            
-            document.getElementById(`view-${tabId}`).classList.add('active');
-            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
-
-            if (tabId === 'chat') {
-                renderCartPage();
-            }
-        }
-
-        document.getElementById('select-time').addEventListener('change', function() {
-            const specInput = document.getElementById('input-time-spec');
-            if (this.value.includes('Specific') || this.value.includes('Specifica')) {
-                specInput.style.display = 'block';
-            } else {
-                specInput.style.display = 'none';
-            }
-        });
-
-        function processOrderSend() {
-            const citta = document.getElementById('input-city').value.trim();
-            const indirizzo = document.getElementById('input-address').value.trim();
-            const cap = document.getElementById('input-cap').value.trim();
-            let orario = document.getElementById('select-time').value;
-
-            if (orario.includes('Specific') || orario.includes('Specifica')) {
-                orario = "Slot: " + document.getElementById('input-time-spec').value.trim();
-            }
-
-            if (!citta || !indirizzo || !cap) {
-                alert("Please fill City, Address and ZIP code fields!");
-                return;
-            }
-
-            const metrics = calculateCartMetrics();
-            
-            let msg = `🛒 *NEW ORDER - MRSHOP20*\n`;
-            msg += `----------------------------------------\n`;
-            
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                const qty = cart[id];
-                const unitLabel = p.isGramAsset ? 'g' : 'pz';
-                msg += `• *${p.name}*: ${qty}${unitLabel}\n`;
-            });
-
-            msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\n`;
-            msg += `----------------------------------------\n`;
-            if (metrics.promoApplied) {
-                msg += `🎁 *25% Promo Applied on ${metrics.totalGramAssetsCount}g mixed!*\n`;
-            }
-            msg += `💰 *TOTAL PRICE:* €${metrics.finalTotal.toFixed(2)}\n\n`;
-            
-            msg += `📍 *DELIVERY DETAILS:*\n`;
-            msg += `🏙️ City: ${citta}\n`;
-            msg += `🏠 Address: ${indirizzo}\n`;
-            msg += `📮 ZIP Code: ${cap}\n`;
-            msg += `⏰ Time requested: ${orario}\n\n`;
-
-            msg += `%0A💳 *PAYMENT METHOD:*\n`;
-            if (currentSelectedPayment === 'crypto') {
-                msg += `➡ *Cryptocurrencies* (Waiting for address details in chat)\n`;
-            } else if (currentSelectedPayment === 'moonpay') {
-                // Requisito 9: Istruzioni esatte e rigide per MoonPay
-                msg += `➡ *Card via MoonPay*\n⚠️ *INSTRUCTION:* To complete this order with a Debit/Credit card, you must download the MoonPay app or use their web service, buy the required amount of Bitcoin (BTC) directly using your card, and transfer it to our direct wallet address which will be provided in chat.`;
-            } else if (currentSelectedPayment === 'paypal') {
-                msg += `➡ *PayPal* (Subject to live approval)\n`;
-            }
-
-            // Requisito 7: Rimanda sempre direttamente a @mrshop20 precompilando tutto l'ordine
-            const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
-            
-            if (tg && tg.sendData) {
-                tg.sendData(msg);
-            }
-            window.open(targetUrl, '_blank');
-        }
-
-        // Default Iniziale: Lingua Inglese (Requisito 8)
-        setLanguage('en');
-    </script>
-</body>
-</html>
+            current
 
