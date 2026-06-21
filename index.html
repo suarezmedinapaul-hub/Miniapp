@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -59,31 +59,33 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: relative;
         }
-        .main-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+        .main-logo-container {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 12px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 900;
-            color: #000;
-            margin: 0 auto 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
             box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+            overflow: hidden;
+        }
+        .main-logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
 
-        /* Lingue */
+        /* Lingue Rimpicciolite */
         .lang-selector {
             position: absolute;
-            top: 15px; right: 15px;
-            display: flex; gap: 5px;
+            top: 10px; right: 10px;
+            display: flex; gap: 3px;
         }
         .lang-btn {
-            background: #222; border: 1px solid #444; border-radius: 6px;
-            padding: 4px 6px; font-size: 11px; cursor: pointer; color: white; font-weight: bold;
+            background: #1c1c24; border: 1px solid #3a3a44; border-radius: 4px;
+            padding: 2px 4px; font-size: 9px; cursor: pointer; color: white; font-weight: bold;
         }
         .lang-btn.active { border-color: var(--primary-neon); background: rgba(0,255,102,0.1); }
 
@@ -102,7 +104,7 @@
             margin: 0 15px 15px 15px; padding: 10px; border-radius: 12px;
             display: flex; align-items: center; gap: 12px;
         }
-        .gift-thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); }
+        .gift-thumb { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); }
         .gift-text { font-size: 12px; line-height: 1.4; }
         .gift-text strong { color: var(--secondary-neon); display: block; font-size: 13px; }
 
@@ -164,10 +166,11 @@
         .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
         .info-section h3 { color: var(--secondary-neon); margin-bottom: 10px; font-size: 18px; }
         .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
-        .video-placeholder {
-            width: 100%; height: 180px; background: #000; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center; margin: 15px 0;
-            border: 1px dashed var(--accent-purple); color: var(--text-hint); font-size: 14px;
+        
+        .tg-link-btn {
+            display: block; text-align: center; background: #0088cc; color: white;
+            padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold;
+            margin-top: 10px; font-size: 14px;
         }
 
         /* Form di Cassa nel Carrello */
@@ -229,36 +232,38 @@
     <!-- Age Gate -->
     <div class="age-gate" id="ageGate">
         <div class="logo-animation">🍁</div>
-        <h2 id="txt-age-title">VERIFICA RIGIDA</h2>
-        <p id="txt-age-desc">Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.</p>
-        <button class="lang-btn" style="margin-top:20px; padding:12px 24px; font-size: 14px; border-color:var(--primary-neon);" onclick="verifyAge()">ENTRA (+18)</button>
+        <h2 id="txt-age-title">AGE VERIFICATION</h2>
+        <p id="txt-age-desc">You must be 18+ to unlock the official Mrshop20 catalog.</p>
+        <button class="lang-btn" style="margin-top:20px; padding:12px 24px; font-size: 14px; border-color:var(--primary-neon);" id="btn-age-enter" onclick="verifyAge()">ENTER (+18)</button>
     </div>
 
     <!-- Header -->
     <div class="brand-header">
-        <div class="main-logo">M20</div>
+        <div class="main-logo-container">
+            <img src="https://i.imgur.com/OEID9J5.jpg" alt="Logo Mrshop20">
+        </div>
         <h1>Mrshop20</h1>
         <p id="txt-header-sub">Direct From Source • Official Delivery Network</p>
 
         <div class="lang-selector">
-            <button class="lang-btn active" onclick="setLanguage('it')">IT</button>
-            <button class="lang-btn" onclick="setLanguage('en')">EN</button>
-            <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
-            <button class="lang-btn" onclick="setLanguage('de')">DE</button>
-            <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
+            <button class="lang-btn active" id="lang-btn-en" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" id="lang-btn-it" onclick="setLanguage('it')">IT</button>
+            <button class="lang-btn" id="lang-btn-fr" onclick="setLanguage('fr')">FR</button>
+            <button class="lang-btn" id="lang-btn-de" onclick="setLanguage('de')">DE</button>
+            <button class="lang-btn" id="lang-btn-ru" onclick="setLanguage('ru')">RU</button>
         </div>
     </div>
 
     <div class="promo-banner" id="txt-promo">
-        🔥 PROMO: Ordina più di 10g totali (anche misti) per sbloccare lo sconto automatico speciale!
+        🔥 PROMO: Order more than 10g total (mixed too) for an automatic mega discount!
     </div>
 
     <!-- Banner Omaggi Sempre Attivo -->
     <div class="gift-banner">
         <img class="gift-thumb" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Gifts">
         <div class="gift-text">
-            <strong id="gift-title">🎁 REGALO COMPRESO</strong>
-            <span id="gift-desc">Accendino Clipper, Cartine e Filtri inclusi gratis in ogni singolo ordine!</span>
+            <strong id="gift-title">🎁 FREE GIFTS</strong>
+            <span id="gift-desc">Clipper lighter, rolling papers and filters included free in every single order!</span>
         </div>
     </div>
 
@@ -266,72 +271,72 @@
     <div id="view-menu" class="app-view active">
         <div class="categories-scroller">
             <div class="categories-list" id="catList">
-                <!-- Generato Dinamicamente da JS -->
+                <!-- Generato Dinamicamente -->
             </div>
         </div>
         <div id="productsDisplay">
-            <!-- Generato Dinamicamente da JS -->
+            <!-- Generato Dinamicamente -->
         </div>
     </div>
 
     <!-- ================= SCHERMATA: CARRELLO ================= -->
     <div id="view-chat" class="app-view">
-        <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Il Tuo Carrello</h2>
+        <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Your Cart</h2>
         <div id="cartItemsContainer"></div>
         
         <div class="checkout-form" id="checkoutFormBlock" style="display:none;">
-            <h3 id="txt-delivery-details" style="margin-bottom:10px; color:var(--primary-neon);">Dati Spedizione / Spedizioni</h3>
+            <h3 id="txt-delivery-details" style="margin-bottom:10px; color:var(--primary-neon);">Delivery Details</h3>
             
             <div class="form-group">
-                <label id="lbl-city">CITTÀ</label>
-                <input type="text" id="input-city" placeholder="Milano, Roma, ecc...">
+                <label id="lbl-city">CITY</label>
+                <input type="text" id="input-city" placeholder="e.g. Rome, Milan, London...">
             </div>
             <div class="form-group">
-                <label id="lbl-address">INDIRIZZO</label>
-                <input type="text" id="input-address" placeholder="Via/Piazza e Numero Civico">
+                <label id="lbl-address">ADDRESS</label>
+                <input type="text" id="input-address" placeholder="Street Name and Number">
             </div>
             <div class="form-group">
-                <label id="lbl-cap">CAP</label>
+                <label id="lbl-cap">ZIP CODE</label>
                 <input type="text" id="input-cap" placeholder="00100">
             </div>
             <div class="form-group">
-                <label id="lbl-time">ORARIO DI CONSEGNA PREFERITO</label>
+                <label id="lbl-time">PREFERRED DELIVERY TIME</label>
                 <select id="select-time">
-                    <option value="Appena possibile / As soon as possible" id="opt-asap">Appena possibile / ASAP</option>
-                    <option value="Spedizione 24/48h / Shipping 24-48h" id="opt-ship">Spedizione Express 24/48h</option>
-                    <option value="Specifico / Specific Time" id="opt-spec">Fascia Oraria Specifica (Scrivi sotto)</option>
+                    <option value="As soon as possible / ASAP" id="opt-asap">As soon as possible / ASAP</option>
+                    <option value="Express Shipping 24/48h" id="opt-ship">Express Shipping 24/48h</option>
+                    <option value="Specific Time Slot" id="opt-spec">Specific Time Slot (Write below)</option>
                 </select>
-                <input type="text" id="input-time-spec" placeholder="Es: Tra le 14:00 e le 16:00" style="margin-top:6px; display:none;">
+                <input type="text" id="input-time-spec" placeholder="e.g. Between 14:00 and 16:00" style="margin-top:6px; display:none;">
             </div>
 
-            <h3 id="txt-pay-title" style="margin-top:15px; margin-bottom:10px; color:var(--secondary-neon);">Metodo di Pagamento</h3>
+            <h3 id="txt-pay-title" style="margin-top:15px; margin-bottom:10px; color:var(--secondary-neon);">Payment Method</h3>
             
             <div class="pay-option active" id="pay-opt-crypto" onclick="setPaymentMethod('crypto')">
                 <div>
                     <strong style="display:block;">Crypto (BTC, USDT, LTC, ETH)</strong>
-                    <small id="txt-crypto-sub">Ricevi l'indirizzo esatto per il pagamento diretto</small>
+                    <small id="txt-crypto-sub">Receive direct payment address in chat</small>
                 </div>
                 <span class="pay-badge badge-crypto">CRYPTO</span>
             </div>
 
             <div class="pay-option" id="pay-opt-moonpay" onclick="setPaymentMethod('moonpay')">
                 <div>
-                    <strong style="display:block;">Carta di Credito / Debito (MoonPay)</strong>
-                    <small id="txt-moonpay-sub">Ti guideremo su come comprare Bitcoin all'istante con carta</small>
+                    <strong style="display:block;">Credit / Debit Card (MoonPay)</strong>
+                    <small id="txt-moonpay-sub">We will guide you to buy Bitcoin instantly with card</small>
                 </div>
                 <span class="pay-badge badge-card">CARD VIA CRYPTO</span>
             </div>
 
             <div class="pay-option" id="pay-opt-paypal" onclick="setPaymentMethod('paypal')">
                 <div>
-                    <strong style="display:block; color:#aaa;">PayPal</strong>
-                    <small id="txt-paypal-sub" style="color:#777;">Non sempre disponibile. Chiedi approvazione in chat</small>
+                    <strong style="display:block; color:#aaa;" id="txt-paypal-head">PayPal</strong>
+                    <small id="txt-paypal-sub" style="color:#777;">Not always available. Ask in chat for approval</small>
                 </div>
-                <span class="pay-badge badge-off">RICHIESTA DISP.</span>
+                <span class="pay-badge badge-off" id="badge-req">REQUEST AVAIL.</span>
             </div>
 
             <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
-                CONFERMA E INVIA ORDINE
+                CONFIRM AND SEND ORDER
             </button>
         </div>
     </div>
@@ -339,39 +344,29 @@
     <!-- ================= SCHERMATA: INFO ================= -->
     <div id="view-info" class="app-view">
         <div class="info-section">
-            <h3 id="info-p1-t">📦 Processo di Delivery</h3>
-            <p id="info-p1-d">Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata ermeticamente sotto vuoto e priva di qualsiasi odore esterno o indicazione sul contenuto, assicurando una privacy al 100% fino alle tue mani.</p>
+            <h3 id="info-p1-t">📦 Delivery Process</h3>
+            <p id="info-p1-d">We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding or content indicators to protect your privacy 100%.</p>
         </div>
         <div class="info-section">
-            <h3 id="info-p2-t">💳 Metodi di Pagamento Ammessi</h3>
-            <p id="info-p2-d">Siamo un network sicuro basato su transazioni protette. Accettiamo tutte le principali Criptovalute (Bitcoin, USDT, Litecoin). Se non possiedi criptovalute, l'app ti guiderà all'acquisto istantaneo tramite MoonPay usando la tua comune carta di credito o prepagata.</p>
+            <h3 id="info-p2-t">💳 Accepted Payments</h3>
+            <p id="info-p2-d">We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.</p>
         </div>
         <div class="info-section">
-            <h3 id="info-p3-t">📺 Guida all'acquisto Crypto</h3>
-            <p id="info-p3-d">Ecco un video tutorial rapido che spiega dettagliatamente come configurare e inviare un pagamento cripto in pochissimi minuti senza verifiche complesse.</p>
-            <div class="video-placeholder">
-                🎬 [Video Guida MoonPay / Crypto Integrata]
-            </div>
+            <h3 id="info-p4-t">💬 Direct Contact & Support</h3>
+            <p id="info-p4-d">Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.</p>
+            <a href="https://t.me/mrshop20" target="_blank" class="tg-link-btn" id="btn-contact-tg">💬 Chat with @mrshop20</a>
         </div>
     </div>
 
     <!-- ================= SCHERMATA: RECENSIONI ================= -->
     <div id="view-reviews" class="app-view">
-        <h2 style="margin-bottom:15px;" id="txt-rev-title">Recensioni Verificate clienti (@mrshop20)</h2>
-        <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p>"Consegna a Milano effettuata in meno di due ore, qualità della Gelato pazzesca, confezione impeccabile."</p>
-            <div class="review-user">@luca_pro - 2 giorni fa</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p>"Spedizione arrivata in 24 ore in Calabria. Tutto sigillato al millimetro, ho pagato con MoonPay in modo facilissimo."</p>
-            <div class="review-user">@mario_k - 5 giorni fa</div>
-        </div>
-        <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p>"Top shop. I prezzi scendono un sacco se prendi grammi misti, ho fatto 15 grammi misti e ho risparmiato tantissimo."</p>
-            <div class="review-user">@alex_terps - 1 settimana fa</div>
+        <h2 style="margin-bottom:5px;" id="txt-rev-title">Verified Customer Reviews</h2>
+        <p style="font-size:13px; color:var(--text-hint); margin-bottom:15px;" id="txt-rev-sub">Real reviews extracted directly from our live feed.</p>
+        
+        <a href="https://t.me/+V8_bQn04S9VkNTNk" target="_blank" class="tg-link-btn" style="margin-bottom:20px; background:#0088cc;" id="btn-group-rev">⭐️ Open Telegram Reviews Group</a>
+
+        <div id="reviewsContainer">
+            <!-- Renderizzato in base alla lingua -->
         </div>
     </div>
 
@@ -383,7 +378,7 @@
         </button>
         <button class="nav-tab" id="tab-btn-chat" onclick="switchTab('chat')">
             <span class="icon">🛒</span>
-            <span id="tab-cart">Carrello</span>
+            <span id="tab-cart">Cart</span>
             <span class="badge-cart-count" id="cartBadge" style="display:none;">0</span>
         </button>
         <button class="nav-tab" id="tab-btn-info" onclick="switchTab('info')">
@@ -392,7 +387,7 @@
         </button>
         <button class="nav-tab" id="tab-btn-reviews" onclick="switchTab('reviews')">
             <span class="icon">⭐</span>
-            <span id="tab-reviews">Recensioni</span>
+            <span id="tab-reviews">Reviews</span>
         </button>
     </div>
 
@@ -400,50 +395,124 @@
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
 
-        // Vocabolario Multilingua Integrato per una localizzazione assoluta
+        // Dizionario Completo Unificato Senza Compromessi
         const i18n = {
-            it: {
-                all: "Tutte", ageTitle: "VERIFICA RIGIDA", ageDesc: "Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.",
-                sub: "Direct From Source • Official Delivery Network", promo: "🔥 PROMO: Ordina più di 10g totali (anche misti) per sbloccare lo sconto automatico speciale!",
-                cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
-                city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
-                giftT: "🎁 REGALO COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis in ogni singolo ordine!"
-            },
             en: {
-                all: "All", ageTitle: "AGE VERIFICATION", ageDesc: "You must be 18+ to unlock the official Mrshop20 catalog.",
+                all: "All", ageTitle: "AGE VERIFICATION", ageDesc: "You must be 18+ to unlock the official Mrshop20 catalog.", ageEnter: "ENTER (+18)",
                 sub: "Direct From Source • Official Delivery Network", promo: "🔥 PROMO: Order more than 10g total (mixed too) for an automatic mega discount!",
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
-                city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND ORDER",
-                giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every single order!"
+                city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
+                giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every single order!",
+                asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h", spec: "Specific Time Slot (Write below)",
+                p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_spec: "e.g. Between 14:00 and 16:00",
+                delDetails: "Delivery Details", cryptoSub: "Receive direct payment address in chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
+                ppSub: "Not always available. Ask in chat for approval", reqAvail: "REQUEST AVAIL.",
+                infT1: "📦 Delivery Process", infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding or content indicators to protect your privacy 100%.",
+                infT2: "💳 Accepted Payments", infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.",
+                infT3: "💬 Direct Contact & Support", infD3: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
+                btnContact: "💬 Chat with @mrshop20", revTitle: "Verified Customer Reviews", revSub: "Real reviews extracted directly from our live feed.", btnGroupRev: "⭐️ Open Telegram Reviews Group",
+                actPromo: "🎉 Mixed Grams Discount Activated! Grams price reduced by 25%!", totEff: "Total Price", free: "FREE",
+                cats: { flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", special: "🔥 Special" },
+                revs: [
+                    {text: '"Delivery in Milan completed in less than two hours, crazy Gelato quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
+                    {text: '"Express package arrived in 24h. Everything securely vacuum-packed, paid with MoonPay super easily."', user: "@mario_k - 5 days ago"},
+                    {text: '"Best shop. Prices drop significantly if you combine mixed strains, ordered 15g and saved a lot."', user: "@alex_terps - 1 week ago"}
+                ]
+            },
+            it: {
+                all: "Tutte", ageTitle: "VERIFICA RIGIDA", ageDesc: "Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.", ageEnter: "ENTRA (+18)",
+                sub: "Direttamente alla Fonte • Rete di Consegna Ufficiale", promo: "🔥 PROMO: Ordina più di 10g totali (anche misti) per lo sconto automatico del 25%!",
+                cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
+                city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
+                giftT: "🎁 REGALO COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis in ogni singolo ordine!",
+                asap: "Appena possibile / ASAP", ship: "Spedizione Express 24/48h", spec: "Fascia Oraria Specifica (Scrivi sotto)",
+                p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_spec: "Es: Tra le 14:00 e le 16:00",
+                delDetails: "Dati Spedizione / Consegna", cryptoSub: "Ricevi l'indirizzo esatto per il pagamento in chat", cardSub: "Ti guideremo su come comprare Bitcoin all'istante con carta",
+                ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
+                infT1: "📦 Processo di Delivery", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto, assicurando una privacy al 100%.",
+                infT2: "💳 Metodi di Pagamento Ammessi", infD2: "Siamo un network sicuro basato su transazioni protette. Accettiamo le principali Criptovalute. Se non le possiedi, l'app ti guiderà all'acquisto istantaneo via MoonPay con la tua carta.",
+                infT3: "💬 Contatto Diretto & Supporto", infD3: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
+                btnContact: "💬 Parla con @mrshop20", revTitle: "Recensioni Verificate Clienti", revSub: "Recensioni reali estratte direttamente dal nostro canale.", btnGroupRev: "⭐️ Apri Gruppo Recensioni Telegram",
+                actPromo: "🎉 Sconto Grammi Misti Attivato! Quota grammi scontata del 25%!", totEff: "Totale Effettivo", free: "GRATIS",
+                cats: { flowers: "🌿 Fiori", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Funghi", special: "🔥 Speciali" },
+                revs: [
+                    {text: '"Consegna a Milano effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
+                    {text: '"Spedizione arrivata in 24 ore. Tutto sigillato al millimetro, ho pagato con MoonPay in modo facilissimo."', user: "@mario_k - 5 giorni fa"},
+                    {text: '"Top shop. I prezzi scendono se prendi grammi misti, ho fatto 15 grammi misti e ho risparmiato un sacco."', user: "@alex_terps - 1 settimana fa"}
+                ]
             },
             fr: {
-                all: "Toutes", ageTitle: "VÉRIFICATION", ageDesc: "Vous devez avoir +18 ans pour débloquer le catalogue Mrshop20.",
-                sub: "Direct de la source • Réseau de livraison officiel", promo: "🔥 PROMO: Commandez plus de 10g (mélangés inclus) pour un rabais automatique!",
+                all: "Toutes", ageTitle: "VÉRIFICATION", ageDesc: "Vous devez avoir +18 ans pour débloquer le catalogue Mrshop20.", ageEnter: "ENTRER (+18)",
+                sub: "Direct de la source • Réseau de livraison officiel", promo: "🔥 PROMO: Commandez plus de 10g pour un rabais automatique de 25%!",
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
-                giftT: "🎁 CADEAUX GRATUITS", giftD: "Briquet Clipper, feuilles et filtres inclus gratuitement dans chaque commande!"
+                giftT: "🎁 CADEAUX GRATUITS", giftD: "Briquet Clipper, feuilles et filtres inclus gratuitement dans chaque commande!",
+                asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
+                p_city: "Ex: Paris, Lyon, Marseille...", p_address: "Nom de rue et Numéro", p_spec: "Ex: Entre 14:00 et 16:00",
+                delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "Nous vous guiderons pour acheter des Bitcoins par carte",
+                ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
+                infT1: "📦 Processus de Livraison", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Chaque paquet est scellé hermétiquement sous vide, totalement inodore.",
+                infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies. Si vous n'en avez pas, l'application vous guidera pour un achat instantané via MoonPay avec votre carte bancaire.",
+                infT3: "💬 Contact Direct & Support", infD3: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
+                btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
+                actPromo: "🎉 Remise Grammes Mélangés Activée! Prix des grammes réduit de 25%!", totEff: "Total Effectif", free: "GRATUIT",
+                cats: { flowers: "🌿 Fleurs", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Champignons", special: "🔥 Spécial" },
+                revs: [
+                    {text: '"Livraison à Paris en moins de deux heures, qualité Gelato incroyable, emballage discret au top."', user: "@luca_pro - Il y a 2 jours"},
+                    {text: '"Colis express arrivé en 24h. Tout est bien emballé sous vide, payé par MoonPay très facilement."', user: "@mario_k - Il y a 5 jours"},
+                    {text: '"Meilleur shop. Les prix baissent si vous mélangez les variétés, j\'ai pris 15g et économisé gros."', user: "@alex_terps - Il y a 1 semaine"}
+                ]
             },
             de: {
-                all: "Alle", ageTitle: "ALTERSVERIFIKATION", ageDesc: "Sie müssen 18+ sein, um das Mrshop20-Menü aufzurufen.",
-                sub: "Direkt von der Quelle • Offizielles Liefernetzwerk", promo: "🔥 PROMO: Bestellen Sie mehr als 10g gesamt für automatischen Rabatt!",
+                all: "Alle", ageTitle: "ALTERSVERIFIKATION", ageDesc: "Sie müssen 18+ sein, um das Mrshop20-Menü aufzurufen.", ageEnter: "REINKOMMEN (+18)",
+                sub: "Direkt von der Quelle • Offizielles Liefernetzwerk", promo: "🔥 PROMO: Bestellen Sie mehr als 10g gesamt für automatischen 25% Rabatt!",
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
-                giftT: "🎁 GRATIS GESCHENKE", giftD: "Clipper Feuerzeug, Blättchen und Filter in jeder Bestellung kostenlos enthalten!"
+                giftT: "🎁 GRATIS GESCHENKE", giftD: "Clipper Feuerzeug, Blättchen und Filter in jeder Bestellung kostenlos enthalten!",
+                asap: "Schnellstmöglich / ASAP", ship: "Expressversand 24/48h", spec: "Spezifisches Zeitfenster (Unten eintragen)",
+                p_city: "z.B. Berlin, München, Hamburg...", p_address: "Straße und Hausnummer", p_spec: "z.B. Zwischen 14:00 und 16:00",
+                delDetails: "Lieferdetails", cryptoSub: "Erhalten Sie die Zahlungsadresse direkt im Chat", cardSub: "Wir zeigen Ihnen, wie Sie BTC sofort mit Karte kaufen",
+                ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
+                infT1: "📦 Lieferprozess", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Jedes Paket ist hermetisch vakuumversiegelt, absolut geruchlos und ohne äußere Hinweise.",
+                infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Wenn Sie keine Kryptowährungen besitzen, führt Sie unsere App zum Sofortkauf über MoonPay mit Ihrer Kreditkarte.",
+                infT3: "💬 Direkter Kontakt & Support", infD3: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
+                btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
+                actPromo: "🎉 Rabatt für gemischte Gramm aktiviert! Grammpreis um 25% reduziert!", totEff: "Gesamtsumme", free: "GRATIS",
+                cats: { flowers: "🌿 Blüten", hash: "🍯 Hasch", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Pilze", special: "🔥 Spezial" },
+                revs: [
+                    {text: '"Lieferung in Berlin in weniger als zwei Stunden erledigt, krasse Gelato-Qualität, makellose Verpackung."', user: "@luca_pro - vor 2 Tagen"},
+                    {text: '"Expresspaket in 24 Stunden angekommen. Alles absolut geruchlos vakuumverpackt, super einfach."', user: "@mario_k - vor 5 Tagen"},
+                    {text: '"Bester Shop. Preise sinken deutlich wenn man mischt, habe 15g bestellt und viel gespart."', user: "@alex_terps - vor 1 Woche"}
+                ]
             },
             ru: {
-                all: "Все", ageTitle: "ПРОВЕРКА ВОЗРАСТА", ageDesc: "Вам должно быть 18+ лет для доступа к меню Mrshop20.",
-                sub: "Прямые поставки • Официальная сеть доставки", promo: "🔥 ПРОМО: Закажите более 10 г (можно микс) для автоматической скидки!",
+                all: "Все", ageTitle: "ПРОВЕРКА ВОЗРАСТА", ageDesc: "Вам должно быть 18+ лет для доступа к меню Mrshop20.", ageEnter: "ВОЙТИ (+18)",
+                sub: "Прямые поставки • Официальная сеть доставки", promo: "🔥 ПРОМО: Закажите более 10 г (можно микс) для автоматической скидки 25%!",
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ",
-                giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", giftD: "Зажигалка Clipper, бумага и фильтры бесплатно прилагаются к каждому заказу!"
+                giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", giftD: "Зажигалка Clipper, бумага и фильтры бесплатно прилагаются к каждому заказу!",
+                asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч", spec: "Указать время (напишите ниже)",
+                p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_spec: "Пример: Между 14:00 и 16:00",
+                delDetails: "Данные доставки", cryptoSub: "Получите точный адрес для оплаты в чате", cardSub: "Мы поможем вам мгновенно купить Биткоин с карты",
+                ppSub: "Доступно не всегда. Уточняйте у оператора в чате", reqAvail: "ПО ЗАПРОСУ",
+                infT1: "📦 Процесс доставки", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Каждая посылка герметично упакована в вакуум, не имеет запаха и внешних обозначений содержимого.",
+                infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты. Если у вас нет крипты, приложение поможет вам мгновенно купить ее через MoonPay с помощью вашей обычной карты.",
+                infT3: "💬 Прямая связь и поддержка", infD3: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
+                btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
+                actPromo: "🎉 Скидка на микс активирована! Стоимость граммов снижена на 25%!", totEff: "Итого к оплате", free: "БЕСПЛАТНО",
+                cats: { flowers: "🌿 Цветы", hash: "🍯 Гашиш", edibles: "🍫 Сладости", vapes: "💨 Вейпы", mushrooms: "🍄 Грибы", special: "🔥 Особое" },
+                revs: [
+                    {text: '"Доставка в Милане заняла меньше двух часов, качество Gelato сумасшедшее, упаковка идеальная."', user: "@luca_pro - 2 дня назад"},
+                    {text: '"Экспресс-посылка дошла за 24 часа. Все намертво запечатано в вакуум, легко оплатил через MoonPay."', user: "@mario_k - 5 дней назад"},
+                    {text: '"Лучший шоп. Цены сильно падают, если брать микс разных сортов, заказал 15г и отлично сэкономил."', user: "@alex_terps - 1 неделю назад"}
+                ]
             }
         };
 
-        let currentLang = 'it';
+        let currentLang = 'en';
         let currentSelectedPayment = 'crypto';
         let activeCategoryFilter = 'all';
 
-        // Catalogo Ufficiale Prodotti Mrshop20
         const productsData = [
             { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/OEID9J5.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
             { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/xJbwEnS.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
@@ -472,10 +541,6 @@
             { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/oytn91Q.jpg", desc: "Liquid • 1ml • 200µg", isGramAsset: false }
         ];
 
-        const categoriesMap = {
-            all: "Tutte", flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", special: "🔥 Special"
-        };
-
         let cart = {};
 
         function verifyAge() {
@@ -486,22 +551,82 @@
             document.getElementById('ageGate').classList.add('hidden');
         }
 
+        // Funzione Fisher-Yates per mescolare l'array in modalità casuale pura
+        function getShuffledProducts() {
+            let arr = [...productsData];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
         function setLanguage(lang) {
             currentLang = lang;
             document.querySelectorAll('.lang-selector .lang-btn').forEach(b => b.classList.remove('active'));
-            if(event) event.target.classList.add('active');
+            document.getElementById(`lang-btn-${lang}`).classList.add('active');
 
-            document.getElementById('txt-age-title').innerText = i18n[lang].ageTitle;
-            document.getElementById('txt-age-desc').innerText = i18n[lang].ageDesc;
-            document.getElementById('txt-header-sub').innerText = i18n[lang].sub;
-            document.getElementById('txt-promo').innerText = i18n[lang].promo;
-            document.getElementById('tab-menu').innerText = i18n[lang].menu;
-            document.getElementById('tab-cart').innerText = i18n[lang].cart;
-            document.getElementById('tab-info').innerText = i18n[lang].info;
-            document.getElementById('tab-reviews').innerText = i18n[lang].reviews;
-            document.getElementById('gift-title').innerText = i18n[lang].giftT;
-            document.getElementById('gift-desc').innerText = i18n[lang].giftD;
+            // Traduzione globale elementi fissi
+            const dict = i18n[lang];
+            document.getElementById('txt-age-title').innerText = dict.ageTitle;
+            document.getElementById('txt-age-desc').innerText = dict.ageDesc;
+            document.getElementById('btn-age-enter').innerText = dict.ageEnter;
+            document.getElementById('txt-header-sub').innerText = dict.sub;
+            document.getElementById('txt-promo').innerText = dict.promo;
+            document.getElementById('gift-title').innerText = dict.giftT;
+            document.getElementById('gift-desc').innerText = dict.giftD;
             
+            document.getElementById('tab-menu').innerText = dict.menu;
+            document.getElementById('tab-cart').innerText = dict.cart;
+            document.getElementById('tab-info').innerText = dict.info;
+            document.getElementById('tab-reviews').innerText = dict.reviews;
+
+            document.getElementById('txt-cart-title').innerText = `🛒 ${dict.cart}`;
+            document.getElementById('txt-delivery-details').innerText = dict.delDetails;
+            document.getElementById('lbl-city').innerText = dict.city;
+            document.getElementById('input-city').placeholder = dict.p_city;
+            document.getElementById('lbl-address').innerText = dict.address;
+            document.getElementById('input-address').placeholder = dict.p_address;
+            document.getElementById('lbl-cap').innerText = dict.cap;
+            document.getElementById('lbl-time').innerText = dict.time;
+            
+            document.getElementById('opt-asap').innerText = dict.asap;
+            document.getElementById('opt-ship').innerText = dict.ship;
+            document.getElementById('opt-spec').innerText = dict.spec;
+            document.getElementById('input-time-spec').placeholder = dict.p_spec;
+            
+            document.getElementById('txt-pay-title').innerText = dict.pay;
+            document.getElementById('txt-crypto-sub').innerText = dict.cryptoSub;
+            document.getElementById('txt-moonpay-sub').innerText = dict.cardSub;
+            document.getElementById('txt-paypal-sub').innerText = dict.ppSub;
+            document.getElementById('badge-req').innerText = dict.reqAvail;
+            document.getElementById('btn-submit-order').innerText = dict.confirm;
+
+            document.getElementById('info-p1-t').innerText = dict.infT1;
+            document.getElementById('info-p1-d').innerText = dict.infD1;
+            document.getElementById('info-p2-t').innerText = dict.infT2;
+            document.getElementById('info-p2-d').innerText = dict.infD2;
+            document.getElementById('info-p3-t').innerText = dict.infT3;
+            document.getElementById('info-p3-d').innerText = dict.infD3;
+            document.getElementById('btn-contact-tg').innerText = dict.btnContact;
+
+            document.getElementById('txt-rev-title').innerText = dict.revTitle;
+            document.getElementById('txt-rev-sub').innerText = dict.revSub;
+            document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
+
+            // Renderizza recensioni in lingua
+            const revBlock = document.getElementById('reviewsContainer');
+            revBlock.innerHTML = '';
+            dict.revs.forEach(r => {
+                revBlock.innerHTML += `
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>${r.text}</p>
+                        <div class="review-user">${r.user}</div>
+                    </div>
+                `;
+            });
+
             renderCategoryTabs();
             renderProducts(activeCategoryFilter);
             updateCartUI();
@@ -510,12 +635,24 @@
         function renderCategoryTabs() {
             const container = document.getElementById('catList');
             container.innerHTML = '';
-            Object.keys(categoriesMap).forEach(key => {
-                const label = key === 'all' ? i18n[currentLang].all : categoriesMap[key];
+            
+            // Bottone "Tutte" / "All"
+            const allCard = document.createElement('div');
+            allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
+            allCard.innerText = i18n[currentLang].all;
+            allCard.onclick = () => {
+                activeCategoryFilter = 'all';
+                document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+                allCard.classList.add('active');
+                renderProducts('all');
+            };
+            container.appendChild(allCard);
+
+            // Altre categorie tradotte
+            Object.keys(i18n[currentLang].cats).forEach(key => {
                 const card = document.createElement('div');
                 card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
-                card.id = `cat-${key}`;
-                card.innerText = label;
+                card.innerText = i18n[currentLang].cats[key];
                 card.onclick = () => {
                     activeCategoryFilter = key;
                     document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
@@ -533,9 +670,10 @@
             const grid = document.createElement('div');
             grid.className = 'products-grid';
 
-            const filtered = filterCategory === 'all' ? productsData : productsData.filter(p => p.category === filterCategory);
+            // Requisito 1: Se seleziona "Tutte", mescola gli elementi in modo casuale
+            const sourceArray = filterCategory === 'all' ? getShuffledProducts() : productsData.filter(p => p.category === filterCategory);
 
-            filtered.forEach(p => {
+            sourceArray.forEach(p => {
                 const qty = cart[p.id] || 0;
                 const unitLabel = p.isGramAsset ? 'g' : 'pz';
                 
@@ -603,7 +741,7 @@
 
             if (totalGramAssetsCount >= 10) {
                 promoApplied = true;
-                finalGramCost = gramAssetsCost * 0.75; // Sconto del 25% automatico se si superano i 10g misti
+                finalGramCost = gramAssetsCost * 0.75;
             }
 
             const finalTotal = finalGramCost + normalAssetsCost;
@@ -658,11 +796,11 @@
                 `;
             });
 
-            // Riga Omaggi Sempre Visibile nel Carrello Attivo
+            // Kit Omaggi Integrato
             html += `
                 <div style="background:rgba(0,229,255,0.05); border:1px dashed var(--secondary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--secondary-neon); font-size:12px; display:flex; justify-content:space-between;">
-                    <span>🎁 Kit Omaggi (Accendino + Cartine + Filtri)</span>
-                    <strong>GRATIS</strong>
+                    <span>🎁 Kit Gifts (Lighter + Papers + Filters)</span>
+                    <strong>${i18n[currentLang].free}</strong>
                 </div>
             `;
 
@@ -670,14 +808,14 @@
             if (metrics.promoApplied) {
                 html += `
                     <div style="background:rgba(0,255,102,0.1); border:1px dashed var(--primary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--primary-neon); font-size:13px;">
-                        🎉 <strong>Sconto Grammi Misti Attivato!</strong> Quota grammi ridotta da €${metrics.originalGramCost.toFixed(2)} a €${metrics.finalGramCost.toFixed(2)}!
+                        ${i18n[currentLang].actPromo}
                     </div>
                 `;
             }
 
             html += `
                 <div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">
-                    Totale Effettivo: <span style="color:var(--primary-neon);">€${metrics.finalTotal.toFixed(2)}</span>
+                    ${i18n[currentLang].totEff}: <span style="color:var(--primary-neon);">€${metrics.finalTotal.toFixed(2)}</span>
                 </div>
             `;
 
@@ -704,7 +842,7 @@
 
         document.getElementById('select-time').addEventListener('change', function() {
             const specInput = document.getElementById('input-time-spec');
-            if (this.value.includes('Specifico')) {
+            if (this.value.includes('Specific') || this.value.includes('Specifica')) {
                 specInput.style.display = 'block';
             } else {
                 specInput.style.display = 'none';
@@ -717,18 +855,18 @@
             const cap = document.getElementById('input-cap').value.trim();
             let orario = document.getElementById('select-time').value;
 
-            if (orario.includes('Specifico')) {
-                orario = "Ora Specifica: " + document.getElementById('input-time-spec').value.trim();
+            if (orario.includes('Specific') || orario.includes('Specifica')) {
+                orario = "Slot: " + document.getElementById('input-time-spec').value.trim();
             }
 
             if (!citta || !indirizzo || !cap) {
-                alert("Per favore inserisci Città, Indirizzo e CAP completi per la consegna!");
+                alert("Please fill City, Address and ZIP code fields!");
                 return;
             }
 
             const metrics = calculateCartMetrics();
             
-            let msg = `🛒 *NUOVO ORDINE @mrshop20*\n`;
+            let msg = `🛒 *NEW ORDER - MRSHOP20*\n`;
             msg += `----------------------------------------\n`;
             
             Object.keys(cart).forEach(id => {
@@ -738,38 +876,40 @@
                 msg += `• *${p.name}*: ${qty}${unitLabel}\n`;
             });
 
-            msg += `• *Kit Omaggi*: 1pz (Accendino + Cartine + Filtri) 🎁\n`;
+            msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\n`;
             msg += `----------------------------------------\n`;
             if (metrics.promoApplied) {
-                msg += `🎁 *Sconto applicato su ${metrics.totalGramAssetsCount}g misti!*\n`;
+                msg += `🎁 *25% Promo Applied on ${metrics.totalGramAssetsCount}g mixed!*\n`;
             }
-            msg += `💰 *IMPORTO ESATTO:* €${metrics.finalTotal.toFixed(2)}\n\n`;
+            msg += `💰 *TOTAL PRICE:* €${metrics.finalTotal.toFixed(2)}\n\n`;
             
-            msg += `📍 *DATI CONSEGNA / DELIVERY:*\n`;
-            msg += `🏙️ Città: ${citta}\n`;
-            msg += `🏠 Indirizzo: ${indirizzo}\n`;
-            msg += `📮 CAP: ${cap}\n`;
-            msg += `⏰ Orario: ${orario}\n\n`;
+            msg += `📍 *DELIVERY DETAILS:*\n`;
+            msg += `🏙️ City: ${citta}\n`;
+            msg += `🏠 Address: ${indirizzo}\n`;
+            msg += `📮 ZIP Code: ${cap}\n`;
+            msg += `⏰ Time requested: ${orario}\n\n`;
 
-            msg += `💳 *METODO DI PAGAMENTO:*\n`;
+            msg += `%0A💳 *PAYMENT METHOD:*\n`;
             if (currentSelectedPayment === 'crypto') {
-                msg += `➡ *Criptovalute* (Richiede address in chat)\n`;
+                msg += `➡ *Cryptocurrencies* (Waiting for address details in chat)\n`;
             } else if (currentSelectedPayment === 'moonpay') {
-                msg += `➡ *Carta di Credito via MoonPay* (Acquisto BTC istantaneo)\n`;
+                // Requisito 9: Istruzioni esatte e rigide per MoonPay
+                msg += `➡ *Card via MoonPay*\n⚠️ *INSTRUCTION:* To complete this order with a Debit/Credit card, you must download the MoonPay app or use their web service, buy the required amount of Bitcoin (BTC) directly using your card, and transfer it to our direct wallet address which will be provided in chat.`;
             } else if (currentSelectedPayment === 'paypal') {
-                msg += `➡ *PayPal* (Verificare disponibilità attuale con operatore)\n`;
+                msg += `➡ *PayPal* (Subject to live approval)\n`;
             }
 
+            // Requisito 7: Rimanda sempre direttamente a @mrshop20 precompilando tutto l'ordine
+            const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
+            
             if (tg && tg.sendData) {
                 tg.sendData(msg);
-            } else {
-                const url = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
-                window.open(url, '_blank');
             }
+            window.open(targetUrl, '_blank');
         }
 
-        // Avvio ed Inizializzazione
-        setLanguage('it');
+        // Default Iniziale: Lingua Inglese (Requisito 8)
+        setLanguage('en');
     </script>
 </body>
 </html>
