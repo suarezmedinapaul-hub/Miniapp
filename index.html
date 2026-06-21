@@ -34,7 +34,7 @@
             overflow-x: hidden;
         }
 
-        /* Age Gate */
+        /* Age Gate UI */
         .age-gate {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -51,7 +51,7 @@
         .logo-animation { font-size: 70px; margin-bottom: 10px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-        /* Top Header & Logo */
+        /* Brand & Top Header Area */
         .brand-header {
             padding: 20px;
             text-align: center;
@@ -59,8 +59,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: relative;
         }
-        
-        /* Requisito 3: Icona a cerchio con Logo Ufficiale */
         .main-logo-container {
             width: 85px;
             height: 85px;
@@ -79,7 +77,7 @@
         }
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
 
-        /* Requisito 2: Selettore Lingue Rimpicciolito */
+        /* Mini Language Switcher */
         .lang-selector {
             position: absolute;
             top: 10px; right: 10px;
@@ -87,19 +85,17 @@
         }
         .lang-btn {
             background: #1c1c24; border: 1px solid #3a3a44; border-radius: 4px;
-            padding: 2px 4px; font-size: 9px; cursor: pointer; color: white; font-weight: bold;
+            padding: 3px 5px; font-size: 9px; cursor: pointer; color: white; font-weight: bold;
         }
         .lang-btn.active { border-color: var(--primary-neon); background: rgba(0,255,102,0.1); }
 
-        /* Promo Banner */
+        /* Info Banners */
         .promo-banner {
             background: linear-gradient(90deg, #9d4edd, #ff007f);
             margin: 15px; padding: 12px; border-radius: 12px;
             font-weight: 700; text-align: center; font-size: 13px;
             box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
         }
-
-        /* Omaggi Fisso Banner */
         .gift-banner {
             background: rgba(0, 229, 255, 0.1);
             border: 1px solid var(--secondary-neon);
@@ -110,7 +106,7 @@
         .gift-text { font-size: 12px; line-height: 1.4; }
         .gift-text strong { color: var(--secondary-neon); display: block; font-size: 13px; }
 
-        /* Categorie Grandi */
+        /* Sticky Categories */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
             background: rgba(11, 11, 14, 0.95);
@@ -135,11 +131,11 @@
             box-shadow: 0 5px 15px rgba(0, 255, 102, 0.3);
         }
 
-        /* Schermate Principali */
+        /* Views Layout */
         .app-view { display: none; padding: 15px; }
         .app-view.active { display: block; }
 
-        /* Grid Prodotti */
+        /* Products Grid UI */
         .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 5px; }
         .product-card {
             background: var(--bg-card); border-radius: 20px; overflow: hidden;
@@ -152,7 +148,7 @@
         .product-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
         .product-desc { font-size: 11px; color: var(--text-hint); height: 32px; overflow: hidden; line-height: 1.3; margin-bottom: 10px; }
         
-        /* Controlli Quantità */
+        /* Interactive Counters */
         .gram-selector {
             display: flex; align-items: center; justify-content: space-between;
             background: #222; border-radius: 12px; padding: 4px; margin-top: auto;
@@ -164,12 +160,10 @@
         .gram-btn:active { background: #444; }
         .gram-value { font-weight: 700; font-size: 14px; color: var(--primary-neon); }
 
-        /* Info Box */
+        /* Informative Sections */
         .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
         .info-section h3 { color: var(--secondary-neon); margin-bottom: 10px; font-size: 18px; }
         .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
-        
-        /* Requisito 10: Immagine hostata di cartine e filtri al posto del video */
         .papers-hosted-img {
             width: 100%; height: 190px; object-fit: cover; border-radius: 12px;
             margin: 15px 0; border: 1px solid rgba(255,255,255,0.1);
@@ -181,7 +175,7 @@
             margin-top: 10px; font-size: 14px;
         }
 
-        /* Form di Cassa nel Carrello */
+        /* Order / Checkout Form */
         .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 16px; margin-top: 20px; border: 1px solid #333; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 12px; color: var(--text-hint); margin-bottom: 4px; font-weight: 600; }
@@ -191,7 +185,7 @@
         }
         .form-group input:focus { border-color: var(--primary-neon); outline: none; }
 
-        /* Metodi Pagamento Opzioni */
+        /* Payment Modules Selector */
         .pay-option {
             display: flex; align-items: center; justify-content: space-between;
             padding: 12px; background: #222; border: 1px solid #444;
@@ -203,12 +197,12 @@
         .badge-card { background: #0052ff; color: #fff; }
         .badge-off { background: #555; color: #aaa; }
 
-        /* Recensioni */
+        /* Reviews Feedback */
         .review-card { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-bottom: 10px; border-left: 4px solid var(--accent-purple); }
         .review-stars { color: var(--warning); font-size: 14px; margin-bottom: 4px; }
         .review-user { font-size: 12px; color: var(--text-hint); font-weight: bold; }
 
-        /* Tab Bar di Navigazione Inferiore Rigida */
+        /* Tab Navigation Bar */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100vw;
             background: rgba(22, 22, 30, 0.96); backdrop-filter: blur(20px);
@@ -237,6 +231,7 @@
 </head>
 <body>
 
+    <!-- Age Gate Barrier -->
     <div class="age-gate" id="ageGate">
         <div class="logo-animation">🍁</div>
         <h2 id="txt-age-title">AGE VERIFICATION</h2>
@@ -244,6 +239,7 @@
         <button class="lang-btn" style="margin-top:20px; padding:12px 24px; font-size: 14px; border-color:var(--primary-neon);" id="btn-age-enter" onclick="verifyAge()">ENTER (+18)</button>
     </div>
 
+    <!-- Header Section -->
     <div class="brand-header">
         <div class="main-logo-container">
             <img src="https://i.imgur.com/OEID9J5.jpg" alt="Logo Mrshop20">
@@ -251,6 +247,7 @@
         <h1>Mrshop20</h1>
         <p id="txt-header-sub">Direct From Source • Official Delivery Network</p>
 
+        <!-- Selector Rigido Traduzioni -->
         <div class="lang-selector">
             <button class="lang-btn active" id="lang-btn-en" onclick="setLanguage('en')">EN</button>
             <button class="lang-btn" id="lang-btn-it" onclick="setLanguage('it')">IT</button>
@@ -264,23 +261,28 @@
         🔥 PROMO: Order more than 10g total (mixed too) for an automatic mega discount!
     </div>
 
+    <!-- Free Assets Informer Banner -->
     <div class="gift-banner">
-        <img class="gift-thumb" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Gifts">
+        <img class="gift-thumb" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Gifts Showcase">
         <div class="gift-text">
             <strong id="gift-title">🎁 FREE GIFTS</strong>
             <span id="gift-desc">Clipper lighter, rolling papers and filters included free in every single order!</span>
         </div>
     </div>
 
+    <!-- VIEW 1: PRODUCTS STOREFRONT -->
     <div id="view-menu" class="app-view active">
         <div class="categories-scroller">
             <div class="categories-list" id="catList">
-                </div>
+                <!-- Generato Dinamicamente da JS -->
+            </div>
         </div>
         <div id="productsDisplay">
-            </div>
+            <!-- Generato Dinamicamente da JS -->
+        </div>
     </div>
 
+    <!-- VIEW 2: CART SUMMARY & CHECKOUT FORM -->
     <div id="view-chat" class="app-view">
         <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Your Cart</h2>
         <div id="cartItemsContainer"></div>
@@ -290,15 +292,15 @@
             
             <div class="form-group">
                 <label id="lbl-city">CITY</label>
-                <input type="text" id="input-city" placeholder="e.g. Rome, Milan, London...">
+                <input type="text" id="input-city" placeholder="">
             </div>
             <div class="form-group">
                 <label id="lbl-address">ADDRESS</label>
-                <input type="text" id="input-address" placeholder="Street Name and Number">
+                <input type="text" id="input-address" placeholder="">
             </div>
             <div class="form-group">
                 <label id="lbl-cap">ZIP CODE</label>
-                <input type="text" id="input-cap" placeholder="00100">
+                <input type="text" id="input-cap" placeholder="">
             </div>
             <div class="form-group">
                 <label id="lbl-time">PREFERRED DELIVERY TIME</label>
@@ -307,7 +309,7 @@
                     <option value="Express Shipping 24/48h" id="opt-ship">Express Shipping 24/48h</option>
                     <option value="Specific Time Slot" id="opt-spec">Specific Time Slot (Write below)</option>
                 </select>
-                <input type="text" id="input-time-spec" placeholder="e.g. Between 14:00 and 16:00" style="margin-top:6px; display:none;">
+                <input type="text" id="input-time-spec" placeholder="" style="margin-top:6px; display:none;">
             </div>
 
             <h3 id="txt-pay-title" style="margin-top:15px; margin-bottom:10px; color:var(--secondary-neon);">Payment Method</h3>
@@ -342,6 +344,7 @@
         </div>
     </div>
 
+    <!-- VIEW 3: DISCREET INFO PACKAGING -->
     <div id="view-info" class="app-view">
         <div class="info-section">
             <h3 id="info-p1-t">📦 Delivery Process</h3>
@@ -354,7 +357,7 @@
         <div class="info-section">
             <h3 id="info-p3-t">🌿 Premium Rolling Papers & Accessories</h3>
             <p id="info-p3-d">We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.</p>
-            <img class="papers-hosted-img" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Rolling Papers and Filters Showcase">
+            <img class="papers-hosted-img" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Rolling Papers and Filters Presentation">
         </div>
         <div class="info-section">
             <h3 id="info-p4-t">💬 Direct Contact & Support</h3>
@@ -363,6 +366,7 @@
         </div>
     </div>
 
+    <!-- VIEW 4: LIVE REVIEW FORUM FEED -->
     <div id="view-reviews" class="app-view">
         <h2 style="margin-bottom:5px;" id="txt-rev-title">Verified Customer Reviews</h2>
         <p style="font-size:13px; color:var(--text-hint); margin-bottom:15px;" id="txt-rev-sub">Real reviews extracted directly from our live feed.</p>
@@ -370,9 +374,11 @@
         <a href="https://t.me/+-6IEl9aA30AxZDc0" target="_blank" class="tg-link-btn" style="margin-bottom:20px; background:#0088cc;" id="btn-group-rev">⭐️ Open Telegram Reviews Group</a>
 
         <div id="reviewsContainer">
-            </div>
+            <!-- Popolato Dinamicamente in base alla lingua -->
+        </div>
     </div>
 
+    <!-- Sticky Navigation Controls Bar -->
     <div class="bottom-nav">
         <button class="nav-tab active" id="tab-btn-menu" onclick="switchTab('menu')">
             <span class="icon">🌿</span>
@@ -397,7 +403,6 @@
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
 
-        // Requisito 4 e 8: Traduzione radicale senza lingue miste
         const i18n = {
             en: {
                 all: "All", ageTitle: "AGE VERIFICATION", ageDesc: "You must be 18+ to unlock the official Mrshop20 catalog.", ageEnter: "ENTER (+18)",
@@ -414,7 +419,7 @@
                 infT3: "🌿 Premium Rolling Papers & Accessories", infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
                 infT4: "💬 Direct Contact & Support", infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
                 btnContact: "💬 Chat with @mrshop20", revTitle: "Verified Customer Reviews", revSub: "Real reviews extracted directly from our live feed.", btnGroupRev: "⭐️ Open Telegram Reviews Group",
-                actPromo: "🎉 Mixed Grams Discount Activated! Grams price reduced by 25%!", totEff: "Total Price", free: "FREE",
+                actPromo: "🎉 Mixed Grams Discount Activated! Grams price reduced by 25%!", totEff: "Total Price", free: "FREE", fieldErr: "Please fill City, Address and ZIP code fields!",
                 cats: { flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", special: "🔥 Special" },
                 revs: [
                     {text: '"Delivery in Milan completed in less than two hours, crazy Gelato quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
@@ -423,7 +428,7 @@
                 ]
             },
             it: {
-                all: "Tutte", ageTitle: "VERIFICA RIGIDA", ageDesc: "Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.", ageEnter: "ENTRA (+18)",
+                all: "Tutte", ageTitle: "VERIFICA ETA'", ageDesc: "Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.", ageEnter: "ENTRA (+18)",
                 sub: "Direttamente alla Fonte • Rete di Consegna Ufficiale", promo: "🔥 PROMO: Ordina più di 10g totali (anche misti) per lo sconto automatico del 25%!",
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
@@ -437,7 +442,7 @@
                 infT3: "🌿 Cartine e Accessori Premium", infD3: "Selezioniamo solo cartine sottilissime non sbiancate e filtri organici di altissima qualità per la nostra community, inclusi come dotazione standard del nostro catalogo.",
                 infT4: "💬 Contatto Diretto & Supporto", infD4: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
                 btnContact: "💬 Parla con @mrshop20", revTitle: "Recensioni Verificate Clienti", revSub: "Recensioni reali estratte direttamente dal nostro canale.", btnGroupRev: "⭐️ Apri Gruppo Recensioni Telegram",
-                actPromo: "🎉 Sconto Grammi Misti Attivato! Quota grammi scontata del 25%!", totEff: "Totale Effettivo", free: "GRATIS",
+                actPromo: "🎉 Sconto Grammi Misti Attivato! Quota grammi scontata del 25%!", totEff: "Totale Effettivo", free: "GRATIS", fieldErr: "Compila i campi Obbligatori: Città, Indirizzo e CAP!",
                 cats: { flowers: "🌿 Fiori", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Funghi", special: "🔥 Speciali" },
                 revs: [
                     {text: '"Consegna a Milano effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
@@ -458,9 +463,9 @@
                 infT1: "📦 Processus de Livraison", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Chaque paquet est scellé hermétiquement sous vide, totalement inodore.",
                 infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies. Si vous n'en avez pas, l'application vous guidera pour un achat instantané via MoonPay avec votre carte bancaire.",
                 infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies et des filtres organiques pour notre communauté.",
-                infT4: "💬 Contact Direct & Support", infD3: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
+                infT4: "💬 Contact Direct & Support", infD4: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
-                actPromo: "🎉 Remise Grammes Mélangés Activée! Prix des grammes réduit de 25%!", totEff: "Total Effectif", free: "GRATUIT",
+                actPromo: "🎉 Remise Grammes Mélangés Activée! Prix des grammes réduit de 25%!", totEff: "Total Effectif", free: "GRATUIT", fieldErr: "Veuillez remplir les champs Ville, Adresse et Code Postal!",
                 cats: { flowers: "🌿 Fleurs", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Champignons", special: "🔥 Spécial" },
                 revs: [
                     {text: '"Livraison à Paris en moins de deux heures, qualité Gelato incroyable, emballage discret au top."', user: "@luca_pro - Il y a 2 jours"},
@@ -481,9 +486,9 @@
                 infT1: "📦 Lieferprozess", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Jedes Paket ist hermetisch vakuumversiegelt, absolut geruchlos und ohne äußere Hinweise.",
                 infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Wenn Sie keine Kryptowährungen besitzen, führt Sie unsere App zum Sofortkauf über MoonPay mit Ihrer Kreditkarte.",
                 infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten ultradünnen ungebleichten Blättchen und Bio-Filter für unsere Community aus.",
-                infT4: "💬 Direkter Kontakt & Support", infD3: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
+                infT4: "💬 Direkter Kontakt & Support", infD4: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
-                actPromo: "🎉 Rabatt für gemischte Gramm aktiviert! Grammpreis um 25% reduziert!", totEff: "Gesamtsumme", free: "GRATIS",
+                actPromo: "🎉 Rabatt für gemischte Gramm aktiviert! Grammpreis um 25% reduziert!", totEff: "Gesamtsumme", free: "GRATIS", fieldErr: "Bitte füllen Sie die Felder Stadt, Adresse und Postleitzahl aus!",
                 cats: { flowers: "🌿 Blüten", hash: "🍯 Hasch", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Pilze", special: "🔥 Spezial" },
                 revs: [
                     {text: '"Lieferung in Berlin in weniger als zwei Stunden erledigt, krasse Gelato-Qualität, makellose Verpackung."', user: "@luca_pro - vor 2 Tagen"},
@@ -504,9 +509,9 @@
                 infT1: "📦 Процесс доставки", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Каждая посылка герметично упакована в вакуум, не имеет запаха и внешних обозначений содержимом.",
                 infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты. Если у вас нет крипты, приложение поможет вам мгновенно купить ее через MoonPay с помощью вашей обычной карты.",
                 infT3: "🌿 Бумага и аксессуары премиум-класса", infD3: "Мы выбираем только тончайшую неотбеленную бумагу и органические фильтры высшего качества для нашего сообщества.",
-                infT4: "💬 Прямая связь и поддержка", infD3: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
+                infT4: "💬 Прямая связь и поддержка", infD4: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
                 btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
-                actPromo: "🎉 Скидка на микс активирована! Стоимость граммов снижена на 25%!", totEff: "Итого к оплате", free: "БЕСПЛАТНО",
+                actPromo: "🎉 Скидка на микс активирована! Стоимость граммов снижена на 25%!", totEff: "Итого к оплате", free: "БЕСПЛАТНО", fieldErr: "Пожалуйста, заполните поля Город, Адрес и Почтовый Индекс!",
                 cats: { flowers: "🌿 Цветы", hash: "🍯 Гашиш", edibles: "🍫 Сладости", vapes: "💨 Вейпы", mushrooms: "🍄 Грибы", special: "🔥 Особое" },
                 revs: [
                     {text: '"Доставка в Милане заняла меньше двух часов, качество Gelato сумасшедшее, упаковка идеальная."', user: "@luca_pro - 2 дня назад"},
@@ -516,7 +521,7 @@
             }
         };
 
-        let currentLang = 'en'; // Requisito 8: default inglese
+        let currentLang = 'en'; 
         let currentSelectedPayment = 'crypto';
         let activeCategoryFilter = 'all';
 
@@ -558,7 +563,6 @@
             document.getElementById('ageGate').classList.add('hidden');
         }
 
-        // Requisito 1: Funzione per randomizzare la lista prodotti nella sezione "Tutte"
         function getShuffledProducts() {
             let arr = [...productsData];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -675,7 +679,6 @@
             const grid = document.createElement('div');
             grid.className = 'products-grid';
 
-            // Requisito 1: Mix casuale per la categoria "All"
             const sourceArray = filterCategory === 'all' ? getShuffledProducts() : productsData.filter(p => p.category === filterCategory);
 
             sourceArray.forEach(p => {
@@ -707,5 +710,212 @@
         function modifyQty(id, change) {
             const p = productsData.find(prod => prod.id === id);
             let current = cart[id] || 0;
-            current
+            current += change;
+            if (current <= 0) {
+                delete cart[id];
+                current = 0;
+            } else {
+                cart[id] = current;
+            }
+            
+            const unitLabel = p.isGramAsset ? 'g' : 'pz';
+            const el = document.getElementById(`qty-${id}`);
+            if (el) el.innerText = `${current}${unitLabel}`;
+            
+            updateCartUI();
+        }
+
+        function calculateCartMetrics() {
+            let totalGramAssetsCount = 0;
+            let gramAssetsCost = 0;
+            let normalAssetsCost = 0;
+            let itemsCount = 0;
+
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                const qty = cart[id];
+                itemsCount += qty;
+
+                if (p.isGramAsset) {
+                    totalGramAssetsCount += qty;
+                    gramAssetsCost += (p.price * qty);
+                } else {
+                    normalAssetsCost += (p.price * qty);
+                }
+            });
+
+            let finalGramCost = gramAssetsCost;
+            let promoApplied = false;
+
+            if (totalGramAssetsCount >= 10) {
+                promoApplied = true;
+                finalGramCost = gramAssetsCost * 0.75;
+            }
+
+            const finalTotal = finalGramCost + normalAssetsCost;
+
+            return {
+                itemsCount,
+                totalGramAssetsCount,
+                originalGramCost: gramAssetsCost,
+                finalGramCost,
+                finalTotal,
+                promoApplied
+            };
+        }
+
+        function updateCartUI() {
+            const metrics = calculateCartMetrics();
+            const badge = document.getElementById('cartBadge');
+            
+            if (metrics.itemsCount > 0) {
+                badge.innerText = metrics.itemsCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+            renderCartPage();
+        }
+
+        function renderCartPage() {
+            const container = document.getElementById('cartItemsContainer');
+            const formBlock = document.getElementById('checkoutFormBlock');
+            
+            if (Object.keys(cart).length === 0) {
+                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint);">${i18n[currentLang].empty}</p>`;
+                formBlock.style.display = 'none';
+                return;
+            }
+
+            formBlock.style.display = 'block';
+            let html = '';
+
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                const qty = cart[id];
+                const unitLabel = p.isGramAsset ? 'g' : 'pz';
+                html += `
+                    <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
+                        <div>
+                            <strong>${p.name}</strong> <span style="color:var(--primary-neon); font-weight:bold;">x${qty}${unitLabel}</span>
+                        </div>
+                        <div>€${(p.price * qty).toFixed(2)}</div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div style="background:rgba(0,229,255,0.05); border:1px dashed var(--secondary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--secondary-neon); font-size:12px; display:flex; justify-content:space-between;">
+                    <span>🎁 Kit Gifts (Lighter + Papers + Filters)</span>
+                    <strong>${i18n[currentLang].free}</strong>
+                </div>
+            `;
+
+            const metrics = calculateCartMetrics();
+            if (metrics.promoApplied) {
+                html += `
+                    <div style="background:rgba(0,255,102,0.1); border:1px dashed var(--primary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--primary-neon); font-size:13px;">
+                        ${i18n[currentLang].actPromo}
+                    </div>
+                `;
+            }
+
+            html += `
+                <div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">
+                    ${i18n[currentLang].totEff}: <span style="color:var(--primary-neon);">€${metrics.finalTotal.toFixed(2)}</span>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function setPaymentMethod(method) {
+            currentSelectedPayment = method;
+            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
+            document.getElementById(`pay-opt-${method}`).classList.add('active');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(`view-${tabId}`).classList.add('active');
+            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+
+            if (tabId === 'chat') {
+                renderCartPage();
+            }
+        }
+
+        document.getElementById('select-time').addEventListener('change', function() {
+            const specInput = document.getElementById('input-time-spec');
+            if (this.value.includes('Specific') || this.value.includes('Specifica')) {
+                specInput.style.display = 'block';
+            } else {
+                specInput.style.display = 'none';
+            }
+        });
+
+        function processOrderSend() {
+            const citta = document.getElementById('input-city').value.trim();
+            const indirizzo = document.getElementById('input-address').value.trim();
+            const cap = document.getElementById('input-cap').value.trim();
+            let orario = document.getElementById('select-time').value;
+
+            if (orario.includes('Specific') || orario.includes('Specifica')) {
+                orario = "Slot: " + document.getElementById('input-time-spec').value.trim();
+            }
+
+            if (!citta || !indirizzo || !cap) {
+                alert(i18n[currentLang].fieldErr);
+                return;
+            }
+
+            const metrics = calculateCartMetrics();
+            
+            let msg = `🛒 *NEW ORDER - MRSHOP20*\n`;
+            msg += `----------------------------------------\n`;
+            
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                const qty = cart[id];
+                const unitLabel = p.isGramAsset ? 'g' : 'pz';
+                msg += `• *${p.name}*: ${qty}${unitLabel}\n`;
+            });
+
+            msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\n`;
+            msg += `----------------------------------------\n`;
+            if (metrics.promoApplied) {
+                msg += `🎁 *25% Promo Applied on ${metrics.totalGramAssetsCount}g mixed!*\n`;
+            }
+            msg += `💰 *TOTAL PRICE:* €${metrics.finalTotal.toFixed(2)}\n\n`;
+            
+            msg += `📍 *DELIVERY DETAILS:*\n`;
+            msg += `🏙️ City: ${citta}\n`;
+            msg += `🏠 Address: ${indirizzo}\n`;
+            msg += `📮 ZIP Code: ${cap}\n`;
+            msg += `⏰ Time requested: ${orario}\n\n`;
+
+            msg += `💳 *PAYMENT METHOD:*\n`;
+            if (currentSelectedPayment === 'crypto') {
+                msg += `➡ *Cryptocurrencies* (Waiting for address details in chat)\n`;
+            } else if (currentSelectedPayment === 'moonpay') {
+                msg += `➡ *Card via MoonPay*\n⚠️ *INSTRUCTION:* To complete card payments, you must download the MoonPay application or use their checkout interface, buy Bitcoin (BTC) directly using your debit/credit card, and transfer it to our direct wallet address provided in chat.`;
+            } else if (currentSelectedPayment === 'paypal') {
+                msg += `➡ *PayPal* (Subject to live approval)\n`;
+            }
+
+            const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
+            
+            if (tg && tg.sendData) {
+                tg.sendData(msg);
+            }
+            window.open(targetUrl, '_blank');
+        }
+
+        // Boot-Up dell'applicazione in lingua Inglese predefinita
+        setLanguage('en');
+    </script>
+</body>
+</html>
 
