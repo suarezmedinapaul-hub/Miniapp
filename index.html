@@ -77,10 +77,25 @@
         }
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
 
-        /* Mini Language Switcher */
+        /* Multi-Currency & Language Header Toolbar */
+        .top-controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px;
+            background: rgba(0,0,0,0.3);
+        }
+        .currency-select {
+            background: #1c1c24;
+            color: var(--primary-neon);
+            border: 1px solid #3a3a44;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            outline: none;
+        }
         .lang-selector {
-            position: absolute;
-            top: 10px; right: 10px;
             display: flex; gap: 3px;
         }
         .lang-btn {
@@ -164,6 +179,8 @@
         .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
         .info-section h3 { color: var(--secondary-neon); margin-bottom: 10px; font-size: 18px; }
         .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
+        .alert-section { border-left: 4px solid var(--danger); background: rgba(255, 59, 48, 0.05); }
+        .spain-section { border-left: 4px solid var(--accent-purple); background: rgba(157, 78, 221, 0.05); }
         .papers-hosted-img {
             width: 100%; height: 190px; object-fit: cover; border-radius: 12px;
             margin: 15px 0; border: 1px solid rgba(255,255,255,0.1);
@@ -239,15 +256,16 @@
         <button class="lang-btn" style="margin-top:20px; padding:12px 24px; font-size: 14px; border-color:var(--primary-neon);" id="btn-age-enter" onclick="verifyAge()">ENTER (+18)</button>
     </div>
 
-    <!-- Header Section -->
-    <div class="brand-header">
-        <div class="main-logo-container">
-            <img src="https://i.imgur.com/OEID9J5.jpg" alt="Logo Mrshop20">
-        </div>
-        <h1>Mrshop20</h1>
-        <p id="txt-header-sub">Direct From Source • Official Delivery Network</p>
+    <!-- Top Toolbar (Language & Currency) -->
+    <div class="top-controls-bar">
+        <select class="currency-select" id="currencySelect" onchange="changeCurrency(this.value)">
+            <option value="EUR">EUR (€)</option>
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="JPY">JPY (¥)</option>
+            <option value="RUB">RUB (₽)</option>
+        </select>
 
-        <!-- Selector Rigido Traduzioni -->
         <div class="lang-selector">
             <button class="lang-btn active" id="lang-btn-en" onclick="setLanguage('en')">EN</button>
             <button class="lang-btn" id="lang-btn-it" onclick="setLanguage('it')">IT</button>
@@ -257,13 +275,22 @@
         </div>
     </div>
 
+    <!-- Header Section -->
+    <div class="brand-header">
+        <div class="main-logo-container">
+            <img src="https://ibb.co/v4g0S6M8" alt="Logo Mrshop20">
+        </div>
+        <h1>Mrshop20</h1>
+        <p id="txt-header-sub">Direct From Source • Official Delivery Network</p>
+    </div>
+
     <div class="promo-banner" id="txt-promo">
         🔥 PROMO: Order more than 10g total (mixed too) for an automatic mega discount!
     </div>
 
     <!-- Free Assets Informer Banner -->
     <div class="gift-banner">
-        <img class="gift-thumb" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Gifts Showcase">
+        <img class="gift-thumb" src="https://ibb.co/C5fD7Hby" alt="Gifts Showcase">
         <div class="gift-text">
             <strong id="gift-title">🎁 FREE GIFTS</strong>
             <span id="gift-desc">Clipper lighter, rolling papers and filters included free in every single order!</span>
@@ -306,7 +333,7 @@
                 <label id="lbl-time">PREFERRED DELIVERY TIME</label>
                 <select id="select-time">
                     <option value="As soon as possible / ASAP" id="opt-asap">As soon as possible / ASAP</option>
-                    <option value="Express Shipping 24/48h" id="opt-ship">Express Shipping 24/48h</option>
+                    <option value="Express Shipping 24/48h (Wholesale Prices - PM us)" id="opt-ship">Express Shipping 24/48h (Wholesale Prices)</option>
                     <option value="Specific Time Slot" id="opt-spec">Specific Time Slot (Write below)</option>
                 </select>
                 <input type="text" id="input-time-spec" placeholder="" style="margin-top:6px; display:none;">
@@ -346,9 +373,31 @@
 
     <!-- VIEW 3: DISCREET INFO PACKAGING -->
     <div id="view-info" class="app-view">
+        <!-- CRITICAL PRIVACY & CASH WARNING -->
+        <div class="info-section alert-section">
+            <h3 style="color:var(--danger);" id="info-p0-t">⚠️ NO CASH ACCEPTED Policy (Upfront Payment Only)</h3>
+            <p id="info-p0-d" style="color:#fff; font-weight: 500;">
+                We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, and they arrive randomly to pick up your package and securely deliver it near your coordinates. 
+                <br><br>
+                When the rider reaches the spot, they will contact you directly to guide you to the precise hideout (e.g., behind a pillar, under a car wheel, or a specific discrete point). This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider. Our couriers are experts in discrete drop methodologies. 
+                <br><br>
+                <strong>Do not insist on cash payments. We make absolutely zero exceptions. No upfront payment, no order.</strong>
+            </p>
+        </div>
+
+        <!-- SPAIN CANNABIS CLUBS MODULE -->
+        <div class="info-section spain-section">
+            <h3 style="color:var(--accent-purple);">🇪🇸 Cannabis Clubs in Spain</h3>
+            <p style="color:#fff;">
+                Clubs in Spain are for residents only and you need an invitation to join. If you want to sign up, it costs €50, which includes a €30 credit to spend inside. The membership lasts one year. Alternatively, you can just order for home delivery.
+            </p>
+        </div>
+
         <div class="info-section">
-            <h3 id="info-p1-t">📦 Delivery Process</h3>
-            <p id="info-p1-d">We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding or content indicators to protect your privacy 100%.</p>
+            <h3 id="info-p1-t">📦 Delivery Process & Wholesale Shipping</h3>
+            <p id="info-p1-d">We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding. 
+            <br><br>
+            <strong>💡 WHOLESALE NOTICE:</strong> Orders selected with 24/48h Express Shipping operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.</p>
         </div>
         <div class="info-section">
             <h3 id="info-p2-t">💳 Accepted Payments</h3>
@@ -357,7 +406,7 @@
         <div class="info-section">
             <h3 id="info-p3-t">🌿 Premium Rolling Papers & Accessories</h3>
             <p id="info-p3-d">We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.</p>
-            <img class="papers-hosted-img" src="https://i.imgur.com/bQYgJ9E.jpeg" alt="Rolling Papers and Filters Presentation">
+            <img class="papers-hosted-img" src="https://ibb.co/C5fD7Hby" alt="Rolling Papers and Filters Presentation">
         </div>
         <div class="info-section">
             <h3 id="info-p4-t">💬 Direct Contact & Support</h3>
@@ -403,6 +452,16 @@
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
 
+        // Rigorous multi-currency ratios setup
+        const currencyConfig = {
+            EUR: { symbol: '€', rate: 1.0 },
+            USD: { symbol: '$', rate: 1.08 },
+            GBP: { symbol: '£', rate: 0.85 },
+            JPY: { symbol: '¥', rate: 168.5 },
+            RUB: { symbol: '₽', rate: 98.2 }
+        };
+        let activeCurrency = 'EUR';
+
         const i18n = {
             en: {
                 all: "All", ageTitle: "AGE VERIFICATION", ageDesc: "You must be 18+ to unlock the official Mrshop20 catalog.", ageEnter: "ENTER (+18)",
@@ -410,11 +469,11 @@
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
                 giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every single order!",
-                asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h", spec: "Specific Time Slot (Write below)",
+                asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h (Wholesale Prices - PM us)", spec: "Specific Time Slot (Write below)",
                 p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_spec: "e.g. Between 14:00 and 16:00",
                 delDetails: "Delivery Details", cryptoSub: "Receive direct payment address in chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
                 ppSub: "Not always available. Ask in chat for approval", reqAvail: "REQUEST AVAIL.",
-                infT1: "📦 Delivery Process", infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding or content indicators to protect your privacy 100%.",
+                infT1: "📦 Delivery Process & Wholesale Shipping", infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.\n\n💡 WHOLESALE NOTICE: Orders selected with 24/48h Express Shipping operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.",
                 infT2: "💳 Accepted Payments", infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.",
                 infT3: "🌿 Premium Rolling Papers & Accessories", infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
                 infT4: "💬 Direct Contact & Support", infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
@@ -422,8 +481,8 @@
                 actPromo: "🎉 Mixed Grams Discount Activated! Grams price reduced by 25%!", totEff: "Total Price", free: "FREE", fieldErr: "Please fill City, Address and ZIP code fields!",
                 cats: { flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", special: "🔥 Special" },
                 revs: [
-                    {text: '"Delivery in Milan completed in less than two hours, crazy Gelato quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
-                    {text: '"Express package arrived in 24h. Everything securely vacuum-packed, paid with MoonPay super easily."', user: "@mario_k - 5 days ago"},
+                    {text: '"Delivery completed in less than two hours, crazy quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
+                    {text: '"Express package arrived in 24h. Wholesales prices are so cheap. Everything securely vacuum-packed."', user: "@mario_k - 5 days ago"},
                     {text: '"Best shop. Prices drop significantly if you combine mixed strains, ordered 15g and saved a lot."', user: "@alex_terps - 1 week ago"}
                 ]
             },
@@ -433,11 +492,11 @@
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
                 giftT: "🎁 REGALO COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis in ogni singolo ordine!",
-                asap: "Appena possibile / ASAP", ship: "Spedizione Express 24/48h", spec: "Fascia Oraria Specifica (Scrivi sotto)",
+                asap: "Appena possibile / ASAP", ship: "Spedizione Express 24/48h (Prezzi Ingrosso - Scrivici in PM)", spec: "Fascia Oraria Specifica (Scrivi sotto)",
                 p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_spec: "Es: Tra le 14:00 e le 16:00",
                 delDetails: "Dati Spedizione / Consegna", cryptoSub: "Ricevi l'indirizzo esatto per il pagamento in chat", cardSub: "Ti guideremo su come comprare Bitcoin all'istante con carta",
                 ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
-                infT1: "📦 Processo di Delivery", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto, assicurando una privacy al 100%.",
+                infT1: "📦 Processo di Delivery & Tariffe Ingrosso", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto.\n\n💡 NOTA INGROSSO: Gli ordini spediti tramite Spedizione Express 24/48h beneficiano di tariffe stock/all'ingrosso drasticamente inferiori rispetto al delivery locale immediato. Scrivici in privato per ricevere informazioni aggiuntive sul listino ingrosso.",
                 infT2: "💳 Metodi di Pagamento Ammessi", infD2: "Siamo un network sicuro basato su transazioni protette. Accettiamo le principali Criptovalute. Se non le possiedi, l'app ti guiderà all'acquisto istantaneo via MoonPay con la tua carta.",
                 infT3: "🌿 Cartine e Accessori Premium", infD3: "Selezioniamo solo cartine sottilissime non sbiancate e filtri organici di altissima qualità per la nostra community, inclusi come dotazione standard del nostro catalogo.",
                 infT4: "💬 Contatto Diretto & Supporto", infD4: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
@@ -445,8 +504,8 @@
                 actPromo: "🎉 Sconto Grammi Misti Attivato! Quota grammi scontata del 25%!", totEff: "Totale Effettivo", free: "GRATIS", fieldErr: "Compila i campi Obbligatori: Città, Indirizzo e CAP!",
                 cats: { flowers: "🌿 Fiori", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Funghi", special: "🔥 Speciali" },
                 revs: [
-                    {text: '"Consegna a Milano effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
-                    {text: '"Spedizione arrivata in 24 ore. Tutto sigillato al millimetro, ho pagato con MoonPay in modo facilissimo."', user: "@mario_k - 5 giorni fa"},
+                    {text: '"Consegna effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
+                    {text: '"Spedizione arrivata in 24 ore. Prezzi ingrosso super convenienti rispetto al delivery. Tutto sigillato."', user: "@mario_k - 5 giorni fa"},
                     {text: '"Top shop. I prezzi scendono se prendi grammi misti, ho fatto 15 grammi misti e ho risparmiato un sacco."', user: "@alex_terps - 1 settimana fa"}
                 ]
             },
@@ -456,11 +515,11 @@
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
                 giftT: "🎁 CADEAUX GRATUITS", giftD: "Briquet Clipper, feuilles et filtres inclus gratuitement dans chaque commande!",
-                asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
+                asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h (Prix de gros)", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
                 p_city: "Ex: Paris, Lyon, Marseille...", p_address: "Nom de rue et Numéro", p_spec: "Ex: Entre 14:00 et 16:00",
                 delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "Nous vous guiderons pour acheter des Bitcoins par carte",
                 ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
-                infT1: "📦 Processus de Livraison", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Chaque paquet est scellé hermétiquement sous vide, totalement inodore.",
+                infT1: "📦 Processus de Livraison & Prix de Gros", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Les commandes expédiées en 24/48h bénéficient de prix de gros beaucoup plus bas que la livraison locale.",
                 infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies. Si vous n'en avez pas, l'application vous guidera pour un achat instantané via MoonPay avec votre carte bancaire.",
                 infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies et des filtres organiques pour notre communauté.",
                 infT4: "💬 Contact Direct & Support", infD4: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
@@ -468,8 +527,8 @@
                 actPromo: "🎉 Remise Grammes Mélangés Activée! Prix des grammes réduit de 25%!", totEff: "Total Effectif", free: "GRATUIT", fieldErr: "Veuillez remplir les champs Ville, Adresse et Code Postal!",
                 cats: { flowers: "🌿 Fleurs", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Champignons", special: "🔥 Spécial" },
                 revs: [
-                    {text: '"Livraison à Paris en moins de deux heures, qualité Gelato incroyable, emballage discret au top."', user: "@luca_pro - Il y a 2 jours"},
-                    {text: '"Colis express arrivé en 24h. Tout est bien emballé sous vide, payé par MoonPay très facilement."', user: "@mario_k - Il y a 5 jours"},
+                    {text: '"Livraison en moins de deux heures, qualité Gelato incroyable, emballage discret au top."', user: "@luca_pro - Il y a 2 jours"},
+                    {text: '"Colis express arrivé en 24h. Prix de gros très bas, payé par MoonPay très facilement."', user: "@mario_k - Il y a 5 jours"},
                     {text: '"Meilleur shop. Les prix baissent si vous mélangez les variétés, j\'ai pris 15g et économisé gros."', user: "@alex_terps - Il y a 1 semaine"}
                 ]
             },
@@ -479,11 +538,11 @@
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
                 giftT: "🎁 GRATIS GESCHENKE", giftD: "Clipper Feuerzeug, Blättchen und Filter in jeder Bestellung kostenlos enthalten!",
-                asap: "Schnellstmöglich / ASAP", ship: "Expressversand 24/48h", spec: "Spezifisches Zeitfenster (Unten eintragen)",
+                asap: "Schnellstmöglich / ASAP", ship: "Expressversand 24/48h (Großhandelspreise)", spec: "Spezifisches Zeitfenster (Unten eintragen)",
                 p_city: "z.B. Berlin, München, Hamburg...", p_address: "Straße und Hausnummer", p_spec: "z.B. Zwischen 14:00 und 16:00",
                 delDetails: "Lieferdetails", cryptoSub: "Erhalten Sie die Zahlungsadresse direkt im Chat", cardSub: "Wir zeigen Ihnen, wie Sie BTC sofort mit Karte kaufen",
                 ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
-                infT1: "📦 Lieferprozess", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Jedes Paket ist hermetisch vakuumversiegelt, absolut geruchlos und ohne äußere Hinweise.",
+                infT1: "📦 Lieferprozess & Großhandelspreise", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Die Preise für den 24/48-Stunden-Expressversand sind Großhandelspreise und viel niedriger als für die Lieferung vor Ort.",
                 infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Wenn Sie keine Kryptowährungen besitzen, führt Sie unsere App zum Sofortkauf über MoonPay mit Ihrer Kreditkarte.",
                 infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten ultradünnen ungebleichten Blättchen und Bio-Filter für unsere Community aus.",
                 infT4: "💬 Direkter Kontakt & Support", infD4: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
@@ -491,9 +550,9 @@
                 actPromo: "🎉 Rabatt für gemischte Gramm aktiviert! Grammpreis um 25% reduziert!", totEff: "Gesamtsumme", free: "GRATIS", fieldErr: "Bitte füllen Sie die Felder Stadt, Adresse und Postleitzahl aus!",
                 cats: { flowers: "🌿 Blüten", hash: "🍯 Hasch", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Pilze", special: "🔥 Spezial" },
                 revs: [
-                    {text: '"Lieferung in Berlin in weniger als zwei Stunden erledigt, krasse Gelato-Qualität, makellose Verpackung."', user: "@luca_pro - vor 2 Tagen"},
-                    {text: '"Expresspaket in 24 Stunden angekommen. Alles absolut geruchlos vakuumverpackt, super einfach."', user: "@mario_k - vor 5 Tagen"},
-                    {text: '"Bester Shop. Preise sinken deutlich wenn man mischt, habe 15g bestellt und viel gespart."', user: "@alex_terps - vor 1 Woche"}
+                    {text: '"Lieferung in weniger als zwei Stunden erledigt, krasse Gelato-Qualität, makellose Verpackung."', user: "@luca_pro - vor 2 Tagen"},
+                    {text: '"Expresspaket in 24 Stunden angekommen. Großhandelspreise sind so billig. Super einfach."', user: "@mario_k - vor 5 Tagen"},
+                    {text: '"Bester Shop. Preise sinken deutlich wenn man mischt, habe 15g ordered und viel gespart."', user: "@alex_terps - vor 1 Woche"}
                 ]
             },
             ru: {
@@ -502,11 +561,11 @@
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", giftD: "Зажигалка Clipper, бумага и фильтры бесплатно прилагаются к каждому заказу!",
-                asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч", spec: "Указать время (напишите ниже)",
+                asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч (Оптовые цены)", spec: "Указать время (напишите ниже)",
                 p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_spec: "Пример: Между 14:00 и 16:00",
                 delDetails: "Данные доставки", cryptoSub: "Получите точный адрес для оплаты в чате", cardSub: "Мы поможем вам мгновенно купить Биткоин с карты",
                 ppSub: "Доступно не всегда. Уточняйте у оператора в чате", reqAvail: "ПО ЗАПРОСУ",
-                infT1: "📦 Процесс доставки", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Каждая посылка герметично упакована в вакуум, не имеет запаха и внешних обозначений содержимом.",
+                infT1: "📦 Доставка и оптовые цены", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Цены на экспресс-доставку 24/48ч являются оптовыми и значительно ниже цен на локальную доставку.",
                 infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты. Если у вас нет крипты, приложение поможет вам мгновенно купить ее через MoonPay с помощью вашей обычной карты.",
                 infT3: "🌿 Бумага и аксессуары премиум-класса", infD3: "Мы выбираем только тончайшую неотбеленную бумагу и органические фильтры высшего качества для нашего сообщества.",
                 infT4: "💬 Прямая связь и поддержка", infD4: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
@@ -514,8 +573,8 @@
                 actPromo: "🎉 Скидка на микс активирована! Стоимость граммов снижена на 25%!", totEff: "Итого к оплате", free: "БЕСПЛАТНО", fieldErr: "Пожалуйста, заполните поля Город, Адрес и Почтовый Индекс!",
                 cats: { flowers: "🌿 Цветы", hash: "🍯 Гашиш", edibles: "🍫 Сладости", vapes: "💨 Вейпы", mushrooms: "🍄 Грибы", special: "🔥 Особое" },
                 revs: [
-                    {text: '"Доставка в Милане заняла меньше двух часов, качество Gelato сумасшедшее, упаковка идеальная."', user: "@luca_pro - 2 дня назад"},
-                    {text: '"Экспресс-посылка дошла за 24 часа. Все намертво запечатано в вакуум, легко оплатил через MoonPay."', user: "@mario_k - 5 дней назад"},
+                    {text: '"Доставка заняла меньше двух часов, качество Gelato сумасшедшее, упаковка идеальная."', user: "@luca_pro - 2 дня назад"},
+                    {text: '"Экспресс-посылка дошла за 24 часа. Оптовые цены очень низкие, легко оплатил через MoonPay."', user: "@mario_k - 5 дня назад"},
                     {text: '"Лучший шоп. Цены сильно падают, если брать микс разных сортов, заказал 15г и отлично сэкономил."', user: "@alex_terps - 1 неделю назад"}
                 ]
             }
@@ -561,6 +620,18 @@
         }
         if (localStorage.getItem('mrshopAge') === '18') {
             document.getElementById('ageGate').classList.add('hidden');
+        }
+
+        function changeCurrency(val) {
+            activeCurrency = val;
+            renderProducts(activeCategoryFilter);
+            renderCartPage();
+        }
+
+        function getConvertedPriceStr(baseEurPrice) {
+            const cfg = currencyConfig[activeCurrency];
+            const converted = baseEurPrice * cfg.rate;
+            return `${cfg.symbol}${converted.toFixed(2)}`;
         }
 
         function getShuffledProducts() {
@@ -698,7 +769,7 @@
                             <button class="gram-btn" onclick="modifyQty('${p.id}', 1)">+</button>
                         </div>
                         <div style="font-size:14px; font-weight:bold; color:var(--primary-neon); margin-top:8px; text-align:center;">
-                            €${p.price}/${p.isGramAsset ? 'g' : 'pz'}
+                            ${getConvertedPriceStr(p.price)}/${p.isGramAsset ? 'g' : 'pz'}
                         </div>
                     </div>
                 `;
@@ -799,7 +870,7 @@
                         <div>
                             <strong>${p.name}</strong> <span style="color:var(--primary-neon); font-weight:bold;">x${qty}${unitLabel}</span>
                         </div>
-                        <div>€${(p.price * qty).toFixed(2)}</div>
+                        <div>${getConvertedPriceStr(p.price * qty)}</div>
                     </div>
                 `;
             });
@@ -822,7 +893,7 @@
 
             html += `
                 <div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">
-                    ${i18n[currentLang].totEff}: <span style="color:var(--primary-neon);">€${metrics.finalTotal.toFixed(2)}</span>
+                    ${i18n[currentLang].totEff}: <span style="color:var(--primary-neon);">${getConvertedPriceStr(metrics.finalTotal)}</span>
                 </div>
             `;
 
@@ -888,7 +959,7 @@
             if (metrics.promoApplied) {
                 msg += `🎁 *25% Promo Applied on ${metrics.totalGramAssetsCount}g mixed!*\n`;
             }
-            msg += `💰 *TOTAL PRICE:* €${metrics.finalTotal.toFixed(2)}\n\n`;
+            msg += `💰 *TOTAL PRICE:* ${getConvertedPriceStr(metrics.finalTotal)} (${activeCurrency})\n\n`;
             
             msg += `📍 *DELIVERY DETAILS:*\n`;
             msg += `🏙️ City: ${citta}\n`;
@@ -918,4 +989,3 @@
     </script>
 </body>
 </html>
-
