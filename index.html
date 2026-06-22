@@ -38,7 +38,7 @@
             overflow-x: hidden;
         }
 
-        /* Schermata Verifica Città Professionale */
+        /* Schermata Verifica Città */
         .city-gate {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -72,7 +72,7 @@
         .city-input-frame input:focus { border-color: var(--primary-neon); outline: none; }
         .city-status-msg { margin-top: 15px; font-size: 14px; font-weight: 600; line-height: 1.4; }
 
-        /* Brand & Top Header Area */
+        /* Header Brand */
         .brand-header {
             padding: 20px;
             text-align: center;
@@ -88,7 +88,7 @@
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
         .brand-header p { font-size: 13px; color: var(--text-hint); margin-top: 4px; font-weight: 500; }
 
-        /* Toolbar controlli lingua/valuta */
+        /* Controlli bar */
         .top-controls-bar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 8px 12px; background: rgba(0,0,0,0.4);
@@ -120,7 +120,7 @@
         .gift-text { font-size: 12px; line-height: 1.4; }
         .gift-text strong { color: var(--secondary-neon); display: block; font-size: 13px; }
 
-        /* Categorie Scorritre intuitive con indicatori visivi */
+        /* Categorie intuitive con freccia indicatrice */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
             background: rgba(11, 11, 14, 0.96); backdrop-filter: blur(12px);
@@ -167,7 +167,7 @@
         .product-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .product-desc { font-size: 11px; color: var(--text-hint); height: 30px; overflow: hidden; line-height: 1.3; margin-bottom: 8px; }
         
-        /* Contatori e Selettori */
+        /* Contatori */
         .gram-selector {
             display: flex; align-items: center; justify-content: space-between;
             background: #1f1f2a; border-radius: 10px; padding: 3px; margin-top: auto;
@@ -179,7 +179,7 @@
         .gram-btn:active { background: #444; }
         .gram-value { font-weight: 700; font-size: 13px; color: var(--primary-neon); }
 
-        /* Sezioni Informative */
+        /* Sezioni Info */
         .info-section { background: var(--bg-card); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.04); margin-bottom: 12px; }
         .info-section h3 { color: var(--secondary-neon); margin-bottom: 8px; font-size: 16px; }
         .info-section p { font-size: 13px; color: #d1d1d6; line-height: 1.4; margin-bottom: 8px; }
@@ -190,7 +190,7 @@
             padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 13px;
         }
 
-        /* Modulo Checkout */
+        /* Checkout */
         .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-top: 15px; border: 1px solid #2a2a35; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 11px; color: var(--text-hint); margin-bottom: 4px; font-weight: 600; }
@@ -215,7 +215,7 @@
         .review-stars { color: var(--warning); font-size: 12px; margin-bottom: 3px; }
         .review-user { font-size: 11px; color: var(--text-hint); font-weight: bold; }
 
-        /* Navigazione Inferiore */
+        /* Navigazione */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100vw;
             background: rgba(22, 22, 30, 0.97); backdrop-filter: blur(20px);
@@ -235,7 +235,7 @@
             background: var(--primary-neon); color: #000; font-weight: 800; padding: 14px; text-align: center; border-radius: 10px; margin-top: 15px; cursor: pointer; font-size: 15px; width: 100%; border: none;
         }
 
-        /* Struttura Lightbox */
+        /* Lightbox */
         .lightbox-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.92); z-index: 100000;
             display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
@@ -245,7 +245,7 @@
         .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 28px; color: white; cursor: pointer; font-weight: bold; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
     <!-- Lightbox Modal -->
     <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
@@ -253,7 +253,7 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom" onclick="event.stopPropagation()">
     </div>
 
-    <!-- Schermata di Controllo Copertura Città -->
+    <!-- Verifica Copertura Città -->
     <div class="city-gate" id="cityGate">
         <div class="city-logo">📍</div>
         <div class="city-input-frame">
@@ -265,7 +265,7 @@
         </div>
     </div>
 
-    <!-- Barra Controlli Superiori -->
+    <!-- Controls Bar -->
     <div class="top-controls-bar">
         <select class="currency-select" id="currencySelect" onchange="changeCurrency(this.value)">
             <option value="EUR">EUR (€)</option>
@@ -284,7 +284,7 @@
         </div>
     </div>
 
-    <!-- Intestazione Brand -->
+    <!-- Brand Header -->
     <div class="brand-header">
         <div class="main-logo-container" onclick="openLightbox('https://i.imgur.com/GO6zIdq.png')">
             <img src="https://i.imgur.com/GO6zIdq.png" alt="Logo Mrshop20">
@@ -416,7 +416,7 @@
         <div id="reviewsContainer"></div>
     </div>
 
-    <!-- Barra di Navigazione Inferiore -->
+    <!-- Bottom Nav -->
     <div class="bottom-nav">
         <button class="nav-tab active" id="tab-btn-menu" onclick="switchTab('menu')">
             <span class="icon">🌿</span>
@@ -441,16 +441,6 @@
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
 
-        // Controllo tasti sviluppatore
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
-
-        // Lightbox
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             const lbImg = document.getElementById('lightbox-img');
@@ -489,7 +479,7 @@
                 infT4: "💬 Direct Contact & Support", infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
                 btnContact: "💬 Chat with @mrshop20", revTitle: "Verified Customer Reviews", revSub: "Real reviews extracted directly from our live feed.", btnGroupRev: "⭐️ Open Telegram Reviews Group",
                 actPromo: "🎉 Min. Order met!", totEff: "Total Price", free: "FREE", shippingCostText: "Shipping", minOrderErr: "Minimum order is 30€! Please add more items.", fieldErr: "Please fill City, Address and ZIP code fields!",
-                cats: { flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", special: "🔥 Special" },
+                cats: { flowers: "🌿 Flowers", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Shrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Delivery completed in less than two hours, crazy quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
                     {text: '"Express package arrived in 24h. Wholesales prices are so cheap. Everything securely vacuum-packed."', user: "@mario_k - 5 days ago"},
@@ -507,14 +497,14 @@
                 p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_spec: "Es: Tra le 14:00 e le 16:00",
                 delDetails: "Dati Spedizione / Consegna", cryptoSub: "Ricevi l'indirizzo esatto per il pagamento in chat", cardSub: "Ti guideremo su come comprare Bitcoin all'istante con carta",
                 ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
-                infT0: "⚠️ Politica NESSUN PAGAMENTO IN CONTANTI (Solo pagamento anticipato)", infD0: "Lavoriamo esclusivamente con rider completamente anonimi che paghiamo in anticipo in crypto. Non conosciamo la loro identità, ed arrivano sul posto in modo casuale per lasciare il pacco e consegnarlo in totale sicurezza vicino alle tue coordinate.\n\nQuando il rider raggiunge il punto stabilito, ti contatterà direttamente per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto la ruota di un'auto o in un punto discreto specifico). Questo processo airtight assicura che anche in presenza di controlli, nulla possa essere ricollegato a te o al rider. I nostri corrieri sono esperti in metodologie di drop discreto.\n\nNon insistere per i pagamenti in contanti. Non facciamo assolutamente eccezioni. Nessun pagamento anticipato, nessun ordine.",
+                infT0: "⚠️ Politica NESSUN PAGAMENTO IN CONTANTI (Solo pagamento anticipato)", infD0: "Lavoriamo esclusivamente con rider completamente anonimi che paghiamo in anticipo in crypto. Non conosciamo la loro identità, ed arrivano sul posto in modo casuale per lasciare il pacco e consegnarlo in totale sicurezza vicino alle deine coordinate.\n\nQuando il rider raggiunge il punto stabilito, ti contatterà direttamente per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto la ruota di un'auto o in un punto discreto specifico). Questo processo airtight assicura che anche in presenza di controlli, nulla possa essere ricollegato a te o al rider. I nostri corrieri sono esperti in metodologie di drop discreto.\n\nNon insistere per i pagamenti in contanti. Non facciamo assolutamente eccezioni. Nessun pagamento anticipato, nessun ordine.",
                 infT1: "📦 Processo di Delivery & Tariffe Ingrosso", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto.",
                 infT2: "💳 Metodi di Pagamento Ammessi", infD2: "Siamo un network sicuro basato su transazioni protette. Accettiamo le principali Criptovalute. Se non le possiedi, l'app ti guiderà all'acquisto istantaneo via MoonPay con la tua carta.",
                 infT3: "🌿 Cartine e Accessori Premium", infD3: "Selezioniamo solo cartine sottilissime non sbiancate e filtri organici di altissima qualità per la nostra community, inclusi come dotazione standard del nostro catalogo.",
                 infT4: "💬 Contatto Diretto & Supporto", infD4: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
                 btnContact: "💬 Parla con @mrshop20", revTitle: "Recensioni Verificate Clienti", revSub: "Recensioni reali estratte direttamente dal nostro canale.", btnGroupRev: "⭐️ Apri Gruppo Recensioni Telegram",
                 actPromo: "🎉 Minimo d'ordine raggiunto!", totEff: "Totale Effettivo", free: "GRATIS", shippingCostText: "Spedizione", minOrderErr: "L'ordine minimo è di 30€! Aggiungi altri prodotti.", fieldErr: "Compila i campi Obbligatori: Città, Indirizzo e CAP!",
-                cats: { flowers: "🌿 Fiori", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Funghi", special: "🔥 Speciali" },
+                cats: { flowers: "🌿 Fiori", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Funghi", prerolls: "🚬 Prerolls", special: "🔥 Speciali" },
                 revs: [
                     {text: '"Consegna effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
                     {text: '"Spedizione arrivata in 24 ore. Prezzi ingrosso super convenienti rispetto al delivery. Tutto sigillato."', user: "@mario_k - 5 giorni fa"},
@@ -539,12 +529,7 @@
                 infT4: "💬 Contact Direct & Support", infD4: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
                 actPromo: "🎉 Minimum de commande atteint!", totEff: "Total Effectif", free: "GRATUIT", shippingCostText: "Expédition", minOrderErr: "Le minimum de commande est de 30€!", fieldErr: "Veuillez remplir les champs Ville, Adresse et Code Postal!",
-                cats: { flowers: "🌿 Fleurs", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Champignons", special: "🔥 Spécial" },
-                revs: [
-                    {text: '"Livraison en moins de deux heures, qualité Gelato incroyable, emballage discret au top."', user: "@luca_pro - Il y a 2 jours"},
-                    {text: '"Colis express arrivé en 24h. Prix de gros très bas, payé par MoonPay très facilement."', user: "@mario_k - Il y a 5 jours"},
-                    {text: '"Meilleur shop. Les prix baissent si vous mélangez les variétés, j\'ai pris 15g et économisé gros."', user: "@alex_terps - Il y a 1 semaine"}
-                ]
+                cats: { flowers: "🌿 Fleurs", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Champignons", prerolls: "🚬 Prerolls", special: "🔥 Spécial" }
             },
             de: {
                 all: "Alle", cityTitle: "LIEFERGEBIET PRÜFEN", cityDesc: "Geben Sie Ihre Stadt ein, um die Verfügbarkeit der Fahrer zu prüfen.", cityBtn: "VERFÜGBARKEIT PRÜFEN",
@@ -559,17 +544,12 @@
                 ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
                 infT0: "⚠️ KEINE BARZAHLUNG Akzeptiert (Nur Vorkasse)", infD0: "Wir arbeiten ausschließlich mit völlig anonymen Fahrern zusammen, die wir in Krypto im Voraus bezahlen. Wir kennen ihre Identität nicht und sie kommen zufällig vor Ort an, um Ihr Paket sicher in der Nähe Ihrer Koordinaten abzugeben.\n\nWenn der Fahrer den Punkt erreicht, wird er Sie direkt kontaktieren, um Sie zum genauen Versteck zu führen (z. B. hinter einer Säule, unter einem Autorad oder an einem bestimmten diskreten Punkt). Dieser luftdichte Prozess stellt sicher, dass selbst bei Kontrollen nichts mit Ihnen oder dem Fahrer in Verbindung gebracht werden kann. Unsere Kuriere sind Experten für diskrete Drop-Methoden.\n\nBestehen Sie nicht auf Barzahlung. Wir machen absolut keine Ausnahmen. Keine Vorkasse, keine Bestellung.",
                 infT1: "📦 Lieferprozess & Großhandelspreise", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Alle Pakete sind vakuumverpackt.",
-                infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Sie können Krypto auch direkt mit Ihrer Kreditkarte über MoonPay kaufen.",
+                infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Sie können Krypto also direkt mit Ihrer Kreditkarte über MoonPay kaufen.",
                 infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten ultradünnen ungebleichten Blättchen und Bio-Filter für unsere Community aus.",
                 infT4: "💬 Direkter Kontakt & Support", infD4: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
                 actPromo: "🎉 Mindestbestellwert erreicht!", totEff: "Gesamtsumme", free: "GRATIS", shippingCostText: "Versand", minOrderErr: "Mindestbestellwert beträgt 30€!", fieldErr: "Bitte füllen Sie die Felder Stadt, Adresse und Postleitzahl aus!",
-                cats: { flowers: "🌿 Blüten", hash: "🍯 Hasch", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Pilze", special: "🔥 Spezial" },
-                revs: [
-                    {text: '"Lieferung in weniger als zwei Stunden erledigt, krasse Gelato-Qualität, makellose Verpackung."', user: "@luca_pro - vor 2 Tagen"},
-                    {text: '"Expresspaket in 24 Stunden angekommen. Großhandelspreise sind so billig. Super einfach."', user: "@mario_k - vor 5 Tagen"},
-                    {text: '"Bester Shop. Preise sinken deutlich wenn man mischt, habe 15g ordered und viel gespart."', user: "@alex_terps - vor 1 Woche"}
-                ]
+                cats: { flowers: "🌿 Blüten", hash: "🍯 Hasch", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Pilze", prerolls: "🚬 Prerolls", special: "🔥 Spezial" }
             },
             ru: {
                 all: "Все", cityTitle: "ПРОВЕРКА ЗОНЫ ДОСТАВКИ", cityDesc: "Введите ваш город, чтобы проверить доступность курьеров.", cityBtn: "ПРОВЕРИТЬ ДОСТУПНОСТЬ",
@@ -588,13 +568,8 @@
                 infT3: "🌿 Бумага и аксессуары премиум-класса", infD3: "Мы выбираем только тончайшую неотбеленную бумагу и органические фильтры высшего качества для нашего сообщества.",
                 infT4: "💬 Прямая связь и поддержка", infD4: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
                 btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
-                actPromo: "🎉 Минимальный заказ набран!", totEff: "Итого к оплате", free: "БЕСПЛАТНО", shippingCostText: "Доставка", minOrderErr: "Минимальный заказ составляет 30€!", fieldErr: "Пожалуйста, заполните поля Город, Адрес и Почтовый Индекс!",
-                cats: { flowers: "🌿 Цветы", hash: "🍯 Гашиш", edibles: "🍫 Сладости", vapes: "💨 Вейпы", mushrooms: "🍄 Грибы", special: "🔥 Особое" },
-                revs: [
-                    {text: '"Доставка заняла меньше двух часов, качество Gelato сумасшедшее, упаковка идеальная."', user: "@luca_pro - 2 дня назад"},
-                    {text: '"Экспресс-посылка дошла за 24 часа. Оптовые цены очень низкие, легко оплатил через MoonPay."', user: "@mario_k - 5 дня назад"},
-                    {text: '"Лучший шоп. Цены сильно падают, если брать микс разных сортов, заказал 15г и отлично сэкономил."', user: "@alex_terps - 1 неделю назад"}
-                ]
+                actPromo: "🎉 Минимальный заказ набран!", totEff: "Итого к оплате", free: "БЕСПЛАТНО", shippingCostText: "Доставка", minOrderErr: "Минимальный заказ составляет 30€!", fieldErr: "Пожалуйста, заполните поля Город, Арес и Почтовый Индекс!",
+                cats: { flowers: "🌿 Цветы", hash: "🍯 Гашиш", edibles: "🍫 Сладости", vapes: "💨 Вейпы", mushrooms: "🍄 Грибы", prerolls: "🚬 Прероллы", special: "🔥 Особое" }
             }
         };
 
@@ -603,17 +578,51 @@
         let activeCategoryFilter = 'all';
 
         const productsData = [
+            // 🌿 FLOWERS
             { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/OeYCvvY.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
             { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/fyZ6MoZ.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
-            { id: "f3", name: "Weed Cookies", category: "edibles", price: 15, img: "https://i.imgur.com/tjfzEm5.jpg", desc: "Freshly Baked • High THC Infused • Delicious", isGramAsset: false },
-            { id: "f4", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/DSI9CUX.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
-            { id: "f5", name: "Purple Platinum", category: "flowers", price: 12, img: "https://i.imgur.com/HDugCb7.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
-            { id: "f6", name: "Moonrock", category: "flowers", price: 12, img: "https://i.imgur.com/gg7aY8w.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent", isGramAsset: true },
-            { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/Y6pN82b.jpg", desc: "Traditional Hash • 35% THC", isGramAsset: true },
+            { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/FxBOA4S.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
+            { id: "f4", name: "Purple Platinum", category: "flowers", price: 12, img: "https://i.imgur.com/I34SWCY.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
+            { id: "f5", name: "Moonrock", category: "flowers", price: 12, img: "https://i.imgur.com/MeZ9K1k.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent", isGramAsset: true },
+            { id: "f6", name: "Cookies", category: "flowers", price: 12, img: "https://i.imgur.com/tjfzEm5.jpg", desc: "Premium Indoor • 26% THC • Sweet & Earthy", isGramAsset: true },
+            { id: "f7", name: "Green Crack", category: "flowers", price: 12, img: "https://i.imgur.com/PReXsma.jpg", desc: "Premium Indoor • 25% THC • Energetic & Citrus", isGramAsset: true },
+            { id: "f8", name: "White Widow", category: "flowers", price: 12, img: "https://i.imgur.com/KUhF2dO.jpg", desc: "Premium Indoor • 26% THC • Classic & Balanced", isGramAsset: true },
+            { id: "f9", name: "Lemon Cherry", category: "flowers", price: 12, img: "https://i.imgur.com/uM0gi6T.jpg", desc: "Premium Indoor • 27% THC • Citrus & Sweet", isGramAsset: true },
+            { id: "f10", name: "Blue Dream", category: "flowers", price: 12, img: "https://i.imgur.com/IeaHPtS.jpg", desc: "Premium Indoor • 25% THC • Berry & Herbal", isGramAsset: true },
+            { id: "f11", name: "Northern Lights", category: "flowers", price: 12, img: "https://i.imgur.com/11zFjJw.jpg", desc: "Premium Indoor • 26% THC • Spicy & Sweet", isGramAsset: true },
+            { id: "f12", name: "Sour Diesel", category: "flowers", price: 12, img: "https://i.imgur.com/g2PMkFX.jpg", desc: "Premium Indoor • 27% THC • Diesel & Pungent", isGramAsset: true },
+            { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://i.imgur.com/qZMcW5g.jpg", desc: "Premium Indoor • 28% THC • Colorful & Exotic", isGramAsset: true },
+            { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://i.imgur.com/k3keiKk.jpg", desc: "Premium Indoor • 26% THC • Sweet & Fruity", isGramAsset: true },
+            { id: "f15", name: "Premium Selection", category: "flowers", price: 12, img: "https://i.imgur.com/FiVmhxM.jpg", desc: "Rotating Stock • Ask for availability", isGramAsset: true },
+
+            // 🍯 HASH
+            { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/Y6pN82b.jpg", desc: "Traditional Hash • 35% THC • Classic Pressed", isGramAsset: true },
             { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://i.imgur.com/xM4Qknx.jpg", desc: "Full Bubble • 50% THC • Top Quality", isGramAsset: true },
-            { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/6JgjcuH.jpg", desc: "0.5ml • 85% THC", isGramAsset: false },
-            { id: "m1", name: "Albinos Shrooms", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Potent", isGramAsset: true },
-            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "Pure Fishscale • 1 Gram", isGramAsset: true }
+            { id: "h3", name: "Premium Hash Selection", category: "hash", price: 10, img: "https://i.imgur.com/Y6pN82b.jpg", desc: "Various Strains • High Quality • Ask for stock", isGramAsset: true },
+
+            // 🍫 EDIBLES
+            { id: "e1", name: "THC Edibles 600mg", category: "edibles", price: 40, img: "https://i.imgur.com/tjfzEm5.jpg", desc: "600mg THC • Multiple Flavors • Long Lasting", isGramAsset: false },
+            { id: "e2", name: "THC Edibles 1000mg", category: "edibles", price: 60, img: "https://i.imgur.com/tjfzEm5.jpg", desc: "1000mg THC • High Potency • Experienced Users", isGramAsset: false },
+
+            // 💨 VAPES
+            { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/6JgjcuH.jpg", desc: "0.5ml • 85% THC • Sweet & Fruity", isGramAsset: false },
+            { id: "v2", name: "Runtz / Cookie Vape", category: "vapes", price: 65, img: "https://i.imgur.com/6JgjcuH.jpg", desc: "0.5ml • 85% THC • Creamy & Sweet", isGramAsset: false },
+            { id: "v3", name: "Blue Dream / White Widow Vape", category: "vapes", price: 65, img: "https://i.imgur.com/6JgjcuH.jpg", desc: "0.5ml • 85% THC • Balanced & Smooth", isGramAsset: false },
+            { id: "v4", name: "Amnesia / Crack Vape", category: "vapes", price: 65, img: "https://i.imgur.com/6JgjcuH.jpg", desc: "0.5ml • 85% THC • Energetic & Strong", isGramAsset: false },
+
+            // 🍄 MUSHROOMS
+            { id: "m1", name: "Albinos / Golden Teacher", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Potent & Spiritual", isGramAsset: true },
+            { id: "m2", name: "Purple Mystic / Lion's Mane", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin & Medicinal • Various Strains", isGramAsset: true },
+
+            // 🚬 PREROLLS
+            { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://i.imgur.com/oAhkJxy.png", desc: "Moon Rocket / Cali Woods / Packwood • Ready to Smoke", isGramAsset: false },
+            { id: "p2", name: "Baby Jeeter", category: "prerolls", price: 30, img: "https://i.imgur.com/oAhkJxy.png", desc: "Infused • High Potency • Premium Brand", isGramAsset: false },
+
+            // 🔥 SPECIAL
+            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "Pure Fishscale • 1 Gram", isGramAsset: true },
+            { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "Liquid • 1ml • 200µg", isGramAsset: false },
+            { id: "s3", name: "💎 Crystal Meth", category: "special", price: 50, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "Ice Quality • 1 Gram", isGramAsset: true },
+            { id: "s4", name: "💊 MDMA Crystal/Pills", category: "special", price: 50, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "High Purity • Tested Crystals or Pills", isGramAsset: false }
         ];
 
         let cart = {};
@@ -998,9 +1007,7 @@
             window.open(targetUrl, '_blank');
         }
 
-        // Init App locale
         setLanguage('en');
     </script>
 </body>
 </html>
-
