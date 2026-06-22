@@ -245,7 +245,7 @@
     </div>
 
     <div class="gift-banner">
-        <img class="gift-thumb" src="https://i.imgur.com/xXktoVD.jpg" alt="Gifts Showcase" onclick="openLightbox(this.src)">
+        <img class="gift-thumb" src="https://i.imgur.com/7835lP2.jpg" alt="Gifts Showcase" onclick="openLightbox(this.src)">
         <div class="gift-text">
             <strong id="gift-title">🎁 FREE GIFTS</strong>
             <span id="gift-desc">Clipper lighter, rolling papers and filters included free in every order from 50€!</span>
@@ -345,7 +345,7 @@
         <div class="info-section">
             <h3 id="info-p3-t"></h3>
             <p id="info-p3-d"></p>
-            <img class="papers-hosted-img" src="https://i.imgur.com/xXktoVD.jpg" alt="Accessories" onclick="openLightbox(this.src)">
+            <img class="papers-hosted-img" src="https://i.imgur.com/7835lP2.jpg" alt="Accessories" onclick="openLightbox(this.src)">
         </div>
         <div class="info-section">
             <h3 id="info-p4-t"></h3>
@@ -578,7 +578,7 @@
             { id: "m2", name: "Purple Mystic / Lion's Mane", category: "mushrooms", price: 8, img: "https://i.imgur.com/mzoaONo.jpg", desc: "Psilocybin & Organic Strains Blend • High Quality", isGramAsset: true },
 
             // 🚬 PREROLLS
-            { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://i.imgur.com/xXktoVD.jpg", desc: "Moon Rocket / Cali Woods / Packwood Selection", isGramAsset: false },
+            { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://i.imgur.com/7835lP2.jpg", desc: "Moon Rocket / Cali Woods / Packwood Selection", isGramAsset: false },
             { id: "p2", name: "Baby Jeeter Infused", category: "prerolls", price: 30, img: "https://i.imgur.com/ZqGSpGM.jpg", desc: "Kief Infused Joint • High Potency Premium Brand", isGramAsset: false },
 
             // 🔥 SPECIAL
@@ -883,5 +883,51 @@
         }
 
         function switchTab(tabId) {
-            document.querySelectorAll('.app-view').forEach(v => v.classList.remove
+            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active')); document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`view-${tabId}`).classList.add('active'); document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+            if (tabId === 'chat') { renderCartPage(); } else if (tabId === 'menu') { renderProducts(activeCategoryFilter); }
+        }
+
+        document.getElementById('select-time').addEventListener('change', function() {
+            document.getElementById('input-time-spec').style.display = (this.value.includes('Specific') || this.value.includes('Specifica')) ? 'block' : 'none';
+        });
+
+        function processOrderSend() {
+            const metrics = calculateCartMetrics(); const dict = i18n[currentLang];
+            
+            if (metrics.finalProductsTotalEur < 30) { 
+                alert(dict.minOrderErr); return; 
+            }
+
+            const citta = document.getElementById('input-city').value.trim();
+            const indirizzo = document.getElementById('input-address').value.trim();
+            const cap = document.getElementById('input-cap').value.trim();
+            let orario = document.getElementById('select-time').value;
+
+            if (orario.includes('Specific') || orario.includes('Specifica')) { orario = "Slot: " + document.getElementById('input-time-spec').value.trim(); }
+            if (!citta || !indirizzo || !cap) { alert(dict.fieldErr); return; }
+            
+            let msg = `🛒 *NEW ORDER - MRSHOP20*\n----------------------------------------\n`;
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
+                msg += `• *${p.name}*: ${cart[id]}${unitLabel}\n`;
+            });
+            if (metrics.giftApplied) msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\n`;
+            if (metrics.discountEur > 0) msg += `🔥 *Discount Applied:* -${getConvertedPriceStr(metrics.discountEur)}\n`;
+            msg += `----------------------------------------\n⚙️ *Shipping:* ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\n💰 *TOTAL:* ${getConvertedPriceStr(metrics.finalTotalEur)} (${activeCurrency})\n\n📍 *DELIVERY DETAILS:*\n🏙️ City: ${citta}\n🏠 Address: ${indirizzo}\n📮 ZIP: ${cap}\n⏰ Time: ${orario}\n\n💳 *PAYMENT:*\n`;
+            
+            if (currentSelectedPayment === 'crypto') msg += `➡ *Cryptocurrencies* (Waiting for address)\n`;
+            else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
+            else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\n`;
+
+            const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
+            if (tg && tg.sendData) { tg.sendData(msg); }
+            window.open(targetUrl, '_blank');
+        }
+
+        setLanguage('en');
+    </script>
+</body>
+</html>
 
