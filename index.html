@@ -12,7 +12,6 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            /* Anti-selezione testo e codice */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -37,19 +36,13 @@
             min-height: 100vh;
             padding-bottom: 100px;
             overflow-x: hidden;
-            transition: filter 0.3s ease;
         }
 
-        /* Anti-screenshot sfocatura se l'app perde il focus */
-        body.blurred {
-            filter: blur(15px) grayscale(1);
-        }
-
-        /* Age Gate UI */
-        .age-gate {
+        /* Schermata Verifica Città Professionale */
+        .city-gate {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle, #1a102f 0%, #050508 100%);
+            background: radial-gradient(circle, #101018 0%, #050508 100%);
             z-index: 99999;
             display: flex;
             flex-direction: column;
@@ -58,230 +51,221 @@
             padding: 30px;
             text-align: center;
         }
-        .age-gate.hidden { display: none; }
-        .logo-animation { font-size: 70px; margin-bottom: 10px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .city-gate.hidden { display: none; }
+        .city-logo { font-size: 50px; margin-bottom: 20px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        
+        .city-input-frame {
+            width: 100%;
+            max-width: 320px;
+            background: var(--bg-card);
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .city-input-frame input {
+            width: 100%; padding: 12px; background: #222; border: 1px solid #444;
+            border-radius: 10px; color: white; font-size: 15px; text-align: center; margin-bottom: 15px;
+            text-transform: uppercase; font-weight: bold;
+        }
+        .city-input-frame input:focus { border-color: var(--primary-neon); outline: none; }
+        .city-status-msg { margin-top: 15px; font-size: 14px; font-weight: 600; line-height: 1.4; }
 
         /* Brand & Top Header Area */
         .brand-header {
             padding: 20px;
             text-align: center;
-            background: linear-gradient(180deg, rgba(157, 78, 221, 0.2) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(157, 78, 221, 0.15) 0%, transparent 100%);
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: relative;
         }
         .main-logo-container {
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 12px;
-            border-radius: 50%;
-            padding: 2px;
+            width: 85px; height: 85px; margin: 0 auto 12px; border-radius: 50%; padding: 2px;
             background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
-            overflow: hidden;
-            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3); overflow: hidden; cursor: pointer;
         }
-        .main-logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
+        .main-logo-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+        .brand-header p { font-size: 13px; color: var(--text-hint); margin-top: 4px; font-weight: 500; }
 
-        /* Multi-Currency & Language Header Toolbar */
+        /* Toolbar controlli lingua/valuta */
         .top-controls-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 10px;
-            background: rgba(0,0,0,0.3);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 12px; background: rgba(0,0,0,0.4);
         }
         .currency-select {
-            background: #1c1c24;
-            color: var(--primary-neon);
-            border: 1px solid #3a3a44;
-            border-radius: 6px;
-            padding: 4px 8px;
-            font-size: 12px;
-            font-weight: bold;
-            outline: none;
+            background: #1c1c24; color: var(--primary-neon); border: 1px solid #3a3a44;
+            border-radius: 6px; padding: 4px 8px; font-size: 12px; font-weight: bold; outline: none;
         }
-        .lang-selector {
-            display: flex; gap: 3px;
-        }
+        .lang-selector { display: flex; gap: 4px; }
         .lang-btn {
-            background: #1c1c24; border: 1px solid #3a3a44; border-radius: 4px;
-            padding: 3px 5px; font-size: 9px; cursor: pointer; color: white; font-weight: bold;
+            background: #1c1c24; border: 1px solid #3a3a44; border-radius: 5px;
+            padding: 4px 7px; font-size: 10px; cursor: pointer; color: white; font-weight: bold;
         }
-        .lang-btn.active { border-color: var(--primary-neon); background: rgba(0,255,102,0.1); }
+        .lang-btn.active { border-color: var(--primary-neon); background: rgba(0,255,102,0.15); }
 
-        /* Info Banners */
+        /* Banners */
         .promo-banner {
             background: linear-gradient(90deg, #9d4edd, #ff007f);
-            margin: 15px; padding: 12px; border-radius: 12px;
-            font-weight: 700; text-align: center; font-size: 13px;
-            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+            margin: 12px; padding: 12px; border-radius: 12px;
+            font-weight: 700; text-align: center; font-size: 12px;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.2);
         }
         .gift-banner {
-            background: rgba(0, 229, 255, 0.1);
-            border: 1px solid var(--secondary-neon);
-            margin: 0 15px 15px 15px; padding: 10px; border-radius: 12px;
+            background: rgba(0, 229, 255, 0.06); border: 1px solid rgba(0, 229, 255, 0.3);
+            margin: 0 12px 12px 12px; padding: 10px; border-radius: 12px;
             display: flex; align-items: center; gap: 12px;
         }
-        .gift-thumb { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
+        .gift-thumb { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .gift-text { font-size: 12px; line-height: 1.4; }
         .gift-text strong { color: var(--secondary-neon); display: block; font-size: 13px; }
 
-        /* Sticky Categories */
+        /* Categorie Scorritre intuitive con indicatori visivi */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(11, 11, 14, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(11, 11, 14, 0.96); backdrop-filter: blur(12px);
+            padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center;
         }
+        .categories-scroller::after {
+            content: '➔'; position: absolute; right: 4px; color: var(--text-hint);
+            font-size: 11px; pointer-events: none; opacity: 0.7;
+            animation: scrollHint 1.5s infinite ease-in-out;
+        }
+        @keyframes scrollHint { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+        
         .categories-list {
-            display: flex; overflow-x: auto; padding: 0 15px; gap: 10px;
-            scrollbar-width: none;
+            display: flex; overflow-x: auto; padding: 0 15px; gap: 8px;
+            scrollbar-width: none; width: 100%;
         }
         .categories-list::-webkit-scrollbar { display: none; }
         .cat-card {
-            flex-shrink: 0; padding: 14px 24px;
-            background: var(--bg-card); border: 2px solid #2c2c35;
-            border-radius: 14px; color: var(--text-main);
-            font-size: 16px; font-weight: 800; cursor: pointer;
-            transition: all 0.2s ease;
+            flex-shrink: 0; padding: 10px 18px; background: var(--bg-card);
+            border: 1px solid #2c2c35; border-radius: 20px; color: var(--text-main);
+            font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s ease;
         }
         .cat-card.active {
             background: linear-gradient(135deg, var(--primary-neon), #00b344);
             color: #000; border-color: var(--primary-neon);
-            box-shadow: 0 5px 15px rgba(0, 255, 102, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 255, 102, 0.25);
         }
 
-        /* Views Layout */
-        .app-view { display: none; padding: 15px; }
+        /* Layout Views */
+        .app-view { display: none; padding: 12px; }
         .app-view.active { display: block; }
 
-        /* Products Grid UI */
-        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 5px; }
+        /* Griglia Prodotti */
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 5px; }
         .product-card {
-            background: var(--bg-card); border-radius: 20px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column;
+            background: var(--bg-card); border-radius: 16px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.04); display: flex; flex-direction: column;
             transition: transform 0.2s;
         }
         .product-card:active { transform: scale(0.98); }
-        .product-img { width: 100%; height: 130px; object-fit: cover; background: #222; cursor: pointer; }
-        .product-info { padding: 12px; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-        .product-desc { font-size: 11px; color: var(--text-hint); height: 32px; overflow: hidden; line-height: 1.3; margin-bottom: 10px; }
+        .product-img { width: 100%; height: 130px; object-fit: cover; background: #1c1c24; cursor: pointer; }
+        .product-info { padding: 10px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .product-desc { font-size: 11px; color: var(--text-hint); height: 30px; overflow: hidden; line-height: 1.3; margin-bottom: 8px; }
         
-        /* Interactive Counters */
+        /* Contatori e Selettori */
         .gram-selector {
             display: flex; align-items: center; justify-content: space-between;
-            background: #222; border-radius: 12px; padding: 4px; margin-top: auto;
+            background: #1f1f2a; border-radius: 10px; padding: 3px; margin-top: auto;
         }
         .gram-btn {
-            width: 32px; height: 32px; background: #333; border: none;
-            color: white; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer;
+            width: 28px; height: 28px; background: #2d2d3a; border: none;
+            color: white; border-radius: 7px; font-size: 16px; font-weight: 700; cursor: pointer;
         }
         .gram-btn:active { background: #444; }
-        .gram-value { font-weight: 700; font-size: 14px; color: var(--primary-neon); }
+        .gram-value { font-weight: 700; font-size: 13px; color: var(--primary-neon); }
 
-        /* Informative Sections */
-        .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
-        .info-section h3 { color: var(--secondary-neon); margin-bottom: 10px; font-size: 18px; }
-        .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
-        .alert-section { border-left: 4px solid var(--danger); background: rgba(255, 59, 48, 0.05); }
-        .papers-hosted-img {
-            width: 100%; height: 190px; object-fit: cover; border-radius: 12px;
-            margin: 15px 0; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
-        }
-
+        /* Sezioni Informative */
+        .info-section { background: var(--bg-card); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.04); margin-bottom: 12px; }
+        .info-section h3 { color: var(--secondary-neon); margin-bottom: 8px; font-size: 16px; }
+        .info-section p { font-size: 13px; color: #d1d1d6; line-height: 1.4; margin-bottom: 8px; }
+        .alert-section { border-left: 4px solid var(--danger); background: rgba(255, 59, 48, 0.04); }
+        .papers-hosted-img { width: 100%; height: 170px; object-fit: cover; border-radius: 10px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.08); cursor: pointer; }
         .tg-link-btn {
             display: block; text-align: center; background: #0088cc; color: white;
-            padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold;
-            margin-top: 10px; font-size: 14px;
+            padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 13px;
         }
 
-        /* Order / Checkout Form */
-        .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 16px; margin-top: 20px; border: 1px solid #333; }
+        /* Modulo Checkout */
+        .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-top: 15px; border: 1px solid #2a2a35; }
         .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 12px; color: var(--text-hint); margin-bottom: 4px; font-weight: 600; }
+        .form-group label { display: block; font-size: 11px; color: var(--text-hint); margin-bottom: 4px; font-weight: 600; }
         .form-group input, .form-group select {
-            width: 100%; padding: 12px; background: #222; border: 1px solid #444;
-            border-radius: 10px; color: white; font-size: 14px;
+            width: 100%; padding: 11px; background: #1c1c24; border: 1px solid #3a3a44;
+            border-radius: 8px; color: white; font-size: 13px;
         }
         .form-group input:focus { border-color: var(--primary-neon); outline: none; }
 
-        /* Payment Modules Selector */
         .pay-option {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 12px; background: #222; border: 1px solid #444;
-            border-radius: 10px; margin-bottom: 8px; cursor: pointer;
+            padding: 12px; background: #1c1c24; border: 1px solid #3a3a44; border-radius: 8px; margin-bottom: 8px; cursor: pointer;
         }
-        .pay-option.active { border-color: var(--secondary-neon); background: rgba(0,229,255,0.05); }
-        .pay-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+        .pay-option.active { border-color: var(--secondary-neon); background: rgba(0,229,255,0.04); }
+        .pay-badge { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
         .badge-crypto { background: #f0a500; color: #000; }
         .badge-card { background: #0052ff; color: #fff; }
         .badge-off { background: #555; color: #aaa; }
 
-        /* Reviews Feedback */
-        .review-card { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-bottom: 10px; border-left: 4px solid var(--accent-purple); }
-        .review-stars { color: var(--warning); font-size: 14px; margin-bottom: 4px; }
-        .review-user { font-size: 12px; color: var(--text-hint); font-weight: bold; }
+        /* Recensioni */
+        .review-card { background: var(--bg-card); padding: 14px; border-radius: 12px; margin-bottom: 8px; border-left: 4px solid var(--accent-purple); }
+        .review-stars { color: var(--warning); font-size: 12px; margin-bottom: 3px; }
+        .review-user { font-size: 11px; color: var(--text-hint); font-weight: bold; }
 
-        /* Tab Navigation Bar */
+        /* Navigazione Inferiore */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100vw;
-            background: rgba(22, 22, 30, 0.96); backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.08);
-            display: flex; justify-content: space-around; padding: 10px 0; z-index: 999;
+            background: rgba(22, 22, 30, 0.97); backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-around; padding: 8px 0; z-index: 999;
         }
         .nav-tab {
             background: none; border: none; color: var(--text-hint);
-            display: flex; flex-direction: column; align-items: center;
-            font-size: 12px; font-weight: 600; cursor: pointer; position: relative; width: 25%;
+            display: flex; flex-direction: column; align-items: center; font-size: 11px; font-weight: 600; cursor: pointer; position: relative; width: 25%;
         }
-        .nav-tab .icon { font-size: 22px; margin-bottom: 2px; }
+        .nav-tab .icon { font-size: 20px; margin-bottom: 2px; }
         .nav-tab.active { color: var(--primary-neon); }
         .badge-cart-count {
-            position: absolute; top: -2px; right: 20px;
-            background: var(--danger); color: white; border-radius: 50%;
-            width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center;
+            position: absolute; top: -2px; right: 20px; background: var(--danger); color: white; border-radius: 50%;
+            width: 15px; height: 15px; font-size: 9px; display: flex; align-items: center; justify-content: center;
         }
-
         .cart-summary-floating {
-            background: var(--primary-neon); color: #000; font-weight: 800;
-            padding: 14px; text-align: center; border-radius: 12px; margin-top: 15px;
-            cursor: pointer; font-size: 16px; width: 100%; border: none;
+            background: var(--primary-neon); color: #000; font-weight: 800; padding: 14px; text-align: center; border-radius: 10px; margin-top: 15px; cursor: pointer; font-size: 15px; width: 100%; border: none;
         }
 
-        /* Lightbox Modal per Zoom Immagini */
+        /* Struttura Lightbox */
         .lightbox-modal {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.9); z-index: 100000;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.92); z-index: 100000;
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
         }
         .lightbox-modal.active { opacity: 1; pointer-events: auto; }
-        .lightbox-content { max-width: 90%; max-height: 80%; border-radius: 12px; box-shadow: 0 0 30px rgba(255,255,255,0.1); }
-        .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 30px; color: white; cursor: pointer; font-weight: bold; }
+        .lightbox-content { max-width: 92%; max-height: 78%; border-radius: 10px; box-shadow: 0 0 25px rgba(255,255,255,0.15); }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 28px; color: white; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
+    <!-- Lightbox Modal -->
     <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" src="" alt="Zoomed View" onclick="event.stopPropagation()">
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom" onclick="event.stopPropagation()">
     </div>
 
-    <div class="age-gate" id="ageGate">
-        <div class="logo-animation">🍁</div>
-        <h2 id="txt-age-title">AGE VERIFICATION</h2>
-        <p id="txt-age-desc">You must be 18+ to unlock the official Mrshop20 catalog.</p>
-        <button class="lang-btn" style="margin-top:20px; padding:12px 24px; font-size: 14px; border-color:var(--primary-neon);" id="btn-age-enter" onclick="verifyAge()">ENTER (+18)</button>
+    <!-- Schermata di Controllo Copertura Città -->
+    <div class="city-gate" id="cityGate">
+        <div class="city-logo">📍</div>
+        <div class="city-input-frame">
+            <h2 id="txt-city-title" style="font-size: 18px; margin-bottom: 8px;">CHECK DELIVERY COVERAGE</h2>
+            <p id="txt-city-desc" style="font-size: 13px; color: var(--text-hint); margin-bottom: 15px;">Enter your city to verify active rider availability.</p>
+            <input type="text" id="cityGateInput" placeholder="e.g. MILAN, ROME, PARIS...">
+            <button class="cart-summary-floating" style="margin-top:0;" id="btn-city-check" onclick="checkCityCoverage()">CHECK AVAILABILITY</button>
+            <div class="city-status-msg" id="cityStatusMsg"></div>
+        </div>
     </div>
 
+    <!-- Barra Controlli Superiori -->
     <div class="top-controls-bar">
         <select class="currency-select" id="currencySelect" onchange="changeCurrency(this.value)">
             <option value="EUR">EUR (€)</option>
@@ -300,12 +284,13 @@
         </div>
     </div>
 
+    <!-- Intestazione Brand -->
     <div class="brand-header">
         <div class="main-logo-container" onclick="openLightbox('https://i.imgur.com/GO6zIdq.png')">
             <img src="https://i.imgur.com/GO6zIdq.png" alt="Logo Mrshop20">
         </div>
         <h1>Mrshop20</h1>
-        <p id="txt-header-sub">Direct From Source • Official Delivery Network</p>
+        <p id="txt-header-sub">Direct From Source • Delivery in 1 hour!</p>
     </div>
 
     <div class="promo-banner" id="txt-promo">
@@ -313,13 +298,14 @@
     </div>
 
     <div class="gift-banner">
-        <img class="gift-thumb" src="https://i.imgur.com/oAhkJxy.png" alt="Gifts Showcase" onclick="openLightbox(this.src)">
+        <img class="gift-thumb" src="https://i.imgur.com/oAhkJxy.png" alt="Gifts" onclick="openLightbox(this.src)">
         <div class="gift-text">
             <strong id="gift-title">🎁 FREE GIFTS</strong>
             <span id="gift-desc">Clipper lighter, rolling papers and filters included free in every order from 50€!</span>
         </div>
     </div>
 
+    <!-- VISTA MENU -->
     <div id="view-menu" class="app-view active">
         <div class="categories-scroller">
             <div class="categories-list" id="catList"></div>
@@ -327,6 +313,7 @@
         <div id="productsDisplay"></div>
     </div>
 
+    <!-- VISTA CARRELLO -->
     <div id="view-chat" class="app-view">
         <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Your Cart</h2>
         <div id="cartItemsContainer"></div>
@@ -388,6 +375,7 @@
         </div>
     </div>
 
+    <!-- VISTA INFO -->
     <div id="view-info" class="app-view">
         <div class="info-section alert-section">
             <h3 style="color:var(--danger);" id="info-p0-t">⚠️ NO CASH ACCEPTED Policy (Upfront Payment Only)</h3>
@@ -402,9 +390,7 @@
 
         <div class="info-section">
             <h3 id="info-p1-t">📦 Delivery Process & Wholesale Shipping</h3>
-            <p id="info-p1-d">We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding. 
-            <br><br>
-            <strong>💡 WHOLESALE NOTICE:</strong> Orders selected with 24/48h Express Shipping operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.</p>
+            <p id="info-p1-d">We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.</p>
         </div>
         <div class="info-section">
             <h3 id="info-p2-t">💳 Accepted Payments</h3>
@@ -412,8 +398,8 @@
         </div>
         <div class="info-section">
             <h3 id="info-p3-t">🌿 Premium Rolling Papers & Accessories</h3>
-            <p id="info-p3-d">We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.</p>
-            <img class="papers-hosted-img" src="https://i.imgur.com/oAhkJxy.png" alt="Rolling Papers and Filters Presentation" onclick="openLightbox(this.src)">
+            <p id="info-p3-d">We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community.</p>
+            <img class="papers-hosted-img" src="https://i.imgur.com/oAhkJxy.png" alt="Accessories" onclick="openLightbox(this.src)">
         </div>
         <div class="info-section">
             <h3 id="info-p4-t">💬 Direct Contact & Support</h3>
@@ -422,15 +408,15 @@
         </div>
     </div>
 
+    <!-- VISTA REVIEWS -->
     <div id="view-reviews" class="app-view">
         <h2 style="margin-bottom:5px;" id="txt-rev-title">Verified Customer Reviews</h2>
         <p style="font-size:13px; color:var(--text-hint); margin-bottom:15px;" id="txt-rev-sub">Real reviews extracted directly from our live feed.</p>
-        
         <a href="https://t.me/+-6IEl9aA30AxZDc0" target="_blank" class="tg-link-btn" style="margin-bottom:20px; background:#0088cc;" id="btn-group-rev">⭐️ Open Telegram Reviews Group</a>
-
         <div id="reviewsContainer"></div>
     </div>
 
+    <!-- Barra di Navigazione Inferiore -->
     <div class="bottom-nav">
         <button class="nav-tab active" id="tab-btn-menu" onclick="switchTab('menu')">
             <span class="icon">🌿</span>
@@ -455,22 +441,16 @@
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
 
-        // --- SISTEMI DI PROTEZIONE ANTI CODICE / SCREENSHOT ---
+        // Controllo tasti sviluppatore
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
-                (e.ctrlKey && e.key === 'U')) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault();
                 return false;
             }
         });
         document.addEventListener('dragstart', function(e) { e.preventDefault(); });
-        
-        // Sfocatura dinamica quando la finestra perde il focus (Rende difficili gli screenshot multitasking)
-        window.addEventListener('blur', () => { document.body.classList.add('blurred'); });
-        window.addEventListener('focus', () => { document.body.classList.remove('blurred'); });
 
-        // --- FUNZIONALITÀ LIGHTBOX ZOOM ---
+        // Lightbox
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             const lbImg = document.getElementById('lightbox-img');
@@ -492,8 +472,9 @@
 
         const i18n = {
             en: {
-                all: "All", ageTitle: "AGE VERIFICATION", ageDesc: "You must be 18+ to unlock the official Mrshop20 catalog.", ageEnter: "ENTER (+18)",
-                sub: "Direct From Source • Official Delivery Network", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
+                all: "All", cityTitle: "CHECK DELIVERY COVERAGE", cityDesc: "Enter your city to verify active rider availability.", cityBtn: "CHECK AVAILABILITY",
+                citySuccess: "✅ ONLINE! Delivery available in 20-30 minutes from order confirmation!", cityAlert: "Please type a city name.",
+                sub: "Direct From Source • Delivery in 1 hour!", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
                 giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
@@ -501,7 +482,8 @@
                 p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_spec: "e.g. Between 14:00 and 16:00",
                 delDetails: "Delivery Details", cryptoSub: "Receive direct payment address in chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
                 ppSub: "Not always available. Ask in chat for approval", reqAvail: "REQUEST AVAIL.",
-                infT1: "📦 Delivery Process & Wholesale Shipping", infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.\n\n💡 WHOLESALE NOTICE: Orders selected with 24/48h Express Shipping operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.",
+                infT0: "⚠️ NO CASH ACCEPTED Policy (Upfront Payment Only)", infD0: "We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, and they arrive randomly to pick up your package and securely deliver it near your coordinates.\n\nWhen the rider reaches the spot, they will contact you directly to guide you to the precise hideout (e.g., behind a pillar, under a car wheel, or a specific discrete point). This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider. Our couriers are experts in discrete drop methodologies.\n\nDo not insist on cash payments. We make absolutely zero exceptions. No upfront payment, no order.",
+                infT1: "📦 Delivery Process & Wholesale Shipping", infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.",
                 infT2: "💳 Accepted Payments", infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.",
                 infT3: "🌿 Premium Rolling Papers & Accessories", infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
                 infT4: "💬 Direct Contact & Support", infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
@@ -515,8 +497,9 @@
                 ]
             },
             it: {
-                all: "Tutte", ageTitle: "VERIFICA ETA'", ageDesc: "Devi avere almeno 18 anni per sbloccare l'inventario ufficiale Mrshop20.", ageEnter: "ENTRA (+18)",
-                sub: "Direttamente alla Fonte • Rete di Consegna Ufficiale", promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS & Gift Cartine da 50€ in su!",
+                all: "Tutte", cityTitle: "VERIFICA COPERTURA SPEDIZIONE", cityDesc: "Inserisci la tua città per verificare la disponibilità dei rider.", cityBtn: "VERIFICA DISPONIBILITÀ",
+                citySuccess: "✅ COPERTURA ATTIVA! Consegna disponibile in 20-30 minuti dalla conferma dell'ordine!", cityAlert: "Per favore inserisci il nome di una città.",
+                sub: "Direttamente alla Fonte • Consegna in 1 ora!", promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS & Gift Cartine da 50€ in su!",
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
                 giftT: "🎁 REGALO COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€ in su!",
@@ -524,7 +507,8 @@
                 p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_spec: "Es: Tra le 14:00 e le 16:00",
                 delDetails: "Dati Spedizione / Consegna", cryptoSub: "Ricevi l'indirizzo esatto per il pagamento in chat", cardSub: "Ti guideremo su come comprare Bitcoin all'istante con carta",
                 ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
-                infT1: "📦 Processo di Delivery & Tariffe Ingrosso", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto.\n\n💡 NOTA INGROSSO: Gli ordini spediti tramite Spedizione Express 24/48h beneficiano di tariffe stock/all'ingrosso drasticamente inferiori rispetto al delivery locale immediato. Scrivici in privato per ricevere informazioni aggiuntive sul listino ingrosso.",
+                infT0: "⚠️ Politica NESSUN PAGAMENTO IN CONTANTI (Solo pagamento anticipato)", infD0: "Lavoriamo esclusivamente con rider completamente anonimi che paghiamo in anticipo in crypto. Non conosciamo la loro identità, ed arrivano sul posto in modo casuale per lasciare il pacco e consegnarlo in totale sicurezza vicino alle tue coordinate.\n\nQuando il rider raggiunge il punto stabilito, ti contatterà direttamente per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto la ruota di un'auto o in un punto discreto specifico). Questo processo airtight assicura che anche in presenza di controlli, nulla possa essere ricollegato a te o al rider. I nostri corrieri sono esperti in metodologie di drop discreto.\n\nNon insistere per i pagamenti in contanti. Non facciamo assolutamente eccezioni. Nessun pagamento anticipato, nessun ordine.",
+                infT1: "📦 Processo di Delivery & Tariffe Ingrosso", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto.",
                 infT2: "💳 Metodi di Pagamento Ammessi", infD2: "Siamo un network sicuro basato su transazioni protette. Accettiamo le principali Criptovalute. Se non le possiedi, l'app ti guiderà all'acquisto istantaneo via MoonPay con la tua carta.",
                 infT3: "🌿 Cartine e Accessori Premium", infD3: "Selezioniamo solo cartine sottilissime non sbiancate e filtri organici di altissima qualità per la nostra community, inclusi come dotazione standard del nostro catalogo.",
                 infT4: "💬 Contatto Diretto & Supporto", infD4: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
@@ -538,18 +522,20 @@
                 ]
             },
             fr: {
-                all: "Toutes", ageTitle: "VÉRIFICATION", ageDesc: "Vous devez avoir +18 ans pour débloquer le catalogue Mrshop20.", ageEnter: "ENTRER (+18)",
-                sub: "Direct de la source • Réseau de livraison officiel", promo: "🔥 Min. 30€ + 10€ Expédition | Livraison GRATUITE & Cadeaux à partir de 50€!",
+                all: "Toutes", cityTitle: "VÉRIFIER LA COUVERTURE", cityDesc: "Entrez votre ville pour vérifier la disponibilité des livreurs.", cityBtn: "VÉRIFIER LA DISPONIBILITÉ",
+                citySuccess: "✅ EN LIGNE! Livraison disponible en 20-30 minutes après confirmation!", cityAlert: "Veuillez entrer une ville.",
+                sub: "Direct de la source • Livraison en 1 heure!", promo: "🔥 Min. 30€ + 10€ Expédition | Livraison GRATUITE & Cadeaux à partir de 50€!",
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
                 giftT: "🎁 CADEAUX GRATUITS", giftD: "Briquet Clipper, feuilles et filtres inclus pour les commandes supérieures à 50€!",
                 asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h (Prix de gros)", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
                 p_city: "Ex: Paris, Lyon, Marseille...", p_address: "Nom de rue et Numéro", p_spec: "Ex: Entre 14:00 et 16:00",
-                delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
+                delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "Nous vous guiderons pour acheter des BTC par carte",
                 ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
-                infT1: "📦 Processus de Livraison & Prix de Gros", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Les commandes expédiées en 24/48h bénéficient de prix de gros beaucoup plus bas que la livraison locale.",
-                infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies. Si vous n'en avez pas, l'application vous guidera pour un achat instantané via MoonPay avec votre carte bancaire.",
-                infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies et des filtres organiques pour notre communauté.",
+                infT0: "⚠️ Politique AUCUN ESPÈCE ACCÉPTÉ (Paiement à l'avance uniquement)", infD0: "Nous travaillons exclusivement avec des livreurs totalement anonymes que nous prépayons en crypto. Nous ne connaissons pas leur identité, et ils arrivent sur place de manière aléatoire pour déposer votre colis en toute sécurité à proximité de vos coordonnées.\n\nLorsque le livreur atteint le point, il vous contactera directement pour vous guider vers la cachette précise (ex. derrière un pilier, sous une roue de voiture ou un point discret spécifique). Ce processus étanche garantit que même en présence de contrôles, rien ne peut être relié à vous ou au livreur. Nos coursiers sont experts en méthodologies de drop discret.\n\nN'insistez pas pour les paiements en espèces. Nous ne faisons absolument aucune exception. Pas de paiement à l'avance, pas de commande.",
+                infT1: "📦 Processus de Livraison & Prix de Gros", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Chaque colis est scellé sous vide.",
+                infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies. Vous pouvez également acheter facilement par carte via MoonPay.",
+                infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies et des filtres organiques.",
                 infT4: "💬 Contact Direct & Support", infD4: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
                 actPromo: "🎉 Minimum de commande atteint!", totEff: "Total Effectif", free: "GRATUIT", shippingCostText: "Expédition", minOrderErr: "Le minimum de commande est de 30€!", fieldErr: "Veuillez remplir les champs Ville, Adresse et Code Postal!",
@@ -561,8 +547,9 @@
                 ]
             },
             de: {
-                all: "Alle", ageTitle: "ALTERSVERIFIKATION", ageDesc: "Sie müssen 18+ sein, um das Mrshop20-Menü aufzurufen.", ageEnter: "REINKOMMEN (+18)",
-                sub: "Direkt von der Quelle • Offizielles Liefernetzwerk", promo: "🔥 Mindestbestellwert 30€ + 10€ Versand | KOSTENLOSER Versand ab 50€!",
+                all: "Alle", cityTitle: "LIEFERGEBIET PRÜFEN", cityDesc: "Geben Sie Ihre Stadt ein, um die Verfügbarkeit der Fahrer zu prüfen.", cityBtn: "VERFÜGBARKEIT PRÜFEN",
+                citySuccess: "✅ ONLINE! Lieferung innerhalb von 20-30 Minuten nach Bestätigung verfügbar!", cityAlert: "Bitte geben Sie eine Stadt ein.",
+                sub: "Direkt von der Quelle • Lieferung in 1 Stunde!", promo: "🔥 Mindestbestellwert 30€ + 10€ Versand | KOSTENLOSER Versand ab 50€!",
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
                 giftT: "🎁 GRATIS GESCHENKE", giftD: "Clipper Feuerzeug, Blättchen und Filter kostenlos ab 50€ Bestellwert!",
@@ -570,8 +557,9 @@
                 p_city: "z.B. Berlin, München, Hamburg...", p_address: "Straße und Hausnummer", p_spec: "z.B. Zwischen 14:00 und 16:00",
                 delDetails: "Lieferdetails", cryptoSub: "Erhalten Sie die Zahlungsadresse direkt im Chat", cardSub: "Wir zeigen Ihnen, wie Sie BTC sofort mit Karte kaufen",
                 ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
-                infT1: "📦 Lieferprozess & Großhandelspreise", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Die Preise für den 24/48-Stunden-Expressversand sind Großhandelspreise und viel niedriger als für die Lieferung vor Ort.",
-                infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Wenn Sie keine Kryptowährungen besitzen, führt Sie unsere App zum Sofortkauf über MoonPay mit Ihrer Kreditkarte.",
+                infT0: "⚠️ KEINE BARZAHLUNG Akzeptiert (Nur Vorkasse)", infD0: "Wir arbeiten ausschließlich mit völlig anonymen Fahrern zusammen, die wir in Krypto im Voraus bezahlen. Wir kennen ihre Identität nicht und sie kommen zufällig vor Ort an, um Ihr Paket sicher in der Nähe Ihrer Koordinaten abzugeben.\n\nWenn der Fahrer den Punkt erreicht, wird er Sie direkt kontaktieren, um Sie zum genauen Versteck zu führen (z. B. hinter einer Säule, unter einem Autorad oder an einem bestimmten diskreten Punkt). Dieser luftdichte Prozess stellt sicher, dass selbst bei Kontrollen nichts mit Ihnen oder dem Fahrer in Verbindung gebracht werden kann. Unsere Kuriere sind Experten für diskrete Drop-Methoden.\n\nBestehen Sie nicht auf Barzahlung. Wir machen absolut keine Ausnahmen. Keine Vorkasse, keine Bestellung.",
+                infT1: "📦 Lieferprozess & Großhandelspreise", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Alle Pakete sind vakuumverpackt.",
+                infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Sie können Krypto auch direkt mit Ihrer Kreditkarte über MoonPay kaufen.",
                 infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten ultradünnen ungebleichten Blättchen und Bio-Filter für unsere Community aus.",
                 infT4: "💬 Direkter Kontakt & Support", infD4: "Brauchen Sie Hilfe vor der Bestellung? Kontaktieren Sie sofort unseren Live-Operator auf Telegram.",
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
@@ -584,17 +572,19 @@
                 ]
             },
             ru: {
-                all: "Все", ageTitle: "ПРОВЕРКА ВОЗРАСТА", ageDesc: "Вам должно быть 18+ лет для доступа к меню Mrshop20.", ageEnter: "ВОЙТИ (+18)",
-                sub: "Прямые поставки • Официальная сеть доставки", promo: "🔥 Мин. заказ 30€ + 10€ Доставка | БЕСПЛАТНО от 50€ + Подарки!",
-                cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", empty: "Ваша корзина пуста!",
+                all: "Все", cityTitle: "ПРОВЕРКА ЗОНЫ ДОСТАВКИ", cityDesc: "Введите ваш город, чтобы проверить доступность курьеров.", cityBtn: "ПРОВЕРИТЬ ДОСТУПНОСТЬ",
+                citySuccess: "✅ ДОСТАВКА АКТИВНА! Доступно в течение 20-30 минут после подтверждения заказа!", cityAlert: "Пожалуйста, введите название города.",
+                sub: "Прямые поставки • Доставка за 1 час!", promo: "🔥 Мин. заказ 30€ + 10€ Доставка | БЕСПЛАТНО от 50€ + Подарки!",
+                cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Menu", empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", giftD: "Зажигалка Clipper, бумага и фильтры бесплатно при заказе от 50€!",
                 asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч (Оптовые цены)", spec: "Указать время (напишите ниже)",
                 p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_spec: "Пример: Между 14:00 и 16:00",
                 delDetails: "Данные доставки", cryptoSub: "Получите точный адрес для оплаты в чате", cardSub: "Мы поможем вам мгновенно купить Биткоин с карты",
                 ppSub: "Доступно не всегда. Уточняйте у оператора в чате", reqAvail: "ПО ЗАПРОСУ",
-                infT1: "📦 Доставка и оптовые цены", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Цены на экспресс-доставку 24/48ч являются оптовыми и значительно ниже цен на локальную доставку.",
-                infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты. Если у вас нет крипты, приложение поможет вам мгновенно купить ее через MoonPay с помощью вашей обычной карты.",
+                infT0: "⚠️ Политика НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ (Только предоплата)", infD0: "Мы работаем исключительно с полностью анонимными курьерами, которым платим заранее в крипте. Мы не знаем их личностей, и они прибывают на место случайным образом, чтобы надежно оставить вашу посылку рядом с вашими координатами.\n\nКогда курьер доберется до точки, он свяжется с вами напрямую, чтобы направить вас к точному тайнику (например, за столбом, под колесом машины или в определенной незаметной точке). Этот герметичный процесс гарантирует, что даже в случае проверок ничто не сможет связать вас или курьера. Наши курьеры являются экспертами в методологиях незаметного дропа.\n\nНе настаивайте на оплате наличными. Мы не делаем абсолютно никаких исключений. Нет предоплаты — нет заказа.",
+                infT1: "📦 Доставка и оптовые цены", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Все посылки герметично запечатаны под вакуумом.",
+                infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты. Также вы можете легко купить их с карты через MoonPay.",
                 infT3: "🌿 Бумага и аксессуары премиум-класса", infD3: "Мы выбираем только тончайшую неотбеленную бумагу и органические фильтры высшего качества для нашего сообщества.",
                 infT4: "💬 Прямая связь и поддержка", infD4: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
                 btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
@@ -613,41 +603,40 @@
         let activeCategoryFilter = 'all';
 
         const productsData = [
-            { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/OEID9J5.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
-            { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/xJbwEnS.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
-            { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/DSI9CUX.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
-            { id: "f4", name: "Purple Platinum", category: "flowers", price: 12, img: "https://i.imgur.com/HDugCb7.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
-            { id: "f5", name: "Moonrock", category: "flowers", price: 12, img: "https://i.imgur.com/gg7aY8w.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent", isGramAsset: true },
-            { id: "f6", name: "Cookies", category: "flowers", price: 12, img: "https://i.imgur.com/sq6oxsn.jpg", desc: "Premium Indoor • 26% THC • Sweet & Earthy", isGramAsset: true },
-            { id: "f7", name: "Green Crack", category: "flowers", price: 12, img: "https://i.imgur.com/z4pk53p.jpg", desc: "Premium Indoor • 25% THC • Energetic & Citrus", isGramAsset: true },
-            { id: "f8", name: "White Widow", category: "flowers", price: 12, img: "https://i.imgur.com/89Jx71M.jpg", desc: "Premium Indoor • 26% THC • Classic & Balanced", isGramAsset: true },
-            { id: "f9", name: "Lemon Cherry", category: "flowers", price: 12, img: "https://i.imgur.com/Iq0lfP9.jpg", desc: "Premium Indoor • 27% THC • Citrus & Sweet", isGramAsset: true },
-            { id: "f10", name: "Blue Dream", category: "flowers", price: 12, img: "https://i.imgur.com/YBIwKwr.jpg", desc: "Premium Indoor • 25% THC • Berry & Herbal", isGramAsset: true },
-            { id: "f11", name: "Northern Lights", category: "flowers", price: 12, img: "https://i.imgur.com/KohotAS.jpg", desc: "Premium Indoor • 26% THC • Spicy & Sweet", isGramAsset: true },
-            { id: "f12", name: "Sour Diesel", category: "flowers", price: 12, img: "https://i.imgur.com/SYnzMLV.jpg", desc: "Premium Indoor • 27% THC • Diesel & Pungent", isGramAsset: true },
-            { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://i.imgur.com/VoKcbTT.jpg", desc: "Premium Indoor • 28% THC • Colorful & Exotic", isGramAsset: true },
-            { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://i.imgur.com/FuC2OLt.jpg", desc: "Premium Indoor • 26% THC • Sweet & Fruity", isGramAsset: true },
-            { id: "f15", name: "Premium Selection", category: "flowers", price: 12, img: "https://i.imgur.com/sfc65w2.jpg", desc: "Rotating Stock • Ask for availability", isGramAsset: true },
+            { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/OeYCvvY.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
+            { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/fyZ6MoZ.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
+            { id: "f3", name: "Weed Cookies", category: "edibles", price: 15, img: "https://i.imgur.com/tjfzEm5.jpg", desc: "Freshly Baked • High THC Infused • Delicious", isGramAsset: false },
+            { id: "f4", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/DSI9CUX.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
+            { id: "f5", name: "Purple Platinum", category: "flowers", price: 12, img: "https://i.imgur.com/HDugCb7.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
+            { id: "f6", name: "Moonrock", category: "flowers", price: 12, img: "https://i.imgur.com/gg7aY8w.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent", isGramAsset: true },
             { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/Y6pN82b.jpg", desc: "Traditional Hash • 35% THC", isGramAsset: true },
             { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://i.imgur.com/xM4Qknx.jpg", desc: "Full Bubble • 50% THC • Top Quality", isGramAsset: true },
-            { id: "h3", name: "Premium Selection Hash", category: "hash", price: 12, img: "https://i.imgur.com/FFc2dkD.jpg", desc: "Various Strains • High Quality", isGramAsset: true },
-            { id: "e1", name: "THC Edibles 600mg", category: "edibles", price: 40, img: "https://i.imgur.com/CsZL6x4.jpg", desc: "600mg THC • Multiple Flavors", isGramAsset: false },
-            { id: "e2", name: "THC Edibles 1000mg", category: "edibles", price: 60, img: "https://i.imgur.com/CsZL6x4.jpg", desc: "1000mg THC • High Potency", isGramAsset: false },
             { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/6JgjcuH.jpg", desc: "0.5ml • 85% THC", isGramAsset: false },
-            { id: "v2", name: "Runtz / Cookie Vape", category: "vapes", price: 65, img: "https://i.imgur.com/dggm9MQ.jpg", desc: "0.5ml • 85% THC", isGramAsset: false },
-            { id: "m1", name: "Albinos / Golden Teacher", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Potent", isGramAsset: true },
-            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "Pure Fishscale • 1 Gram", isGramAsset: true },
-            { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/oytn91Q.jpg", desc: "Liquid • 1ml • 200µg", isGramAsset: false }
+            { id: "m1", name: "Albinos Shrooms", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Potent", isGramAsset: true },
+            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/lbdXH0F.jpg", desc: "Pure Fishscale • 1 Gram", isGramAsset: true }
         ];
 
         let cart = {};
 
-        function verifyAge() {
-            localStorage.setItem('mrshopAge', '18');
-            document.getElementById('ageGate').classList.add('hidden');
+        function checkCityCoverage() {
+            const val = document.getElementById('cityGateInput').value.trim();
+            if(!val) {
+                alert(i18n[currentLang].cityAlert);
+                return;
+            }
+            const msgEl = document.getElementById('cityStatusMsg');
+            msgEl.style.color = 'var(--primary-neon)';
+            msgEl.innerText = i18n[currentLang].citySuccess;
+            
+            setTimeout(() => {
+                localStorage.setItem('mrshopCityChecked', val);
+                document.getElementById('cityGate').classList.add('hidden');
+                document.getElementById('input-city').value = val.toUpperCase();
+            }, 1800);
         }
-        if (localStorage.getItem('mrshopAge') === '18') {
-            document.getElementById('ageGate').classList.add('hidden');
+
+        if (localStorage.getItem('mrshopCityChecked')) {
+            document.getElementById('cityGate').classList.add('hidden');
         }
 
         function changeCurrency(val) {
@@ -657,14 +646,12 @@
         }
 
         function getConvertedPrice(baseEurPrice) {
-            const cfg = currencyConfig[activeCurrency];
-            return baseEurPrice * cfg.rate;
+            return baseEurPrice * currencyConfig[activeCurrency].rate;
         }
 
         function getConvertedPriceStr(baseEurPrice) {
             const cfg = currencyConfig[activeCurrency];
-            const converted = getConvertedPrice(baseEurPrice);
-            return `${cfg.symbol}${converted.toFixed(2)}`;
+            return `${cfg.symbol}${getConvertedPrice(baseEurPrice).toFixed(2)}`;
         }
 
         function setLanguage(lang) {
@@ -673,9 +660,9 @@
             document.getElementById(`lang-btn-${lang}`).classList.add('active');
 
             const dict = i18n[lang];
-            document.getElementById('txt-age-title').innerText = dict.ageTitle;
-            document.getElementById('txt-age-desc').innerText = dict.ageDesc;
-            document.getElementById('btn-age-enter').innerText = dict.ageEnter;
+            document.getElementById('txt-city-title').innerText = dict.cityTitle;
+            document.getElementById('txt-city-desc').innerText = dict.cityDesc;
+            document.getElementById('btn-city-check').innerText = dict.cityBtn;
             document.getElementById('txt-header-sub').innerText = dict.sub;
             document.getElementById('txt-promo').innerText = dict.promo;
             document.getElementById('gift-title').innerText = dict.giftT;
@@ -707,6 +694,8 @@
             document.getElementById('badge-req').innerText = dict.reqAvail;
             document.getElementById('btn-submit-order').innerText = dict.confirm;
 
+            document.getElementById('info-p0-t').innerText = dict.infT0;
+            document.getElementById('info-p0-d').innerText = dict.infD0;
             document.getElementById('info-p1-t').innerText = dict.infT1;
             document.getElementById('info-p1-d').innerText = dict.infD1;
             document.getElementById('info-p2-t').innerText = dict.infT2;
@@ -792,7 +781,7 @@
                             <span class="gram-value" id="qty-${p.id}">${qty}${unitLabel}</span>
                             <button class="gram-btn" onclick="modifyQty('${p.id}', 1)">+</button>
                         </div>
-                        <div style="font-size:14px; font-weight:bold; color:var(--primary-neon); margin-top:8px; text-align:center;">
+                        <div style="font-size:13px; font-weight:bold; color:var(--primary-neon); margin-top:8px; text-align:center;">
                             ${getConvertedPriceStr(p.price)}/${p.isGramAsset ? 'g' : 'pz'}
                         </div>
                     </div>
@@ -843,22 +832,13 @@
                     giftApplied = false;
                 }
             }
-
             const finalTotalEur = baseProductsTotalEur + shippingFeeEur;
-
-            return {
-                itemsCount,
-                baseTotalEur: baseProductsTotalEur,
-                shippingFeeEur,
-                finalTotalEur,
-                giftApplied
-            };
+            return { itemsCount, baseTotalEur: baseProductsTotalEur, shippingFeeEur, finalTotalEur, giftApplied };
         }
 
         function updateCartUI() {
             const metrics = calculateCartMetrics();
             const badge = document.getElementById('cartBadge');
-            
             if (metrics.itemsCount > 0) {
                 badge.innerText = metrics.itemsCount;
                 badge.style.display = 'flex';
@@ -1014,15 +994,13 @@
             }
 
             const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
-            
-            if (tg && tg.sendData) {
-                tg.sendData(msg);
-            }
+            if (tg && tg.sendData) { tg.sendData(msg); }
             window.open(targetUrl, '_blank');
         }
 
-        // Boot-Up
+        // Init App locale
         setLanguage('en');
     </script>
 </body>
 </html>
+
