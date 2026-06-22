@@ -463,8 +463,7 @@
                 sub: "Direct From Source • Delivery in 1 hour!", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
-                giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
-                asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h (Wholesale Prices - PM us)", spec: "Specific Time Slot (Write below)",
+                giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!","asap": "As soon as possible / ASAP", ship: "Express Shipping 24/48h (Wholesale Prices - PM us)", spec: "Specific Time Slot (Write below)",
                 p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_spec: "e.g. Between 14:00 and 16:00",
                 delDetails: "Delivery Details", cryptoSub: "Receive direct payment address in chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
                 ppSub: "Not always available. Ask in chat for approval", reqAvail: "REQUEST AVAIL.",
@@ -524,9 +523,9 @@
                 delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
                 ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
                 infT0: "⚠️ Politique AUCUN ESPÈCE ACCÉPTÉ (Paiement à l'avance uniquement)",
-                infD0: "Nous travaillons exclusivement with des livreurs totalement anonymes que nous prépayons en crypto... <strong>Pas de paiement à l'avance, pas de commande.</strong>",
+                infD0: "Nous travaillons exclusivement avec des livreurs totalement anonymes que nous prépayons en crypto... <strong>Pas de paiement à l'avance, pas de commande.</strong>",
                 infT1: "📦 Processus de Livraison & Prix de Gros", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes.",
-                infT2: "💳 Paiements Acceptés", infD2: "We acceptons toutes les principales crypto-monnaies.",
+                infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies.",
                 infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies.",
                 infT4: "💬 Contact Direct & Support", infD4: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
@@ -697,81 +696,5 @@
             document.getElementById('txt-gate-title').innerText = dict.gateTitle;
             document.getElementById('txt-gate-desc').innerText = dict.gateDesc;
             document.getElementById('gateCityInput').placeholder = dict.p_city;
-            document.getElementById('btn-gate-check').innerText = dict.gateBtnCheck;
-            document.getElementById('btn-gate-enter').innerText = dict.gateBtnEnter;
-            if(document.getElementById('deliveryStatusBox').style.display === 'block') {
-                if (document.getElementById('deliveryStatusBox').classList.contains('error-status')) {
-                    document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusErr;
-                } else {
-                    document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusOk;
-                }
-            }
-
-            document.getElementById('txt-header-sub').innerText = dict.sub;
-            document.getElementById('txt-promo').innerText = dict.promo;
-            document.getElementById('gift-title').innerText = dict.giftT;
-            document.getElementById('gift-desc').innerText = dict.giftD;
-            
-            document.getElementById('tab-menu').innerText = dict.menu;
-            document.getElementById('tab-cart').innerText = dict.cart;
-            document.getElementById('tab-info').innerText = dict.info;
-            document.getElementById('tab-reviews').innerText = dict.reviews;
-
-            document.getElementById('txt-cart-title').innerText = `🛒 ${dict.cart}`;
-            document.getElementById('txt-delivery-details').innerText = dict.delDetails;
-            document.getElementById('lbl-city').innerText = dict.city;
-            document.getElementById('input-city').placeholder = dict.p_city;
-            document.getElementById('lbl-address').innerText = dict.address;
-            document.getElementById('input-address').placeholder = dict.p_address;
-            document.getElementById('lbl-cap').innerText = dict.cap;
-            document.getElementById('lbl-time').innerText = dict.time;
-            
-            document.getElementById('opt-asap').innerText = dict.asap;
-            document.getElementById('opt-ship').innerText = dict.ship;
-            document.getElementById('opt-spec').innerText = dict.spec;
-            document.getElementById('input-time-spec').placeholder = dict.p_spec;
-            
-            document.getElementById('txt-pay-title').innerText = dict.pay;
-            document.getElementById('txt-crypto-sub').innerText = dict.cryptoSub;
-            document.getElementById('txt-moonpay-sub').innerText = dict.cardSub;
-            document.getElementById('txt-paypal-sub').innerText = dict.ppSub;
-            document.getElementById('badge-req').innerText = dict.reqAvail;
-            document.getElementById('btn-submit-order').innerText = dict.confirm;
-
-            document.getElementById('info-p0-t').innerText = dict.infT0;
-            document.getElementById('info-p0-d').innerHTML = dict.infD0;
-            document.getElementById('info-p1-t').innerText = dict.infT1;
-            document.getElementById('info-p1-d').innerText = dict.infD1;
-            document.getElementById('info-p2-t').innerText = dict.infT2;
-            document.getElementById('info-p2-d').innerText = dict.infD2;
-            document.getElementById('info-p3-t').innerText = dict.infT3;
-            document.getElementById('info-p3-d').innerText = dict.infD3;
-            document.getElementById('info-p4-t').innerText = dict.infT4;
-            document.getElementById('info-p4-d').innerText = dict.infD4;
-            document.getElementById('btn-contact-tg').innerText = dict.btnContact;
-
-            document.getElementById('txt-rev-title').innerText = dict.revTitle;
-            document.getElementById('txt-rev-sub').innerText = dict.revSub;
-            document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
-
-            const revBlock = document.getElementById('reviewsContainer');
-            revBlock.innerHTML = '';
-            dict.revs.forEach(r => {
-                revBlock.innerHTML += `
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p>${r.text}</p>
-                        <div class="review-user">${r.user}</div>
-                    </div>
-                `;
-            });
-
-            renderCategoryTabs(); renderProducts(activeCategoryFilter); updateCartUI();
-        }
-
-        function renderCategoryTabs() {
-            const container = document.getElementById('catList'); container.innerHTML = '';
-            
-            const allCard = document.createElement('div');
-            allCard.className = `cat-card
+            document.getElementById('btn-gate-check').innerText = dict.gateBtn
 
