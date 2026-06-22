@@ -85,6 +85,10 @@
             font-size: 14px;
             line-height: 1.4;
         }
+        .delivery-status-box.error-status {
+            background: rgba(255, 59, 48, 0.1);
+            border-color: var(--danger);
+        }
 
         /* Brand Header Area */
         .brand-header {
@@ -455,6 +459,7 @@
             en: {
                 all: "All Strains", gateTitle: "DELIVERY CHECK", gateDesc: "Enter your city to verify our direct instant coverage network.", gateBtnCheck: "Verify Coverage", gateBtnEnter: "Enter Catalog",
                 gateAlertErr: "Please write the name of your city!", gateStatusOk: "✅ <strong>DELIVERY AVAILABLE!</strong><br>Our instant network is fully operational in your area. Guaranteed delivery within 20-30 minutes from order confirmation.",
+                gateStatusErr: "❌ <strong>DELIVERY NOT AVAILABLE!</strong><br>The city name entered seems invalid or not covered by our rapid rider distribution network. Please check the spelling.",
                 sub: "Direct From Source • Delivery in 1 hour!", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
@@ -471,6 +476,7 @@
                 infT4: "💬 Direct Contact & Support", infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
                 btnContact: "💬 Chat with @mrshop20", revTitle: "Verified Customer Reviews", revSub: "Real reviews extracted directly from our live feed.", btnGroupRev: "⭐️ Open Telegram Reviews Group",
                 actPromo: "🎉 Min. Order met!", totEff: "Total Price", free: "FREE", shippingCostText: "Shipping", minOrderErr: "Minimum order is 30€! Please add more items.", fieldErr: "Please fill City, Address and ZIP code fields!",
+                discountTxt: "Quantity Discount",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Delivery completed in less than two hours, crazy quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
@@ -481,6 +487,7 @@
             it: {
                 all: "Tutte le varietà", gateTitle: "CONTROLLO COPERTURA", gateDesc: "Inserisci la tua città per verificare la copertura della nostra rete di consegna immediata.", gateBtnCheck: "Verifica Copertura", gateBtnEnter: "Entra nel Catalogo",
                 gateAlertErr: "Per favore inserisci il nome della tua città!", gateStatusOk: "✅ <strong>DELIVERY DISPONIBILE!</strong><br>La nostra rete è completamente operativa nella tua zona. Consegna garantita in 20-30 minuti dalla conferma dell'ordine.",
+                gateStatusErr: "❌ <strong>CONSEGNA NON DISPONIBILE!</strong><br>Il nome della città inserito sembra non valido o non coperto dalla nostra rete rapida di rider. Controlla la digitazione.",
                 sub: "Direttamente alla Fonte • Consegna in 1 ora!", promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS & Gift Cartine da 50€ in su!",
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
@@ -490,13 +497,14 @@
                 delDetails: "Dati Spedizione / Consegna", cryptoSub: "Ricevi l'indirizzo esatto per il pagamento in chat", cardSub: "Ti guideremo su come comprare Bitcoin all'istante con carta",
                 ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
                 infT0: "⚠️ Politica NESSUN PAGAMENTO IN CONTANTI (Solo pagamento anticipato)",
-                infD0: "Lavoriamo esclusivamente con rider completamente anonimi che paghiamo in anticipo in crypto. Non conosciamo la loro identità, ed arrivano sul posto in modo casuale per lasciare il pacco e consegnarlo in totale sicurezza vicino alle tue coordinate.<br><br>Quando il rider raggiunge il punto stabilito, ti contatterà direttamente per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto la ruota di un'auto o in un punto discreto specifico). Questo processo airtight assicura che anche in presenza di controlli, nulla possa essere ricollegato a te o al rider. I nostri corrieri sono esperti in metodologie di drop discreto.<br><br><strong>Non insistere per i pagamenti in contanti. Non facciamo assolutamente eccezioni. Nessun pagamento anticipato, nessun ordine.</strong>",
+                infD0: "Lavoriamo esclusivamente con rider completamente anonimi che paghiamo in anticipo in crypto. Non conosciamo la loro identità, ed arrivano sul posto in modo casuale per lasciare il pacco e consegnarlo in totale sicurezza vicino alle deine coordinate.<br><br>Quando il rider raggiunge il punto stabilito, ti contatterà direttamente per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto la ruota di un'auto o in un punto discreto specifico). Questo processo airtight assicura che anche in presenza di controlli, nulla possa essere ricollegato a te o al rider. I nostri corrieri sono esperti in metodologie di drop discreto.<br><br><strong>Non insistere per i pagamenti in contanti. Non facciamo assolutamente eccezioni. Nessun pagamento anticipato, nessun ordine.</strong>",
                 infT1: "📦 Processo di Delivery & Tariffe Ingrosso", infD1: "Garantiamo spedizioni flash e consegne locali ultrariservate. Ogni confezione è sigillata sotto vuoto, priva di odori ed indicazioni sul contenuto.\n\n💡 NOTA INGROSSO: Gli ordini spediti tramite Spedizione Express 24/48h beneficiano di tariffe stock/all'ingrosso drasticamente inferiori rispetto al delivery locale immediato. Scrivici in privato per ricevere informazioni aggiuntive sul listino ingrosso.",
                 infT2: "💳 Metodi di Pagamento Ammessi", infD2: "Siamo un network sicuro basato su transazioni protette. Accettiamo le principali Criptovalute. Se non le possiedi, l'app ti guiderà all'acquisto istantaneo via MoonPay con la tua carta.",
                 infT3: "🌿 Cartine e Accessori Premium", infD3: "Selezioniamo solo cartine sottilissime non sbiancate e filtri organici di altissima qualità per la nostra community, inclusi come dotazione standard del nostro catalogo.",
                 infT4: "💬 Contatto Diretto & Supporto", infD4: "Hai domande prima di ordinare? Mettiti subito in contatto con il nostro operatore ufficiale su Telegram.",
                 btnContact: "💬 Parla con @mrshop20", revTitle: "Recensioni Verificate Clienti", revSub: "Recensioni reali estratte direttamente dal nostro canale.", btnGroupRev: "⭐️ Apri Gruppo Recensioni Telegram",
                 actPromo: "🎉 Minimo d'ordine raggiunto!", totEff: "Totale Effettivo", free: "GRATIS", shippingCostText: "Spedizione", minOrderErr: "L'ordine minimo è di 30€! Aggiungi altri prodotti.", fieldErr: "Compila i campi Obbligatori: Città, Indirizzo e CAP!",
+                discountTxt: "Sconto Quantità",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Consegna effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
@@ -507,6 +515,7 @@
             fr: {
                 all: "Toutes", gateTitle: "DISPONIBILITÉ", gateDesc: "Entrez votre ville pour vérifier la couverture de notre réseau de livraison instantanée.", gateBtnCheck: "Vérifier la couverture", gateBtnEnter: "Entrer dans le catalogue",
                 gateAlertErr: "S'il vous plaît écrivez le nom de votre ville!", gateStatusOk: "✅ <strong>LIVRAISON DISPONIBLE!</strong><br>Notre réseau est pleinement opérationnel. Livraison garantie sous 20-30 minutes après confirmation de commande.",
+                gateStatusErr: "❌ <strong>LIVRAISON NON DISPONIBLE!</strong><br>Le nom de la ville semble invalide ou non couvert.",
                 sub: "Direct de la source • Delivery in 1 hour!", promo: "🔥 Min. 30€ + 10€ Expédition | Livraison GRATUITE & Cadeaux à partir de 50€!",
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
@@ -516,17 +525,19 @@
                 delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
                 ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
                 infT0: "⚠️ Politique AUCUN ESPÈCE ACCÉPTÉ (Paiement à l'avance uniquement)",
-                infD0: "Nous travaillons exclusivement avec des livreurs totalement anonymes que nous prépayons en crypto. Nous ne connaissons pas leur identité, et ils arrivent sur place de manière aléatoire pour déposer votre colis en toute sécurité à proximité de vos coordonnées.<br><br>Lorsque le livreur atteint le point, il vous contactera directement pour vous guider vers la cachette précise (ex. derrière un pilier, sous une roue de voiture ou un point discret spécifique). Ce processus étanche garantit que même en présence de contrôles, rien ne peut être relié à vous ou au livreur. Nos coursiers sont experts en méthodologies de drop discret.<br><br><strong>N'insistez pas pour les paiements en espèces. Nous ne faisons absolument aucune exception. Pas de paiement à l'avance, pas de commande.</strong>",
-                infT1: "📦 Processus de Livraison & Prix de Gros", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes. Les commandes expédiées en 24/48h bénéficient de prix de gros beaucoup plus bas que la livraison locale.",
-                infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies. Si vous n'en avez pas, l'application vous guidera pour un achat instantané via MoonPay avec votre carte bancaire.",
-                infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies et des filtres organiques pour notre communauté.",
+                infD0: "Nous travaillons exclusivement avec des livreurs totalement anonymes que nous prépayons en crypto... <strong>Pas de paiement à l'avance, pas de commande.</strong>",
+                infT1: "📦 Processus de Livraison & Prix de Gros", infD1: "Nous garantissons des expéditions flash et des livraisons locales ultra-discrètes.",
+                infT2: "💳 Paiements Acceptés", infD2: "Nous acceptons toutes les principales crypto-monnaies.",
+                infT3: "🌿 Feuilles et Accessoires Premium", infD3: "Nous sélectionnons uniquement des feuilles à rouler ultrafines non blanchies.",
                 infT4: "💬 Contact Direct & Support", infD4: "Besoin d'aide avant de commander? Contactez immédiatement notre opérateur en direct sur Telegram.",
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
+                discountTxt: "Remise quantité",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
             },
             de: {
                 all: "Alle", gateTitle: "LIEFERPRÜFUNG", gateDesc: "Geben Sie Ihre Stadt ein, um die Abdeckung unseres direkten Sofortliefernetzwerks zu überprüfen.", gateBtnCheck: "Abdeckung prüfen", gateBtnEnter: "Katalog betreten",
                 gateAlertErr: "Bitte schreiben Sie den Namen Ihrer Stadt!", gateStatusOk: "✅ <strong>LIEFERUNG VERFÜGBAR!</strong><br>Unser Netzwerk ist in Ihrer Region voll einsatzbereit. Garantierte Lieferung innerhalb von 20-30 Minuten nach Bestellbestätigung.",
+                gateStatusErr: "❌ <strong>LIEFERUNG NICHT VERFÜGBAR!</strong><br>Ungültiger Stadtname oder nicht abgedeckt.",
                 sub: "Direkt von der Quelle • Delivery in 1 hour!", promo: "🔥 Mindestbestellwert 30€ + 10€ Versand | KOSTENLOSER Versand ab 50€!",
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
@@ -536,17 +547,19 @@
                 delDetails: "Lieferdetails", cryptoSub: "Erhalten Sie die Zahlungsadresse direkt im Chat", cardSub: "Wir zeigen Ihnen, wie Sie BTC sofort mit Karte kaufen",
                 ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
                 infT0: "⚠️ KEINE BARZAHLUNG Akzeptiert (Nur Vorkasse)",
-                infD0: "Wir arbeiten ausschließlich mit völlig anonymen Fahrern zusammen, die wir in Krypto im Voraus bezahlen. Wir kennen ihre Identität nicht und sie kommen zufällig vor Ort an, um Ihr Paket sicher in der Nähe Ihrer Koordinaten abzugeben.<br><br>Wenn der Fahrer den Punkt erreicht, wird er Sie direkt kontaktieren, um Sie zum genauen Versteck zu führen (z. B. hinter einer Säule, unter einem Autorad oder an einem bestimmten diskreten Punkt). Dieser luftdichte Prozess stellt sicher, dass selbst bei Kontrollen nichts mit Ihnen oder dem Fahrer in Verbindung gebracht werden kann. Unsere Kuriere sind Experten für diskrete Drop-Methoden.<br><br><strong>Bestehen Sie nicht auf Barzahlung. Wir machen absolut keine Ausnahmen. Keine Vorkasse, keine Bestellung.</strong>",
-                infT1: "📦 Lieferprozess & Großhandelspreise", infD1: "Wir garantieren blitzschnellen Versand und hochdiskrete Lieferungen. Die Preise für den 24/48-Stunden-Expressversand sind Großhandelspreise und viel niedriger als für die Lieferung vor Ort.",
-                infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen. Wenn Sie keine Kryptowährungen besitzen, führt Sie unsere App zum Sofortkauf über MoonPay mit Ihrer Kreditkarte.",
-                infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten ultradünnen ungebleichten Blättchen und Bio-Filter für unsere Community aus.",
+                infD0: "Wir arbeiten ausschließlich mit völlig anonymen Fahrern zusammen... <strong>Keine Vorkasse, keine Bestellung.</strong>",
+                infT1: "📦 Lieferprozess & Großhandelspreise", infD1: "Wir garantieren blitzschnellen Versand.",
+                infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen.",
+                infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten Blättchen aus.",
                 infT4: "💬 Direkter Kontakt & Support", infD4: "Brauchen Sie Hilfe vor der Bestellung? KOSTAKTIEREN Sie sofort unseren Live-Operator auf Telegram.",
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
+                discountTxt: "Mengenrabatt",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
             },
             ru: {
                 all: "Все", gateTitle: "ПРОВЕРКА ДОСТАВКИ", gateDesc: "Введите ваш город, чтобы проверить покрытие нашей сети мгновенной доставки.", gateBtnCheck: "Проверить покрытие", gateBtnEnter: "Войти в каталог",
                 gateAlertErr: "Пожалуйста, напишите название вашего города!", gateStatusOk: "✅ <strong>ДОСТАВКА ДОСТУПНА!</strong><br>Наша сеть полностью функционирует в вашем районе. Гарантированная доставка в течение 20-30 минут с момента подтверждения заказа.",
+                gateStatusErr: "❌ <strong>ДОСТАВКА НЕДОСТУПНА!</strong><br>Неверное название города или регион не поддерживается.",
                 sub: "Прямые поставки • Delivery in 1 hour!", promo: "🔥 Мин. заказ 30€ + 10€ Доставка | БЕСПЛАТНО от 50€ + Подарки!",
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Menu", empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ",
@@ -556,12 +569,13 @@
                 delDetails: "Данные доставки", cryptoSub: "Получите точный адрес для оплаты в чате", cardSub: "Мы поможем вам мгновенно купить Биткоин с карты",
                 ppSub: "Доступно не всегда. Уточняйте у оператора в чате", reqAvail: "ПО ЗАПРОСУ",
                 infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ (Только предоплата)",
-                infD0: "Мы работаем исключительно с полностью анонимными курьерами, которым платим заранее в крипте. Мы не знаем их личностей, и они прибывают на место случайным образом, чтобы надежно оставить вашу посылку рядом с вашими координатами.<br><br>Когда курьер доберется до точки, он свяжется с вами напрямую, чтобы направить вас к точному тайнику (например, за столбом, под колесом машины или в определенной незаметной точке). Этот герметичный процесс гарантирует, что даже в случае проверок ничто не сможет связать вас или курьера. Наши курьеры являются экспертами в методологиях незаметного дропа.<br><br><strong>Не настаивайте на оплате наличными. Мы не делаем абсолютно никаких исключений. Нет предоплаты — нет заказа.</strong>",
-                infT1: "📦 Доставка и оптовые цены", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность. Цены на экспресс-доставку 24/48ч являются оптовыми и значительно ниже цен на локальную доставку.",
-                infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты. Если у вас нет крипты, приложение поможет вам мгновенно купить ее через MoonPay с помощью вашей обычной карты.",
-                infT3: "🌿 Бумага и аксессуары премиум-класса", infD3: "Мы выбираем только тончайшую неотбеленную бумагу и органические фильтры высшего качества для нашего сообщества.",
+                infD0: "Мы работаем исключительно с полностью анонимными курьерами... <strong>Нет предоплаты — нет заказа.</strong>",
+                infT1: "📦 Доставка и оптовые цены", infD1: "Мы гарантируем быструю доставку и полную конфиденциальность.",
+                infT2: "💳 Способы оплаты", infD2: "Мы принимаем все основные криптовалюты.",
+                infT3: "🌿 Бумага и аксессуары премиум-класса", infD3: "Мы выбираем только тончайшую неотбеленную бумагу.",
                 infT4: "💬 Прямая связь и поддержка", infD4: "Нужна помощь или есть вопросы перед заказом? Сразу свяжитесь с нашим официальным оператором в Telegram.",
                 btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
+                discountTxt: "Скидка за количество",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
             }
         };
@@ -570,7 +584,6 @@
         let currentSelectedPayment = 'crypto';
         let activeCategoryFilter = 'all';
 
-        // CATALOGO COMPLETO E AGGIORNATO CON REVISIONE PREZZI / CATEGORIE
         const productsData = [
             // 🌿 FLOWERS (Weed) - 12€/g
             { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/OEID9J5.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
@@ -632,6 +645,20 @@
                 alert(dict.gateAlertErr); return;
             }
 
+            // Validazione anti-spam/input casuali (Es: stringhe senza vocali o sequenze insensate)
+            const lowerCity = cityInput.toLowerCase();
+            const genericGibberish = /^[bcdfghjklmnpqrstvwxyz]+$/i.test(lowerCity) || lowerCity.length < 3;
+            
+            if (genericGibberish) {
+                statusBox.innerHTML = dict.gateStatusErr;
+                statusBox.classList.add('error-status');
+                statusBox.style.display = 'block';
+                checkBtn.style.display = 'block';
+                enterBtn.style.display = 'none';
+                return;
+            }
+
+            statusBox.classList.remove('error-status');
             document.getElementById('input-city').value = cityInput.toUpperCase();
             statusBox.innerHTML = dict.gateStatusOk;
             statusBox.style.display = 'block';
@@ -674,7 +701,11 @@
             document.getElementById('btn-gate-check').innerText = dict.gateBtnCheck;
             document.getElementById('btn-gate-enter').innerText = dict.gateBtnEnter;
             if(document.getElementById('deliveryStatusBox').style.display === 'block') {
-                document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusOk;
+                if (document.getElementById('deliveryStatusBox').classList.contains('error-status')) {
+                    document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusErr;
+                } else {
+                    document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusOk;
+                }
             }
 
             document.getElementById('txt-header-sub').innerText = dict.sub;
@@ -708,7 +739,6 @@
             document.getElementById('badge-req').innerText = dict.reqAvail;
             document.getElementById('btn-submit-order').innerText = dict.confirm;
 
-            // Iniezione testi sezione INFO dinamici (inclusa la regola contanti)
             document.getElementById('info-p0-t').innerText = dict.infT0;
             document.getElementById('info-p0-d').innerHTML = dict.infD0;
             document.getElementById('info-p1-t').innerText = dict.infT1;
@@ -809,13 +839,43 @@
         }
 
         function calculateCartMetrics() {
-            let itemsCount = 0; let baseProductsTotalEur = 0;
+            let itemsCount = 0; 
+            let baseProductsTotalEur = 0;
+            let totalWeedGrams = 0;
+
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
-                baseProductsTotalEur += (p.price * cart[id]); itemsCount += cart[id];
+                baseProductsTotalEur += (p.price * cart[id]); 
+                itemsCount += cart[id];
+                
+                // Traccia i grammi totali della categoria 'flowers' (Erba) per applicare gli sconti quantità miste
+                if (p.category === 'flowers' && p.isGramAsset) {
+                    totalWeedGrams += cart[id];
+                }
             });
-            let shippingFeeEur = baseProductsTotalEur > 0 ? (baseProductsTotalEur >= 50 ? 0 : 10) : 0;
-            return { itemsCount, baseTotalEur: baseProductsTotalEur, shippingFeeEur, finalTotalEur: baseProductsTotalEur + shippingFeeEur, giftApplied: baseProductsTotalEur >= 50 };
+
+            // Calcolo sconto automatico progressivo (Es: 10g erba mista a 90€ invece di 120€, quindi 30€ di sconto fisso, scalato in base ai grammi)
+            let discountEur = 0;
+            if (totalWeedGrams >= 10) {
+                // Se raggiungono o superano i 10g di fiori misti, pagano la quota promozionale a 9€/g anziché 12€/g (Risparmio di 3€ a grammo)
+                discountEur = totalWeedGrams * 3;
+            } else if (baseProductsTotalEur >= 150) {
+                // Sconto generico progressivo sul carrello generale se spendono tanto
+                discountEur = baseProductsTotalEur * 0.10; // 10% di sconto automatico
+            }
+
+            let finalProductsTotalEur = baseProductsTotalEur - discountEur;
+            let shippingFeeEur = finalProductsTotalEur > 0 ? (finalProductsTotalEur >= 50 ? 0 : 10) : 0;
+            
+            return { 
+                itemsCount, 
+                baseTotalEur: baseProductsTotalEur, 
+                discountEur,
+                finalProductsTotalEur,
+                shippingFeeEur, 
+                finalTotalEur: finalProductsTotalEur + shippingFeeEur, 
+                giftApplied: finalProductsTotalEur >= 50 
+            };
         }
 
         function updateCartUI() {
@@ -848,6 +908,16 @@
             });
 
             const metrics = calculateCartMetrics();
+
+            // Renderizzazione blocco sconto se applicato
+            if (metrics.discountEur > 0) {
+                html += `
+                    <div style="background:rgba(0, 255, 102, 0.05); border:1px dashed var(--primary-neon); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                        <div style="color:var(--primary-neon); font-weight:bold;">🔥 ${dict.discountTxt}</div>
+                        <div style="color:var(--primary-neon); font-weight:bold;">-${getConvertedPriceStr(metrics.discountEur)}</div>
+                    </div>`;
+            }
+
             html += `
                 <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
                     <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
@@ -860,6 +930,12 @@
                         <span>🎁 Kit Gifts (Lighter + Papers + Filters)</span><strong>${dict.free}</strong>
                     </div>`;
             }
+
+            // Visualizzazione feedback visivo per ordine minimo non raggiunto
+            if (metrics.finalProductsTotalEur < 30) {
+                html += `<div style="margin-top:15px; padding:12px; border-radius:10px; background:rgba(255,59,48,0.1); border:1px solid var(--danger); text-align:center; color:var(--danger); font-weight:bold; font-size:14px;">⚠️ ${dict.minOrderErr}</div>`;
+            }
+
             html += `<div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">${dict.totEff}: <span style="color:var(--primary-neon);">${getConvertedPriceStr(metrics.finalTotalEur)}</span></div>`;
             container.innerHTML = html;
         }
@@ -880,7 +956,11 @@
 
         function processOrderSend() {
             const metrics = calculateCartMetrics(); const dict = i18n[currentLang];
-            if (metrics.baseTotalEur < 30) { alert(dict.minOrderErr); return; }
+            
+            // Blocco di sicurezza rigoroso prima dell'invio
+            if (metrics.finalProductsTotalEur < 30) { 
+                alert(dict.minOrderErr); return; 
+            }
 
             const citta = document.getElementById('input-city').value.trim();
             const indirizzo = document.getElementById('input-address').value.trim();
@@ -896,6 +976,7 @@
                 msg += `• *${p.name}*: ${cart[id]}${p.isGramAsset ? 'g' : 'pz'}\n`;
             });
             if (metrics.giftApplied) msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\n`;
+            if (metrics.discountEur > 0) msg += `🔥 *Discount Applied:* -${getConvertedPriceStr(metrics.discountEur)}\n`;
             msg += `----------------------------------------\n⚙️ *Shipping:* ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\n💰 *TOTAL:* ${getConvertedPriceStr(metrics.finalTotalEur)} (${activeCurrency})\n\n📍 *DELIVERY DETAILS:*\n🏙️ City: ${citta}\n🏠 Address: ${indirizzo}\n📮 ZIP: ${cap}\n⏰ Time: ${orario}\n\n💳 *PAYMENT:*\n`;
             
             if (currentSelectedPayment === 'crypto') msg += `➡ *Cryptocurrencies* (Waiting for address)\n`;
