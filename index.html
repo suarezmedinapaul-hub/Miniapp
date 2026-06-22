@@ -51,7 +51,7 @@
             padding: 30px;
             text-align: center;
         }
-        .delivery-gate.hidden { display: none !important; }
+        .delivery-gate.hidden { display: none; }
         .logo-animation { font-size: 70px; margin-bottom: 10px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
@@ -138,7 +138,7 @@
         .gift-text { font-size: 12px; line-height: 1.4; }
         .gift-text strong { color: var(--secondary-neon); display: block; font-size: 13px; }
 
-        /* Categorie Scroller */
+        /* Categorie Scorritre Con Indicazione Visiva Intuitiva */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
             background: rgba(11, 11, 14, 0.95); backdrop-filter: blur(10px);
@@ -263,9 +263,10 @@
         <p id="txt-gate-desc">Enter your city to verify our direct instant coverage network.</p>
         
         <div class="gate-input-container">
-            <input type="text" class="gate-input" id="gateCityInput" placeholder="e.g. Rome, Milan, London..." onkeydown="if(event.key === 'Enter') checkDeliveryCoverage()">
+            <input type="text" class="gate-input" id="gateCityInput" placeholder="e.g. Rome, Milan, London...">
             <div class="delivery-status-box" id="deliveryStatusBox"></div>
-            <button class="lang-btn" style="width:100%; padding:14px; font-size: 15px; border-color:var(--primary-neon); background: rgba(0,255,102,0.05); text-transform: uppercase; letter-spacing: 1px;" id="btn-gate-check" onclick="checkDeliveryCoverage()">Verify Coverage & Enter</button>
+            <button class="lang-btn" style="width:100%; padding:14px; font-size: 15px; border-color:var(--primary-neon); background: rgba(0,255,102,0.05); text-transform: uppercase; letter-spacing: 1px;" id="btn-gate-check" onclick="checkDeliveryCoverage()">Verify Coverage</button>
+            <button class="lang-btn" style="width:100%; padding:14px; font-size: 15px; border-color:var(--secondary-neon); background: rgba(0,229,255,0.05); text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; display: none;" id="btn-gate-enter" onclick="enterShop()">Enter Catalog</button>
         </div>
     </div>
 
@@ -456,9 +457,9 @@
 
         const i18n = {
             en: {
-                all: "All Strains", gateTitle: "DELIVERY CHECK", gateDesc: "Enter your city to verify our direct instant coverage network.", gateBtnCheck: "Verify Coverage & Enter",
-                gateAlertErr: "Please write the name of your city!", gateStatusOk: "✅ <strong>DELIVERY AVAILABLE!</strong> Loading catalog...",
-                gateStatusErr: "❌ <strong>DELIVERY NOT AVAILABLE!</strong><br>The city name entered seems invalid or not covered. Please check spelling.",
+                all: "All Strains", gateTitle: "DELIVERY CHECK", gateDesc: "Enter your city to verify our direct instant coverage network.", gateBtnCheck: "Verify Coverage", gateBtnEnter: "Enter Catalog",
+                gateAlertErr: "Please write the name of your city!", gateStatusOk: "✅ <strong>DELIVERY AVAILABLE!</strong><br>Our instant network is fully operational in your area. Guaranteed delivery within 20-30 minutes from order confirmation.",
+                gateStatusErr: "❌ <strong>DELIVERY NOT AVAILABLE!</strong><br>The city name entered seems invalid or not covered by our rapid rider distribution network. Please check the spelling.",
                 sub: "Direct From Source • Delivery in 1 hour!", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
@@ -483,9 +484,9 @@
                 ]
             },
             it: {
-                all: "Tutte le varietà", gateTitle: "CONTROLLO COPERTURA", gateDesc: "Inserisci la tua città per verificare la copertura della nostra rete di consegna immediata.", gateBtnCheck: "Verifica Copertura & Entra",
-                gateAlertErr: "Per favore inserisci il nome della tua città!", gateStatusOk: "✅ <strong>DELIVERY DISPONIBILE!</strong> Caricamento catalogo...",
-                gateStatusErr: "❌ <strong>CONSEGNA NON DISPONIBILE!</strong><br>Città non valida o non coperta. Controlla la digitazione.",
+                all: "Tutte le varietà", gateTitle: "CONTROLLO COPERTURA", gateDesc: "Inserisci la tua città per verificare la copertura della nostra rete di consegna immediata.", gateBtnCheck: "Verifica Copertura", gateBtnEnter: "Entra nel Catalogo",
+                gateAlertErr: "Per favore inserisci il nome della tua città!", gateStatusOk: "✅ <strong>DELIVERY DISPONIBILE!</strong><br>La nostra rete è completamente operativa nella tua zona. Consegna garantita in 20-30 minuti dalla conferma dell'ordine.",
+                gateStatusErr: "❌ <strong>CONSEGNA NON DISPONIBILE!</strong><br>Il nome della città inserito sembra non valido o non coperto dalla nostra rete rapida di rider. Controlla la digitazione.",
                 sub: "Direttamente alla Fonte • Consegna in 1 ora!", promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS & Gift Cartine da 50€ in su!",
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
@@ -510,9 +511,9 @@
                 ]
             },
             fr: {
-                all: "Toutes", gateTitle: "DISPONIBILITÉ", gateDesc: "Entrez votre ville pour vérifier la couverture de notre réseau de livraison instantanée.", gateBtnCheck: "Vérifier la couverture & Entrer",
-                gateAlertErr: "S'il vous plaît écrivez le nom de votre ville!", gateStatusOk: "✅ <strong>LIVRAISON DISPONIBLE!</strong> Chargement...",
-                gateStatusErr: "❌ <strong>LIVRAISON NON DISPONIBLE!</strong> Ville non couverte.",
+                all: "Toutes", gateTitle: "DISPONIBILITÉ", gateDesc: "Entrez votre ville pour vérifier la couverture de notre réseau de livraison instantanée.", gateBtnCheck: "Vérifier la couverture", gateBtnEnter: "Entrer dans le catalogue",
+                gateAlertErr: "S'il vous plaît écrivez le nom de votre ville!", gateStatusOk: "✅ <strong>LIVRAISON DISPONIBLE!</strong><br>Notre réseau est pleinement opérationnel. Livraison garantie sous 20-30 minutes après confirmation de commande.",
+                gateStatusErr: "❌ <strong>LIVRAISON NON DISPONIBLE!</strong><br>Le nom de la ville semble invalide ou non couvert.",
                 sub: "Direct de la source • Delivery in 1 hour!", promo: "🔥 Min. 30€ + 10€ Expédition | Livraison GRATUITE & Cadeaux à partir de 50€!",
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
@@ -532,9 +533,9 @@
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
             },
             de: {
-                all: "Alle", gateTitle: "LIEFERPRÜFUNG", gateDesc: "Geben Sie Ihre Stadt ein, um die Abdeckung unseres direkten Sofortliefernetzwerks zu überprüfen.", gateBtnCheck: "Abdeckung prüfen & Eintreten",
-                gateAlertErr: "Bitte schreiben Sie den Namen Ihrer Stadt!", gateStatusOk: "✅ <strong>LIEFERUNG VERFÜGBAR!</strong> Laden...",
-                gateStatusErr: "❌ <strong>LIEFERUNG NICHT VERFÜGBAR!</strong> Ungültiger Stadtname.",
+                all: "Alle", gateTitle: "LIEFERPRÜFUNG", gateDesc: "Geben Sie Ihre Stadt ein, um die Abdeckung unseres direkten Sofortliefernetzwerks zu überprüfen.", gateBtnCheck: "Abdeckung prüfen", gateBtnEnter: "Katalog betreten",
+                gateAlertErr: "Bitte schreiben Sie den Namen Ihrer Stadt!", gateStatusOk: "✅ <strong>LIEFERUNG VERFÜGBAR!</strong><br>Unser Netzwerk ist in Ihrer Region voll einsatzbereit. Garantierte Lieferung innerhalb von 20-30 Minuten nach Bestellbestätigung.",
+                gateStatusErr: "❌ <strong>LIEFERUNG NICHT VERFÜGBAR!</strong><br>Ungültiger Stadtname oder nicht abgedeckt.",
                 sub: "Direkt von der Quelle • Delivery in 1 hour!", promo: "🔥 Mindestbestellwert 30€ + 10€ Versand | KOSTENLOSER Versand ab 50€!",
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
@@ -548,15 +549,15 @@
                 infT1: "📦 Lieferprozess & Großhandelspreise", infD1: "Wir garantieren blitzschnellen Versand.",
                 infT2: "💳 Akzeptierte Zahlungen", infD2: "Wir akzeptieren alle gängigen Kryptowährungen.",
                 infT3: "🌿 Premium Blättchen & Zubehör", infD3: "Wir wählen nur die hochwertigsten Blättchen aus.",
-                infT4: "💬 Direkter Kontakt & Support", infD4: "Brauken Sie Hilfe vor der Bestellung? KOSTAKTIEREN Sie sofort unseren Live-Operator auf Telegram.",
+                infT4: "💬 Direkter Kontakt & Support", infD4: "Brauchen Sie Hilfe vor der Bestellung? KOSTAKTIEREN Sie sofort unseren Live-Operator auf Telegram.",
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
                 discountTxt: "Mengenrabatt",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
             },
             ru: {
-                all: "Все", gateTitle: "ПРОВЕРКА ДОСТАВКИ", gateDesc: "Введите ваш город, чтобы проверить покрытие нашей сети мгновенной доставки.", gateBtnCheck: "Проверить & Войти",
-                gateAlertErr: "Пожалуйста, напишите название вашего города!", gateStatusOk: "✅ <strong>ДОСТАВКА ДОСТУПНА!</strong> Загрузка...",
-                gateStatusErr: "❌ <strong>ДОСТАВКА НЕДОСТУПНА!</strong> Город не поддерживается.",
+                all: "Все", gateTitle: "ПРОВЕРКА ДОСТАВКИ", gateDesc: "Введите ваш город, чтобы проверить покрытие нашей сети мгновенной доставки.", gateBtnCheck: "Проверить покрытие", gateBtnEnter: "Войти в каталог",
+                gateAlertErr: "Пожалуйста, напишите название вашего города!", gateStatusOk: "✅ <strong>ДОСТАВКА ДОСТУПНА!</strong><br>Наша сеть полностью функционирует в вашем районе. Гарантированная доставка в течение 20-30 минут с момента подтверждения заказа.",
+                gateStatusErr: "❌ <strong>ДОСТАВКА НЕДОСТУПНА!</strong><br>Неверное название города или регион не поддерживается.",
                 sub: "Прямые поставки • Delivery in 1 hour!", promo: "🔥 Мин. заказ 30€ + 10€ Доставка | БЕСПЛАТНО от 50€ + Подарки!",
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Menu", empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ",
@@ -582,6 +583,7 @@
         let activeCategoryFilter = 'all';
 
         const productsData = [
+            // 🌿 FLOWERS (Weed) - 12€/g
             { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/OEID9J5.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
             { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/xJbwEnS.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
             { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/FkxOkma.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
@@ -597,19 +599,31 @@
             { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://i.imgur.com/Zi019co.jpg", desc: "Premium Indoor • 28% THC • Colorful & Potent", isGramAsset: true },
             { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://i.imgur.com/MhDwfmI.jpg", desc: "Premium Indoor • 26% THC • Candy Sweet Profile", isGramAsset: true },
             { id: "f15", name: "Premium Selection", category: "flowers", price: 12, img: "https://i.imgur.com/BtdgyqR.jpg", desc: "Rotating Stock Extra High Grade • Ask for Strain", isGramAsset: true },
+
+            // 🍯 HASH
             { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/JazOzhP.jpg", desc: "Traditional Sift • 35% THC • Classic Pressed", isGramAsset: true },
             { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://i.imgur.com/ik7mUV1.jpg", desc: "Full Bubble Extr. • 50% THC • Melting Quality", isGramAsset: true },
             { id: "h3", name: "Premium Hash Selection", category: "hash", price: 10, img: "https://i.imgur.com/qRsKYsW.jpg", desc: "Various Imports • Ask stock variations in chat", isGramAsset: true },
+
+            // 🍫 EDIBLES
             { id: "e1", name: "THC Edibles 600mg", category: "edibles", price: 40, img: "https://i.imgur.com/7ADKVgB.jpg", desc: "Precise Lab-Dosed Gummy Pack • 600mg THC total", isGramAsset: false },
             { id: "e2", name: "THC Edibles Extra 1000mg", category: "edibles", price: 60, img: "https://i.imgur.com/5WGtdFe.jpg", desc: "High Potency Bars/Gummies • Experienced Users Only", isGramAsset: false },
+
+            // 💨 VAPES
             { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/9g0YRHN.jpg", desc: "0.5ml • 85% THC Distillate • Brands: MUHAMEDS / STIIIZY", isGramAsset: false },
             { id: "v2", name: "Runtz / Cookie Vape", category: "vapes", price: 65, img: "https://i.imgur.com/apvap5v.jpg", desc: "0.5ml • 85% THC Creamy Taste • Brands: WHOLEMELT / Switch", isGramAsset: false },
             { id: "v3", name: "Blue Dream Vape", category: "vapes", price: 65, img: "https://i.imgur.com/ZGR6c0x.jpg", desc: "0.5ml • 85% THC Smooth Pull • Brands: Imking / Rug Zar", isGramAsset: false },
             { id: "v4", name: "Amnesia Vape", category: "vapes", price: 65, img: "https://i.imgur.com/1Ynle57.jpg", desc: "0.5ml • 85% THC Pure Terps • Brands: Boutique Switch", isGramAsset: false },
+
+            // 🍄 MUSHROOMS
             { id: "m1", name: "Albinos / Golden Teacher", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Dry Shrooms • Potent Trip", isGramAsset: true },
             { id: "m2", name: "Purple Mystic / Lion's Mane", category: "mushrooms", price: 8, img: "https://i.imgur.com/mzoaONo.jpg", desc: "Psilocybin & Organic Strains Blend • High Quality", isGramAsset: true },
+
+            // 🚬 PREROLLS
             { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://i.imgur.com/7835lP2.jpg", desc: "Moon Rocket / Cali Woods / Packwood Selection", isGramAsset: false },
             { id: "p2", name: "Baby Jeeter Infused", category: "prerolls", price: 30, img: "https://i.imgur.com/ZqGSpGM.jpg", desc: "Kief Infused Joint • High Potency Premium Brand", isGramAsset: false },
+
+            // 🔥 SPECIAL
             { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/6sEzcSq.jpg", desc: "Pure Fishscale Crystals • Uncut Colombian 1g", isGramAsset: true },
             { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/VXq51eZ.jpg", desc: "Liquid Dropper Bottle • 1ml • Ultra Pure 200µg", isGramAsset: false },
             { id: "s3", name: "💎 Crystal Meth", category: "special", price: 50, img: "https://i.imgur.com/qFNns3S.jpg", desc: "Glass Ice Quality Shards • Purity Tested 1g", isGramAsset: true },
@@ -622,11 +636,14 @@
             const cityInput = document.getElementById('gateCityInput').value.trim();
             const dict = i18n[currentLang];
             const statusBox = document.getElementById('deliveryStatusBox');
+            const checkBtn = document.getElementById('btn-gate-check');
+            const enterBtn = document.getElementById('btn-gate-enter');
 
             if (!cityInput) {
                 alert(dict.gateAlertErr); return;
             }
 
+            // Validazione anti-spam/input casuali (Es: stringhe senza vocali o sequenze insensate)
             const lowerCity = cityInput.toLowerCase();
             const genericGibberish = /^[bcdfghjklmnpqrstvwxyz]+$/i.test(lowerCity) || lowerCity.length < 3;
             
@@ -634,6 +651,8 @@
                 statusBox.innerHTML = dict.gateStatusErr;
                 statusBox.classList.add('error-status');
                 statusBox.style.display = 'block';
+                checkBtn.style.display = 'block';
+                enterBtn.style.display = 'none';
                 return;
             }
 
@@ -641,10 +660,8 @@
             document.getElementById('input-city').value = cityInput.toUpperCase();
             statusBox.innerHTML = dict.gateStatusOk;
             statusBox.style.display = 'block';
-
-            setTimeout(() => {
-                enterShop();
-            }, 800);
+            checkBtn.style.display = 'none';
+            enterBtn.style.display = 'block';
         }
 
         function enterShop() {
@@ -680,6 +697,7 @@
             document.getElementById('txt-gate-desc').innerText = dict.gateDesc;
             document.getElementById('gateCityInput').placeholder = dict.p_city;
             document.getElementById('btn-gate-check').innerText = dict.gateBtnCheck;
+            document.getElementById('btn-gate-enter').innerText = dict.gateBtnEnter;
             if(document.getElementById('deliveryStatusBox').style.display === 'block') {
                 if (document.getElementById('deliveryStatusBox').classList.contains('error-status')) {
                     document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusErr;
@@ -829,16 +847,21 @@
                 const p = productsData.find(prod => prod.id === id);
                 baseProductsTotalEur += (p.price * cart[id]); 
                 itemsCount += cart[id];
+                
+                // Traccia i grammi totali della categoria 'flowers' (Erba) per applicare gli sconti quantità miste
                 if (p.category === 'flowers' && p.isGramAsset) {
                     totalWeedGrams += cart[id];
                 }
             });
 
+            // Calcolo sconto automatico progressivo (Es: 10g erba mista a 90€ invece di 120€, quindi 30€ di sconto fisso, scalato in base ai grammi)
             let discountEur = 0;
             if (totalWeedGrams >= 10) {
+                // Se raggiungono o superano i 10g di fiori misti, pagano la quota promozionale a 9€/g anziché 12€/g (Risparmio di 3€ a grammo)
                 discountEur = totalWeedGrams * 3;
             } else if (baseProductsTotalEur >= 150) {
-                discountEur = baseProductsTotalEur * 0.10;
+                // Sconto generico progressivo sul carrello generale se spendono tanto
+                discountEur = baseProductsTotalEur * 0.10; // 10% di sconto automatico
             }
 
             let finalProductsTotalEur = baseProductsTotalEur - discountEur;
@@ -886,6 +909,7 @@
 
             const metrics = calculateCartMetrics();
 
+            // Renderizzazione blocco sconto se applicato
             if (metrics.discountEur > 0) {
                 html += `
                     <div style="background:rgba(0, 255, 102, 0.05); border:1px dashed var(--primary-neon); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
@@ -907,6 +931,7 @@
                     </div>`;
             }
 
+            // Visualizzazione feedback visivo per ordine minimo non raggiunto
             if (metrics.finalProductsTotalEur < 30) {
                 html += `<div style="margin-top:15px; padding:12px; border-radius:10px; background:rgba(255,59,48,0.1); border:1px solid var(--danger); text-align:center; color:var(--danger); font-weight:bold; font-size:14px;">⚠️ ${dict.minOrderErr}</div>`;
             }
@@ -932,6 +957,7 @@
         function processOrderSend() {
             const metrics = calculateCartMetrics(); const dict = i18n[currentLang];
             
+            // Blocco di sicurezza rigoroso prima dell'invio
             if (metrics.finalProductsTotalEur < 30) { 
                 alert(dict.minOrderErr); return; 
             }
