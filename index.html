@@ -311,9 +311,9 @@
             <div class="form-group">
                 <label id="lbl-time">PREFERRED DELIVERY TIME</label>
                 <select id="select-time">
-                    <option value="As soon as possible / ASAP" id="opt-asap">As soon as possible / ASAP</option>
-                    <option value="Express Shipping 24/48h (Wholesale Prices - PM us)" id="opt-ship">Express Shipping 24/48h (Wholesale Prices)</option>
-                    <option value="Specific Time Slot" id="opt-spec">Specific Time Slot (Write below)</option>
+                    <option value="asap" id="opt-asap">As soon as possible / ASAP</option>
+                    <option value="shipping" id="opt-ship">Express Shipping 24/48h (Wholesale Prices)</option>
+                    <option value="specific" id="opt-spec">Specific Time Slot (Write below)</option>
                 </select>
                 <input type="text" id="input-time-spec" placeholder="" style="margin-top:6px; display:none;">
             </div>
@@ -438,7 +438,7 @@
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
                 giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
-                asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h (Wholesale Prices - PM us)", spec: "Specific Time Slot (Write below)",
+                asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h (Wholesale Prices)", spec: "Specific Time Slot (Write below)",
                 p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_spec: "e.g. Between 14:00 and 16:00",
                 delDetails: "Delivery Details", cryptoSub: "Receive direct payment address in chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
                 ppSub: "Not always available. Ask in chat for approval", reqAvail: "REQUEST AVAIL.",
@@ -465,8 +465,8 @@
                 sub: "Direttamente alla Fonte • Consegna in 1 ora!", promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS & Gift Cartine da 50€ in su!",
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
-                giftT: "🎁 REGALO COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€ in su!",
-                asap: "Appena possibile / ASAP", ship: "Spedizione Express 24/48h (Prezzi Ingrosso - Scrivici in PM)", spec: "Fascia Oraria Specifica (Scrivi sotto)",
+                giftT: "🎁 REGAL COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€ in su!",
+                asap: "Appena possibile / ASAP", ship: "Spedizione Express 24/48h (Prezzi Ingrosso)", spec: "Fascia Oraria Specifica (Scrivi sotto)",
                 p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_spec: "Es: Tra le 14:00 e le 16:00",
                 delDetails: "Dati Spedizione / Consegna", cryptoSub: "Ricevi l'indirizzo esatto per il pagamento in chat", cardSub: "Ti guideremo su come comprare Bitcoin all'istante con carta",
                 ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
@@ -494,9 +494,9 @@
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide! Ajoutez des produits depuis le Menu!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON SOUHAITÉE", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
                 giftT: "🎁 CADEAUX GRATUITS", giftD: "Briquet Clipper, feuilles et filtres inclus pour les commandes supérieures à 50€!",
-                asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h (Prix de gros - Contactez-nous)", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
+                asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h (Prix de gros)", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
                 p_city: "Ex: Paris, Lyon, Marseille...", p_address: "Nom de rue et Numéro", p_spec: "Ex: Entre 14:00 et 16:00",
-                delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "Nous vous guiderons pour acheter des Bitcoin instantanément par carte",
+                delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "We vous guiderons pour acheter des Bitcoin instantanément par carte",
                 ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
                 infT0: "⚠️ Politique AUCUN ESPÈCE ACCÉPTÉ (Paiement à l'avance uniquement)",
                 infD0: "Nous travaillons exclusivement avec des livreurs totalement anonymes que nous prépayons en crypto. Nous ne connaissons pas leurs identités, et ils arrivent au hasard pour déposer votre colis près de vos coordonnées.<br><br>Lorsque le livreur atteint le point, il vous contactera directement pour vous guider vers la cachette précise (ex: derrière un pilier, sous une roue de voiture, ou un point discret spécifique). Ce processus étanche garantit que même si la police est là, rien ne peut être relié à vous ou au livreur. Nos coursiers sont experts en drop discret.<br><br><strong>N'insistez pas pour le paiement en espèces. Nous ne faisons absolument aucune exception. Pas de paiement à l'avance, pas de commande.</strong>",
@@ -522,7 +522,7 @@
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer! Fügen Sie Produkte aus dem Menü hinzu!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "BEVORZUGTE LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
                 giftT: "🎁 GRATIS GESCHENKE", giftD: "Clipper Feuerzeug, Blättchen und Filter kostenlos ab 50€ Bestellwert!",
-                asap: "Schnellstmöglich / ASAP", ship: "Expressversand 24/48h (Großhandelspreise - PN uns)", spec: "Spezifisches Zeitfenster (Unten eintragen)",
+                asap: "Schnellstmöglich / ASAP", ship: "Expressversand 24/48h (Großhandelspreise)", spec: "Spezifisches Zeitfenster (Unten eintragen)",
                 p_city: "z.B. Berlin, München, Hamburg...", p_address: "Straße und Hausnummer", p_spec: "z.B. Zwischen 14:00 und 16:00",
                 delDetails: "Lieferdetails", cryptoSub: "Erhalten Sie die Zahlungsadresse direkt im Chat", cardSub: "Wir zeigen Ihnen, wie Sie BTC sofort mit Karte kaufen",
                 ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
@@ -550,7 +550,7 @@
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", empty: "Ваша корзина пуста! Добавьте товары из Меню!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ЖЕЛАЕМОЕ ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ И ОТПРАВИТЬ ЗАКАЗ",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", giftD: "Зажигалка Clipper, бумага и фильтры бесплатно при заказе от 50€!",
-                asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч (Оптовые цены - Пишите в ЛС)", spec: "Указать время (напишите ниже)",
+                asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч (Оптовые цены)", spec: "Указать время (напишите ниже)",
                 p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_spec: "Пример: Между 14:00 и 16:00",
                 delDetails: "Данные доставки", cryptoSub: "Получите точный адрес для оплаты в чате", cardSub: "Мы поможем вам мгновенно купить Биткоин с карты",
                 ppSub: "Доступно не всегда. Уточняйте у оператора в чате", reqAvail: "ПО ЗАПРОСУ",
@@ -661,285 +661,5 @@
             document.getElementById('txt-gate-title').innerHTML = dict.gateTitle;
             document.getElementById('txt-gate-desc').innerText = dict.gateDesc;
             document.getElementById('gateCityInput').placeholder = dict.p_city;
-            document.getElementById('btn-gate-check').innerText = dict.gateBtnCheck;
-            if(document.getElementById('deliveryStatusBox').style.display === 'block') {
-                if (document.getElementById('deliveryStatusBox').classList.contains('error-status')) {
-                    document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusErr;
-                } else {
-                    document.getElementById('deliveryStatusBox').innerHTML = dict.gateStatusOk;
-                }
-            }
-
-            document.getElementById('txt-header-sub').innerText = dict.sub;
-            document.getElementById('txt-promo').innerText = dict.promo;
-            document.getElementById('gift-title').innerText = dict.giftT;
-            document.getElementById('gift-desc').innerText = dict.giftD;
-            
-            document.getElementById('tab-menu').innerText = dict.menu;
-            document.getElementById('tab-cart').innerText = dict.cart;
-            document.getElementById('tab-info').innerText = dict.info;
-            document.getElementById('tab-reviews').innerText = dict.reviews;
-
-            document.getElementById('txt-cart-title').innerText = `🛒 ${dict.cart}`;
-            document.getElementById('txt-delivery-details').innerText = dict.delDetails;
-            document.getElementById('lbl-city').innerText = dict.city;
-            document.getElementById('input-city').placeholder = dict.p_city;
-            document.getElementById('lbl-address').innerText = dict.address;
-            document.getElementById('input-address').placeholder = dict.p_address;
-            document.getElementById('lbl-cap').innerText = dict.cap;
-            document.getElementById('lbl-time').innerText = dict.time;
-            
-            document.getElementById('opt-asap').innerText = dict.asap;
-            document.getElementById('opt-ship').innerText = dict.ship;
-            document.getElementById('opt-spec').innerText = dict.spec;
-            document.getElementById('input-time-spec').placeholder = dict.p_spec;
-            
-            document.getElementById('txt-pay-title').innerText = dict.pay;
-            document.getElementById('txt-crypto-sub').innerText = dict.cryptoSub;
-            document.getElementById('txt-moonpay-sub').innerText = dict.cardSub;
-            document.getElementById('txt-paypal-sub').innerText = dict.ppSub;
-            document.getElementById('badge-req').innerText = dict.reqAvail;
-            document.getElementById('btn-submit-order').innerText = dict.confirm;
-
-            document.getElementById('info-p0-t').innerText = dict.infT0;
-            document.getElementById('info-p0-d').innerHTML = dict.infD0;
-            document.getElementById('info-p1-t').innerText = dict.infT1;
-            document.getElementById('info-p1-d').innerText = dict.infD1;
-            document.getElementById('info-p2-t').innerText = dict.infT2;
-            document.getElementById('info-p2-d').innerText = dict.infD2;
-            document.getElementById('info-p3-t').innerText = dict.infT3;
-            document.getElementById('info-p3-d').innerText = dict.infD3;
-            document.getElementById('info-p4-t').innerText = dict.infT4;
-            document.getElementById('info-p4-d').innerText = dict.infD4;
-            document.getElementById('btn-contact-tg').innerText = dict.btnContact;
-
-            document.getElementById('txt-rev-title').innerText = dict.revTitle;
-            document.getElementById('txt-rev-sub').innerText = dict.revSub;
-            document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
-
-            const revBlock = document.getElementById('reviewsContainer');
-            revBlock.innerHTML = '';
-            if (dict.revs) {
-                dict.revs.forEach(r => {
-                    revBlock.innerHTML += `
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p>${r.text}</p>
-                            <div class="review-user">${r.user}</div>
-                        </div>
-                    `;
-                });
-            }
-
-            renderCategoryTabs(); renderProducts(activeCategoryFilter); updateCartUI();
-        }
-
-        function renderCategoryTabs() {
-            const container = document.getElementById('catList'); container.innerHTML = '';
-            
-            const allCard = document.createElement('div');
-            allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
-            allCard.innerText = i18n[currentLang].all;
-            allCard.onclick = () => {
-                activeCategoryFilter = 'all';
-                document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-                allCard.classList.add('active'); renderProducts('all');
-            };
-            container.appendChild(allCard);
-
-            Object.keys(i18n[currentLang].cats).forEach(key => {
-                const card = document.createElement('div');
-                card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
-                card.innerText = i18n[currentLang].cats[key];
-                card.onclick = () => {
-                    activeCategoryFilter = key;
-                    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-                    card.classList.add('active'); renderProducts(key);
-                };
-                container.appendChild(card);
-            });
-        }
-
-        function renderProducts(filterCategory) {
-            const container = document.getElementById('productsDisplay'); container.innerHTML = '';
-            const grid = document.createElement('div'); grid.className = 'products-grid';
-
-            const sourceArray = filterCategory === 'all' ? productsData : productsData.filter(p => p.category === filterCategory);
-
-            sourceArray.forEach(p => {
-                const qty = cart[p.id] || 0;
-                let unitLabel = p.isGramAsset ? 'g' : 'pz';
-                if (p.isWholesale) { unitLabel = 'kg'; }
-                
-                const card = document.createElement('div'); card.className = 'product-card';
-                card.innerHTML = `
-                    <img class="product-img" src="${p.img}" alt="${p.name}" onclick="openLightbox(this.src)">
-                    <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-desc">${p.desc}</div>
-                        <div class="gram-selector">
-                            <button class="gram-btn" onclick="modifyQty('${p.id}', -1)">-</button>
-                            <span class="gram-value" id="qty-${p.id}">${qty}${unitLabel}</span>
-                            <button class="gram-btn" onclick="modifyQty('${p.id}', 1)">+</button>
-                        </div>
-                        <div style="font-size:14px; font-weight:bold; color:var(--primary-neon); margin-top:8px; text-align:center;">
-                            ${getConvertedPriceStr(p.price)}/${unitLabel}
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            container.appendChild(grid);
-        }
-
-        function modifyQty(id, change) {
-            const p = productsData.find(prod => prod.id === id);
-            let current = cart[id] || 0; current += change;
-            if (current <= 0) { delete cart[id]; current = 0; } else { cart[id] = current; }
-            
-            let unitLabel = p.isGramAsset ? 'g' : 'pz';
-            if (p.isWholesale) { unitLabel = 'kg'; }
-            const el = document.getElementById(`qty-${id}`);
-            if (el) el.innerText = `${current}${unitLabel}`;
-            updateCartUI();
-        }
-
-        function calculateCartMetrics() {
-            let itemsCount = 0; 
-            let baseProductsTotalEur = 0;
-            let totalWeedGrams = 0;
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                baseProductsTotalEur += (p.price * cart[id]); 
-                itemsCount += cart[id];
-                if (p.category === 'flowers' && p.isGramAsset) { totalWeedGrams += cart[id]; }
-            });
-
-            let discountEur = 0;
-            if (totalWeedGrams >= 10) { discountEur = totalWeedGrams * 3; } 
-            else if (baseProductsTotalEur >= 150) { discountEur = baseProductsTotalEur * 0.10; }
-
-            let finalProductsTotalEur = baseProductsTotalEur - discountEur;
-            let shippingFeeEur = finalProductsTotalEur > 0 ? (finalProductsTotalEur >= 50 ? 0 : 10) : 0;
-            
-            return { 
-                itemsCount, baseTotalEur: baseProductsTotalEur, discountEur,
-                finalProductsTotalEur, shippingFeeEur, finalTotalEur: finalProductsTotalEur + shippingFeeEur, 
-                giftApplied: finalProductsTotalEur >= 50 
-            };
-        }
-
-        function updateCartUI() {
-            const metrics = calculateCartMetrics(); const badge = document.getElementById('cartBadge');
-            if (metrics.itemsCount > 0) { badge.innerText = metrics.itemsCount; badge.style.display = 'flex'; } else { badge.style.display = 'none'; }
-            renderCartPage();
-        }
-
-        function renderCartPage() {
-            const container = document.getElementById('cartItemsContainer'); const formBlock = document.getElementById('checkoutFormBlock'); const dict = i18n[currentLang];
-            if (Object.keys(cart).length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint);">${dict.empty}</p>`; formBlock.style.display = 'none'; return;
-            }
-            formBlock.style.display = 'block'; let html = '';
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id); const qty = cart[id]; 
-                let unitLabel = p.isGramAsset ? 'g' : 'pz';
-                if (p.isWholesale) { unitLabel = 'kg'; }
-                html += `
-                    <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
-                        <div>
-                            <strong>${p.name}</strong>
-                            <div style="display:inline-flex; align-items:center; gap:8px; margin-left:10px; background:#222; padding:2px 6px; border-radius:8px;">
-                                <button style="background:none; border:none; color:var(--danger); font-weight:bold; cursor:pointer; width:20px;" onclick="modifyQty('${p.id}', -1)">-</button>
-                                <span style="color:var(--primary-neon); font-weight:bold; font-size:13px;">${qty}${unitLabel}</span>
-                                <button style="background:none; border:none; color:var(--primary-neon); font-weight:bold; cursor:pointer; width:20px;" onclick="modifyQty('${p.id}', 1)">+</button>
-                            </div>
-                        </div>
-                        <div>${getConvertedPriceStr(p.price * qty)}</div>
-                    </div>`;
-            });
-
-            const metrics = calculateCartMetrics();
-
-            if (metrics.discountEur > 0) {
-                html += `
-                    <div style="background:rgba(0, 255, 102, 0.05); border:1px dashed var(--primary-neon); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-                        <div style="color:var(--primary-neon); font-weight:bold;">🔥 ${dict.discountTxt}</div>
-                        <div style="color:var(--primary-neon); font-weight:bold;">-${getConvertedPriceStr(metrics.discountEur)}</div>
-                    </div>`;
-            }
-
-            html += `
-                <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
-                    <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
-                    <div style="color:${metrics.shippingFeeEur === 0 ? 'var(--primary-neon)' : 'white'}; font-weight:bold;">${metrics.shippingFeeEur === 0 ? dict.free : getConvertedPriceStr(metrics.shippingFeeEur)}</div>
-                </div>`;
-
-            if (metrics.giftApplied) {
-                html += `
-                    <div style="background:rgba(0,229,255,0.05); border:1px dashed var(--secondary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--secondary-neon); font-size:12px; display:flex; justify-content:space-between;">
-                        <span>🎁 Kit Gifts (Lighter + Papers + Filters)</span><strong>${dict.free}</strong>
-                    </div>`;
-            }
-
-            if (metrics.finalProductsTotalEur < 30) {
-                html += `<div style="margin-top:15px; padding:12px; border-radius:10px; background:rgba(255,59,48,0.1); border:1px solid var(--danger); text-align:center; color:var(--danger); font-weight:bold; font-size:14px;">⚠️ ${dict.minOrderErr}</div>`;
-            }
-
-            html += `<div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">${dict.totEff}: <span style="color:var(--primary-neon);">${getConvertedPriceStr(metrics.finalTotalEur)}</span></div>`;
-            container.innerHTML = html;
-        }
-
-        function setPaymentMethod(method) {
-            currentSelectedPayment = method; document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active')); document.getElementById(`pay-opt-${method}`).classList.add('active');
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active')); document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(`view-${tabId}`).classList.add('active'); document.getElementById(`tab-btn-${tabId}`).classList.add('active');
-            if (tabId === 'chat') { renderCartPage(); } else if (tabId === 'menu') { renderProducts(activeCategoryFilter); }
-        }
-
-        document.getElementById('select-time').addEventListener('change', function() {
-            document.getElementById('input-time-spec').style.display = (this.value.includes('Specific') || this.value.includes('Specifica')) ? 'block' : 'none';
-        });
-
-        function processOrderSend() {
-            const metrics = calculateCartMetrics(); const dict = i18n[currentLang];
-            if (metrics.finalProductsTotalEur < 30) { alert(dict.minOrderErr); return; }
-
-            const citta = document.getElementById('input-city').value.trim();
-            const indirizzo = document.getElementById('input-address').value.trim();
-            const cap = document.getElementById('input-cap').value.trim();
-            let orario = document.getElementById('select-time').value;
-
-            if (orario.includes('Specific') || orario.includes('Specifica')) { orario = "Slot: " + document.getElementById('input-time-spec').value.trim(); }
-            if (!citta || !indirizzo || !cap) { alert(dict.fieldErr); return; }
-            
-            let msg = `🛒 *NEW ORDER - MRSHOP20*\n----------------------------------------\n`;
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                let unitLabel = p.isGramAsset ? 'g' : 'pz';
-                if (p.isWholesale) { unitLabel = 'kg'; }
-                msg += `• *${p.name}*: ${cart[id]}${unitLabel}\n`;
-            });
-            if (metrics.giftApplied) msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\n`;
-            if (metrics.discountEur > 0) msg += `🔥 *Discount Applied:* -${getConvertedPriceStr(metrics.discountEur)}\n`;
-            msg += `----------------------------------------\n⚙️ *Shipping:* ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\n💰 *TOTAL:* ${getConvertedPriceStr(metrics.finalTotalEur)} (${activeCurrency})\n\n📍 *DELIVERY DETAILS:*\n🏙️ City: ${citta}\n🏠 Address: ${indirizzo}\n📮 ZIP: ${cap}\n⏰ Time: ${orario}\n\n💳 *PAYMENT:*\n`;
-            
-            if (currentSelectedPayment === 'crypto') msg += `➡ *Cryptocurrencies* (Waiting for address)\n`;
-            else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
-            else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\n`;
-
-            const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
-            if (tg && tg.sendData) { tg.sendData(msg); }
-            window.open(targetUrl, '_blank');
-        }
-
-        setLanguage('en');
-    </script>
-</body>
-</html>
+            document.getElementById('
 
