@@ -38,7 +38,6 @@
             overflow-x: hidden;
         }
 
-        /* Brand Header Area */
         .brand-header {
             padding: 20px;
             text-align: center;
@@ -54,7 +53,6 @@
         .main-logo-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
 
-        /* Toolbar Controlli */
         .top-controls-bar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 5px 10px; background: rgba(0,0,0,0.3);
@@ -70,7 +68,6 @@
         }
         .lang-btn.active { border-color: var(--primary-neon); background: rgba(0,255,102,0.1); }
 
-        /* Banners */
         .promo-banner {
             background: linear-gradient(90deg, #9d4edd, #ff007f);
             margin: 15px; padding: 12px; border-radius: 12px;
@@ -86,7 +83,6 @@
         .gift-text { font-size: 12px; line-height: 1.4; }
         .gift-text strong { color: var(--secondary-neon); display: block; font-size: 13px; }
 
-        /* Categorie Scorritre */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
             background: rgba(11, 11, 14, 0.95); backdrop-filter: blur(10px);
@@ -117,11 +113,9 @@
             box-shadow: 0 4px 12px rgba(0, 255, 102, 0.25);
         }
 
-        /* Views Layout */
         .app-view { display: none; padding: 15px; }
         .app-view.active { display: block; }
 
-        /* Products Grid */
         .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 5px; }
         .product-card {
             background: var(--bg-card); border-radius: 20px; overflow: hidden;
@@ -134,7 +128,6 @@
         .product-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .product-desc { font-size: 11px; color: var(--text-hint); height: 32px; overflow: hidden; line-height: 1.3; margin-bottom: 10px; }
         
-        /* Contatori */
         .gram-selector {
             display: flex; align-items: center; justify-content: space-between;
             background: #222; border-radius: 12px; padding: 4px; margin-top: auto;
@@ -146,7 +139,6 @@
         .gram-btn:active { background: #444; }
         .gram-value { font-weight: 700; font-size: 14px; color: var(--primary-neon); }
 
-        /* Sezioni Info */
         .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
         .info-section h3 { color: var(--secondary-neon); margin-bottom: 10px; font-size: 18px; }
         .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
@@ -154,14 +146,12 @@
         .papers-hosted-img { width: 100%; height: 190px; object-fit: cover; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .tg-link-btn { display: block; text-align: center; background: #0088cc; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 14px; }
 
-        /* Checkout Form */
         .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 16px; margin-top: 20px; border: 1px solid #333; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 12px; color: var(--text-hint); margin-bottom: 4px; font-weight: 600; }
         .form-group input, .form-group select { width: 100%; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; color: white; font-size: 14px; }
         .form-group input:focus { border-color: var(--primary-neon); outline: none; }
 
-        /* Inline Delivery Check */
         .inline-check-box { background:#1c1c24; border:1px solid #333; padding:12px; border-radius:10px; margin-bottom:20px; }
         .inline-check-box label { display:block; font-size:12px; color:var(--primary-neon); margin-bottom:6px; font-weight:bold; }
         .inline-input-group { display:flex; gap:8px; }
@@ -170,7 +160,6 @@
         .inline-input-group button { padding:10px 15px; background:rgba(0,255,102,0.1); color:var(--primary-neon); border:1px solid var(--primary-neon); border-radius:8px; font-weight:bold; cursor:pointer; }
         .inline-status { display:none; margin-top:10px; font-size:13px; line-height:1.4; padding:10px; border-radius:8px; }
 
-        /* Metodi Pagamento */
         .pay-option { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
         .pay-option.active { border-color: var(--secondary-neon); background: rgba(0,229,255,0.05); }
         .pay-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
@@ -178,12 +167,10 @@
         .badge-card { background: #0052ff; color: #fff; }
         .badge-off { background: #555; color: #aaa; }
 
-        /* Recensioni */
         .review-card { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-bottom: 10px; border-left: 4px solid var(--accent-purple); }
         .review-stars { color: var(--warning); font-size: 14px; margin-bottom: 4px; }
         .review-user { font-size: 12px; color: var(--text-hint); font-weight: bold; }
 
-        /* Navigazione Inferiore */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100vw;
             background: rgba(22, 22, 30, 0.96); backdrop-filter: blur(20px);
@@ -197,7 +184,6 @@
         .badge-cart-count { position: absolute; top: -2px; right: 20px; background: var(--danger); color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center; }
         .cart-summary-floating { background: var(--primary-neon); color: #000; font-weight: 800; padding: 14px; text-align: center; border-radius: 12px; margin-top: 15px; cursor: pointer; font-size: 16px; width: 100%; border: none; }
 
-        /* Lightbox Modal */
         .lightbox-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.9); z-index: 100000;
             display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
@@ -205,6 +191,17 @@
         .lightbox-modal.active { opacity: 1; pointer-events: auto; }
         .lightbox-content { max-width: 90%; max-height: 80%; border-radius: 12px; box-shadow: 0 0 30px rgba(255,255,255,0.1); }
         .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 30px; color: white; cursor: pointer; font-weight: bold; }
+        
+        .success-message {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -261,6 +258,7 @@
 
     <div id="view-chat" class="app-view">
         <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Your Cart</h2>
+        <div class="success-message" id="orderSuccessMsg">✅ Order sent successfully! Cart cleared.</div>
         <div id="cartItemsContainer"></div>
         
         <div class="checkout-form" id="checkoutFormBlock" style="display:none;">
@@ -385,6 +383,42 @@
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
 
+        // Persistenza carrello
+        const STORAGE_KEY = 'mrshop20_cart_v1';
+        let cart = {};
+        
+        // Carica carrello da localStorage all'avvio
+        function loadCartFromStorage() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    cart = JSON.parse(saved);
+                    console.log('Cart loaded from storage:', cart);
+                }
+            } catch (e) {
+                console.error('Error loading cart:', e);
+                cart = {};
+            }
+        }
+        
+        // Salva carrello nel localStorage
+        function saveCartToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+            } catch (e) {
+                console.error('Error saving cart:', e);
+            }
+        }
+        
+        // Svuota carrello completamente
+        function clearCart() {
+            cart = {};
+            saveCartToStorage();
+            updateCartUI();
+            // Aggiorna anche la visualizzazione prodotti per resettare i contatori
+            renderProducts(activeCategoryFilter);
+        }
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault(); return false;
@@ -418,7 +452,7 @@
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
                 giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
                 asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h (Wholesale Prices - PM us)", spec: "Specific Time Slot (Write below)",
-                p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_spec: "e.g. Between 14:00 and 16:00",
+                p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_cap: "e.g. 00100, 20121...", p_spec: "e.g. Between 14:00 and 16:00",
                 delDetails: "Delivery Details", cryptoSub: "Receive direct payment address in chat", cardSub: "We will guide you to buy Bitcoin instantly with card",
                 ppSub: "Not always available. Ask in chat for approval", reqAvail: "REQUEST AVAIL.",
                 infT0: "⚠️ NO CASH ACCEPTED Policy (Upfront Payment Only)",
@@ -430,6 +464,7 @@
                 btnContact: "💬 Chat with @mrshop20", revTitle: "Verified Customer Reviews", revSub: "Real reviews extracted directly from our live feed.", btnGroupRev: "⭐️ Open Telegram Reviews Group",
                 actPromo: "🎉 Min. Order met!", totEff: "Total Price", free: "FREE", shippingCostText: "Shipping", minOrderErr: "Minimum order is 30€! Please add more items.", fieldErr: "Please fill City, Address and ZIP code fields!",
                 discountTxt: "Quantity Discount",
+                orderSuccess: "✅ Order sent successfully! Cart cleared.",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Delivery completed in less than two hours, crazy quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
@@ -446,7 +481,7 @@
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
                 giftT: "🎁 REGALO COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€ in su!",
                 asap: "Appena possibile / ASAP", ship: "Spedizione Express 24/48h (Prezzi Ingrosso - Scrivici in PM)", spec: "Fascia Oraria Specifica (Scrivi sotto)",
-                p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_spec: "Es: Tra le 14:00 e le 16:00",
+                p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_cap: "Es: 00100, 20121...", p_spec: "Es: Tra le 14:00 e le 16:00",
                 delDetails: "Dati Spedizione / Consegna", cryptoSub: "Ricevi l'indirizzo esatto per il pagamento in chat", cardSub: "Ti guideremo su come comprare Bitcoin all'istante con carta",
                 ppSub: "Non sempre disponibile. Chiedi approvazione in chat", reqAvail: "RICHIESTA DISP.",
                 infT0: "⚠️ Politica NESSUN PAGAMENTO IN CONTANTI (Solo pagamento anticipato)",
@@ -458,6 +493,7 @@
                 btnContact: "💬 Parla con @mrshop20", revTitle: "Recensioni Verificate Clienti", revSub: "Recensioni reali estratte direttamente dal nostro canale.", btnGroupRev: "⭐️ Apri Gruppo Recensioni Telegram",
                 actPromo: "🎉 Minimo d'ordine raggiunto!", totEff: "Totale Effettivo", free: "GRATIS", shippingCostText: "Spedizione", minOrderErr: "L'ordine minimo è di 30€! Aggiungi altri prodotti.", fieldErr: "Compila i campi Obbligatori: Città, Indirizzo e CAP!",
                 discountTxt: "Sconto Quantità",
+                orderSuccess: "✅ Ordine inviato con successo! Carrello svuotato.",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Consegna effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
@@ -474,7 +510,7 @@
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
                 giftT: "🎁 CADEAUX GRATUITS", giftD: "Briquet Clipper, feuilles et filtres inclus pour les commandes supérieures à 50€!",
                 asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h (Prix de gros)", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
-                p_city: "Ex: Paris, Lyon, Marseille...", p_address: "Nom de rue et Numéro", p_spec: "Ex: Entre 14:00 et 16:00",
+                p_city: "Ex: Paris, Lyon, Marseille...", p_address: "Nom de rue et Numéro", p_cap: "Ex: 75001, 69001...", p_spec: "Ex: Entre 14:00 et 16:00",
                 delDetails: "Détails de Livraison", cryptoSub: "Recevez l'adresse de paiement direct dans le chat", cardSub: "Nous vous guiderons pour acheter du Bitcoin instantanément",
                 ppSub: "Pas toujours disponible. Demandez confirmation dans le chat", reqAvail: "SUR DEMANDE",
                 infT0: "⚠️ Politique AUCUN PAIEMENT EN ESPÈCES (Paiement anticipé uniquement)",
@@ -486,7 +522,13 @@
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
                 actPromo: "🎉 Min. Commandé!", totEff: "Prix Total", free: "GRATUIT", shippingCostText: "Expédition", minOrderErr: "Commande minimum: 30€!", fieldErr: "Veuillez remplir tous les champs!",
                 discountTxt: "Remise quantité",
-                cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
+                orderSuccess: "✅ Commande envoyée avec succès! Panier vidé.",
+                cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
+                revs: [
+                    {text: '"Livraison en moins de deux heures, qualité folle, emballage discret parfait."', user: "@luca_pro - il y a 2 jours"},
+                    {text: '"Colis express arrivé en 24h. Prix de gros très avantageux. Tout sous vide."', user: "@mario_k - il y a 5 jours"},
+                    {text: '"Meilleur shop. Les prix baissent si vous mélangez les souches, j\'ai commandé 15g et économisé beaucoup."', user: "@alex_terps - il y a 1 semaine"}
+                ]
             },
             de: {
                 all: "Alle", checkCovTitle: "📍 LIEFERABDECKUNG PRÜFEN", btnCheck: "PRÜFEN",
@@ -497,7 +539,7 @@
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
                 giftT: "🎁 GRATIS GESCHENKE", giftD: "Clipper Feuerzeug, Blättchen und Filter kostenlos ab 50€ Bestellwert!",
                 asap: "Schnellstmöglich / ASAP", ship: "Expressversand 24/48h (Großhandelspreise)", spec: "Spezifisches Zeitfenster (Unten eintragen)",
-                p_city: "z.B. Berlin, München, Hamburg...", p_address: "Straße und Hausnummer", p_spec: "z.B. Zwischen 14:00 und 16:00",
+                p_city: "z.B. Berlin, München, Hamburg...", p_address: "Straße und Hausnummer", p_cap: "z.B. 10115, 80331...", p_spec: "z.B. Zwischen 14:00 und 16:00",
                 delDetails: "Lieferdetails", cryptoSub: "Erhalten Sie die Zahlungsadresse direkt im Chat", cardSub: "Wir zeigen Ihnen, wie Sie BTC sofort mit Karte kaufen",
                 ppSub: "Nicht immer verfügbar. Fragen Sie im Chat nach", reqAvail: "AUF ANFRAGE",
                 infT0: "⚠️ KEINE BARZAHLUNG AKZEPTIERT (Nur Vorkasse)",
@@ -509,7 +551,13 @@
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
                 actPromo: "🎉 Min. erreicht!", totEff: "Gesamtpreis", free: "KOSTENLOS", shippingCostText: "Versandkosten", minOrderErr: "Mindestbestellwert 30€!", fieldErr: "Bitte füllen Sie alle Felder aus!",
                 discountTxt: "Mengenrabatt",
-                cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
+                orderSuccess: "✅ Bestellung erfolgreich gesendet! Warenkorb geleert.",
+                cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
+                revs: [
+                    {text: '"Lieferung in weniger als zwei Stunden, verrückte Qualität, makellose diskrete Verpackung."', user: "@luca_pro - vor 2 Tagen"},
+                    {text: '"Express-Paket in 24h angekommen. Großhandelspreise sehr günstig. Alles vakuumversiegelt."', user: "@mario_k - vor 5 Tagen"},
+                    {text: '"Bester Shop. Preise sinken bei gemischten Sorten, habe 15g bestellt und viel gespart."', user: "@alex_terps - vor 1 Woche"}
+                ]
             },
             ru: {
                 all: "Все", checkCovTitle: "📍 ПРОВЕРКА ЗОНЫ ДОСТАВКИ", btnCheck: "ПРОВЕРИТЬ",
@@ -520,7 +568,7 @@
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", giftD: "Зажигалка Clipper, бумага и фильтры бесплатно при заказе от 50€!",
                 asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч (Оптовые цены)", spec: "Указать время (напишите ниже)",
-                p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_spec: "Пример: Между 14:00 и 16:00",
+                p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_cap: "Пример: 101000, 190000...", p_spec: "Пример: Между 14:00 и 16:00",
                 delDetails: "Данные доставки", cryptoSub: "Получите точный адрес для оплаты в чате", cardSub: "Мы поможем вам мгновенно купить Биткоин с карты",
                 ppSub: "Доступно не всегда. Уточняйте у оператора в чате", reqAvail: "ПО ЗАПРОСУ",
                 infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ (Только предоплата)",
@@ -532,7 +580,13 @@
                 btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
                 actPromo: "🎉 Мин. заказ достигнут!", totEff: "Итоговая цена", free: "БЕСПЛАТНО", shippingCostText: "Доставка", minOrderErr: "Минимальный заказ 30€!", fieldErr: "Заполните все поля!",
                 discountTxt: "Скидка за количество",
-                cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" }
+                orderSuccess: "✅ Заказ успешно отправлен! Корзина очищена.",
+                cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
+                revs: [
+                    {text: '"Доставка менее чем за два часа, безумное качество, безупречная анонимная упаковка."', user: "@luca_pro - 2 дня назад"},
+                    {text: '"Экспресс-посылка прибыла за 24 часа. Оптовые цены очень выгодные. Все в вакууме."', user: "@mario_k - 5 дней назад"},
+                    {text: '"Лучший магазин. Цены снижаются при смешанных сортах, заказал 15г и сэкономил много."', user: "@alex_terps - неделю назад"}
+                ]
             }
         };
 
@@ -541,7 +595,6 @@
         let activeCategoryFilter = 'all';
 
         const productsData = [
-            // 🌿 FLOWERS (Weed) - 12€/g
             { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/GSeL6SZ.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
             { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/dHdgIK4.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
             { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/FkxOkma.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
@@ -557,38 +610,27 @@
             { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://i.imgur.com/Zi019co.jpg", desc: "Premium Indoor • 28% THC • Colorful & Potent", isGramAsset: true },
             { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://i.imgur.com/MhDwfmI.jpg", desc: "Premium Indoor • 26% THC • Candy Sweet Profile", isGramAsset: true },
             { id: "f15", name: "Premium Selection (Wholesale)", category: "flowers", price: 4000, img: "https://i.imgur.com/BtdgyqR.jpg", desc: "Starts at 4000€ • Ask for Strain", isGramAsset: false, unit: "kg" },
-
-            // 🍯 HASH
             { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/JazOzhP.jpg", desc: "Traditional Sift • 35% THC • Classic Pressed", isGramAsset: true },
             { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://i.imgur.com/ik7mUV1.jpg", desc: "Full Bubble Extr. • 50% THC • Melting Quality", isGramAsset: true },
             { id: "h3", name: "Premium Hash Selection", category: "hash", price: 10, img: "https://i.imgur.com/qRsKYsW.jpg", desc: "Various Imports • Ask stock variations in chat", isGramAsset: true },
-
-            // 🍫 EDIBLES
             { id: "e1", name: "THC Edibles 40mg", category: "edibles", price: 40, img: "https://i.imgur.com/7ADKVgB.jpg", desc: "Precise Lab-Dosed Gummy Pack • 40mg THC total", isGramAsset: false },
             { id: "e2", name: "THC Edibles 60mg", category: "edibles", price: 60, img: "https://i.imgur.com/5WGtdFe.jpg", desc: "High Potency Bars/Gummies • Experienced Users Only", isGramAsset: false },
-
-            // 💨 VAPES
             { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/9g0YRHN.jpg", desc: "0.5ml • 85% THC Distillate • Brands: MUHAMEDS / STIIIZY", isGramAsset: false },
             { id: "v2", name: "Runtz / Cookie Vape", category: "vapes", price: 65, img: "https://i.imgur.com/apvap5v.jpg", desc: "0.5ml • 85% THC Creamy Taste • Brands: WHOLEMELT / Switch", isGramAsset: false },
             { id: "v3", name: "Blue Dream Vape", category: "vapes", price: 65, img: "https://i.imgur.com/ZGR6c0x.jpg", desc: "0.5ml • 85% THC Smooth Pull • Brands: Imking / Rug Zar", isGramAsset: false },
             { id: "v4", name: "Amnesia Vape", category: "vapes", price: 65, img: "https://i.imgur.com/1Ynle57.jpg", desc: "0.5ml • 85% THC Pure Terps • Brands: Boutique Switch", isGramAsset: false },
-
-            // 🍄 MUSHROOMS
             { id: "m1", name: "Albinos / Golden Teacher", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Dry Shrooms • Potent Trip", isGramAsset: true },
             { id: "m2", name: "Purple Mystic / Lion's Mane", category: "mushrooms", price: 8, img: "https://i.imgur.com/mzoaONo.jpg", desc: "Psilocybin & Organic Strains Blend • High Quality", isGramAsset: true },
-
-            // 🚬 PREROLLS
             { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://i.imgur.com/7835lP2.jpg", desc: "Moon Rocket / Cali Woods / Packwood Selection", isGramAsset: false },
             { id: "p2", name: "Baby Jeeter Infused", category: "prerolls", price: 30, img: "https://i.imgur.com/ZqGSpGM.jpg", desc: "Kief Infused Joint • High Potency Premium Brand", isGramAsset: false },
-
-            // 🔥 SPECIAL
             { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/6sEzcSq.jpg", desc: "Pure Fishscale Crystals • Uncut Colombian 1g", isGramAsset: true },
             { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/VXq51eZ.jpg", desc: "Liquid Dropper Bottle • 1ml • Ultra Pure 200µg", isGramAsset: false },
             { id: "s3", name: "💎 Crystal Meth", category: "special", price: 50, img: "https://i.imgur.com/qFNns3S.jpg", desc: "Glass Ice Quality Shards • Purity Tested 1g", isGramAsset: true },
             { id: "s4", name: "💊 MDMA Crystals/Pills", category: "special", price: 60, img: "https://i.imgur.com/0U169zB.jpg", desc: "High Purity Dutch Quality MDMA • Crystals or Pills", isGramAsset: false }
         ];
 
-        let cart = {};
+        // Carica carrello all'avvio
+        loadCartFromStorage();
 
         function checkInlineDelivery() {
             const cityInput = document.getElementById('inlineGateCity').value.trim();
@@ -622,7 +664,7 @@
         }
 
         function getConvertedPrice(baseEurPrice) {
-            return baseEurPrice * currencyConfig[activeCurrency].rate;
+            return Math.round((baseEurPrice * currencyConfig[activeCurrency].rate) * 100) / 100;
         }
 
         function getConvertedPriceStr(baseEurPrice) {
@@ -654,6 +696,7 @@
             document.getElementById('lbl-address').innerText = dict.address;
             document.getElementById('input-address').placeholder = dict.p_address;
             document.getElementById('lbl-cap').innerText = dict.cap;
+            document.getElementById('input-cap').placeholder = dict.p_cap || "";
             document.getElementById('lbl-time').innerText = dict.time;
 
             document.getElementById('lbl-check-cov').innerText = dict.checkCovTitle;
@@ -696,9 +739,13 @@
             document.getElementById('txt-rev-sub').innerText = dict.revSub;
             document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
 
+            // Aggiorna messaggio successo se presente
+            const successMsg = document.getElementById('orderSuccessMsg');
+            if (successMsg) successMsg.innerText = dict.orderSuccess;
+
             const revBlock = document.getElementById('reviewsContainer');
             revBlock.innerHTML = '';
-            if (dict.revs) {
+            if (dict.revs && Array.isArray(dict.revs)) {
                 dict.revs.forEach(r => {
                     revBlock.innerHTML += `
                         <div class="review-card">
@@ -772,8 +819,23 @@
 
         function modifyQty(id, change) {
             const p = productsData.find(prod => prod.id === id);
-            let current = cart[id] || 0; current += change;
-            if (current <= 0) { delete cart[id]; current = 0; } else { cart[id] = current; }
+            if (!p) {
+                console.error('Product not found:', id);
+                return;
+            }
+            
+            let current = cart[id] || 0; 
+            current += change;
+            
+            if (current <= 0) { 
+                delete cart[id]; 
+                current = 0; 
+            } else { 
+                cart[id] = current; 
+            }
+            
+            // Salva nel localStorage
+            saveCartToStorage();
             
             const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
             const el = document.getElementById(`qty-${id}`);
@@ -788,6 +850,8 @@
 
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
+                if (!p) return; // Skip se prodotto non esiste più
+                
                 baseProductsTotalEur += (p.price * cart[id]); 
                 itemsCount += cart[id];
                 
@@ -803,6 +867,9 @@
                 discountEur = baseProductsTotalEur * 0.10;
             }
 
+            // Assicurati che lo sconto non superi il totale
+            discountEur = Math.min(discountEur, baseProductsTotalEur);
+            
             let finalProductsTotalEur = baseProductsTotalEur - discountEur;
             let shippingFeeEur = finalProductsTotalEur > 0 ? (finalProductsTotalEur >= 50 ? 0 : 10) : 0;
             
@@ -818,20 +885,36 @@
         }
 
         function updateCartUI() {
-            const metrics = calculateCartMetrics(); const badge = document.getElementById('cartBadge');
-            if (metrics.itemsCount > 0) { badge.innerText = metrics.itemsCount; badge.style.display = 'flex'; } else { badge.style.display = 'none'; }
+            const metrics = calculateCartMetrics(); 
+            const badge = document.getElementById('cartBadge');
+            if (metrics.itemsCount > 0) { 
+                badge.innerText = metrics.itemsCount; 
+                badge.style.display = 'flex'; 
+            } else { 
+                badge.style.display = 'none'; 
+            }
             renderCartPage();
         }
 
         function renderCartPage() {
-            const container = document.getElementById('cartItemsContainer'); const formBlock = document.getElementById('checkoutFormBlock'); const dict = i18n[currentLang];
+            const container = document.getElementById('cartItemsContainer'); 
+            const formBlock = document.getElementById('checkoutFormBlock'); 
+            const dict = i18n[currentLang];
+            
             if (Object.keys(cart).length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint);">${dict.empty}</p>`; formBlock.style.display = 'none'; return;
+                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint);">${dict.empty}</p>`; 
+                formBlock.style.display = 'none'; 
+                return;
             }
-            formBlock.style.display = 'block'; let html = '';
+            
+            formBlock.style.display = 'block'; 
+            let html = '';
 
             Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id); const qty = cart[id]; 
+                const p = productsData.find(prod => prod.id === id);
+                if (!p) return; // Skip prodotti non esistenti
+                
+                const qty = cart[id]; 
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
                 html += `
                     <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
@@ -879,13 +962,22 @@
         }
 
         function setPaymentMethod(method) {
-            currentSelectedPayment = method; document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active')); document.getElementById(`pay-opt-${method}`).classList.add('active');
+            currentSelectedPayment = method; 
+            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active')); 
+            document.getElementById(`pay-opt-${method}`).classList.add('active');
         }
 
         function switchTab(tabId) {
-            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active')); document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(`view-${tabId}`).classList.add('active'); document.getElementById(`tab-btn-${tabId}`).classList.add('active');
-            if (tabId === 'chat') { renderCartPage(); } else if (tabId === 'menu') { renderProducts(activeCategoryFilter); }
+            // Nascondi messaggio successo se presente
+            const successMsg = document.getElementById('orderSuccessMsg');
+            if (successMsg) successMsg.style.display = 'none';
+            
+            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active')); 
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`view-${tabId}`).classList.add('active'); 
+            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+            if (tabId === 'chat') { renderCartPage(); } 
+            else if (tabId === 'menu') { renderProducts(activeCategoryFilter); }
         }
 
         document.getElementById('select-time').addEventListener('change', function() {
@@ -893,10 +985,12 @@
         });
 
         function processOrderSend() {
-            const metrics = calculateCartMetrics(); const dict = i18n[currentLang];
+            const metrics = calculateCartMetrics(); 
+            const dict = i18n[currentLang];
             
             if (metrics.finalProductsTotalEur < 30) { 
-                alert(dict.minOrderErr); return; 
+                alert(dict.minOrderErr); 
+                return; 
             }
 
             const citta = document.getElementById('input-city').value.trim();
@@ -904,12 +998,19 @@
             const cap = document.getElementById('input-cap').value.trim();
             let orario = document.getElementById('select-time').value;
 
-            if (orario.includes('Specific') || orario.includes('Specifica')) { orario = "Slot: " + document.getElementById('input-time-spec').value.trim(); }
-            if (!citta || !indirizzo || !cap) { alert(dict.fieldErr); return; }
+            if (orario.includes('Specific') || orario.includes('Specifica')) { 
+                orario = "Slot: " + document.getElementById('input-time-spec').value.trim(); 
+            }
+            
+            if (!citta || !indirizzo || !cap) { 
+                alert(dict.fieldErr); 
+                return; 
+            }
             
             let msg = `🛒 *NEW ORDER - MRSHOP20*\n----------------------------------------\n`;
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
+                if (!p) return;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
                 msg += `• *${p.name}*: ${cart[id]}${unitLabel}\n`;
             });
@@ -924,10 +1025,23 @@
             const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
             if (tg && tg.sendData) { tg.sendData(msg); }
             window.open(targetUrl, '_blank');
+            
+            // MOSTRA MESSAGGIO DI SUCCESSO E SVUOTA CARRELLO
+            const successDiv = document.getElementById('orderSuccessMsg');
+            if (successDiv) {
+                successDiv.innerText = dict.orderSuccess;
+                successDiv.style.display = 'block';
+            }
+            
+            // Svuota carrello e aggiorna UI
+            clearCart();
+            
+            // Torna al top della pagina
+            window.scrollTo(0, 0);
         }
 
+        // Inizializzazione
         setLanguage('en');
     </script>
 </body>
 </html>
-
