@@ -89,7 +89,6 @@
         }
         .gift-thumb { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
 
-        /* CATEGORIES SCROLLER - PIÙ SPAZIO IN BASSO */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
             background: rgba(11, 11, 14, 0.98); backdrop-filter: blur(10px);
@@ -139,7 +138,6 @@
         .product-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .product-desc { font-size: 11px; color: var(--text-hint); height: 32px; overflow: hidden; line-height: 1.3; margin-bottom: 10px; }
         
-        /* NUOVO SELETTORE GRAMMI - FLUIDO E SENZA TAP RIPETITIVI */
         .gram-selector-fluid {
             margin-top: auto;
             background: #222;
@@ -272,7 +270,6 @@
         .badge-card { background: #0052ff; color: #fff; }
         .badge-off { background: #555; color: #aaa; }
         
-        /* LOGHI PAGAMENTI CRYPTO */
         .pay-logo {
             width: 28px;
             height: 28px;
@@ -529,7 +526,6 @@
                 <span class="pay-badge badge-off" id="badge-req">REQUEST AVAIL.</span>
             </div>
 
-            <!-- NUOVE OPZIONI PAGAMENTO CRYPTO -->
             <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
                 <div class="pay-option-content">
                     <div class="pay-logo revolut-logo">R</div>
@@ -625,27 +621,50 @@
     </div>
 
     <script>
-        const tg = window.Telegram?.WebApp;
-        if (tg) { 
-            tg.expand(); 
-            tg.ready();
-            tg.enableClosingConfirmation();
+        // Inizializzazione sicura per tutti i dispositivi
+        let tg = null;
+        try {
+            tg = window.Telegram?.WebApp;
+            if (tg) {
+                tg.expand();
+                tg.ready();
+                if (tg.enableClosingConfirmation) tg.enableClosingConfirmation();
+            }
+        } catch (e) {
+            console.log('Telegram WebApp not available');
         }
 
         const STORAGE_KEY = 'mrshop20_cart_v1';
         let cart = {};
-        let currentUser = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || 'Guest';
+        let currentUser = 'Guest';
+        
+        try {
+            currentUser = tg?.initDataUnsafe?.user?.username || 
+                         tg?.initDataUnsafe?.user?.first_name || 
+                         'Guest';
+        } catch(e) {
+            currentUser = 'Guest';
+        }
         
         function loadCartFromStorage() {
             try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved) cart = JSON.parse(saved);
-            } catch (e) { cart = {}; }
+                if (typeof Storage !== "undefined") {
+                    const saved = localStorage.getItem(STORAGE_KEY);
+                    if (saved) cart = JSON.parse(saved);
+                }
+            } catch (e) { 
+                cart = {}; 
+            }
         }
         
         function saveCartToStorage() {
-            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } 
-            catch (e) { console.error('Error saving cart:', e); }
+            try { 
+                if (typeof Storage !== "undefined") {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); 
+                }
+            } catch (e) { 
+                console.error('Error saving cart:', e); 
+            }
         }
         
         function clearCart() {
@@ -657,6 +676,7 @@
 
         function showToast(message) {
             const toast = document.getElementById('toast');
+            if (!toast) return;
             toast.innerText = message;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
@@ -665,20 +685,28 @@
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             const lbImg = document.getElementById('lightbox-img');
+            if (!lb || !lbImg) return;
             lbImg.src = src; 
             lb.classList.add('active');
-            if (tg) tg.HapticFeedback.impactOccurred('light');
+            if (tg && tg.HapticFeedback) {
+                try { tg.HapticFeedback.impactOccurred('light'); } catch(e) {}
+            }
         }
         
         function closeLightbox() { 
-            document.getElementById('lightbox').classList.remove('active'); 
+            const lb = document.getElementById('lightbox');
+            if (lb) lb.classList.remove('active'); 
         }
 
         function openContact() {
             const url = 'https://t.me/mrshop20';
-            if (tg && tg.openTelegramLink) {
-                tg.openTelegramLink(url);
-            } else {
+            try {
+                if (tg && tg.openTelegramLink) {
+                    tg.openTelegramLink(url);
+                } else {
+                    window.open(url, '_blank');
+                }
+            } catch(e) {
                 window.open(url, '_blank');
             }
         }
@@ -745,6 +773,15 @@
                 orderSuccess: "✅ Order sent to @mrshop20! Check your Telegram.",
                 copySuccess: "✅ Order sent to @mrshop20!",
                 contact: "Contact",
+                orderTitle: "ORDER",
+                orderFrom: "Order from",
+                orderDate: "Order Date",
+                customer: "Customer",
+                products: "Products",
+                delivery: "Delivery",
+                payment: "Payment",
+                total: "TOTAL",
+                notes: "Notes",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -772,7 +809,7 @@
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", 
                 empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO CONSEGNA", 
-                pay: "Metodo di Pagamento", confirm: "INVIA A @MRSHOP20",
+                pay: "Metodo di Pagamento", confirm: "INVIA ORDINE A @MRSHOP20",
                 giftT: "🎁 REGALO COMPRESO", 
                 giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€!",
                 asap: "Appena possibile / ASAP", 
@@ -814,6 +851,15 @@
                 orderSuccess: "✅ Ordine inviato a @mrshop20! Controlla Telegram.",
                 copySuccess: "✅ Ordine inviato a @mrshop20!",
                 contact: "Contatta",
+                orderTitle: "ORDINE",
+                orderFrom: "Ordine da",
+                orderDate: "Data Ordine",
+                customer: "Cliente",
+                products: "Prodotti",
+                delivery: "Consegna",
+                payment: "Pagamento",
+                total: "TOTALE",
+                notes: "Note",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -841,7 +887,7 @@
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", 
                 empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE LIVRAISON", 
-                pay: "Mode de paiement", confirm: "ENVOYER À @MRSHOP20",
+                pay: "Mode de paiement", confirm: "ENVOYER COMMANDE À @MRSHOP20",
                 giftT: "🎁 CADEAUX GRATUITS", 
                 giftD: "Briquet Clipper, feuilles et filtres inclus dès 50€!",
                 asap: "Aussitôt que possible", 
@@ -883,6 +929,15 @@
                 orderSuccess: "✅ Commande envoyée à @mrshop20! Vérifiez Telegram.",
                 copySuccess: "✅ Commande envoyée à @mrshop20!",
                 contact: "Contacter",
+                orderTitle: "COMMANDE",
+                orderFrom: "Commande de",
+                orderDate: "Date de Commande",
+                customer: "Client",
+                products: "Produits",
+                delivery: "Livraison",
+                payment: "Paiement",
+                total: "TOTAL",
+                notes: "Notes",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -910,7 +965,7 @@
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", 
                 empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", 
-                pay: "Zahlungsmethode", confirm: "AN @MRSHOP20 SENDEN",
+                pay: "Zahlungsmethode", confirm: "BESTELLUNG AN @MRSHOP20 SENDEN",
                 giftT: "🎁 GRATIS GESCHENKE", 
                 giftD: "Clipper Feuerzeug, Blättchen und Filter ab 50€!",
                 asap: "Schnellstmöglich", 
@@ -952,6 +1007,15 @@
                 orderSuccess: "✅ Bestellung an @mrshop20 gesendet! Checken Sie Telegram.",
                 copySuccess: "✅ Bestellung an @mrshop20 gesendet!",
                 contact: "Kontakt",
+                orderTitle: "BESTELLUNG",
+                orderFrom: "Bestellung von",
+                orderDate: "Bestelldatum",
+                customer: "Kunde",
+                products: "Produkte",
+                delivery: "Lieferung",
+                payment: "Zahlung",
+                total: "GESAMT",
+                notes: "Hinweise",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -979,7 +1043,7 @@
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", 
                 empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", 
-                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ @MRSHOP20",
+                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ ЗАКАЗ @MRSHOP20",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", 
                 giftD: "Зажигалка Clipper, бумага и фильтры от 50€!",
                 asap: "Как можно скорее", 
@@ -997,662 +1061,4 @@
                 revSub: "Оплатите мгновенно с кошелька Revolut",
                 bitSub: "Отправьте со своего счета Bitpanda",
                 binSub: "Перевод с Binance кошелька через P2P",
-                infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ",
-                infD0: "Работаем с анонимными курьерами, оплаченными заранее. Свяжутся с вами для точки (за столбом, под колесом...). Ничего не связано с вами.\n\nНе настаивайте на наличных. Без предоплаты — нет заказа.",
-                infT1: "📦 Доставка и опт", 
-                infD1: "Посылки в вакууме, без запаха и брендов. Экспресс 24/48ч = оптовые цены. Пишите для деталей.",
-                infT2: "💳 Оплата", 
-                infD2: "Принимаем криптовалюты. Мгновенная покупка через MoonPay.",
-                infT3: "🌿 Бумага премиум", 
-                infD3: "Ультратонкая неотбеленная бумага и органические фильтры.",
-                infT4: "💬 Контакт", 
-                infD4: "Нужна помощь? Пишите @mrshop20 в Telegram.",
-                btnContact: "💬 Связаться @mrshop20", 
-                revTitle: "Отзывы клиентов", 
-                revSub: "Реальные отзывы.", 
-                btnGroupRev: "⭐️ Присоединиться к каналу",
-                actPromo: "🎉 Мин. заказ достигнут!", 
-                totEff: "Итоговая цена", 
-                free: "БЕСПЛАТНО", 
-                shippingCostText: "Доставка", 
-                minOrderErr: "Минимальный заказ 30€!", 
-                fieldErr: "Заполните все поля!",
-                discountTxt: "Скидка за количество",
-                orderSuccess: "✅ Заказ отправлен @mrshop20! Проверьте Telegram.",
-                copySuccess: "✅ Заказ отправлен @mrshop20!",
-                contact: "Связаться",
-                cats: { 
-                    flowers: "🌿 Weed", 
-                    hash: "🍯 Hash", 
-                    edibles: "🍫 Edibles", 
-                    vapes: "💨 Vapes", 
-                    mushrooms: "🍄 Mushrooms", 
-                    prerolls: "🚬 Prerolls", 
-                    special: "🔥 Special" 
-                },
-                revs: [
-                    {text: "Только что получил заказ вчерашнего дня. Качество продукции превзошло ожидания - идеально пролечено, липкое и плотное. Доставка скрытная и точно в срок. Обязательно вернусь!", user: "@alex_martinez92 - 2 часа назад"},
-                    {text: "Третья покупка в этом месяце и постоянно впечатлен. Упаковка всегда профессиональная и дискретная. Опыт 10/10!", user: "@sophie.london - 4 часа назад"},
-                    {text: "Опция экспресс-доставки потрясающая! Заказал утром понедельника, пришло средним днем среды.", user: "@max_runner - 6 часов назад"},
-                    {text: "Первый раз покупаю и впечатлен качеством. Настоятельно рекомендую!", user: "@emma_johnson88 - вчера"},
-                    {text: "Заказываю еженедельно уже 3 месяца. Никогда не было проблем. Вот как должен работать онлайн-шоппинг!", user: "@david_chen - вчера"}
-                ]
-            }
-        };
-
-        let currentLang = 'en'; 
-        let currentSelectedPayment = 'crypto';
-        let activeCategoryFilter = 'all';
-
-        const productsData = [
-            { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/GSeL6SZ.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
-            { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/dHdgIK4.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
-            { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/FkxOkma.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
-            { id: "f4", name: "Purple Platinum", category: "flowers", price: 12, img: "https://i.imgur.com/I34SWCY.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
-            { id: "f5", name: "Moonrock", category: "flowers", price: 12, img: "https://i.imgur.com/uq57Q5R.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent Rocks", isGramAsset: true },
-            { id: "f6", name: "Cookies", category: "flowers", price: 12, img: "https://i.imgur.com/eUUDbVv.jpg", desc: "Premium Indoor • 26% THC • Sweet & Earthy", isGramAsset: true },
-            { id: "f7", name: "Green Crack", category: "flowers", price: 12, img: "https://i.imgur.com/N9veHSX.jpg", desc: "Premium Indoor • 25% THC • Energetic & Citrus", isGramAsset: true },
-            { id: "f8", name: "White Widow", category: "flowers", price: 12, img: "https://i.imgur.com/BwHfHbE.jpg", desc: "Premium Indoor • 26% THC • Classic Balanced", isGramAsset: true },
-            { id: "f9", name: "Lemon Cherry", category: "flowers", price: 12, img: "https://i.imgur.com/TwGSr4q.jpg", desc: "Premium Indoor • 27% THC • Citrus & Sweet Blend", isGramAsset: true },
-            { id: "f10", name: "Blue Dream", category: "flowers", price: 12, img: "https://i.imgur.com/QM2YT92.jpg", desc: "Premium Indoor • 25% THC • Berry & Herbal Notes", isGramAsset: true },
-            { id: "f11", name: "Northern Lights", category: "flowers", price: 12, img: "https://i.imgur.com/EOBnvh2.jpg", desc: "Premium Indoor • 26% THC • Spicy Exotic Taste", isGramAsset: true },
-            { id: "f12", name: "Sour Diesel", category: "flowers", price: 12, img: "https://i.imgur.com/pS5sukI.jpg", desc: "Premium Indoor • 27% THC • Pungent & Fuel aroma", isGramAsset: true },
-            { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://i.imgur.com/Zi019co.jpg", desc: "Premium Indoor • 28% THC • Colorful & Potent", isGramAsset: true },
-            { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://i.imgur.com/MhDwfmI.jpg", desc: "Premium Indoor • 26% THC • Candy Sweet Profile", isGramAsset: true },
-            { id: "f15", name: "Premium Selection (Wholesale)", category: "flowers", price: 4000, img: "https://i.imgur.com/BtdgyqR.jpg", desc: "Starts at 4000€ • Ask for Strain", isGramAsset: false, unit: "kg" },
-            { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/JazOzhP.jpg", desc: "Traditional Sift • 35% THC • Classic Pressed", isGramAsset: true },
-            { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://i.imgur.com/ik7mUV1.jpg", desc: "Full Bubble Extr. • 50% THC • Melting Quality", isGramAsset: true },
-            { id: "h3", name: "Premium Hash Selection", category: "hash", price: 10, img: "https://i.imgur.com/qRsKYsW.jpg", desc: "Various Imports • Ask stock variations in chat", isGramAsset: true },
-            { id: "e1", name: "THC Edibles 40mg", category: "edibles", price: 40, img: "https://i.imgur.com/7ADKVgB.jpg", desc: "Precise Lab-Dosed Gummy Pack • 40mg THC total", isGramAsset: false },
-            { id: "e2", name: "THC Edibles 60mg", category: "edibles", price: 60, img: "https://i.imgur.com/5WGtdFe.jpg", desc: "High Potency Bars/Gummies • Experienced Users Only", isGramAsset: false },
-            { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/9g0YRHN.jpg", desc: "0.5ml • 85% THC Distillate • Brands: MUHAMEDS / STIIIZY", isGramAsset: false },
-            { id: "v2", name: "Runtz / Cookie Vape", category: "vapes", price: 65, img: "https://i.imgur.com/apvap5v.jpg", desc: "0.5ml • 85% THC Creamy Taste • Brands: WHOLEMELT / Switch", isGramAsset: false },
-            { id: "v3", name: "Blue Dream Vape", category: "vapes", price: 65, img: "https://i.imgur.com/ZGR6c0x.jpg", desc: "0.5ml • 85% THC Smooth Pull • Brands: Imking / Rug Zar", isGramAsset: false },
-            { id: "v4", name: "Amnesia Vape", category: "vapes", price: 65, img: "https://i.imgur.com/1Ynle57.jpg", desc: "0.5ml • 85% THC Pure Terps • Brands: Boutique Switch", isGramAsset: false },
-            { id: "m1", name: "Albinos / Golden Teacher", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin Mushrooms • Dry Shrooms • Potent Trip", isGramAsset: true },
-            { id: "m2", name: "Purple Mystic / Lion's Mane", category: "mushrooms", price: 8, img: "https://i.imgur.com/mzoaONo.jpg", desc: "Psilocybin & Organic Strains Blend • High Quality", isGramAsset: true },
-            { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://i.imgur.com/7835lP2.jpg", desc: "Moon Rocket / Cali Woods / Packwood Selection", isGramAsset: false },
-            { id: "p2", name: "Baby Jeeter Infused", category: "prerolls", price: 30, img: "https://i.imgur.com/ZqGSpGM.jpg", desc: "Kief Infused Joint • High Potency Premium Brand", isGramAsset: false },
-            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/6sEzcSq.jpg", desc: "Pure Fishscale Crystals • Uncut Colombian 1g", isGramAsset: true },
-            { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/VXq51eZ.jpg", desc: "Liquid Dropper Bottle • 1ml • Ultra Pure 200µg", isGramAsset: false },
-            { id: "s3", name: "💎 Crystal Meth", category: "special", price: 50, img: "https://i.imgur.com/qFNns3S.jpg", desc: "Glass Ice Quality Shards • Purity Tested 1g", isGramAsset: true },
-            { id: "s4", name: "💊 MDMA Crystals/Pills", category: "special", price: 60, img: "https://i.imgur.com/0U169zB.jpg", desc: "High Purity Dutch Quality MDMA • Crystals or Pills", isGramAsset: false }
-        ];
-
-        loadCartFromStorage();
-
-        function checkInlineDelivery() {
-            const cityInput = document.getElementById('inlineGateCity').value.trim();
-            const dict = i18n[currentLang];
-            const statusBox = document.getElementById('inlineDeliveryStatus');
-
-            if (!cityInput) {
-                showToast(dict.gateAlertErr); 
-                return;
-            }
-
-            const lowerCity = cityInput.toLowerCase();
-            const genericGibberish = /^[bcdfghjklmnpqrstvwxyz]+$/i.test(lowerCity) || lowerCity.length < 3;
-            
-            statusBox.style.display = 'block';
-            if (genericGibberish) {
-                statusBox.innerHTML = dict.gateStatusErr;
-                statusBox.style.background = 'rgba(255, 59, 48, 0.1)';
-                statusBox.style.border = '1px solid var(--danger)';
-                statusBox.style.color = '#fff';
-            } else {
-                statusBox.innerHTML = dict.gateStatusOk;
-                statusBox.style.background = 'rgba(0, 255, 102, 0.1)';
-                statusBox.style.border = '1px solid var(--primary-neon)';
-                statusBox.style.color = '#fff';
-                document.getElementById('input-city').value = cityInput.toUpperCase();
-            }
-        }
-
-        function changeCurrency(val) {
-            activeCurrency = val; 
-            renderProducts(activeCategoryFilter); 
-            renderCartPage();
-        }
-
-        function getConvertedPrice(baseEurPrice) {
-            return Math.round((baseEurPrice * currencyConfig[activeCurrency].rate) * 100) / 100;
-        }
-
-        function getConvertedPriceStr(baseEurPrice) {
-            const cfg = currencyConfig[activeCurrency];
-            return `${cfg.symbol}${getConvertedPrice(baseEurPrice).toFixed(2)}`;
-        }
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            
-            document.querySelectorAll('.lang-selector .lang-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`lang-btn-${lang}`).classList.add('active');
-
-            const dict = i18n[lang];
-            if (!dict) return;
-            
-            document.getElementById('txt-header-sub').innerText = dict.sub;
-            document.getElementById('txt-promo').innerText = dict.promo;
-            document.getElementById('gift-title').innerText = dict.giftT;
-            document.getElementById('gift-desc').innerText = dict.giftD;
-            
-            document.getElementById('tab-menu').innerText = dict.menu;
-            document.getElementById('tab-cart').innerText = dict.cart;
-            document.getElementById('tab-info').innerText = dict.info;
-            document.getElementById('tab-reviews').innerText = dict.reviews;
-
-            document.getElementById('txt-cart-title').innerText = `🛒 ${dict.cart}`;
-            document.getElementById('txt-delivery-details').innerText = dict.delDetails;
-            document.getElementById('lbl-city').innerText = dict.city;
-            document.getElementById('input-city').placeholder = dict.p_city;
-            document.getElementById('lbl-address').innerText = dict.address;
-            document.getElementById('input-address').placeholder = dict.p_address;
-            document.getElementById('lbl-cap').innerText = dict.cap;
-            document.getElementById('input-cap').placeholder = dict.p_cap || "";
-            document.getElementById('lbl-time').innerText = dict.time;
-
-            document.getElementById('lbl-check-cov').innerText = dict.checkCovTitle;
-            document.getElementById('inlineGateCity').placeholder = dict.p_city;
-            document.getElementById('btn-inline-check').innerText = dict.btnCheck;
-
-            const statusBox = document.getElementById('inlineDeliveryStatus');
-            if(statusBox && statusBox.style.display === 'block') {
-                if (statusBox.innerHTML.includes('❌')) {
-                    statusBox.innerHTML = dict.gateStatusErr;
-                } else {
-                    statusBox.innerHTML = dict.gateStatusOk;
-                }
-            }
-            
-            document.getElementById('opt-asap').innerText = dict.asap;
-            document.getElementById('opt-ship').innerText = dict.ship;
-            document.getElementById('opt-spec').innerText = dict.spec;
-            document.getElementById('input-time-spec').placeholder = dict.p_spec;
-            
-            document.getElementById('txt-pay-title').innerText = dict.pay;
-            document.getElementById('txt-crypto-sub').innerText = dict.cryptoSub;
-            document.getElementById('txt-moonpay-sub').innerText = dict.cardSub;
-            document.getElementById('txt-paypal-sub').innerText = dict.ppSub;
-            document.getElementById('badge-req').innerText = dict.reqAvail;
-            
-            // Update new payment descriptions
-            const revDesc = document.getElementById('txt-revolut-sub');
-            const bitDesc = document.getElementById('txt-bitpanda-sub');
-            const binDesc = document.getElementById('txt-binance-sub');
-            if (revDesc) revDesc.innerText = dict.revSub;
-            if (bitDesc) bitDesc.innerText = dict.bitSub;
-            if (binDesc) binDesc.innerText = dict.binSub;
-
-            document.getElementById('btn-submit-order').innerText = dict.confirm;
-
-            document.getElementById('info-p0-t').innerText = dict.infT0;
-            document.getElementById('info-p0-d').innerHTML = dict.infD0.replace(/\n/g, '<br>');
-            document.getElementById('info-p1-t').innerText = dict.infT1;
-            document.getElementById('info-p1-d').innerText = dict.infD1;
-            document.getElementById('info-p2-t').innerText = dict.infT2;
-            document.getElementById('info-p2-d').innerText = dict.infD2;
-            document.getElementById('btn-contact-tg').innerText = dict.btnContact;
-
-            document.getElementById('txt-rev-title').innerText = dict.revTitle;
-            document.getElementById('txt-rev-sub').innerText = dict.revSub;
-            document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
-
-            const successMsg = document.getElementById('orderSuccessMsg');
-            if (successMsg) successMsg.innerText = dict.orderSuccess;
-
-            document.getElementById('contactBtnText').innerText = dict.contact;
-
-            renderReviews(dict);
-            renderCategoryTabs(); 
-            renderProducts(activeCategoryFilter); 
-            updateCartUI();
-        }
-
-        function renderReviews(dict) {
-            const revBlock = document.getElementById('reviewsContainer');
-            if (!revBlock) return;
-            
-            revBlock.innerHTML = '';
-            if (dict.revs && Array.isArray(dict.revs)) {
-                dict.revs.forEach(r => {
-                    const reviewDiv = document.createElement('div');
-                    reviewDiv.className = 'review-card';
-                    reviewDiv.innerHTML = `
-                        <div class="review-stars">★★★★★</div>
-                        <div class="review-text">"${r.text}"</div>
-                        <div class="review-user">${r.user}</div>
-                    `;
-                    revBlock.appendChild(reviewDiv);
-                });
-            }
-        }
-
-        function renderCategoryTabs() {
-            const container = document.getElementById('catList'); 
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            const dict = i18n[currentLang];
-            if (!dict || !dict.cats) return;
-            
-            const allCard = document.createElement('div');
-            allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
-            allCard.innerText = dict.all;
-            allCard.onclick = () => {
-                activeCategoryFilter = 'all';
-                document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-                allCard.classList.add('active'); 
-                renderProducts('all');
-            };
-            container.appendChild(allCard);
-
-            Object.keys(dict.cats).forEach(key => {
-                const card = document.createElement('div');
-                card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
-                card.innerText = dict.cats[key];
-                card.onclick = () => {
-                    activeCategoryFilter = key;
-                    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-                    card.classList.add('active'); 
-                    renderProducts(key);
-                };
-                container.appendChild(card);
-            });
-        }
-
-        // NUOVA FUNZIONE PER SELEZIONE FLUIDA GRAMMI
-        function updateGramQuantity(productId, value) {
-            const p = productsData.find(prod => prod.id === productId);
-            if (!p) return;
-            
-            const qty = parseInt(value) || 0;
-            
-            if (qty <= 0) {
-                delete cart[productId];
-            } else {
-                cart[productId] = qty;
-            }
-            
-            saveCartToStorage();
-            updateCartUI();
-            
-            // Update display
-            const display = document.getElementById(`gram-display-${productId}`);
-            const slider = document.getElementById(`slider-${productId}`);
-            const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-            if (display) display.innerText = `${qty}${unitLabel}`;
-            if (slider) slider.value = qty;
-            
-            // Update active quick buttons
-            document.querySelectorAll(`[data-product="${productId}"]`).forEach(btn => {
-                btn.classList.toggle('active', parseInt(btn.dataset.value) === qty);
-            });
-            
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
-
-        function renderProducts(filterCategory) {
-            const container = document.getElementById('productsDisplay'); 
-            if (!container) return;
-            
-            container.innerHTML = '';
-            const grid = document.createElement('div'); 
-            grid.className = 'products-grid';
-
-            const sourceArray = filterCategory === 'all' 
-                ? productsData 
-                : productsData.filter(p => p.category === filterCategory);
-
-            sourceArray.forEach(p => {
-                const qty = cart[p.id] || 0;
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                const maxGrams = p.isGramAsset ? 28 : 10;
-                
-                let gramSelectorHTML = '';
-                if (p.isGramAsset) {
-                    // NUOVO SELETTORE FLUIDO CON SLIDER + BOTTONI RAPIDI
-                    gramSelectorHTML = `
-                        <div class="gram-selector-fluid">
-                            <div class="gram-display" id="gram-display-${p.id}">${qty}${unitLabel}</div>
-                            <div class="gram-slider-container">
-                                <input type="range" 
-                                       class="gram-slider" 
-                                       id="slider-${p.id}"
-                                       min="0" 
-                                       max="${maxGrams}" 
-                                       value="${qty}"
-                                       oninput="updateGramQuantity('${p.id}', this.value)">
-                            </div>
-                            <div class="gram-quick-buttons">
-                                <button class="gram-quick-btn ${qty === 1 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="1"
-                                        onclick="updateGramQuantity('${p.id}', 1)">1g</button>
-                                <button class="gram-quick-btn ${qty === 3 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="3"
-                                        onclick="updateGramQuantity('${p.id}', 3)">3g</button>
-                                <button class="gram-quick-btn ${qty === 5 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="5"
-                                        onclick="updateGramQuantity('${p.id}', 5)">5g</button>
-                                <button class="gram-quick-btn ${qty === 7 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="7"
-                                        onclick="updateGramQuantity('${p.id}', 7)">7g</button>
-                                <button class="gram-quick-btn ${qty === 10 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="10"
-                                        onclick="updateGramQuantity('${p.id}', 10)">10g</button>
-                                <button class="gram-quick-btn ${qty === 14 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="14"
-                                        onclick="updateGramQuantity('${p.id}', 14)">14g</button>
-                                <button class="gram-quick-btn ${qty === 21 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="21"
-                                        onclick="updateGramQuantity('${p.id}', 21)">21g</button>
-                                <button class="gram-quick-btn ${qty === 28 ? 'active' : ''}" 
-                                        data-product="${p.id}" data-value="28"
-                                        onclick="updateGramQuantity('${p.id}', 28)">28g</button>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // Per prodotti non-gram (pezzi)
-                    gramSelectorHTML = `
-                        <div class="gram-selector-fluid">
-                            <div class="gram-display" id="gram-display-${p.id}">${qty}${unitLabel}</div>
-                            <div style="display:flex; gap:8px; justify-content:center;">
-                                <button class="gram-quick-btn" onclick="updateGramQuantity('${p.id}', ${Math.max(0, qty - 1)})">-</button>
-                                <button class="gram-quick-btn ${qty === 1 ? 'active' : ''}" onclick="updateGramQuantity('${p.id}', 1)">1</button>
-                                <button class="gram-quick-btn ${qty === 2 ? 'active' : ''}" onclick="updateGramQuantity('${p.id}', 2)">2</button>
-                                <button class="gram-quick-btn ${qty === 3 ? 'active' : ''}" onclick="updateGramQuantity('${p.id}', 3)">3</button>
-                                <button class="gram-quick-btn ${qty === 5 ? 'active' : ''}" onclick="updateGramQuantity('${p.id}', 5)">5</button>
-                                <button class="gram-quick-btn" onclick="updateGramQuantity('${p.id}', ${qty + 1})">+</button>
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                const card = document.createElement('div'); 
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img class="product-img" src="${p.img}" alt="${p.name}" onclick="openLightbox(this.src)" loading="lazy">
-                    <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-desc">${p.desc}</div>
-                        ${gramSelectorHTML}
-                        <div style="font-size:14px; font-weight:bold; color:var(--primary-neon); margin-top:8px; text-align:center;">
-                            ${getConvertedPriceStr(p.price)}/${unitLabel}
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            container.appendChild(grid);
-        }
-
-        // Mantenuta per retrocompatibilità
-        function modifyQty(id, change) {
-            const p = productsData.find(prod => prod.id === id);
-            if (!p) return;
-            
-            let current = cart[id] || 0; 
-            current += change;
-            
-            if (current <= 0) { 
-                delete cart[id]; 
-                current = 0; 
-            } else { 
-                cart[id] = current; 
-            }
-            
-            saveCartToStorage();
-            renderProducts(activeCategoryFilter);
-            updateCartUI();
-            
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
-
-        function calculateCartMetrics() {
-            let itemsCount = 0; 
-            let baseProductsTotalEur = 0;
-            let totalWeedGrams = 0;
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-                
-                baseProductsTotalEur += (p.price * cart[id]); 
-                itemsCount += cart[id];
-                
-                if (p.category === 'flowers' && p.isGramAsset) {
-                    totalWeedGrams += cart[id];
-                }
-            });
-
-            let discountEur = 0;
-            if (totalWeedGrams >= 10) {
-                discountEur = totalWeedGrams * 3;
-            } else if (baseProductsTotalEur >= 150) {
-                discountEur = baseProductsTotalEur * 0.10;
-            }
-
-            discountEur = Math.min(discountEur, baseProductsTotalEur);
-            
-            let finalProductsTotalEur = baseProductsTotalEur - discountEur;
-            let shippingFeeEur = finalProductsTotalEur > 0 ? (finalProductsTotalEur >= 50 ? 0 : 10) : 0;
-            
-            return { 
-                itemsCount, 
-                baseTotalEur: baseProductsTotalEur, 
-                discountEur,
-                finalProductsTotalEur,
-                shippingFeeEur, 
-                finalTotalEur: finalProductsTotalEur + shippingFeeEur, 
-                giftApplied: finalProductsTotalEur >= 50 
-            };
-        }
-
-        function updateCartUI() {
-            const metrics = calculateCartMetrics(); 
-            const badge = document.getElementById('cartBadge');
-            if (metrics.itemsCount > 0) { 
-                badge.innerText = metrics.itemsCount; 
-                badge.style.display = 'flex'; 
-            } else { 
-                badge.style.display = 'none'; 
-            }
-            renderCartPage();
-        }
-
-        function renderCartPage() {
-            const container = document.getElementById('cartItemsContainer'); 
-            const formBlock = document.getElementById('checkoutFormBlock'); 
-            const dict = i18n[currentLang];
-            
-            if (!container || !formBlock) return;
-            
-            if (Object.keys(cart).length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint);">${dict.empty}</p>`; 
-                formBlock.style.display = 'none'; 
-                return;
-            }
-            
-            formBlock.style.display = 'block'; 
-            let html = '';
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-                
-                const qty = cart[id]; 
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                html += `
-                    <div class="cart-item">
-                        <div>
-                            <strong>${p.name}</strong>
-                            <div style="display:inline-flex; align-items:center; gap:8px; margin-left:10px; background:#222; padding:2px 6px; border-radius:8px;">
-                                <button class="cart-qty-btn" style="color:var(--danger);" onclick="modifyQty('${p.id}', -1)">-</button>
-                                <span style="color:var(--primary-neon); font-weight:bold; font-size:13px;">${qty}${unitLabel}</span>
-                                <button class="cart-qty-btn" style="color:var(--primary-neon);" onclick="modifyQty('${p.id}', 1)">+</button>
-                            </div>
-                        </div>
-                        <div>${getConvertedPriceStr(p.price * qty)}</div>
-                    </div>`;
-            });
-
-            const metrics = calculateCartMetrics();
-
-            if (metrics.discountEur > 0) {
-                html += `
-                    <div style="background:rgba(0, 255, 102, 0.05); border:1px dashed var(--primary-neon); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-                        <div style="color:var(--primary-neon); font-weight:bold;">🔥 ${dict.discountTxt}</div>
-                        <div style="color:var(--primary-neon); font-weight:bold;">-${getConvertedPriceStr(metrics.discountEur)}</div>
-                    </div>`;
-            }
-
-            html += `
-                <div class="cart-item" style="border:1px solid #444;">
-                    <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
-                    <div style="color:${metrics.shippingFeeEur === 0 ? 'var(--primary-neon)' : 'white'}; font-weight:bold;">${metrics.shippingFeeEur === 0 ? dict.free : getConvertedPriceStr(metrics.shippingFeeEur)}</div>
-                </div>`;
-
-            if (metrics.giftApplied) {
-                html += `
-                    <div style="background:rgba(0,229,255,0.05); border:1px dashed var(--secondary-neon); padding:10px; border-radius:10px; margin-top:10px; color:var(--secondary-neon); font-size:12px; display:flex; justify-content:space-between;">
-                        <span>🎁 Kit Gifts (Lighter + Papers + Filters)</span><strong>${dict.free}</strong>
-                    </div>`;
-            }
-
-            if (metrics.finalProductsTotalEur < 30) {
-                html += `<div style="margin-top:15px; padding:12px; border-radius:10px; background:rgba(255,59,48,0.1); border:1px solid var(--danger); text-align:center; color:var(--danger); font-weight:bold; font-size:14px;">⚠️ ${dict.minOrderErr}</div>`;
-            }
-
-            html += `<div style="margin-top:15px; padding:10px; text-align:right; font-size:18px; font-weight:800;">${dict.totEff}: <span style="color:var(--primary-neon);">${getConvertedPriceStr(metrics.finalTotalEur)}</span></div>`;
-            container.innerHTML = html;
-        }
-
-        function setPaymentMethod(method) {
-            currentSelectedPayment = method; 
-            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active')); 
-            document.getElementById(`pay-opt-${method}`).classList.add('active');
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
-
-        function switchTab(tabId) {
-            const successMsg = document.getElementById('orderSuccessMsg');
-            if (successMsg) successMsg.style.display = 'none';
-            
-            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active')); 
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            
-            document.getElementById(`view-${tabId}`).classList.add('active'); 
-            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
-            
-            if (tabId === 'chat') { renderCartPage(); } 
-            else if (tabId === 'menu') { renderProducts(activeCategoryFilter); }
-            else if (tabId === 'reviews') { renderReviews(i18n[currentLang]); }
-            
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
-
-        document.getElementById('select-time').addEventListener('change', function() {
-            const specInput = document.getElementById('input-time-spec');
-            if (specInput) {
-                specInput.style.display = (this.value.includes('Specific') || this.value.includes('Specifica')) ? 'block' : 'none';
-            }
-        });
-
-        function processOrderSend() {
-            const metrics = calculateCartMetrics(); 
-            const dict = i18n[currentLang];
-            
-            if (metrics.finalProductsTotalEur < 30) { 
-                showToast(dict.minOrderErr); 
-                return; 
-            }
-
-            const citta = document.getElementById('input-city').value.trim();
-            const indirizzo = document.getElementById('input-address').value.trim();
-            const cap = document.getElementById('input-cap').value.trim();
-            let orario = document.getElementById('select-time').value;
-
-            if (orario.includes('Specific') || orario.includes('Specifica')) { 
-                const specTime = document.getElementById('input-time-spec');
-                if (specTime) {
-                    orario = "Slot: " + specTime.value.trim(); 
-                }
-            }
-            
-            if (!citta || !indirizzo || !cap) { 
-                showToast(dict.fieldErr); 
-                return; 
-            }
-            
-            let msg = `🛒 *NEW ORDER - MRSHOP20*\\n`;
-            msg += `👤 *Customer:* ${currentUser}\\n`;
-            msg += `🆔 *User ID:* ${tg?.initDataUnsafe?.user?.id || 'N/A'}\\n`;
-            msg += `----------------------------------------\\n`;
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                msg += `• *${p.name}*: ${cart[id]}${unitLabel}\\n`;
-            });
-            if (metrics.giftApplied) msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\\n`;
-            if (metrics.discountEur > 0) msg += `🔥 *Discount Applied:* -${getConvertedPriceStr(metrics.discountEur)}\\n`;
-            msg += `----------------------------------------\\n`;
-            msg += `⚙️ *Shipping:* ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\\n`;
-            msg += `💰 *TOTAL:* ${getConvertedPriceStr(metrics.finalTotalEur)} (${activeCurrency})\\n\\n`;
-            msg += `📍 *DELIVERY DETAILS:*\\n`;
-            msg += `🏙️ City: ${citta}\\n`;
-            msg += `🏠 Address: ${indirizzo}\\n`;
-            msg += `📮 ZIP: ${cap}\\n`;
-            msg += `⏰ Time: ${orario}\\n\\n`;
-            msg += `💳 *PAYMENT:*\\n`;
-            
-            if (currentSelectedPayment === 'crypto') msg += `➡ *Cryptocurrencies* (Waiting for address)\\n`;
-            else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
-            else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\\n`;
-            else if (currentSelectedPayment === 'revolut') msg += `➡ *Revolut Crypto*\\n📱 Send via Revolut app to provided wallet address.`;
-            else if (currentSelectedPayment === 'bitpanda') msg += `➡ *Bitpanda Crypto*\\n📱 Send from Bitpanda brokerage to provided address.`;
-            else if (currentSelectedPayment === 'binance') msg += `➡ *Binance Crypto*\\n📱 Transfer via P2P or direct to provided wallet.`;
-
-            const encodedMsg = encodeURIComponent(msg);
-            const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
-            
-            showToast(dict.copySuccess);
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-            
-            const successDiv = document.getElementById('orderSuccessMsg');
-            if (successDiv) {
-                successDiv.innerText = dict.orderSuccess;
-                successDiv.style.display = 'block';
-            }
-            
-            clearCart();
-            
-            setTimeout(() => {
-                if (tg && tg.openTelegramLink) {
-                    tg.openTelegramLink(botUrl);
-                } else {
-                    window.open(botUrl, '_blank');
-                }
-            }, 500);
-        }
-
-        // Initialize
-        renderProducts('all');
-        updateCartUI();
-        setLanguage('en');
-        
-        // Prevent double tap zoom
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-    </script>
-</body>
-</html>
+                infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ
