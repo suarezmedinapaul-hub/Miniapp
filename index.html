@@ -16,6 +16,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            -webkit-touch-callout: none;
         }
 
         :root {
@@ -36,6 +37,7 @@
             min-height: 100vh;
             padding-bottom: 100px;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         .brand-header {
@@ -49,7 +51,9 @@
             width: 85px; height: 85px; margin: 0 auto 12px; border-radius: 50%; padding: 2px;
             background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
             box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); overflow: hidden; cursor: pointer;
+            transition: transform 0.2s ease;
         }
+        .main-logo-container:active { transform: scale(0.95); }
         .main-logo-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
         .brand-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
 
@@ -65,6 +69,7 @@
         .lang-btn {
             background: #1c1c24; border: 1px solid #3a3a44; border-radius: 4px;
             padding: 3px 5px; font-size: 9px; cursor: pointer; color: white; font-weight: bold;
+            transition: all 0.2s ease;
         }
         .lang-btn.active { border-color: var(--primary-neon); background: rgba(0,255,102,0.1); }
 
@@ -73,19 +78,20 @@
             margin: 15px; padding: 12px; border-radius: 12px;
             font-weight: 700; text-align: center; font-size: 13px;
             box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+            animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; } }
+        
         .gift-banner {
             background: rgba(0, 229, 255, 0.1); border: 1px solid var(--secondary-neon);
             margin: 0 15px 15px 15px; padding: 10px; border-radius: 12px;
             display: flex; align-items: center; gap: 12px;
         }
         .gift-thumb { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
-        .gift-text { font-size: 12px; line-height: 1.4; }
-        .gift-text strong { color: var(--secondary-neon); display: block; font-size: 13px; }
 
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(11, 11, 14, 0.95); backdrop-filter: blur(10px);
+            background: rgba(11, 11, 14, 0.98); backdrop-filter: blur(10px);
             padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex; align-items: center;
         }
@@ -107,22 +113,23 @@
             border: 1px solid #2c2c35; border-radius: 20px; color: var(--text-main);
             font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.2s ease;
         }
+        .cat-card:active { transform: scale(0.95); }
         .cat-card.active {
             background: linear-gradient(135deg, var(--primary-neon), #00b344);
             color: #000; border-color: var(--primary-neon);
             box-shadow: 0 4px 12px rgba(0, 255, 102, 0.25);
         }
 
-        .app-view { display: none; padding: 15px; }
-        .app-view.active { display: block; }
+        .app-view { display: none; padding: 15px; opacity: 0; transition: opacity 0.3s ease; }
+        .app-view.active { display: block; opacity: 1; }
 
         .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 5px; }
         .product-card {
             background: var(--bg-card); border-radius: 20px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column;
-            transition: transform 0.2s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .product-card:active { transform: scale(0.98); }
+        .product-card:active { transform: scale(0.98); box-shadow: 0 4px 20px rgba(0,255,102,0.1); }
         .product-img { width: 100%; height: 130px; object-fit: cover; background: #222; cursor: pointer; }
         .product-info { padding: 12px; display: flex; flex-direction: column; flex-grow: 1; }
         .product-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -135,8 +142,9 @@
         .gram-btn {
             width: 32px; height: 32px; background: #333; border: none;
             color: white; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer;
+            transition: all 0.15s ease;
         }
-        .gram-btn:active { background: #444; }
+        .gram-btn:active { background: #444; transform: scale(0.95); }
         .gram-value { font-weight: 700; font-size: 14px; color: var(--primary-neon); }
 
         .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
@@ -144,56 +152,71 @@
         .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
         .alert-section { border-left: 4px solid var(--danger); background: rgba(255, 59, 48, 0.05); }
         .papers-hosted-img { width: 100%; height: 190px; object-fit: cover; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .tg-link-btn { display: block; text-align: center; background: #0088cc; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 14px; }
+        .tg-link-btn { display: block; text-align: center; background: #0088cc; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 14px; transition: all 0.2s ease; }
+        .tg-link-btn:active { transform: scale(0.98); opacity: 0.9; }
 
         .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 16px; margin-top: 20px; border: 1px solid #333; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 12px; color: var(--text-hint); margin-bottom: 4px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; color: white; font-size: 14px; }
-        .form-group input:focus { border-color: var(--primary-neon); outline: none; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; color: white; font-size: 14px; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary-neon); outline: none; }
 
         .inline-check-box { background:#1c1c24; border:1px solid #333; padding:12px; border-radius:10px; margin-bottom:20px; }
         .inline-check-box label { display:block; font-size:12px; color:var(--primary-neon); margin-bottom:6px; font-weight:bold; }
         .inline-input-group { display:flex; gap:8px; }
-        .inline-input-group input { flex:1; padding:10px; background:#222; border:1px solid #444; border-radius:8px; color:white; font-size:14px; outline:none; }
+        .inline-input-group input { flex:1; padding:10px; background:#222; border:1px solid #444; border-radius:8px; color:white; font-size:14px; outline:none; transition: border-color 0.2s; }
         .inline-input-group input:focus { border-color:var(--primary-neon); }
-        .inline-input-group button { padding:10px 15px; background:rgba(0,255,102,0.1); color:var(--primary-neon); border:1px solid var(--primary-neon); border-radius:8px; font-weight:bold; cursor:pointer; }
-        .inline-status { display:none; margin-top:10px; font-size:13px; line-height:1.4; padding:10px; border-radius:8px; }
+        .inline-input-group button { padding:10px 15px; background:rgba(0,255,102,0.1); color:var(--primary-neon); border:1px solid var(--primary-neon); border-radius:8px; font-weight:bold; cursor:pointer; transition: all 0.2s; }
+        .inline-input-group button:active { transform: scale(0.95); background: rgba(0,255,102,0.2); }
+        .inline-status { display:none; margin-top:10px; font-size:13px; line-height:1.4; padding:10px; border-radius:8px; animation: slideDown 0.3s ease; }
 
-        .pay-option { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .pay-option { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s ease; }
+        .pay-option:active { transform: scale(0.98); }
         .pay-option.active { border-color: var(--secondary-neon); background: rgba(0,229,255,0.05); }
         .pay-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
         .badge-crypto { background: #f0a500; color: #000; }
         .badge-card { background: #0052ff; color: #fff; }
         .badge-off { background: #555; color: #aaa; }
 
-        .review-card { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-bottom: 10px; border-left: 4px solid var(--accent-purple); }
+        .review-card { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-bottom: 10px; border-left: 4px solid var(--accent-purple); transition: transform 0.2s ease; }
+        .review-card:active { transform: scale(0.98); }
         .review-stars { color: var(--warning); font-size: 14px; margin-bottom: 4px; }
         .review-user { font-size: 12px; color: var(--text-hint); font-weight: bold; }
 
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100vw;
-            background: rgba(22, 22, 30, 0.96); backdrop-filter: blur(20px);
+            background: rgba(22, 22, 30, 0.98); backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-around; padding: 10px 0; z-index: 999;
+            padding-bottom: env(safe-area-inset-bottom, 10px);
         }
         .nav-tab {
             background: none; border: none; color: var(--text-hint); display: flex; flex-direction: column; align-items: center; font-size: 12px; font-weight: 600; cursor: pointer; position: relative; width: 25%;
+            transition: all 0.2s ease;
         }
-        .nav-tab .icon { font-size: 22px; margin-bottom: 2px; }
+        .nav-tab:active { transform: scale(0.9); }
+        .nav-tab .icon { font-size: 22px; margin-bottom: 2px; transition: transform 0.2s; }
         .nav-tab.active { color: var(--primary-neon); }
-        .badge-cart-count { position: absolute; top: -2px; right: 20px; background: var(--danger); color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center; }
-        .cart-summary-floating { background: var(--primary-neon); color: #000; font-weight: 800; padding: 14px; text-align: center; border-radius: 12px; margin-top: 15px; cursor: pointer; font-size: 16px; width: 100%; border: none; }
+        .nav-tab.active .icon { transform: scale(1.1); }
+        .badge-cart-count { position: absolute; top: -2px; right: 20px; background: var(--danger); color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center; animation: popIn 0.3s ease; }
+        @keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        
+        .cart-summary-floating { background: var(--primary-neon); color: #000; font-weight: 800; padding: 14px; text-align: center; border-radius: 12px; margin-top: 15px; cursor: pointer; font-size: 16px; width: 100%; border: none; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3); }
+        .cart-summary-floating:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(0, 255, 102, 0.2); }
 
         .lightbox-modal {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.9); z-index: 100000;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.95); z-index: 100000;
             display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
         .lightbox-modal.active { opacity: 1; pointer-events: auto; }
-        .lightbox-content { max-width: 90%; max-height: 80%; border-radius: 12px; box-shadow: 0 0 30px rgba(255,255,255,0.1); }
-        .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 30px; color: white; cursor: pointer; font-weight: bold; }
+        .lightbox-content { max-width: 90%; max-height: 80%; border-radius: 12px; box-shadow: 0 0 30px rgba(255,255,255,0.1); transform: scale(0.9); transition: transform 0.3s ease; }
+        .lightbox-modal.active .lightbox-content { transform: scale(1); }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 30px; color: white; cursor: pointer; font-weight: bold; transition: transform 0.2s; }
+        .lightbox-close:active { transform: scale(0.9); }
         
         .success-message {
-            background: rgba(0, 255, 102, 0.1);
+            background: rgba(0, 255, 102, 0.15);
             border: 1px solid var(--primary-neon);
             color: var(--primary-neon);
             padding: 15px;
@@ -201,10 +224,26 @@
             text-align: center;
             margin-bottom: 15px;
             display: none;
+            animation: slideDown 0.4s ease;
         }
+
+        .toast-notification {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: var(--primary-neon); color: #000; padding: 12px 24px; border-radius: 25px;
+            font-weight: bold; font-size: 14px; z-index: 100001; box-shadow: 0 4px 20px rgba(0,255,102,0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
+        }
+        .toast-notification.show { transform: translateX(-50%) translateY(0); }
+
+        .cart-item { background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35; transition: all 0.2s ease; }
+        .cart-item:active { transform: scale(0.98); }
+        .cart-qty-btn { background:none; border:none; font-weight:bold; cursor:pointer; width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; transition: all 0.15s; }
+        .cart-qty-btn:active { background: #333; transform: scale(0.9); }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
+
+    <div class="toast-notification" id="toast">✅ Order copied! Paste in Telegram</div>
 
     <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
@@ -322,7 +361,7 @@
             </div>
 
             <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
-                CONFIRM AND SEND ORDER
+                COPY ORDER & OPEN TELEGRAM
             </button>
         </div>
     </div>
@@ -339,15 +378,11 @@
         <div class="info-section">
             <h3 id="info-p2-t"></h3>
             <p id="info-p2-d"></p>
+            <img class="papers-hosted-img" src="https://i.imgur.com/7835lP2.jpg" alt="Accessories" onclick="openLightbox(this.src)">
         </div>
         <div class="info-section">
             <h3 id="info-p3-t"></h3>
             <p id="info-p3-d"></p>
-            <img class="papers-hosted-img" src="https://i.imgur.com/7835lP2.jpg" alt="Accessories" onclick="openLightbox(this.src)">
-        </div>
-        <div class="info-section">
-            <h3 id="info-p4-t"></h3>
-            <p id="info-p4-d"></p>
             <a href="https://t.me/mrshop20" target="_blank" class="tg-link-btn" id="btn-contact-tg"></a>
         </div>
     </div>
@@ -381,57 +416,52 @@
 
     <script>
         const tg = window.Telegram?.WebApp;
-        if (tg) { tg.expand(); tg.ready(); }
+        if (tg) { 
+            tg.expand(); 
+            tg.ready();
+            tg.enableClosingConfirmation();
+        }
 
-        // Persistenza carrello
         const STORAGE_KEY = 'mrshop20_cart_v1';
         let cart = {};
         
-        // Carica carrello da localStorage all'avvio
         function loadCartFromStorage() {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved) {
-                    cart = JSON.parse(saved);
-                    console.log('Cart loaded from storage:', cart);
-                }
-            } catch (e) {
-                console.error('Error loading cart:', e);
-                cart = {};
-            }
+                if (saved) cart = JSON.parse(saved);
+            } catch (e) { cart = {}; }
         }
         
-        // Salva carrello nel localStorage
         function saveCartToStorage() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-            } catch (e) {
-                console.error('Error saving cart:', e);
-            }
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } 
+            catch (e) { console.error('Error saving cart:', e); }
         }
         
-        // Svuota carrello completamente
         function clearCart() {
             cart = {};
             saveCartToStorage();
             updateCartUI();
-            // Aggiorna anche la visualizzazione prodotti per resettare i contatori
             renderProducts(activeCategoryFilter);
         }
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault(); return false;
-            }
-        });
-        document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
 
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             const lbImg = document.getElementById('lightbox-img');
-            lbImg.src = src; lb.classList.add('active');
+            lbImg.src = src; 
+            lb.classList.add('active');
+            if (tg) tg.HapticFeedback.impactOccurred('light');
         }
-        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+        
+        function closeLightbox() { 
+            document.getElementById('lightbox').classList.remove('active'); 
+        }
 
         const currencyConfig = {
             EUR: { symbol: '€', rate: 1.0 },
@@ -449,7 +479,7 @@
                 gateStatusErr: "❌ <strong>DELIVERY NOT AVAILABLE!</strong><br>The city name entered seems invalid or not covered by our rapid rider distribution network. Please check the spelling.",
                 sub: "Direct From Source • Delivery in 1 hour!", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", empty: "Your cart is empty. Add products from the Menu!",
-                city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "CONFIRM AND SEND ORDER",
+                city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", pay: "Payment Method", confirm: "COPY ORDER & OPEN TELEGRAM",
                 giftT: "🎁 FREE GIFTS", giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
                 asap: "As soon as possible / ASAP", ship: "Express Shipping 24/48h (Wholesale Prices - PM us)", spec: "Specific Time Slot (Write below)",
                 p_city: "e.g. Rome, Milan, London...", p_address: "Street Name and Number", p_cap: "e.g. 00100, 20121...", p_spec: "e.g. Between 14:00 and 16:00",
@@ -464,7 +494,8 @@
                 btnContact: "💬 Chat with @mrshop20", revTitle: "Verified Customer Reviews", revSub: "Real reviews extracted directly from our live feed.", btnGroupRev: "⭐️ Open Telegram Reviews Group",
                 actPromo: "🎉 Min. Order met!", totEff: "Total Price", free: "FREE", shippingCostText: "Shipping", minOrderErr: "Minimum order is 30€! Please add more items.", fieldErr: "Please fill City, Address and ZIP code fields!",
                 discountTxt: "Quantity Discount",
-                orderSuccess: "✅ Order sent successfully! Cart cleared.",
+                orderSuccess: "✅ Order copied! Paste it in Telegram chat",
+                copySuccess: "✅ Order copied to clipboard!",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Delivery completed in less than two hours, crazy quality, flawless discrete packaging."', user: "@luca_pro - 2 days ago"},
@@ -478,7 +509,7 @@
                 gateStatusErr: "❌ <strong>CONSEGNA NON DISPONIBILE!</strong><br>Il nome della città inserito sembra non valido o non coperto dalla nostra rete rapida di rider. Controlla la digitazione.",
                 sub: "Direttamente alla Fonte • Consegna in 1 ora!", promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS & Gift Cartine da 50€ in su!",
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
-                city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "CONFERMA E INVIA ORDINE",
+                city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO DI CONSEGNA PREFERITO", pay: "Metodo di Pagamento", confirm: "COPIA ORDINE E APRI TELEGRAM",
                 giftT: "🎁 REGALO COMPRESO", giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€ in su!",
                 asap: "Appena possibile / ASAP", ship: "Spedizione Express 24/48h (Prezzi Ingrosso - Scrivici in PM)", spec: "Fascia Oraria Specifica (Scrivi sotto)",
                 p_city: "Es: Milano, Roma, Napoli...", p_address: "Via/Piazza e Numero Civico", p_cap: "Es: 00100, 20121...", p_spec: "Es: Tra le 14:00 e le 16:00",
@@ -493,7 +524,8 @@
                 btnContact: "💬 Parla con @mrshop20", revTitle: "Recensioni Verificate Clienti", revSub: "Recensioni reali estratte direttamente dal nostro canale.", btnGroupRev: "⭐️ Apri Gruppo Recensioni Telegram",
                 actPromo: "🎉 Minimo d'ordine raggiunto!", totEff: "Totale Effettivo", free: "GRATIS", shippingCostText: "Spedizione", minOrderErr: "L'ordine minimo è di 30€! Aggiungi altri prodotti.", fieldErr: "Compila i campi Obbligatori: Città, Indirizzo e CAP!",
                 discountTxt: "Sconto Quantità",
-                orderSuccess: "✅ Ordine inviato con successo! Carrello svuotato.",
+                orderSuccess: "✅ Ordine copiato! Incollalo nella chat Telegram",
+                copySuccess: "✅ Ordine copiato negli appunti!",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Consegna effettuata in meno di due ore, qualità della Gelato pazzesca, pacco anonimo perfetto."', user: "@luca_pro - 2 giorni fa"},
@@ -507,7 +539,7 @@
                 gateStatusErr: "❌ <strong>LIVRAISON NON DISPONIBLE!</strong><br>Le nom de la ville semble invalide ou non couvert par notre réseau.",
                 sub: "Direct de la source • Livraison en 1 heure!", promo: "🔥 Min. 30€ + 10€ Expédition | Livraison GRATUITE & Cadeaux à partir de 50€!",
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", empty: "Votre panier est vide!",
-                city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "CONFIRMER LA COMMANDE",
+                city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE DE LIVRAISON", pay: "Mode de paiement", confirm: "COPIER COMMANDE & OUVRIR TELEGRAM",
                 giftT: "🎁 CADEAUX GRATUITS", giftD: "Briquet Clipper, feuilles et filtres inclus pour les commandes supérieures à 50€!",
                 asap: "Aussitôt que possible / ASAP", ship: "Livraison Express 24/48h (Prix de gros)", spec: "Créneau horaire spécifique (Écrire ci-dessous)",
                 p_city: "Ex: Paris, Lyon, Marseille...", p_address: "Nom de rue et Numéro", p_cap: "Ex: 75001, 69001...", p_spec: "Ex: Entre 14:00 et 16:00",
@@ -522,7 +554,8 @@
                 btnContact: "💬 Discuter avec @mrshop20", revTitle: "Avis Clients Vérifiés", revSub: "Vrais avis extraits directement de notre flux en direct.", btnGroupRev: "⭐️ Ouvrir le groupe d'avis Telegram",
                 actPromo: "🎉 Min. Commandé!", totEff: "Prix Total", free: "GRATUIT", shippingCostText: "Expédition", minOrderErr: "Commande minimum: 30€!", fieldErr: "Veuillez remplir tous les champs!",
                 discountTxt: "Remise quantité",
-                orderSuccess: "✅ Commande envoyée avec succès! Panier vidé.",
+                orderSuccess: "✅ Commande copiée! Collez-la dans Telegram",
+                copySuccess: "✅ Commande copiée dans le presse-papiers!",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Livraison en moins de deux heures, qualité folle, emballage discret parfait."', user: "@luca_pro - il y a 2 jours"},
@@ -536,7 +569,7 @@
                 gateStatusErr: "❌ <strong>LIEFERUNG NICHT VERFÜGBAR!</strong><br>Ungültiger Stadtname oder nicht von unserem Netzwerk abgedeckt.",
                 sub: "Direkt von der Quelle • Lieferung in 1 Std!", promo: "🔥 Mindestbestellwert 30€ + 10€ Versand | KOSTENLOSER Versand ab 50€!",
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", empty: "Ihr Warenkorb ist leer!",
-                city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG BESTÄTIGEN",
+                city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", pay: "Zahlungsmethode", confirm: "BESTELLUNG KOPIEREN & TELEGRAM ÖFFNEN",
                 giftT: "🎁 GRATIS GESCHENKE", giftD: "Clipper Feuerzeug, Blättchen und Filter kostenlos ab 50€ Bestellwert!",
                 asap: "Schnellstmöglich / ASAP", ship: "Expressversand 24/48h (Großhandelspreise)", spec: "Spezifisches Zeitfenster (Unten eintragen)",
                 p_city: "z.B. Berlin, München, Hamburg...", p_address: "Straße und Hausnummer", p_cap: "z.B. 10115, 80331...", p_spec: "z.B. Zwischen 14:00 und 16:00",
@@ -551,7 +584,8 @@
                 btnContact: "💬 Chat mit @mrshop20", revTitle: "Verifizierte Kundenbewertungen", revSub: "Echte Bewertungen direkt aus unserem Live-Feed.", btnGroupRev: "⭐️ Telegram-Bewertungsgruppe öffnen",
                 actPromo: "🎉 Min. erreicht!", totEff: "Gesamtpreis", free: "KOSTENLOS", shippingCostText: "Versandkosten", minOrderErr: "Mindestbestellwert 30€!", fieldErr: "Bitte füllen Sie alle Felder aus!",
                 discountTxt: "Mengenrabatt",
-                orderSuccess: "✅ Bestellung erfolgreich gesendet! Warenkorb geleert.",
+                orderSuccess: "✅ Bestellung kopiert! In Telegram einfügen",
+                copySuccess: "✅ Bestellung in Zwischenablage kopiert!",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Lieferung in weniger als zwei Stunden, verrückte Qualität, makellose diskrete Verpackung."', user: "@luca_pro - vor 2 Tagen"},
@@ -565,7 +599,7 @@
                 gateStatusErr: "❌ <strong>ДОСТАВКА НЕДОСТУПНА!</strong><br>Неверное название города или регион не поддерживается.",
                 sub: "Прямые поставки • Доставка за 1 час!", promo: "🔥 Мин. заказ 30€ + 10€ Доставка | БЕСПЛАТНО от 50€ + Подарки!",
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", empty: "Ваша корзина пуста!",
-                city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "ПОДТВЕРДИТЬ ЗАКАЗ",
+                city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", pay: "Способ оплаты", confirm: "КОПИРОВАТЬ ЗАКАЗ И ОТКРЫТЬ TELEGRAM",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", giftD: "Зажигалка Clipper, бумага и фильтры бесплатно при заказе от 50€!",
                 asap: "Как можно скорее / ASAP", ship: "Экспресс-доставка 24/48ч (Оптовые цены)", spec: "Указать время (напишите ниже)",
                 p_city: "Пример: Москва, СПБ, Милан...", p_address: "Улица и номер дома", p_cap: "Пример: 101000, 190000...", p_spec: "Пример: Между 14:00 и 16:00",
@@ -580,7 +614,8 @@
                 btnContact: "💬 Написать @mrshop20", revTitle: "Проверенные отзывы клиентов", revSub: "Реальные отзывы, взятые напрямую из нашего канала.", btnGroupRev: "⭐️ Открыть группу с отзывами",
                 actPromo: "🎉 Мин. заказ достигнут!", totEff: "Итоговая цена", free: "БЕСПЛАТНО", shippingCostText: "Доставка", minOrderErr: "Минимальный заказ 30€!", fieldErr: "Заполните все поля!",
                 discountTxt: "Скидка за количество",
-                orderSuccess: "✅ Заказ успешно отправлен! Корзина очищена.",
+                orderSuccess: "✅ Заказ скопирован! Вставьте в Telegram",
+                copySuccess: "✅ Заказ скопирован в буфер обмена!",
                 cats: { flowers: "🌿 Weed", hash: "🍯 Hash", edibles: "🍫 Edibles", vapes: "💨 Vapes", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", special: "🔥 Special" },
                 revs: [
                     {text: '"Доставка менее чем за два часа, безумное качество, безупречная анонимная упаковка."', user: "@luca_pro - 2 дня назад"},
@@ -629,7 +664,6 @@
             { id: "s4", name: "💊 MDMA Crystals/Pills", category: "special", price: 60, img: "https://i.imgur.com/0U169zB.jpg", desc: "High Purity Dutch Quality MDMA • Crystals or Pills", isGramAsset: false }
         ];
 
-        // Carica carrello all'avvio
         loadCartFromStorage();
 
         function checkInlineDelivery() {
@@ -638,7 +672,8 @@
             const statusBox = document.getElementById('inlineDeliveryStatus');
 
             if (!cityInput) {
-                alert(dict.gateAlertErr); return;
+                showToast(dict.gateAlertErr); 
+                return;
             }
 
             const lowerCity = cityInput.toLowerCase();
@@ -660,7 +695,9 @@
         }
 
         function changeCurrency(val) {
-            activeCurrency = val; renderProducts(activeCategoryFilter); renderCartPage();
+            activeCurrency = val; 
+            renderProducts(activeCategoryFilter); 
+            renderCartPage();
         }
 
         function getConvertedPrice(baseEurPrice) {
@@ -739,7 +776,6 @@
             document.getElementById('txt-rev-sub').innerText = dict.revSub;
             document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
 
-            // Aggiorna messaggio successo se presente
             const successMsg = document.getElementById('orderSuccessMsg');
             if (successMsg) successMsg.innerText = dict.orderSuccess;
 
@@ -757,11 +793,14 @@
                 });
             }
 
-            renderCategoryTabs(); renderProducts(activeCategoryFilter); updateCartUI();
+            renderCategoryTabs(); 
+            renderProducts(activeCategoryFilter); 
+            updateCartUI();
         }
 
         function renderCategoryTabs() {
-            const container = document.getElementById('catList'); container.innerHTML = '';
+            const container = document.getElementById('catList'); 
+            container.innerHTML = '';
             
             const allCard = document.createElement('div');
             allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
@@ -769,7 +808,8 @@
             allCard.onclick = () => {
                 activeCategoryFilter = 'all';
                 document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-                allCard.classList.add('active'); renderProducts('all');
+                allCard.classList.add('active'); 
+                renderProducts('all');
             };
             container.appendChild(allCard);
 
@@ -780,15 +820,18 @@
                 card.onclick = () => {
                     activeCategoryFilter = key;
                     document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-                    card.classList.add('active'); renderProducts(key);
+                    card.classList.add('active'); 
+                    renderProducts(key);
                 };
                 container.appendChild(card);
             });
         }
 
         function renderProducts(filterCategory) {
-            const container = document.getElementById('productsDisplay'); container.innerHTML = '';
-            const grid = document.createElement('div'); grid.className = 'products-grid';
+            const container = document.getElementById('productsDisplay'); 
+            container.innerHTML = '';
+            const grid = document.createElement('div'); 
+            grid.className = 'products-grid';
 
             const sourceArray = filterCategory === 'all' ? productsData : productsData.filter(p => p.category === filterCategory);
 
@@ -796,9 +839,10 @@
                 const qty = cart[p.id] || 0;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
                 
-                const card = document.createElement('div'); card.className = 'product-card';
+                const card = document.createElement('div'); 
+                card.className = 'product-card';
                 card.innerHTML = `
-                    <img class="product-img" src="${p.img}" alt="${p.name}" onclick="openLightbox(this.src)">
+                    <img class="product-img" src="${p.img}" alt="${p.name}" onclick="openLightbox(this.src)" loading="lazy">
                     <div class="product-info">
                         <div class="product-name">${p.name}</div>
                         <div class="product-desc">${p.desc}</div>
@@ -819,10 +863,7 @@
 
         function modifyQty(id, change) {
             const p = productsData.find(prod => prod.id === id);
-            if (!p) {
-                console.error('Product not found:', id);
-                return;
-            }
+            if (!p) return;
             
             let current = cart[id] || 0; 
             current += change;
@@ -834,13 +875,14 @@
                 cart[id] = current; 
             }
             
-            // Salva nel localStorage
             saveCartToStorage();
             
             const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
             const el = document.getElementById(`qty-${id}`);
             if (el) el.innerText = `${current}${unitLabel}`;
             updateCartUI();
+            
+            if (tg) tg.HapticFeedback.impactOccurred('light');
         }
 
         function calculateCartMetrics() {
@@ -850,7 +892,7 @@
 
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
-                if (!p) return; // Skip se prodotto non esiste più
+                if (!p) return;
                 
                 baseProductsTotalEur += (p.price * cart[id]); 
                 itemsCount += cart[id];
@@ -867,7 +909,6 @@
                 discountEur = baseProductsTotalEur * 0.10;
             }
 
-            // Assicurati che lo sconto non superi il totale
             discountEur = Math.min(discountEur, baseProductsTotalEur);
             
             let finalProductsTotalEur = baseProductsTotalEur - discountEur;
@@ -912,18 +953,18 @@
 
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
-                if (!p) return; // Skip prodotti non esistenti
+                if (!p) return;
                 
                 const qty = cart[id]; 
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
                 html += `
-                    <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
+                    <div class="cart-item">
                         <div>
                             <strong>${p.name}</strong>
                             <div style="display:inline-flex; align-items:center; gap:8px; margin-left:10px; background:#222; padding:2px 6px; border-radius:8px;">
-                                <button style="background:none; border:none; color:var(--danger); font-weight:bold; cursor:pointer; width:20px;" onclick="modifyQty('${p.id}', -1)">-</button>
+                                <button class="cart-qty-btn" style="color:var(--danger);" onclick="modifyQty('${p.id}', -1)">-</button>
                                 <span style="color:var(--primary-neon); font-weight:bold; font-size:13px;">${qty}${unitLabel}</span>
-                                <button style="background:none; border:none; color:var(--primary-neon); font-weight:bold; cursor:pointer; width:20px;" onclick="modifyQty('${p.id}', 1)">+</button>
+                                <button class="cart-qty-btn" style="color:var(--primary-neon);" onclick="modifyQty('${p.id}', 1)">+</button>
                             </div>
                         </div>
                         <div>${getConvertedPriceStr(p.price * qty)}</div>
@@ -941,7 +982,7 @@
             }
 
             html += `
-                <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #2c2c35;">
+                <div class="cart-item" style="border:1px solid #444;">
                     <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
                     <div style="color:${metrics.shippingFeeEur === 0 ? 'var(--primary-neon)' : 'white'}; font-weight:bold;">${metrics.shippingFeeEur === 0 ? dict.free : getConvertedPriceStr(metrics.shippingFeeEur)}</div>
                 </div>`;
@@ -965,31 +1006,68 @@
             currentSelectedPayment = method; 
             document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active')); 
             document.getElementById(`pay-opt-${method}`).classList.add('active');
+            if (tg) tg.HapticFeedback.impactOccurred('light');
         }
 
         function switchTab(tabId) {
-            // Nascondi messaggio successo se presente
             const successMsg = document.getElementById('orderSuccessMsg');
             if (successMsg) successMsg.style.display = 'none';
             
             document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active')); 
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(`view-${tabId}`).classList.add('active'); 
+            
+            setTimeout(() => {
+                document.getElementById(`view-${tabId}`).classList.add('active'); 
+            }, 50);
+            
             document.getElementById(`tab-btn-${tabId}`).classList.add('active');
             if (tabId === 'chat') { renderCartPage(); } 
             else if (tabId === 'menu') { renderProducts(activeCategoryFilter); }
+            
+            if (tg) tg.HapticFeedback.impactOccurred('light');
         }
 
         document.getElementById('select-time').addEventListener('change', function() {
             document.getElementById('input-time-spec').style.display = (this.value.includes('Specific') || this.value.includes('Specifica')) ? 'block' : 'none';
         });
 
+        // FUNZIONE COPIA UNIVERSALE - Funziona su tutti i dispositivi
+        async function copyToClipboard(text) {
+            // Metodo moderno Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch (err) {
+                    console.log('Clipboard API failed, trying fallback');
+                }
+            }
+            
+            // Fallback per iOS e browser più vecchi
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                return successful;
+            } catch (err) {
+                document.body.removeChild(textArea);
+                console.error('Fallback copy failed', err);
+                return false;
+            }
+        }
+
         function processOrderSend() {
             const metrics = calculateCartMetrics(); 
             const dict = i18n[currentLang];
             
             if (metrics.finalProductsTotalEur < 30) { 
-                alert(dict.minOrderErr); 
+                showToast(dict.minOrderErr); 
                 return; 
             }
 
@@ -1003,7 +1081,7 @@
             }
             
             if (!citta || !indirizzo || !cap) { 
-                alert(dict.fieldErr); 
+                showToast(dict.fieldErr); 
                 return; 
             }
             
@@ -1022,26 +1100,49 @@
             else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
             else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\n`;
 
-            const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
-            if (tg && tg.sendData) { tg.sendData(msg); }
-            window.open(targetUrl, '_blank');
-            
-            // MOSTRA MESSAGGIO DI SUCCESSO E SVUOTA CARRELLO
-            const successDiv = document.getElementById('orderSuccessMsg');
-            if (successDiv) {
-                successDiv.innerText = dict.orderSuccess;
-                successDiv.style.display = 'block';
-            }
-            
-            // Svuota carrello e aggiorna UI
-            clearCart();
-            
-            // Torna al top della pagina
-            window.scrollTo(0, 0);
+            // COPIA NEGLI APPUNTI
+            copyToClipboard(msg).then(success => {
+                if (success) {
+                    showToast(dict.copySuccess);
+                    if (tg) tg.HapticFeedback.notificationOccurred('success');
+                    
+                    // Mostra messaggio successo
+                    const successDiv = document.getElementById('orderSuccessMsg');
+                    if (successDiv) {
+                        successDiv.innerText = dict.orderSuccess;
+                        successDiv.style.display = 'block';
+                    }
+                    
+                    // Svuota carrello
+                    clearCart();
+                    
+                    // Apre Telegram dopo 500ms dando tempo di vedere il toast
+                    setTimeout(() => {
+                        window.open('https://t.me/mrshop20', '_blank');
+                    }, 800);
+                    
+                } else {
+                    // Se la copia fallisce, apre Telegram con il testo precompilato come fallback
+                    showToast("Opening Telegram...");
+                    const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
+                    window.open(targetUrl, '_blank');
+                }
+            });
         }
 
         // Inizializzazione
         setLanguage('en');
+        
+        // Previene zoom su doppio tap su mobile
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
+</html>
 </html>
