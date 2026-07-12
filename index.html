@@ -89,10 +89,11 @@
         }
         .gift-thumb { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
 
+        /* CATEGORIES SCROLLER - PIÙ SPAZIO IN BASSO */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
             background: rgba(11, 11, 14, 0.98); backdrop-filter: blur(10px);
-            padding: 12px 0 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 12px 0 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex; align-items: center;
         }
         .categories-scroller::after {
@@ -138,7 +139,7 @@
         .product-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .product-desc { font-size: 11px; color: var(--text-hint); height: 32px; overflow: hidden; line-height: 1.3; margin-bottom: 10px; }
         
-        /* NUOVO SELETTORE GRAMMI - FLUIDO */
+        /* NUOVO SELETTORE GRAMMI - FLUIDO E SENZA TAP RIPETITIVI */
         .gram-selector-fluid {
             margin-top: auto;
             background: #222;
@@ -153,9 +154,9 @@
         
         .gram-slider {
             width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: #333;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #333 0%, #333 100%);
             outline: none;
             -webkit-appearance: none;
             appearance: none;
@@ -164,27 +165,28 @@
         .gram-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary-neon), #00b344);
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 255, 102, 0.4);
+            box-shadow: 0 2px 10px rgba(0, 255, 102, 0.5);
             transition: transform 0.1s ease;
+            border: 2px solid #fff;
         }
         
         .gram-slider::-webkit-slider-thumb:active {
-            transform: scale(1.2);
+            transform: scale(1.3);
         }
         
         .gram-slider::-moz-range-thumb {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary-neon), #00b344);
             cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0, 255, 102, 0.4);
+            border: 2px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 255, 102, 0.5);
         }
         
         .gram-quick-buttons {
@@ -199,17 +201,15 @@
             border: 1px solid #444;
             color: white;
             border-radius: 6px;
-            padding: 4px 8px;
+            padding: 5px 10px;
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.15s ease;
-            min-width: 32px;
+            min-width: 36px;
         }
         
         .gram-quick-btn:active {
-            background: var(--primary-neon);
-            color: #000;
             transform: scale(0.95);
         }
         
@@ -217,14 +217,16 @@
             background: var(--primary-neon);
             color: #000;
             border-color: var(--primary-neon);
+            box-shadow: 0 2px 8px rgba(0, 255, 102, 0.3);
         }
         
         .gram-display {
             text-align: center;
-            font-weight: 700;
-            font-size: 16px;
+            font-weight: 800;
+            font-size: 18px;
             color: var(--primary-neon);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
         }
 
         .info-section { background: var(--bg-card); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
@@ -272,15 +274,16 @@
         
         /* LOGHI PAGAMENTI CRYPTO */
         .pay-logo {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            margin-right: 10px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
             font-weight: bold;
+            flex-shrink: 0;
         }
         
         .pay-option-content {
@@ -289,8 +292,8 @@
             flex: 1;
         }
         
-        .revolut-logo { background: #0075eb; color: white; }
-        .bitpanda-logo { background: #00a4e0; color: white; }
+        .revolut-logo { background: linear-gradient(135deg, #0075eb, #00d4ff); color: white; }
+        .bitpanda-logo { background: linear-gradient(135deg, #00a4e0, #00d4aa); color: white; }
         .binance-logo { background: #f0b90b; color: #000; }
 
         .review-card { background: var(--bg-card); padding: 15px; border-radius: 14px; margin-bottom: 10px; border-left: 4px solid var(--accent-purple); transition: transform 0.2s ease; }
@@ -359,7 +362,6 @@
         .reviews-header h2 { margin-bottom: 5px; }
         .reviews-header p { font-size:13px; color:var(--text-hint); margin-bottom:15px; }
 
-        /* Floating Contact Button */
         .floating-contact {
             position: fixed;
             bottom: 90px;
@@ -533,7 +535,7 @@
                     <div class="pay-logo revolut-logo">R</div>
                     <div>
                         <strong style="display:block;">Revolut Crypto</strong>
-                        <small>Pay instantly with your Revolut crypto wallet</small>
+                        <small id="txt-revolut-sub">Pay instantly with your Revolut crypto wallet</small>
                     </div>
                 </div>
                 <span class="pay-badge badge-crypto">REVOLUT</span>
@@ -544,7 +546,7 @@
                     <div class="pay-logo bitpanda-logo">B</div>
                     <div>
                         <strong style="display:block;">Bitpanda Crypto</strong>
-                        <small>Send from your Bitpanda brokerage account</small>
+                        <small id="txt-bitpanda-sub">Send from your Bitpanda brokerage account</small>
                     </div>
                 </div>
                 <span class="pay-badge badge-crypto">BITPANDA</span>
@@ -555,7 +557,7 @@
                     <div class="pay-logo binance-logo">◆</div>
                     <div>
                         <strong style="display:block;">Binance Crypto</strong>
-                        <small>Transfer from your Binance wallet via P2P or direct</small>
+                        <small id="txt-binance-sub">Transfer from your Binance wallet via P2P or direct</small>
                     </div>
                 </div>
                 <span class="pay-badge badge-crypto">BINANCE</span>
@@ -597,7 +599,6 @@
         <div id="reviewsContainer"></div>
     </div>
 
-    <!-- Floating Contact Button -->
     <button class="floating-contact" id="floatingContactBtn" onclick="openContact()">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-3c0-.55-.45-1-1-1s-1 .45-1 1v3h-2v-6h2v.5c.5-.5 1.17-.5 1.5-.5.83 0 1.5.67 1.5 1.5v4.5z"/></svg>
         <span id="contactBtnText">Contact</span>
@@ -624,7 +625,6 @@
     </div>
 
     <script>
-        // Initialize Telegram WebApp immediately
         const tg = window.Telegram?.WebApp;
         if (tg) { 
             tg.expand(); 
@@ -759,17 +759,7 @@
                     {text: "Third purchase this month and consistently impressed. The packaging is always professional and discreet. Customer service is responsive and helpful. The product itself is top shelf - exactly as described. 10/10 experience!", user: "@sophie.london - 4 hours ago"},
                     {text: "Express shipping option is amazing! Ordered Monday morning, arrived Wednesday afternoon. The stealth packaging was so clever I almost couldn't find my own order! Product quality is unmatched in this price range.", user: "@max_runner - 6 hours ago"},
                     {text: "First time buyer here and I'm blown away by the quality. The buds are fresh, not dry at all, and the effects are exactly what I was looking for. The free gifts included were a nice surprise. Highly recommend!", user: "@emma_johnson88 - yesterday"},
-                    {text: "Been ordering weekly for the past 3 months. Never had a single issue. Delivery is always on time, product is consistent, and the support team is friendly. This is how online shopping should be!", user: "@david_chen - yesterday"},
-                    {text: "The edibles I ordered were precisely dosed as advertised. Started slow but the effects were clean and long-lasting. Perfect for relaxing evenings. Will be trying more products soon!", user: "@lisa_brown_91 - yesterday"},
-                    {text: "Quality control is clearly a priority here. Every order has been exactly as described, sometimes even better. The vape cartridges are smooth with no harsh aftertaste. Premium hardware too.", user: "@james_wilson - 2 days ago"},
-                    {text: "Customer for life! The wholesale pricing is unbeatable when you buy in bulk. I've saved so much money switching to this service. Quality remains premium every single time.", user: "@maria_garcia - 2 days ago"},
-                    {text: "Discreet packaging is next level. Even my nosy neighbor wouldn't suspect a thing. Product quality is fire and the delivery driver was professional. 5 stars all around!", user: "@tom_anderson - 3 days ago"},
-                    {text: "The Golden Teacher mushrooms were beautiful specimens. Very clean experience with no stomach issues. Will definitely be ordering these again. Fast delivery to my area!", user: "@nina_petrova - 3 days ago"},
-                    {text: "Tried the infused prerolls for a party and everyone loved them. Slow burning and smooth taste. The included accessories were high quality too. Great value for money!", user: "@kevin_murphy - 4 days ago"},
-                    {text: "Skeptical at first but now I'm a believer. The hash selection is incredible - soft, pliable, and melts perfectly. Much better quality than what I can find locally. Fast shipping!", user: "@julia_schmidt - 4 days ago"},
-                    {text: "Payment process was smooth and secure. The crypto option is convenient and the instructions were clear. Product arrived 2 days later in perfect condition. Excellent service!", user: "@ryan_taylor - 5 days ago"},
-                    {text: "The Moonrocks are absolutely insane! Dense, sticky, and incredibly potent. One small piece goes a long way. Best value product I've found online. Will stock up on these!", user: "@olivia_davis - 5 days ago"},
-                    {text: "Professional service from start to finish. Easy ordering, quick confirmation, fast delivery, and premium product. What more could you ask for? Already placed my next order!", user: "@marcus_johnson - 6 days ago"}
+                    {text: "Been ordering weekly for the past 3 months. Never had a single issue. Delivery is always on time, product is consistent, and the support team is friendly. This is how online shopping should be!", user: "@david_chen - yesterday"}
                 ]
             },
             it: {
@@ -834,21 +824,11 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Appena ricevuto il mio ordine di ieri. La qualità del prodotto ha superato le mie aspettative - perfettamente curato, appiccicoso e denso. L'aroma è incredibile con note agrumi dolci. Consegna stealth e puntuale. Tornerò sicuramente!", user: "@alex_martinez92 - 2 ore fa"},
-                    {text: "Terzo acquisto questo mese e sempre impressionato. Il packaging è sempre professionale e discreto. Il servizio clienti è reattivo e utile. Il prodotto è top quality - esattamente come descritto. Esperienza 10/10!", user: "@sophie.london - 4 ore fa"},
-                    {text: "L'opzione spedizione express è fantastica! Ordinato lunedì mattina, arrivato mercoledì pomeriggio. Il packaging stealth era così intelligente che quasi non trovavo il mio ordine!", user: "@max_runner - 6 ore fa"},
-                    {text: "Prima volta che acquisto e sono stupito dalla qualità. I buds sono freschi, per niente secchi, e gli effetti sono esattamente quelli che cercavo. I regali inclusi sono stati una bella sorpresa. Consigliatissimo!", user: "@emma_johnson88 - ieri"},
-                    {text: "Ordino settimanalmente da 3 mesi. Mai avuto un problema. La consegna è sempre puntuale, il prodotto consistente, e il team di supporto friendly. Così dovrebbe essere lo shopping online!", user: "@david_chen - ieri"},
-                    {text: "Gli edibles che ho ordinato erano precisamente dosati come pubblicizzato. Inizio lento ma gli effetti erano puliti e duraturi. Perfetti per serate relax. Proverò altri prodotti presto!", user: "@lisa_brown_91 - ieri"},
-                    {text: "Il controllo qualità è chiaramente una priorità qui. Ogni ordine è stato esattamente come descritto, a volte anche meglio. Le cartucce vape sono lisce senza retrogusto sgradevole.", user: "@james_wilson - 2 giorni fa"},
-                    {text: "Cliente a vita! I prezzi ingrosso sono imbattibili quando compri in bulk. Ho risparmiato tantissimo passando a questo servizio. La qualità rimane premium ogni volta.", user: "@maria_garcia - 2 giorni fa"},
-                    {text: "Il packaging discreto è next level. Anche il mio vicino ficcanaso non sospetterebbe nulla. Qualità del prodotto top e il driver professionale. 5 stelle su tutta la linea!", user: "@tom_anderson - 3 giorni fa"},
-                    {text: "I Golden Teacher erano esemplari bellissimi. Esperienza molto pulita senza problemi di stomaco. Li riordinerò sicuramente. Consegna veloce nella mia zona!", user: "@nina_petrova - 3 giorni fa"},
-                    {text: "Provato i preroll infusi per una festa e tutti li hanno amati. Bruciano lentamente e gusto smooth. Anche gli accessori inclusi erano di alta qualità. Ottimo rapporto qualità-prezzo!", user: "@kevin_murphy - 4 giorni fa"},
-                    {text: "Scettico all'inizio ma ora sono un credente. La selezione di hash è incredibile - morbido, modellabile e si scioglie perfettamente. Qualità molto superiore a quella che trovo localmente.", user: "@julia_schmidt - 4 giorni fa"},
-                    {text: "Processo di pagamento smooth e sicuro. L'opzione crypto è conveniente e le istruzioni erano chiare. Prodotto arrivato 2 giorni dopo in condizioni perfette. Servizio eccellente!", user: "@ryan_taylor - 5 giorni fa"},
-                    {text: "I Moonrocks sono assolutamente pazzeschi! Densi, appiccicosi e incredibilmente potenti. Un pezzetto piccolo dura a lungo. Miglior prodotto che ho trovato online. Ne farò scorta!", user: "@olivia_davis - 5 giorni fa"},
-                    {text: "Servizio professionale dall'inizio alla fine. Ordinazione facile, conferma veloce, consegna rapida e prodotto premium. Cosa si può chiedere di più? Ho già fatto il prossimo ordine!", user: "@marcus_johnson - 6 giorni fa"}
+                    {text: "Appena ricevuto il mio ordine di ieri. La qualità del prodotto ha superato le mie aspettative - perfettamente curato, appiccicoso e denso. Consegna stealth e puntuale. Tornerò sicuramente!", user: "@alex_martinez92 - 2 ore fa"},
+                    {text: "Terzo acquisto questo mese e sempre impressionato. Il packaging è sempre professionale e discreto. Esperienza 10/10!", user: "@sophie.london - 4 ore fa"},
+                    {text: "L'opzione spedizione express è fantastica! Ordinato lunedì mattina, arrivato mercoledì pomeriggio.", user: "@max_runner - 6 ore fa"},
+                    {text: "Prima volta che acquisto e sono stupito dalla qualità. Consigliatissimo!", user: "@emma_johnson88 - ieri"},
+                    {text: "Ordino settimanalmente da 3 mesi. Mai avuto un problema. Così dovrebbe essere lo shopping online!", user: "@david_chen - ieri"}
                 ]
             },
             fr: {
@@ -913,16 +893,11 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Commande reçue d'hier, la qualité du produit a dépassé mes attentes - parfaitement curé, collant et dense. L'arôme est incroyable avec des notes d'agrumes doux. Livraison discrète et ponctuelle. Je reviendrai!", user: "@alex_martinez92 - il y a 2 heures"},
-                    {text: "Troisième achat ce mois-ci et toujours impressionné. L'emballage est toujours professionnel et discret. Service client réactif. Le produit est top qualité - exactement comme décrit. Expérience 10/10!", user: "@sophie.london - il y a 4 heures"},
-                    {text: "Option livraison express incroyable! Commandé lundi matin, arrivé mercredi après-midi. L'emballage stealth était si malin que j'ai presque pas trouvé ma commande!", user: "@max_runner - il y a 6 heures"},
-                    {text: "Première fois et je suis impressionné par la qualité. Les buds sont frais, pas secs du tout, et les effets sont exactement ce que je cherchais. Les cadeaux inclus étaient une belle surprise. Recommandé!", user: "@emma_johnson88 - hier"},
-                    {text: "Je commande chaque semaine depuis 3 mois. Jamais eu de problème. Livraison toujours à l'heure, produit consistant, équipe sympa. C'est comme ça que devrait être le shopping en ligne!", user: "@david_chen - hier"},
-                    {text: "Les edibles étaient précisément dosés comme annoncé. Début lent mais effets propres et durables. Parfaits pour des soirées relax. J'essaierai d'autres produits bientôt!", user: "@lisa_brown_91 - hier"},
-                    {text: "Le contrôle qualité est clairement une priorité ici. Chaque commande était exactement comme décrit, parfois même mieux. Les cartouches vape sont douces sans arrière-goût désagréable.", user: "@james_wilson - il y a 2 jours"},
-                    {text: "Client à vie! Les prix de gros sont imbattables quand vous achetez en bulk. J'ai tellement économisé. La qualité reste premium chaque fois.", user: "@maria_garcia - il y a 2 jours"},
-                    {text: "L'emballage discret est de niveau supérieur. Même mon voisin curieux ne suspecterait rien. Qualité produit top et livreur professionnel. 5 étoiles partout!", user: "@tom_anderson - il y a 3 jours"},
-                    {text: "Les Golden Teacher étaient de beaux spécimens. Expérience très clean sans problèmes d'estomac. Je recommanderai certainement. Livraison rapide!", user: "@nina_petrova - il y a 3 jours"}
+                    {text: "Commande reçue d'hier, la qualité du produit a dépassé mes attentes - parfaitement curé, collant et dense. Livraison discrète et ponctuelle. Je reviendrai!", user: "@alex_martinez92 - il y a 2 heures"},
+                    {text: "Troisième achat ce mois-ci et toujours impressionné. L'emballage est toujours professionnel et discret. Expérience 10/10!", user: "@sophie.london - il y a 4 heures"},
+                    {text: "Option livraison express incroyable! Commandé lundi matin, arrivé mercredi après-midi.", user: "@max_runner - il y a 6 heures"},
+                    {text: "Première fois et je suis impressionné par la qualité. Recommandé!", user: "@emma_johnson88 - hier"},
+                    {text: "Je commande chaque semaine depuis 3 mois. Jamais eu de problème. C'est comme ça que devrait être le shopping en ligne!", user: "@david_chen - hier"}
                 ]
             },
             de: {
@@ -987,16 +962,11 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Bestellung von gestern erhalten, Produktqualität hat Erwartungen übertroffen - perfekt getrocknet, klebrig und dicht. Das Aroma ist unglaublich mit süßen Zitrusnoten. Diskrete und pünktliche Lieferung. Komme wieder!", user: "@alex_martinez92 - vor 2 Stunden"},
-                    {text: "Dritter Kauf diesen Monat und immer beeindruckt. Verpackung immer professionell und diskret. Kundenservice reagiert schnell. Produkt ist Top-Qualität - genau wie beschrieben. 10/10 Erfahrung!", user: "@sophie.london - vor 4 Stunden"},
-                    {text: "Expressversand-Option ist erstaunlich! Montag morgens bestellt, Mittwoch nachmittags angekommen. Stealth-Verpackung war so clever, ich habe meine Bestellung kaum gefunden!", user: "@max_runner - vor 6 Stunden"},
-                    {text: "Erstmaliger Käufer und beeindruckt von der Qualität. Die Knospen sind frisch, überhaupt nicht trocken, und die Wirkung ist genau was ich gesucht habe. Die gratis Geschenke waren eine schöne Überraschung. Sehr empfohlen!", user: "@emma_johnson88 - gestern"},
-                    {text: "Bestelle seit 3 Monaten wöchentlich. Nie ein Problem gehabt. Lieferung immer pünktlich, Produkt konsistent, Support-Team freundlich. So sollte Online-Shopping sein!", user: "@david_chen - gestern"},
-                    {text: "Die bestellten Edibles waren genau dosiert wie beworben. Langsamer Start aber saubere, langanhaltende Wirkung. Perfekt für entspannte Abende. Werde mehr Produkte ausprobieren!", user: "@lisa_brown_91 - gestern"},
-                    {text: "Qualitätskontrolle ist hier klar Priorität. Jede Bestellung war genau wie beschrieben, manchmal sogar besser. Die Vape-Patronen sind sanft ohne unangenehmen Nachgeschmack.", user: "@james_wilson - vor 2 Tagen"},
-                    {text: "Kunde fürs Leben! Großhandelspreise sind unschlagbar bei Bulk-Käufen. Habe so viel Geld gespart. Qualität bleibt jedes Mal premium.", user: "@maria_garcia - vor 2 Tagen"},
-                    {text: "Diskrete Verpackung ist next level. Sogar mein neugieriger Nachbar würde nichts verdächtigen. Top Produktqualität und professioneller Fahrer. 5 Sterne überall!", user: "@tom_anderson - vor 3 Tagen"},
-                    {text: "Die Golden Teacher waren wunderschöne Exemplare. Sehr saubere Erfahrung ohne Magenprobleme. Werde definitiv wieder bestellen. Schnelle Lieferung!", user: "@nina_petrova - vor 3 Tagen"}
+                    {text: "Bestellung von gestern erhalten, Produktqualität hat Erwartungen übertroffen - perfekt getrocknet, klebrig und dicht. Diskrete und pünktliche Lieferung. Komme wieder!", user: "@alex_martinez92 - vor 2 Stunden"},
+                    {text: "Dritter Kauf diesen Monat und immer beeindruckt. Verpackung immer professionell und diskret. 10/10 Erfahrung!", user: "@sophie.london - vor 4 Stunden"},
+                    {text: "Expressversand-Option ist erstaunlich! Montag morgens bestellt, Mittwoch nachmittags angekommen.", user: "@max_runner - vor 6 Stunden"},
+                    {text: "Erstmaliger Käufer und beeindruckt von der Qualität. Sehr empfohlen!", user: "@emma_johnson88 - gestern"},
+                    {text: "Bestelle seit 3 Monaten wöchentlich. Nie ein Problem gehabt. So sollte Online-Shopping sein!", user: "@david_chen - gestern"}
                 ]
             },
             ru: {
@@ -1061,16 +1031,11 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Только что получил заказ вчерашнего дня. Качество продукции превзошло ожидания - идеально пролечено, липкое и плотное. Аромат невероятный с нотками сладких цитрусов. Доставка скрытная и точно в срок. Обязательно вернусь!", user: "@alex_martinez92 - 2 часа назад"},
-                    {text: "Третья покупка в этом месяце и постоянно впечатлен. Упаковка всегда профессиональная и дискретная. Обслуживание клиентов отзывчивое. Продукт высшего качества - точно как описано. Опыт 10/10!", user: "@sophie.london - 4 часа назад"},
-                    {text: "Опция экспресс-доставки потрясающая! Заказал утром понедельника, пришло средним днем среды. Стелс-упаковка была такой умной, что я почти не нашел свой заказ!", user: "@max_runner - 6 часов назад"},
-                    {text: "Первый раз покупаю и впечатлен качеством. Шишки свежие, совсем не сухие, эффекты именно те, что я искал. Бесплатные подарки были приятным сюрпризом. Настоятельно рекомендую!", user: "@emma_johnson88 - вчера"},
-                    {text: "Заказываю еженедельно уже 3 месяца. Никогда не было проблем. Доставка всегда вовремя, продукт стабильный, команда поддержки дружелюбная. Вот как должен работать онлайн-шоппинг!", user: "@david_chen - вчера"},
-                    {text: "Edibles были точно дозированы как рекламировалось. Медленное начало, но чистый долгий эффект. Идеально для вечеров отдыха. Скоро попробую больше продуктов!", user: "@lisa_brown_91 - вчера"},
-                    {text: "Контроль качества явно приоритет здесь. Каждый заказ был точно как описано, иногда даже лучше. Картриджи vape мягкие без неприятного послевкусия.", user: "@james_wilson - 2 дня назад"},
-                    {text: "Клиент на всю жизнь! Оптовые цены непобедимы при покупке оптом. Я сэкономил столько денег. Качество остается премиальным каждый раз.", user: "@maria_garcia - 2 дня назад"},
-                    {text: "Дискретная упаковка на высшем уровне. Даже мой любопытный сосед ничего не заподозрит. Качество продукта топ и водитель профессионал. 5 звезд везде!", user: "@tom_anderson - 3 дня назад"},
-                    {text: "Golden Teacher были красивыми экземплярами. Очень чистый опыт без проблем с желудком. Обязательно закажу снова. Быстрая доставка!", user: "@nina_petrova - 3 дня назад"}
+                    {text: "Только что получил заказ вчерашнего дня. Качество продукции превзошло ожидания - идеально пролечено, липкое и плотное. Доставка скрытная и точно в срок. Обязательно вернусь!", user: "@alex_martinez92 - 2 часа назад"},
+                    {text: "Третья покупка в этом месяце и постоянно впечатлен. Упаковка всегда профессиональная и дискретная. Опыт 10/10!", user: "@sophie.london - 4 часа назад"},
+                    {text: "Опция экспресс-доставки потрясающая! Заказал утром понедельника, пришло средним днем среды.", user: "@max_runner - 6 часов назад"},
+                    {text: "Первый раз покупаю и впечатлен качеством. Настоятельно рекомендую!", user: "@emma_johnson88 - вчера"},
+                    {text: "Заказываю еженедельно уже 3 месяца. Никогда не было проблем. Вот как должен работать онлайн-шоппинг!", user: "@david_chen - вчера"}
                 ]
             }
         };
@@ -1213,9 +1178,9 @@
             document.getElementById('badge-req').innerText = dict.reqAvail;
             
             // Update new payment descriptions
-            const revDesc = document.querySelector('#pay-opt-revolut small');
-            const bitDesc = document.querySelector('#pay-opt-bitpanda small');
-            const binDesc = document.querySelector('#pay-opt-binance small');
+            const revDesc = document.getElementById('txt-revolut-sub');
+            const bitDesc = document.getElementById('txt-bitpanda-sub');
+            const binDesc = document.getElementById('txt-binance-sub');
             if (revDesc) revDesc.innerText = dict.revSub;
             if (bitDesc) bitDesc.innerText = dict.bitSub;
             if (binDesc) binDesc.innerText = dict.binSub;
@@ -1228,10 +1193,6 @@
             document.getElementById('info-p1-d').innerText = dict.infD1;
             document.getElementById('info-p2-t').innerText = dict.infT2;
             document.getElementById('info-p2-d').innerText = dict.infD2;
-            document.getElementById('info-p3-t').innerText = dict.infT3;
-            document.getElementById('info-p3-d').innerText = dict.infD3;
-            document.getElementById('info-p4-t').innerText = dict.infT4;
-            document.getElementById('info-p4-d').innerText = dict.infD4;
             document.getElementById('btn-contact-tg').innerText = dict.btnContact;
 
             document.getElementById('txt-rev-title').innerText = dict.revTitle;
@@ -1241,7 +1202,6 @@
             const successMsg = document.getElementById('orderSuccessMsg');
             if (successMsg) successMsg.innerText = dict.orderSuccess;
 
-            // Update floating contact button text
             document.getElementById('contactBtnText').innerText = dict.contact;
 
             renderReviews(dict);
@@ -1322,7 +1282,8 @@
             // Update display
             const display = document.getElementById(`gram-display-${productId}`);
             const slider = document.getElementById(`slider-${productId}`);
-            if (display) display.innerText = `${qty}g`;
+            const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
+            if (display) display.innerText = `${qty}${unitLabel}`;
             if (slider) slider.value = qty;
             
             // Update active quick buttons
@@ -1626,36 +1587,35 @@
                 return; 
             }
             
-            let msg = `🛒 *NEW ORDER - MRSHOP20*\n`;
-            msg += `👤 *Customer:* ${currentUser}\n`;
-            msg += `🆔 *User ID:* ${tg?.initDataUnsafe?.user?.id || 'N/A'}\n`;
-            msg += `----------------------------------------\n`;
+            let msg = `🛒 *NEW ORDER - MRSHOP20*\\n`;
+            msg += `👤 *Customer:* ${currentUser}\\n`;
+            msg += `🆔 *User ID:* ${tg?.initDataUnsafe?.user?.id || 'N/A'}\\n`;
+            msg += `----------------------------------------\\n`;
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                msg += `• *${p.name}*: ${cart[id]}${unitLabel}\n`;
+                msg += `• *${p.name}*: ${cart[id]}${unitLabel}\\n`;
             });
-            if (metrics.giftApplied) msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\n`;
-            if (metrics.discountEur > 0) msg += `🔥 *Discount Applied:* -${getConvertedPriceStr(metrics.discountEur)}\n`;
-            msg += `----------------------------------------\n`;
-            msg += `⚙️ *Shipping:* ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\n`;
-            msg += `💰 *TOTAL:* ${getConvertedPriceStr(metrics.finalTotalEur)} (${activeCurrency})\n\n`;
-            msg += `📍 *DELIVERY DETAILS:*\n`;
-            msg += `🏙️ City: ${citta}\n`;
-            msg += `🏠 Address: ${indirizzo}\n`;
-            msg += `📮 ZIP: ${cap}\n`;
-            msg += `⏰ Time: ${orario}\n\n`;
-            msg += `💳 *PAYMENT:*\n`;
+            if (metrics.giftApplied) msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\\n`;
+            if (metrics.discountEur > 0) msg += `🔥 *Discount Applied:* -${getConvertedPriceStr(metrics.discountEur)}\\n`;
+            msg += `----------------------------------------\\n`;
+            msg += `⚙️ *Shipping:* ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\\n`;
+            msg += `💰 *TOTAL:* ${getConvertedPriceStr(metrics.finalTotalEur)} (${activeCurrency})\\n\\n`;
+            msg += `📍 *DELIVERY DETAILS:*\\n`;
+            msg += `🏙️ City: ${citta}\\n`;
+            msg += `🏠 Address: ${indirizzo}\\n`;
+            msg += `📮 ZIP: ${cap}\\n`;
+            msg += `⏰ Time: ${orario}\\n\\n`;
+            msg += `💳 *PAYMENT:*\\n`;
             
-            if (currentSelectedPayment === 'crypto') msg += `➡ *Cryptocurrencies* (Waiting for address)\n`;
-            else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
-            else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\n`;
-            else if (currentSelectedPayment === 'revolut') msg += `➡ *Revolut Crypto*\n📱 Send via Revolut app to provided wallet address.`;
-            else if (currentSelectedPayment === 'bitpanda') msg += `➡ *Bitpanda Crypto*\n📱 Send from Bitpanda brokerage to provided address.`;
-            else if (currentSelectedPayment === 'binance') msg += `➡ *Binance Crypto*\n📱 Transfer via P2P or direct to provided wallet.`;
+            if (currentSelectedPayment === 'crypto') msg += `➡ *Cryptocurrencies* (Waiting for address)\\n`;
+            else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
+            else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\\n`;
+            else if (currentSelectedPayment === 'revolut') msg += `➡ *Revolut Crypto*\\n📱 Send via Revolut app to provided wallet address.`;
+            else if (currentSelectedPayment === 'bitpanda') msg += `➡ *Bitpanda Crypto*\\n📱 Send from Bitpanda brokerage to provided address.`;
+            else if (currentSelectedPayment === 'binance') msg += `➡ *Binance Crypto*\\n📱 Transfer via P2P or direct to provided wallet.`;
 
-            // Send directly to @mrshop20 (NOT mrshop20bot)
             const encodedMsg = encodeURIComponent(msg);
             const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
             
@@ -1670,7 +1630,6 @@
             
             clearCart();
             
-            // Open Telegram chat with pre-filled message
             setTimeout(() => {
                 if (tg && tg.openTelegramLink) {
                     tg.openTelegramLink(botUrl);
@@ -1680,9 +1639,20 @@
             }, 500);
         }
 
-        // IMMEDIATE RENDER - No delay for products
+        // Initialize
         renderProducts('all');
         updateCartUI();
+        setLanguage('en');
         
-        // Then initialize language and other UI
-        document.addEventListener('DOMContentLoaded',
+        // Prevent double tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
