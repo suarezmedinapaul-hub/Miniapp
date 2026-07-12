@@ -35,7 +35,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             min-height: 100vh;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
@@ -155,7 +155,17 @@
         .info-section p { font-size: 14px; color: #d1d1d6; line-height: 1.5; margin-bottom: 10px; }
         .alert-section { border-left: 4px solid var(--danger); background: rgba(255, 59, 48, 0.05); }
         .papers-hosted-img { width: 100%; height: 190px; object-fit: cover; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .tg-link-btn { display: block; text-align: center; background: #0088cc; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 14px; transition: all 0.2s ease; }
+        
+        .tg-link-btn { 
+            display: block; text-align: center; 
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); 
+            color: #000; 
+            padding: 12px; border-radius: 10px; 
+            text-decoration: none; font-weight: bold; 
+            margin-top: 10px; font-size: 14px; 
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
+        }
         .tg-link-btn:active { transform: scale(0.98); opacity: 0.9; }
 
         .checkout-form { background: var(--bg-card); padding: 15px; border-radius: 16px; margin-top: 20px; border: 1px solid #333; }
@@ -248,22 +258,41 @@
         .reviews-header { margin-bottom: 20px; }
         .reviews-header h2 { margin-bottom: 5px; }
         .reviews-header p { font-size:13px; color:var(--text-hint); margin-bottom:15px; }
-        
-        .loading-skeleton {
-            background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: 8px;
+
+        /* Floating Contact Button */
+        .floating-contact {
+            position: fixed;
+            bottom: 90px;
+            right: 15px;
+            z-index: 998;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 255, 102, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .floating-contact:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(0, 255, 102, 0.3);
+        }
+        .floating-contact svg {
+            width: 18px;
+            height: 18px;
+            fill: #000;
         }
     </style>
 </head>
 <body>
 
-    <div class="toast-notification" id="toast">✅ Order sent to @mrshop20bot!</div>
+    <div class="toast-notification" id="toast">✅ Order sent to @mrshop20!</div>
 
     <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
@@ -390,7 +419,7 @@
             </div>
 
             <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
-                SEND ORDER TO @MRSHOP20BOT
+                SEND ORDER TO @MRSHOP20
             </button>
         </div>
     </div>
@@ -420,10 +449,16 @@
         <div class="reviews-header">
             <h2 id="txt-rev-title">Reviews</h2>
             <p id="txt-rev-sub">Real reviews from our customers</p>
-            <a href="https://t.me/+J208d0waHUQ5OGY5" target="_blank" class="tg-link-btn" style="background:#0088cc;" id="btn-group-rev">Join Reviews Channel</a>
+            <a href="https://t.me/+J208d0waHUQ5OGY5" target="_blank" class="tg-link-btn" id="btn-group-rev">Join Reviews Channel</a>
         </div>
         <div id="reviewsContainer"></div>
     </div>
+
+    <!-- Floating Contact Button -->
+    <button class="floating-contact" id="floatingContactBtn" onclick="openContact()">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-3c0-.55-.45-1-1-1s-1 .45-1 1v3h-2v-6h2v.5c.5-.5 1.17-.5 1.5-.5.83 0 1.5.67 1.5 1.5v4.5z"/></svg>
+        <span id="contactBtnText">Contact</span>
+    </button>
 
     <div class="bottom-nav">
         <button class="nav-tab active" id="tab-btn-menu" onclick="switchTab('menu')">
@@ -496,6 +531,15 @@
             document.getElementById('lightbox').classList.remove('active'); 
         }
 
+        function openContact() {
+            const url = 'https://t.me/mrshop20';
+            if (tg && tg.openTelegramLink) {
+                tg.openTelegramLink(url);
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
         const currencyConfig = {
             EUR: { symbol: '€', rate: 1.0 },
             USD: { symbol: '$', rate: 1.08 },
@@ -516,7 +560,7 @@
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", 
                 empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", 
-                pay: "Payment Method", confirm: "SEND ORDER TO @MRSHOP20BOT",
+                pay: "Payment Method", confirm: "SEND ORDER TO @MRSHOP20",
                 giftT: "🎁 FREE GIFTS", 
                 giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
                 asap: "As soon as possible / ASAP", 
@@ -541,7 +585,7 @@
                 infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
                 infT4: "💬 Direct Contact & Support", 
                 infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
-                btnContact: "💬 Chat with @mrshop20", 
+                btnContact: "💬 Contact @mrshop20", 
                 revTitle: "Verified Customer Reviews", 
                 revSub: "Real reviews extracted directly from our live feed.", 
                 btnGroupRev: "⭐️ Join Reviews Channel",
@@ -552,8 +596,9 @@
                 minOrderErr: "Minimum order is 30€! Please add more items.", 
                 fieldErr: "Please fill City, Address and ZIP code fields!",
                 discountTxt: "Quantity Discount",
-                orderSuccess: "✅ Order sent to @mrshop20bot! Check your Telegram.",
-                copySuccess: "✅ Order sent to @mrshop20bot!",
+                orderSuccess: "✅ Order sent to @mrshop20! Check your Telegram.",
+                copySuccess: "✅ Order sent to @mrshop20!",
+                contact: "Contact",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -564,18 +609,21 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Just received my Gelato order from yesterday. The buds are perfectly cured, sticky and dense. The smell is incredible - sweet citrus with earthy undertones. Delivery was stealthy and fast. 10/10 quality!", user: "@marco_roma - 2 hours ago"},
-                    {text: "Runtz is absolutely fire! Best I've had in months. The high is euphoric and long-lasting. Packaging was discreet, no smell at all. Will definitely order again!", user: "@luca_kush - 5 hours ago"},
-                    {text: "Third time ordering from here. The Moroccan hash is premium quality - soft, pliable and melts perfectly. Great value for money. Support team is super responsive too.", user: "@anna_smoke - yesterday"},
-                    {text: "Tried the edibles yesterday. Started slow but hit hard after 45 minutes! Clean high, no anxiety. Dosage is accurate as described. Perfect for movie nights.", user: "@davide_g - yesterday"},
-                    {text: "The Zkittlez vape is smooth as butter. No harsh throat hit, tastes exactly like candy. Battery lasted way longer than expected. Premium quality hardware.", user: "@sara_420 - 2 days ago"},
-                    {text: "Moonrocks are INSANE! Broke them open and they're dripping with oil inside. One small piece and I'm flying for hours. Best value product here honestly.", user: "@giovanni_haze - 2 days ago"},
-                    {text: "Express shipping option is a game changer. Ordered Monday, arrived Wednesday morning. Stealth packaging was next level - even I had trouble finding the goods at first! 😂", user: "@francesca_b - 3 days ago"},
-                    {text: "The Golden Teacher mushrooms are beautiful dried specimens. Took 2g and had the most spiritual experience. Very clean, no nausea. Will microdose from now on.", user: "@alessandro_t - 3 days ago"},
-                    {text: "Baby Jeeter prerolls are perfect for parties. Everyone loved them. Kief infused and burns slow. The free clipper and papers were a nice touch too!", user: "@chiara_smoke - 4 days ago"},
-                    {text: "Been buying wholesale for my personal stash. Prices are unbeatable when you buy bulk. Quality remains consistent every single time. This is my go-to plug now.", user: "@matteo_wholesale - 5 days ago"},
-                    {text: "Sour Diesel has that classic fuel smell I love. Uplifting high, perfect for daytime. Buds were fresh and not dry at all. Fast delivery to Milan.", user: "@elena_green - 5 days ago"},
-                    {text: "First time customer and I'm impressed. The Blue Dream vape cartridge is clean, no additives taste. Customer service guided me through the crypto payment smoothly.", user: "@roberto_new - 6 days ago"}
+                    {text: "Just received my order from yesterday. The product quality exceeded my expectations - perfectly cured, sticky and dense. The aroma is incredible with sweet citrus notes. Delivery was stealthy and arrived right on time. Will definitely be a returning customer!", user: "@alex_martinez92 - 2 hours ago"},
+                    {text: "Third purchase this month and consistently impressed. The packaging is always professional and discreet. Customer service is responsive and helpful. The product itself is top shelf - exactly as described. 10/10 experience!", user: "@sophie.london - 4 hours ago"},
+                    {text: "Express shipping option is amazing! Ordered Monday morning, arrived Wednesday afternoon. The stealth packaging was so clever I almost couldn't find my own order! Product quality is unmatched in this price range.", user: "@max_runner - 6 hours ago"},
+                    {text: "First time buyer here and I'm blown away by the quality. The buds are fresh, not dry at all, and the effects are exactly what I was looking for. The free gifts included were a nice surprise. Highly recommend!", user: "@emma_johnson88 - yesterday"},
+                    {text: "Been ordering weekly for the past 3 months. Never had a single issue. Delivery is always on time, product is consistent, and the support team is friendly. This is how online shopping should be!", user: "@david_chen - yesterday"},
+                    {text: "The edibles I ordered were precisely dosed as advertised. Started slow but the effects were clean and long-lasting. Perfect for relaxing evenings. Will be trying more products soon!", user: "@lisa_brown_91 - yesterday"},
+                    {text: "Quality control is clearly a priority here. Every order has been exactly as described, sometimes even better. The vape cartridges are smooth with no harsh aftertaste. Premium hardware too.", user: "@james_wilson - 2 days ago"},
+                    {text: "Customer for life! The wholesale pricing is unbeatable when you buy in bulk. I've saved so much money switching to this service. Quality remains premium every single time.", user: "@maria_garcia - 2 days ago"},
+                    {text: "Discreet packaging is next level. Even my nosy neighbor wouldn't suspect a thing. Product quality is fire and the delivery driver was professional. 5 stars all around!", user: "@tom_anderson - 3 days ago"},
+                    {text: "The Golden Teacher mushrooms were beautiful specimens. Very clean experience with no stomach issues. Will definitely be ordering these again. Fast delivery to my area!", user: "@nina_petrova - 3 days ago"},
+                    {text: "Tried the infused prerolls for a party and everyone loved them. Slow burning and smooth taste. The included accessories were high quality too. Great value for money!", user: "@kevin_murphy - 4 days ago"},
+                    {text: "Skeptical at first but now I'm a believer. The hash selection is incredible - soft, pliable, and melts perfectly. Much better quality than what I can find locally. Fast shipping!", user: "@julia_schmidt - 4 days ago"},
+                    {text: "Payment process was smooth and secure. The crypto option is convenient and the instructions were clear. Product arrived 2 days later in perfect condition. Excellent service!", user: "@ryan_taylor - 5 days ago"},
+                    {text: "The Moonrocks are absolutely insane! Dense, sticky, and incredibly potent. One small piece goes a long way. Best value product I've found online. Will stock up on these!", user: "@olivia_davis - 5 days ago"},
+                    {text: "Professional service from start to finish. Easy ordering, quick confirmation, fast delivery, and premium product. What more could you ask for? Already placed my next order!", user: "@marcus_johnson - 6 days ago"}
                 ]
             },
             it: {
@@ -588,7 +636,7 @@
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", 
                 empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO CONSEGNA", 
-                pay: "Metodo di Pagamento", confirm: "INVIA A @MRSHOP20BOT",
+                pay: "Metodo di Pagamento", confirm: "INVIA A @MRSHOP20",
                 giftT: "🎁 REGALO COMPRESO", 
                 giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€!",
                 asap: "Appena possibile / ASAP", 
@@ -613,7 +661,7 @@
                 infD3: "Abbiamo selezionato cartine ultra sottili non sbiancate e filtri organici di altissima qualità, inclusi nel catalogo.",
                 infT4: "💬 Contatto Diretto", 
                 infD4: "Hai bisogno di aiuto? Contatta immediatamente il nostro operatore su Telegram.",
-                btnContact: "💬 Parla con @mrshop20", 
+                btnContact: "💬 Contatta @mrshop20", 
                 revTitle: "Recensioni Verificate", 
                 revSub: "Recensioni reali dal nostro canale.", 
                 btnGroupRev: "⭐️ Unisciti al Canale",
@@ -624,8 +672,9 @@
                 minOrderErr: "L'ordine minimo è di 30€!", 
                 fieldErr: "Compila Città, Indirizzo e CAP!",
                 discountTxt: "Sconto Quantità",
-                orderSuccess: "✅ Ordine inviato a @mrshop20bot! Controlla Telegram.",
-                copySuccess: "✅ Ordine inviato a @mrshop20bot!",
+                orderSuccess: "✅ Ordine inviato a @mrshop20! Controlla Telegram.",
+                copySuccess: "✅ Ordine inviato a @mrshop20!",
+                contact: "Contatta",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -636,16 +685,21 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Appena ricevuto il Gelato ordinato ieri. I buds sono perfettamente curati, appiccicosi e densi. L'odore è incredibile - agrumi dolci con note terrose. Consegna stealth e veloce. Qualità 10/10!", user: "@marco_roma - 2 ore fa"},
-                    {text: "La Runtz è assurda! La migliore che ho avuto da mesi. Lo sballo è euforico e dura a lungo. Packaging discreto, zero odore. Riordinerò sicuramente!", user: "@luca_kush - 5 ore fa"},
-                    {text: "Terzo ordine da qui. L'hash marocchino è qualità premium - morbido, modellabile e si scioglie perfettamente. Ottimo rapporto qualità-prezzo.", user: "@anna_smoke - ieri"},
-                    {text: "Provato gli edibles ieri. Inizio lento ma poi ha picchiato dopo 45 minuti! Sballo pulito, nessuna ansia. Dosaggio accurato. Perfetti per serate film.", user: "@davide_g - ieri"},
-                    {text: "La vape Zkittlez è liscia come il burro. Nessun colpo duro alla gola, sapore esattamente come caramella. Hardware premium.", user: "@sara_420 - 2 giorni fa"},
-                    {text: "I Moonrocks sono PAZZESCHI! Spezzati e colano olio dentro. Un pezzetto piccolo e volo per ore. Miglior prodotto qui.", user: "@giovanni_haze - 2 giorni fa"},
-                    {text: "Spedizione express è un game changer. Ordinato lunedì, arrivato mercoledì mattina. Packaging stealth next level!", user: "@francesca_b - 3 giorni fa"},
-                    {text: "I Golden Teacher sono bellissimi esemplari essiccati. Preso 2g ed esperienza spirituale. Molto puliti, niente nausea.", user: "@alessandro_t - 3 giorni fa"},
-                    {text: "I preroll Baby Jeeter perfetti per feste. Tutti li hanno amati. Infusi di kief e bruciano lenti. Clipper e cartine gratis top!", user: "@chiara_smoke - 4 giorni fa"},
-                    {text: "Compro all'ingrosso per la mia dispensa. Prezzi imbattibili in bulk. Qualità sempre consistente. Il mio fornitore di fiducia.", user: "@matteo_wholesale - 5 giorni fa"}
+                    {text: "Appena ricevuto il mio ordine di ieri. La qualità del prodotto ha superato le mie aspettative - perfettamente curato, appiccicoso e denso. L'aroma è incredibile con note agrumi dolci. Consegna stealth e puntuale. Tornerò sicuramente!", user: "@alex_martinez92 - 2 ore fa"},
+                    {text: "Terzo acquisto questo mese e sempre impressionato. Il packaging è sempre professionale e discreto. Il servizio clienti è reattivo e utile. Il prodotto è top quality - esattamente come descritto. Esperienza 10/10!", user: "@sophie.london - 4 ore fa"},
+                    {text: "L'opzione spedizione express è fantastica! Ordinato lunedì mattina, arrivato mercoledì pomeriggio. Il packaging stealth era così intelligente che quasi non trovavo il mio ordine!", user: "@max_runner - 6 ore fa"},
+                    {text: "Prima volta che acquisto e sono stupito dalla qualità. I buds sono freschi, per niente secchi, e gli effetti sono esattamente quelli che cercavo. I regali inclusi sono stati una bella sorpresa. Consigliatissimo!", user: "@emma_johnson88 - ieri"},
+                    {text: "Ordino settimanalmente da 3 mesi. Mai avuto un problema. La consegna è sempre puntuale, il prodotto consistente, e il team di supporto friendly. Così dovrebbe essere lo shopping online!", user: "@david_chen - ieri"},
+                    {text: "Gli edibles che ho ordinato erano precisamente dosati come pubblicizzato. Inizio lento ma gli effetti erano puliti e duraturi. Perfetti per serate relax. Proverò altri prodotti presto!", user: "@lisa_brown_91 - ieri"},
+                    {text: "Il controllo qualità è chiaramente una priorità qui. Ogni ordine è stato esattamente come descritto, a volte anche meglio. Le cartucce vape sono lisce senza retrogusto sgradevole.", user: "@james_wilson - 2 giorni fa"},
+                    {text: "Cliente a vita! I prezzi ingrosso sono imbattibili quando compri in bulk. Ho risparmiato tantissimo passando a questo servizio. La qualità rimane premium ogni volta.", user: "@maria_garcia - 2 giorni fa"},
+                    {text: "Il packaging discreto è next level. Anche il mio vicino ficcanaso non sospetterebbe nulla. Qualità del prodotto top e il driver professionale. 5 stelle su tutta la linea!", user: "@tom_anderson - 3 giorni fa"},
+                    {text: "I Golden Teacher erano esemplari bellissimi. Esperienza molto pulita senza problemi di stomaco. Li riordinerò sicuramente. Consegna veloce nella mia zona!", user: "@nina_petrova - 3 giorni fa"},
+                    {text: "Provato i preroll infusi per una festa e tutti li hanno amati. Bruciano lentamente e gusto smooth. Anche gli accessori inclusi erano di alta qualità. Ottimo rapporto qualità-prezzo!", user: "@kevin_murphy - 4 giorni fa"},
+                    {text: "Scettico all'inizio ma ora sono un credente. La selezione di hash è incredibile - morbido, modellabile e si scioglie perfettamente. Qualità molto superiore a quella che trovo localmente.", user: "@julia_schmidt - 4 giorni fa"},
+                    {text: "Processo di pagamento smooth e sicuro. L'opzione crypto è conveniente e le istruzioni erano chiare. Prodotto arrivato 2 giorni dopo in condizioni perfette. Servizio eccellente!", user: "@ryan_taylor - 5 giorni fa"},
+                    {text: "I Moonrocks sono assolutamente pazzeschi! Densi, appiccicosi e incredibilmente potenti. Un pezzetto piccolo dura a lungo. Miglior prodotto che ho trovato online. Ne farò scorta!", user: "@olivia_davis - 5 giorni fa"},
+                    {text: "Servizio professionale dall'inizio alla fine. Ordinazione facile, conferma veloce, consegna rapida e prodotto premium. Cosa si può chiedere di più? Ho già fatto il prossimo ordine!", user: "@marcus_johnson - 6 giorni fa"}
                 ]
             },
             fr: {
@@ -658,7 +712,7 @@
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", 
                 empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE LIVRAISON", 
-                pay: "Mode de paiement", confirm: "ENVOYER À @MRSHOP20BOT",
+                pay: "Mode de paiement", confirm: "ENVOYER À @MRSHOP20",
                 giftT: "🎁 CADEAUX GRATUITS", 
                 giftD: "Briquet Clipper, feuilles et filtres inclus dès 50€!",
                 asap: "Aussitôt que possible", 
@@ -683,7 +737,7 @@
                 infD3: "Feuilles ultrafines non blanchies et filtres organiques inclus.",
                 infT4: "💬 Contact", 
                 infD4: "Besoin d'aide? Contactez @mrshop20 sur Telegram.",
-                btnContact: "💬 Discuter @mrshop20", 
+                btnContact: "💬 Contacter @mrshop20", 
                 revTitle: "Avis Vérifiés", 
                 revSub: "Vrais avis de nos clients.", 
                 btnGroupRev: "⭐️ Rejoindre le Canal",
@@ -694,8 +748,9 @@
                 minOrderErr: "Commande minimum: 30€!", 
                 fieldErr: "Remplissez tous les champs!",
                 discountTxt: "Remise quantité",
-                orderSuccess: "✅ Commande envoyée à @mrshop20bot! Vérifiez Telegram.",
-                copySuccess: "✅ Commande envoyée à @mrshop20bot!",
+                orderSuccess: "✅ Commande envoyée à @mrshop20! Vérifiez Telegram.",
+                copySuccess: "✅ Commande envoyée à @mrshop20!",
+                contact: "Contacter",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -706,13 +761,16 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Gelato reçu aujourd'hui, parfaitement curé et collant. L'odeur est incroyable - agrumes doux. Livraison discrète et rapide. Qualité 10/10!", user: "@marco_roma - il y a 2 heures"},
-                    {text: "La Runtz est incroyable! Meilleure depuis des mois. L'effet est euphorique et durable. Emballage discret, pas d'odeur. Je recommande!", user: "@luca_kush - il y a 5 heures"},
-                    {text: "Troisième commande ici. Le hash marocain est premium - doux et fond parfaitement. Super rapport qualité-prix.", user: "@anna_smoke - hier"},
-                    {text: "Testé les edibles hier. Début lent mais effet fort après 45 min! Propre, pas d'anxiété. Dosage précis.", user: "@davide_g - hier"},
-                    {text: "La vape Zkittlez est douce comme du beurre. Goût exactement comme des bonbons. Matériel premium.", user: "@sara_420 - il y a 2 jours"},
-                    {text: "Les Moonrocks sont FOUS! Cassés et pleins d'huile à l'intérieur. Un petit morceau et je vole pendant des heures.", user: "@giovanni_haze - il y a 2 jours"},
-                    {text: "Livraison express change tout. Commandé lundi, arrivé mercredi. Packaging stealth de niveau supérieur!", user: "@francesca_b - il y a 3 jours"}
+                    {text: "Commande reçue d'hier, la qualité du produit a dépassé mes attentes - parfaitement curé, collant et dense. L'arôme est incroyable avec des notes d'agrumes doux. Livraison discrète et ponctuelle. Je reviendrai!", user: "@alex_martinez92 - il y a 2 heures"},
+                    {text: "Troisième achat ce mois-ci et toujours impressionné. L'emballage est toujours professionnel et discret. Service client réactif. Le produit est top qualité - exactement comme décrit. Expérience 10/10!", user: "@sophie.london - il y a 4 heures"},
+                    {text: "Option livraison express incroyable! Commandé lundi matin, arrivé mercredi après-midi. L'emballage stealth était si malin que j'ai presque pas trouvé ma commande!", user: "@max_runner - il y a 6 heures"},
+                    {text: "Première fois et je suis impressionné par la qualité. Les buds sont frais, pas secs du tout, et les effets sont exactement ce que je cherchais. Les cadeaux inclus étaient une belle surprise. Recommandé!", user: "@emma_johnson88 - hier"},
+                    {text: "Je commande chaque semaine depuis 3 mois. Jamais eu de problème. Livraison toujours à l'heure, produit consistant, équipe sympa. C'est comme ça que devrait être le shopping en ligne!", user: "@david_chen - hier"},
+                    {text: "Les edibles étaient précisément dosés comme annoncé. Début lent mais effets propres et durables. Parfaits pour des soirées relax. J'essaierai d'autres produits bientôt!", user: "@lisa_brown_91 - hier"},
+                    {text: "Le contrôle qualité est clairement une priorité ici. Chaque commande était exactement comme décrit, parfois même mieux. Les cartouches vape sont douces sans arrière-goût désagréable.", user: "@james_wilson - il y a 2 jours"},
+                    {text: "Client à vie! Les prix de gros sont imbattables quand vous achetez en bulk. J'ai tellement économisé. La qualité reste premium chaque fois.", user: "@maria_garcia - il y a 2 jours"},
+                    {text: "L'emballage discret est de niveau supérieur. Même mon voisin curieux ne suspecterait rien. Qualité produit top et livreur professionnel. 5 étoiles partout!", user: "@tom_anderson - il y a 3 jours"},
+                    {text: "Les Golden Teacher étaient de beaux spécimens. Expérience très clean sans problèmes d'estomac. Je recommanderai certainement. Livraison rapide!", user: "@nina_petrova - il y a 3 jours"}
                 ]
             },
             de: {
@@ -725,7 +783,7 @@
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", 
                 empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", 
-                pay: "Zahlungsmethode", confirm: "AN @MRSHOP20BOT SENDEN",
+                pay: "Zahlungsmethode", confirm: "AN @MRSHOP20 SENDEN",
                 giftT: "🎁 GRATIS GESCHENKE", 
                 giftD: "Clipper Feuerzeug, Blättchen und Filter ab 50€!",
                 asap: "Schnellstmöglich", 
@@ -750,7 +808,7 @@
                 infD3: "Ultradünne, ungebleichte Blättchen und Bio-Filter inklusive.",
                 infT4: "💬 Kontakt", 
                 infD4: "Hilfe nötig? Kontaktieren Sie @mrshop20 auf Telegram.",
-                btnContact: "💬 Chat @mrshop20", 
+                btnContact: "💬 Kontakt @mrshop20", 
                 revTitle: "Kundenbewertungen", 
                 revSub: "Echte Bewertungen.", 
                 btnGroupRev: "⭐️ Kanal Beitreten",
@@ -761,8 +819,9 @@
                 minOrderErr: "Mindestbestellwert 30€!", 
                 fieldErr: "Alle Felder ausfüllen!",
                 discountTxt: "Mengenrabatt",
-                orderSuccess: "✅ Bestellung an @mrshop20bot gesendet! Checken Sie Telegram.",
-                copySuccess: "✅ Bestellung an @mrshop20bot gesendet!",
+                orderSuccess: "✅ Bestellung an @mrshop20 gesendet! Checken Sie Telegram.",
+                copySuccess: "✅ Bestellung an @mrshop20 gesendet!",
+                contact: "Kontakt",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -773,12 +832,16 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Gelato heute erhalten, perfekt getrocknet und klebrig. Der Geruch ist unglaublich - süße Zitrusnoten. Lieferung diskret und schnell. Qualität 10/10!", user: "@marco_roma - vor 2 Stunden"},
-                    {text: "Runtz ist unglaublich! Beste seit Monaten. Der Rausch ist euphorisch und langanhaltend. Verpackung diskret, kein Geruch. Werde wieder bestellen!", user: "@luca_kush - vor 5 Stunden"},
-                    {text: "Dritte Bestellung hier. Marokkanischer Hash ist Premium - weich und schmilzt perfekt. Super Preis-Leistung.", user: "@anna_smoke - gestern"},
-                    {text: "Edibles gestern getestet. Langsamer Start aber starker Effekt nach 45 Min! Sauber, keine Angst. Dosierung genau.", user: "@davide_g - gestern"},
-                    {text: "Zkittlez Vape ist butterweich. Geschmack genau wie Süßigkeiten. Premium Hardware.", user: "@sara_420 - vor 2 Tagen"},
-                    {text: "Moonrocks sind verrückt! Gebrochen und voller Öl innen. Ein kleines Stück und ich fliege stundenlang.", user: "@giovanni_haze - vor 2 Tagen"}
+                    {text: "Bestellung von gestern erhalten, Produktqualität hat Erwartungen übertroffen - perfekt getrocknet, klebrig und dicht. Das Aroma ist unglaublich mit süßen Zitrusnoten. Diskrete und pünktliche Lieferung. Komme wieder!", user: "@alex_martinez92 - vor 2 Stunden"},
+                    {text: "Dritter Kauf diesen Monat und immer beeindruckt. Verpackung immer professionell und diskret. Kundenservice reagiert schnell. Produkt ist Top-Qualität - genau wie beschrieben. 10/10 Erfahrung!", user: "@sophie.london - vor 4 Stunden"},
+                    {text: "Expressversand-Option ist erstaunlich! Montag morgens bestellt, Mittwoch nachmittags angekommen. Stealth-Verpackung war so clever, ich habe meine Bestellung kaum gefunden!", user: "@max_runner - vor 6 Stunden"},
+                    {text: "Erstmaliger Käufer und beeindruckt von der Qualität. Die Knospen sind frisch, überhaupt nicht trocken, und die Wirkung ist genau was ich gesucht habe. Die gratis Geschenke waren eine schöne Überraschung. Sehr empfohlen!", user: "@emma_johnson88 - gestern"},
+                    {text: "Bestelle seit 3 Monaten wöchentlich. Nie ein Problem gehabt. Lieferung immer pünktlich, Produkt konsistent, Support-Team freundlich. So sollte Online-Shopping sein!", user: "@david_chen - gestern"},
+                    {text: "Die bestellten Edibles waren genau dosiert wie beworben. Langsamer Start aber saubere, langanhaltende Wirkung. Perfekt für entspannte Abende. Werde mehr Produkte ausprobieren!", user: "@lisa_brown_91 - gestern"},
+                    {text: "Qualitätskontrolle ist hier klar Priorität. Jede Bestellung war genau wie beschrieben, manchmal sogar besser. Die Vape-Patronen sind sanft ohne unangenehmen Nachgeschmack.", user: "@james_wilson - vor 2 Tagen"},
+                    {text: "Kunde fürs Leben! Großhandelspreise sind unschlagbar bei Bulk-Käufen. Habe so viel Geld gespart. Qualität bleibt jedes Mal premium.", user: "@maria_garcia - vor 2 Tagen"},
+                    {text: "Diskrete Verpackung ist next level. Sogar mein neugieriger Nachbar würde nichts verdächtigen. Top Produktqualität und professioneller Fahrer. 5 Sterne überall!", user: "@tom_anderson - vor 3 Tagen"},
+                    {text: "Die Golden Teacher waren wunderschöne Exemplare. Sehr saubere Erfahrung ohne Magenprobleme. Werde definitiv wieder bestellen. Schnelle Lieferung!", user: "@nina_petrova - vor 3 Tagen"}
                 ]
             },
             ru: {
@@ -791,7 +854,7 @@
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", 
                 empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", 
-                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ @MRSHOP20BOT",
+                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ @MRSHOP20",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", 
                 giftD: "Зажигалка Clipper, бумага и фильтры от 50€!",
                 asap: "Как можно скорее", 
@@ -816,7 +879,7 @@
                 infD3: "Ультратонкая неотбеленная бумага и органические фильтры.",
                 infT4: "💬 Контакт", 
                 infD4: "Нужна помощь? Пишите @mrshop20 в Telegram.",
-                btnContact: "💬 Написать @mrshop20", 
+                btnContact: "💬 Связаться @mrshop20", 
                 revTitle: "Отзывы клиентов", 
                 revSub: "Реальные отзывы.", 
                 btnGroupRev: "⭐️ Присоединиться к каналу",
@@ -827,8 +890,9 @@
                 minOrderErr: "Минимальный заказ 30€!", 
                 fieldErr: "Заполните все поля!",
                 discountTxt: "Скидка за количество",
-                orderSuccess: "✅ Заказ отправлен @mrshop20bot! Проверьте Telegram.",
-                copySuccess: "✅ Заказ отправлен @mrshop20bot!",
+                orderSuccess: "✅ Заказ отправлен @mrshop20! Проверьте Telegram.",
+                copySuccess: "✅ Заказ отправлен @mrshop20!",
+                contact: "Связаться",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -839,12 +903,16 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Только что получил Gelato. Шишки идеально пролечены, липкие и плотные. Запах невероятный. Доставка быстрая и скрытная. Качество 10/10!", user: "@marco_roma - 2 часа назад"},
-                    {text: "Runtz просто огонь! Лучший за месяцы. Приход эйфорический и долгий. Упаковка неприметная, без запаха. Обязательно закажу еще!", user: "@luca_kush - 5 часов назад"},
-                    {text: "Третий заказ здесь. Марокканский хэш премиум качества - мягкий, лепится отлично. Отличное соотношение цены и качества.", user: "@anna_smoke - вчера"},
-                    {text: "Вчера попробовал edibles. Начало медленное, но через 45 минут ударило! Чистый приход, без тревожности. Дозировка точная.", user: "@davide_g - вчера"},
-                    {text: "Zkittlez вейп гладкий как масло. Вкус точно как конфеты. Картридж премиум качества.", user: "@sara_420 - 2 дня назад"},
-                    {text: "Moonrocks это БЕЗУМИЕ! Внутри текут маслом. Кусочек и лечу часами. Лучший продукт здесь.", user: "@giovanni_haze - 2 дня назад"}
+                    {text: "Только что получил заказ вчерашнего дня. Качество продукции превзошло ожидания - идеально пролечено, липкое и плотное. Аромат невероятный с нотками сладких цитрусов. Доставка скрытная и точно в срок. Обязательно вернусь!", user: "@alex_martinez92 - 2 часа назад"},
+                    {text: "Третья покупка в этом месяце и постоянно впечатлен. Упаковка всегда профессиональная и дискретная. Обслуживание клиентов отзывчивое. Продукт высшего качества - точно как описано. Опыт 10/10!", user: "@sophie.london - 4 часа назад"},
+                    {text: "Опция экспресс-доставки потрясающая! Заказал утром понедельника, пришло средним днем среды. Стелс-упаковка была такой умной, что я почти не нашел свой заказ!", user: "@max_runner - 6 часов назад"},
+                    {text: "Первый раз покупаю и впечатлен качеством. Шишки свежие, совсем не сухие, эффекты именно те, что я искал. Бесплатные подарки были приятным сюрпризом. Настоятельно рекомендую!", user: "@emma_johnson88 - вчера"},
+                    {text: "Заказываю еженедельно уже 3 месяца. Никогда не было проблем. Доставка всегда вовремя, продукт стабильный, команда поддержки дружелюбная. Вот как должен работать онлайн-шоппинг!", user: "@david_chen - вчера"},
+                    {text: "Edibles были точно дозированы как рекламировалось. Медленное начало, но чистый долгий эффект. Идеально для вечеров отдыха. Скоро попробую больше продуктов!", user: "@lisa_brown_91 - вчера"},
+                    {text: "Контроль качества явно приоритет здесь. Каждый заказ был точно как описано, иногда даже лучше. Картриджи vape мягкие без неприятного послевкусия.", user: "@james_wilson - 2 дня назад"},
+                    {text: "Клиент на всю жизнь! Оптовые цены непобедимы при покупке оптом. Я сэкономил столько денег. Качество остается премиальным каждый раз.", user: "@maria_garcia - 2 дня назад"},
+                    {text: "Дискретная упаковка на высшем уровне. Даже мой любопытный сосед ничего не заподозрит. Качество продукта топ и водитель профессионал. 5 звезд везде!", user: "@tom_anderson - 3 дня назад"},
+                    {text: "Golden Teacher были красивыми экземплярами. Очень чистый опыт без проблем с желудком. Обязательно закажу снова. Быстрая доставка!", user: "@nina_petrova - 3 дня назад"}
                 ]
             }
         };
@@ -1005,6 +1073,9 @@
 
             const successMsg = document.getElementById('orderSuccessMsg');
             if (successMsg) successMsg.innerText = dict.orderSuccess;
+
+            // Update floating contact button text
+            document.getElementById('contactBtnText').innerText = dict.contact;
 
             renderReviews(dict);
             renderCategoryTabs(); 
@@ -1329,9 +1400,9 @@
             else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
             else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\n`;
 
-            // Send directly to @mrshop20bot
+            // Send directly to @mrshop20 (NOT mrshop20bot)
             const encodedMsg = encodeURIComponent(msg);
-            const botUrl = `https://t.me/mrshop20bot?text=${encodedMsg}`;
+            const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
             
             showToast(dict.copySuccess);
             if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
@@ -1344,7 +1415,7 @@
             
             clearCart();
             
-            // Open Telegram bot chat with pre-filled message
+            // Open Telegram chat with pre-filled message
             setTimeout(() => {
                 if (tg && tg.openTelegramLink) {
                     tg.openTelegramLink(botUrl);
