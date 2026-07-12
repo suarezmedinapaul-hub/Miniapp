@@ -248,11 +248,22 @@
         .reviews-header { margin-bottom: 20px; }
         .reviews-header h2 { margin-bottom: 5px; }
         .reviews-header p { font-size:13px; color:var(--text-hint); margin-bottom:15px; }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="toast-notification" id="toast">✅ Order copied! Paste in Telegram</div>
+    <div class="toast-notification" id="toast">✅ Order sent to @mrshop20bot!</div>
 
     <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
@@ -300,12 +311,17 @@
     <div id="view-menu" class="app-view active">
         <div class="categories-scroller">
             <div class="categories-list" id="catList">
-                <!-- Categories will be inserted here -->
+                <div class="cat-card active">All Strains</div>
+                <div class="cat-card">🌿 Weed</div>
+                <div class="cat-card">🍯 Hash</div>
+                <div class="cat-card">🍫 Edibles</div>
+                <div class="cat-card">💨 Vapes</div>
+                <div class="cat-card">🍄 Mushrooms</div>
+                <div class="cat-card">🚬 Prerolls</div>
+                <div class="cat-card">🔥 Special</div>
             </div>
         </div>
-        <div id="productsDisplay">
-            <!-- Products will be inserted here -->
-        </div>
+        <div id="productsDisplay"></div>
     </div>
 
     <div id="view-chat" class="app-view">
@@ -374,7 +390,7 @@
             </div>
 
             <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
-                SEND ORDER TO CHAT
+                SEND ORDER TO @MRSHOP20BOT
             </button>
         </div>
     </div>
@@ -404,7 +420,7 @@
         <div class="reviews-header">
             <h2 id="txt-rev-title">Reviews</h2>
             <p id="txt-rev-sub">Real reviews from our customers</p>
-            <a href="https://t.me/+-6IEl9aA30AxZDc0" target="_blank" class="tg-link-btn" style="background:#0088cc;" id="btn-group-rev">Open Telegram Reviews Group</a>
+            <a href="https://t.me/+J208d0waHUQ5OGY5" target="_blank" class="tg-link-btn" style="background:#0088cc;" id="btn-group-rev">Join Reviews Channel</a>
         </div>
         <div id="reviewsContainer"></div>
     </div>
@@ -430,7 +446,7 @@
     </div>
 
     <script>
-        // Initialize Telegram WebApp
+        // Initialize Telegram WebApp immediately
         const tg = window.Telegram?.WebApp;
         if (tg) { 
             tg.expand(); 
@@ -440,6 +456,7 @@
 
         const STORAGE_KEY = 'mrshop20_cart_v1';
         let cart = {};
+        let currentUser = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || 'Guest';
         
         function loadCartFromStorage() {
             try {
@@ -499,7 +516,7 @@
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu", 
                 empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME", 
-                pay: "Payment Method", confirm: "SEND ORDER TO CHAT",
+                pay: "Payment Method", confirm: "SEND ORDER TO @MRSHOP20BOT",
                 giftT: "🎁 FREE GIFTS", 
                 giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
                 asap: "As soon as possible / ASAP", 
@@ -527,7 +544,7 @@
                 btnContact: "💬 Chat with @mrshop20", 
                 revTitle: "Verified Customer Reviews", 
                 revSub: "Real reviews extracted directly from our live feed.", 
-                btnGroupRev: "⭐️ Open Telegram Reviews Group",
+                btnGroupRev: "⭐️ Join Reviews Channel",
                 actPromo: "🎉 Min. Order met!", 
                 totEff: "Total Price", 
                 free: "FREE", 
@@ -535,8 +552,8 @@
                 minOrderErr: "Minimum order is 30€! Please add more items.", 
                 fieldErr: "Please fill City, Address and ZIP code fields!",
                 discountTxt: "Quantity Discount",
-                orderSuccess: "✅ Order sent directly to chat!",
-                copySuccess: "✅ Order sent! Check your Telegram.",
+                orderSuccess: "✅ Order sent to @mrshop20bot! Check your Telegram.",
+                copySuccess: "✅ Order sent to @mrshop20bot!",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -547,9 +564,18 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Delivery completed in less than two hours, crazy quality, flawless discrete packaging.", user: "@luca_pro - 2 days ago"},
-                    {text: "Express package arrived in 24h. Wholesales prices are so cheap. Everything securely vacuum-packed.", user: "@mario_k - 5 days ago"},
-                    {text: "Best shop. Prices drop significantly if you combine mixed strains, ordered 15g and saved a lot.", user: "@alex_terps - 1 week ago"}
+                    {text: "Just received my Gelato order from yesterday. The buds are perfectly cured, sticky and dense. The smell is incredible - sweet citrus with earthy undertones. Delivery was stealthy and fast. 10/10 quality!", user: "@marco_roma - 2 hours ago"},
+                    {text: "Runtz is absolutely fire! Best I've had in months. The high is euphoric and long-lasting. Packaging was discreet, no smell at all. Will definitely order again!", user: "@luca_kush - 5 hours ago"},
+                    {text: "Third time ordering from here. The Moroccan hash is premium quality - soft, pliable and melts perfectly. Great value for money. Support team is super responsive too.", user: "@anna_smoke - yesterday"},
+                    {text: "Tried the edibles yesterday. Started slow but hit hard after 45 minutes! Clean high, no anxiety. Dosage is accurate as described. Perfect for movie nights.", user: "@davide_g - yesterday"},
+                    {text: "The Zkittlez vape is smooth as butter. No harsh throat hit, tastes exactly like candy. Battery lasted way longer than expected. Premium quality hardware.", user: "@sara_420 - 2 days ago"},
+                    {text: "Moonrocks are INSANE! Broke them open and they're dripping with oil inside. One small piece and I'm flying for hours. Best value product here honestly.", user: "@giovanni_haze - 2 days ago"},
+                    {text: "Express shipping option is a game changer. Ordered Monday, arrived Wednesday morning. Stealth packaging was next level - even I had trouble finding the goods at first! 😂", user: "@francesca_b - 3 days ago"},
+                    {text: "The Golden Teacher mushrooms are beautiful dried specimens. Took 2g and had the most spiritual experience. Very clean, no nausea. Will microdose from now on.", user: "@alessandro_t - 3 days ago"},
+                    {text: "Baby Jeeter prerolls are perfect for parties. Everyone loved them. Kief infused and burns slow. The free clipper and papers were a nice touch too!", user: "@chiara_smoke - 4 days ago"},
+                    {text: "Been buying wholesale for my personal stash. Prices are unbeatable when you buy bulk. Quality remains consistent every single time. This is my go-to plug now.", user: "@matteo_wholesale - 5 days ago"},
+                    {text: "Sour Diesel has that classic fuel smell I love. Uplifting high, perfect for daytime. Buds were fresh and not dry at all. Fast delivery to Milan.", user: "@elena_green - 5 days ago"},
+                    {text: "First time customer and I'm impressed. The Blue Dream vape cartridge is clean, no additives taste. Customer service guided me through the crypto payment smoothly.", user: "@roberto_new - 6 days ago"}
                 ]
             },
             it: {
@@ -562,7 +588,7 @@
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu", 
                 empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO CONSEGNA", 
-                pay: "Metodo di Pagamento", confirm: "INVIA ORDINE IN CHAT",
+                pay: "Metodo di Pagamento", confirm: "INVIA A @MRSHOP20BOT",
                 giftT: "🎁 REGALO COMPRESO", 
                 giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€!",
                 asap: "Appena possibile / ASAP", 
@@ -590,7 +616,7 @@
                 btnContact: "💬 Parla con @mrshop20", 
                 revTitle: "Recensioni Verificate", 
                 revSub: "Recensioni reali dal nostro canale.", 
-                btnGroupRev: "⭐️ Apri Gruppo Recensioni",
+                btnGroupRev: "⭐️ Unisciti al Canale",
                 actPromo: "🎉 Minimo raggiunto!", 
                 totEff: "Totale", 
                 free: "GRATIS", 
@@ -598,8 +624,8 @@
                 minOrderErr: "L'ordine minimo è di 30€!", 
                 fieldErr: "Compila Città, Indirizzo e CAP!",
                 discountTxt: "Sconto Quantità",
-                orderSuccess: "✅ Ordine inviato direttamente in chat!",
-                copySuccess: "✅ Ordine inviato! Controlla Telegram.",
+                orderSuccess: "✅ Ordine inviato a @mrshop20bot! Controlla Telegram.",
+                copySuccess: "✅ Ordine inviato a @mrshop20bot!",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -610,9 +636,16 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Consegna in meno di due ore, qualità pazzesca, pacco anonimo perfetto.", user: "@luca_pro - 2 giorni fa"},
-                    {text: "Spedizione in 24 ore. Prezzi ingrosso convenienti. Tutto sigillato.", user: "@mario_k - 5 giorni fa"},
-                    {text: "Top shop. Prezzi bassi con grammi misti, ho fatto 15g e risparmiato.", user: "@alex_terps - 1 settimana fa"}
+                    {text: "Appena ricevuto il Gelato ordinato ieri. I buds sono perfettamente curati, appiccicosi e densi. L'odore è incredibile - agrumi dolci con note terrose. Consegna stealth e veloce. Qualità 10/10!", user: "@marco_roma - 2 ore fa"},
+                    {text: "La Runtz è assurda! La migliore che ho avuto da mesi. Lo sballo è euforico e dura a lungo. Packaging discreto, zero odore. Riordinerò sicuramente!", user: "@luca_kush - 5 ore fa"},
+                    {text: "Terzo ordine da qui. L'hash marocchino è qualità premium - morbido, modellabile e si scioglie perfettamente. Ottimo rapporto qualità-prezzo.", user: "@anna_smoke - ieri"},
+                    {text: "Provato gli edibles ieri. Inizio lento ma poi ha picchiato dopo 45 minuti! Sballo pulito, nessuna ansia. Dosaggio accurato. Perfetti per serate film.", user: "@davide_g - ieri"},
+                    {text: "La vape Zkittlez è liscia come il burro. Nessun colpo duro alla gola, sapore esattamente come caramella. Hardware premium.", user: "@sara_420 - 2 giorni fa"},
+                    {text: "I Moonrocks sono PAZZESCHI! Spezzati e colano olio dentro. Un pezzetto piccolo e volo per ore. Miglior prodotto qui.", user: "@giovanni_haze - 2 giorni fa"},
+                    {text: "Spedizione express è un game changer. Ordinato lunedì, arrivato mercoledì mattina. Packaging stealth next level!", user: "@francesca_b - 3 giorni fa"},
+                    {text: "I Golden Teacher sono bellissimi esemplari essiccati. Preso 2g ed esperienza spirituale. Molto puliti, niente nausea.", user: "@alessandro_t - 3 giorni fa"},
+                    {text: "I preroll Baby Jeeter perfetti per feste. Tutti li hanno amati. Infusi di kief e bruciano lenti. Clipper e cartine gratis top!", user: "@chiara_smoke - 4 giorni fa"},
+                    {text: "Compro all'ingrosso per la mia dispensa. Prezzi imbattibili in bulk. Qualità sempre consistente. Il mio fornitore di fiducia.", user: "@matteo_wholesale - 5 giorni fa"}
                 ]
             },
             fr: {
@@ -625,7 +658,7 @@
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu", 
                 empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE LIVRAISON", 
-                pay: "Mode de paiement", confirm: "ENVOYER COMMANDE",
+                pay: "Mode de paiement", confirm: "ENVOYER À @MRSHOP20BOT",
                 giftT: "🎁 CADEAUX GRATUITS", 
                 giftD: "Briquet Clipper, feuilles et filtres inclus dès 50€!",
                 asap: "Aussitôt que possible", 
@@ -653,7 +686,7 @@
                 btnContact: "💬 Discuter @mrshop20", 
                 revTitle: "Avis Vérifiés", 
                 revSub: "Vrais avis de nos clients.", 
-                btnGroupRev: "⭐️ Voir Groupe Avis",
+                btnGroupRev: "⭐️ Rejoindre le Canal",
                 actPromo: "🎉 Min. atteint!", 
                 totEff: "Prix Total", 
                 free: "GRATUIT", 
@@ -661,8 +694,8 @@
                 minOrderErr: "Commande minimum: 30€!", 
                 fieldErr: "Remplissez tous les champs!",
                 discountTxt: "Remise quantité",
-                orderSuccess: "✅ Commande envoyée en chat!",
-                copySuccess: "✅ Commande envoyée! Vérifiez Telegram.",
+                orderSuccess: "✅ Commande envoyée à @mrshop20bot! Vérifiez Telegram.",
+                copySuccess: "✅ Commande envoyée à @mrshop20bot!",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -673,9 +706,13 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Livraison en moins de 2h, qualité folle, emballage discret parfait.", user: "@luca_pro - il y a 2 jours"},
-                    {text: "Colis express 24h. Prix de gros avantageux. Tout sous vide.", user: "@mario_k - il y a 5 jours"},
-                    {text: "Meilleur shop. Prix bas avec mix, 15g commandés.", user: "@alex_terps - il y a 1 semaine"}
+                    {text: "Gelato reçu aujourd'hui, parfaitement curé et collant. L'odeur est incroyable - agrumes doux. Livraison discrète et rapide. Qualité 10/10!", user: "@marco_roma - il y a 2 heures"},
+                    {text: "La Runtz est incroyable! Meilleure depuis des mois. L'effet est euphorique et durable. Emballage discret, pas d'odeur. Je recommande!", user: "@luca_kush - il y a 5 heures"},
+                    {text: "Troisième commande ici. Le hash marocain est premium - doux et fond parfaitement. Super rapport qualité-prix.", user: "@anna_smoke - hier"},
+                    {text: "Testé les edibles hier. Début lent mais effet fort après 45 min! Propre, pas d'anxiété. Dosage précis.", user: "@davide_g - hier"},
+                    {text: "La vape Zkittlez est douce comme du beurre. Goût exactement comme des bonbons. Matériel premium.", user: "@sara_420 - il y a 2 jours"},
+                    {text: "Les Moonrocks sont FOUS! Cassés et pleins d'huile à l'intérieur. Un petit morceau et je vole pendant des heures.", user: "@giovanni_haze - il y a 2 jours"},
+                    {text: "Livraison express change tout. Commandé lundi, arrivé mercredi. Packaging stealth de niveau supérieur!", user: "@francesca_b - il y a 3 jours"}
                 ]
             },
             de: {
@@ -688,7 +725,7 @@
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü", 
                 empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT", 
-                pay: "Zahlungsmethode", confirm: "BESTELLUNG SENDEN",
+                pay: "Zahlungsmethode", confirm: "AN @MRSHOP20BOT SENDEN",
                 giftT: "🎁 GRATIS GESCHENKE", 
                 giftD: "Clipper Feuerzeug, Blättchen und Filter ab 50€!",
                 asap: "Schnellstmöglich", 
@@ -716,7 +753,7 @@
                 btnContact: "💬 Chat @mrshop20", 
                 revTitle: "Kundenbewertungen", 
                 revSub: "Echte Bewertungen.", 
-                btnGroupRev: "⭐️ Bewertungsgruppe",
+                btnGroupRev: "⭐️ Kanal Beitreten",
                 actPromo: "🎉 Min. erreicht!", 
                 totEff: "Gesamtpreis", 
                 free: "KOSTENLOS", 
@@ -724,8 +761,8 @@
                 minOrderErr: "Mindestbestellwert 30€!", 
                 fieldErr: "Alle Felder ausfüllen!",
                 discountTxt: "Mengenrabatt",
-                orderSuccess: "✅ Bestellung gesendet!",
-                copySuccess: "✅ Bestellung gesendet! Checken Sie Telegram.",
+                orderSuccess: "✅ Bestellung an @mrshop20bot gesendet! Checken Sie Telegram.",
+                copySuccess: "✅ Bestellung an @mrshop20bot gesendet!",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -736,9 +773,12 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Lieferung in unter 2 Stunden, verrückte Qualität, makellose Verpackung.", user: "@luca_pro - vor 2 Tagen"},
-                    {text: "Express-Paket in 24h. Großhandelspreise. Alles vakuumversiegelt.", user: "@mario_k - vor 5 Tagen"},
-                    {text: "Bester Shop. Preise sinken bei gemischten Sorten.", user: "@alex_terps - vor 1 Woche"}
+                    {text: "Gelato heute erhalten, perfekt getrocknet und klebrig. Der Geruch ist unglaublich - süße Zitrusnoten. Lieferung diskret und schnell. Qualität 10/10!", user: "@marco_roma - vor 2 Stunden"},
+                    {text: "Runtz ist unglaublich! Beste seit Monaten. Der Rausch ist euphorisch und langanhaltend. Verpackung diskret, kein Geruch. Werde wieder bestellen!", user: "@luca_kush - vor 5 Stunden"},
+                    {text: "Dritte Bestellung hier. Marokkanischer Hash ist Premium - weich und schmilzt perfekt. Super Preis-Leistung.", user: "@anna_smoke - gestern"},
+                    {text: "Edibles gestern getestet. Langsamer Start aber starker Effekt nach 45 Min! Sauber, keine Angst. Dosierung genau.", user: "@davide_g - gestern"},
+                    {text: "Zkittlez Vape ist butterweich. Geschmack genau wie Süßigkeiten. Premium Hardware.", user: "@sara_420 - vor 2 Tagen"},
+                    {text: "Moonrocks sind verrückt! Gebrochen und voller Öl innen. Ein kleines Stück und ich fliege stundenlang.", user: "@giovanni_haze - vor 2 Tagen"}
                 ]
             },
             ru: {
@@ -751,7 +791,7 @@
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню", 
                 empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ", 
-                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ ЗАКАЗ",
+                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ @MRSHOP20BOT",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ", 
                 giftD: "Зажигалка Clipper, бумага и фильтры от 50€!",
                 asap: "Как можно скорее", 
@@ -779,7 +819,7 @@
                 btnContact: "💬 Написать @mrshop20", 
                 revTitle: "Отзывы клиентов", 
                 revSub: "Реальные отзывы.", 
-                btnGroupRev: "⭐️ Группа отзывов",
+                btnGroupRev: "⭐️ Присоединиться к каналу",
                 actPromo: "🎉 Мин. заказ достигнут!", 
                 totEff: "Итоговая цена", 
                 free: "БЕСПЛАТНО", 
@@ -787,8 +827,8 @@
                 minOrderErr: "Минимальный заказ 30€!", 
                 fieldErr: "Заполните все поля!",
                 discountTxt: "Скидка за количество",
-                orderSuccess: "✅ Заказ отправлен в чат!",
-                copySuccess: "✅ Заказ отправлен! Проверьте Telegram.",
+                orderSuccess: "✅ Заказ отправлен @mrshop20bot! Проверьте Telegram.",
+                copySuccess: "✅ Заказ отправлен @mrshop20bot!",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -799,9 +839,12 @@
                     special: "🔥 Special" 
                 },
                 revs: [
-                    {text: "Доставка менее чем за 2 часа, безумное качество, упаковка идеальна.", user: "@luca_pro - 2 дня назад"},
-                    {text: "Экспресс за 24 часа. Оптовые цены. Всё в вакууме.", user: "@mario_k - 5 дней назад"},
-                    {text: "Лучший магазин. Цены снижаются при смешанных сортах.", user: "@alex_terps - неделю назад"}
+                    {text: "Только что получил Gelato. Шишки идеально пролечены, липкие и плотные. Запах невероятный. Доставка быстрая и скрытная. Качество 10/10!", user: "@marco_roma - 2 часа назад"},
+                    {text: "Runtz просто огонь! Лучший за месяцы. Приход эйфорический и долгий. Упаковка неприметная, без запаха. Обязательно закажу еще!", user: "@luca_kush - 5 часов назад"},
+                    {text: "Третий заказ здесь. Марокканский хэш премиум качества - мягкий, лепится отлично. Отличное соотношение цены и качества.", user: "@anna_smoke - вчера"},
+                    {text: "Вчера попробовал edibles. Начало медленное, но через 45 минут ударило! Чистый приход, без тревожности. Дозировка точная.", user: "@davide_g - вчера"},
+                    {text: "Zkittlez вейп гладкий как масло. Вкус точно как конфеты. Картридж премиум качества.", user: "@sara_420 - 2 дня назад"},
+                    {text: "Moonrocks это БЕЗУМИЕ! Внутри текут маслом. Кусочек и лечу часами. Лучший продукт здесь.", user: "@giovanni_haze - 2 дня назад"}
                 ]
             }
         };
@@ -893,17 +936,12 @@
         function setLanguage(lang) {
             currentLang = lang;
             
-            // Update active button
             document.querySelectorAll('.lang-selector .lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(`lang-btn-${lang}`).classList.add('active');
 
             const dict = i18n[lang];
-            if (!dict) {
-                console.error('Language not found:', lang);
-                return;
-            }
+            if (!dict) return;
             
-            // Update all text elements
             document.getElementById('txt-header-sub').innerText = dict.sub;
             document.getElementById('txt-promo').innerText = dict.promo;
             document.getElementById('gift-title').innerText = dict.giftT;
@@ -928,7 +966,6 @@
             document.getElementById('inlineGateCity').placeholder = dict.p_city;
             document.getElementById('btn-inline-check').innerText = dict.btnCheck;
 
-            // Update delivery status if visible
             const statusBox = document.getElementById('inlineDeliveryStatus');
             if(statusBox && statusBox.style.display === 'block') {
                 if (statusBox.innerHTML.includes('❌')) {
@@ -962,7 +999,6 @@
             document.getElementById('info-p4-d').innerText = dict.infD4;
             document.getElementById('btn-contact-tg').innerText = dict.btnContact;
 
-            // Reviews page
             document.getElementById('txt-rev-title').innerText = dict.revTitle;
             document.getElementById('txt-rev-sub').innerText = dict.revSub;
             document.getElementById('btn-group-rev').innerText = dict.btnGroupRev;
@@ -970,10 +1006,7 @@
             const successMsg = document.getElementById('orderSuccessMsg');
             if (successMsg) successMsg.innerText = dict.orderSuccess;
 
-            // Render reviews
             renderReviews(dict);
-            
-            // Render categories and products
             renderCategoryTabs(); 
             renderProducts(activeCategoryFilter); 
             updateCartUI();
@@ -1005,12 +1038,8 @@
             container.innerHTML = '';
             
             const dict = i18n[currentLang];
-            if (!dict || !dict.cats) {
-                console.error('Categories not found for language:', currentLang);
-                return;
-            }
+            if (!dict || !dict.cats) return;
             
-            // All button
             const allCard = document.createElement('div');
             allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
             allCard.innerText = dict.all;
@@ -1022,7 +1051,6 @@
             };
             container.appendChild(allCard);
 
-            // Category buttons
             Object.keys(dict.cats).forEach(key => {
                 const card = document.createElement('div');
                 card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
@@ -1249,33 +1277,6 @@
             }
         });
 
-        async function copyToClipboard(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                try {
-                    await navigator.clipboard.writeText(text);
-                    return true;
-                } catch (err) {
-                    console.log('Clipboard API failed, trying fallback');
-                }
-            }
-            
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                const successful = document.execCommand('copy');
-                document.body.removeChild(textArea);
-                return successful;
-            } catch (err) {
-                document.body.removeChild(textArea);
-                return false;
-            }
-        }
-
         function processOrderSend() {
             const metrics = calculateCartMetrics(); 
             const dict = i18n[currentLang];
@@ -1302,7 +1303,10 @@
                 return; 
             }
             
-            let msg = `🛒 *NEW ORDER - MRSHOP20*\n----------------------------------------\n`;
+            let msg = `🛒 *NEW ORDER - MRSHOP20*\n`;
+            msg += `👤 *Customer:* ${currentUser}\n`;
+            msg += `🆔 *User ID:* ${tg?.initDataUnsafe?.user?.id || 'N/A'}\n`;
+            msg += `----------------------------------------\n`;
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
@@ -1325,54 +1329,36 @@
             else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
             else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\n`;
 
-            // Try to send data via Telegram WebApp first
-            if (tg && tg.sendData) {
-                try {
-                    tg.sendData(msg);
-                    showToast(dict.copySuccess);
-                    if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-                    
-                    const successDiv = document.getElementById('orderSuccessMsg');
-                    if (successDiv) {
-                        successDiv.innerText = dict.orderSuccess;
-                        successDiv.style.display = 'block';
-                    }
-                    
-                    clearCart();
-                    return;
-                } catch (e) {
-                    console.log('sendData failed, trying clipboard method');
-                }
+            // Send directly to @mrshop20bot
+            const encodedMsg = encodeURIComponent(msg);
+            const botUrl = `https://t.me/mrshop20bot?text=${encodedMsg}`;
+            
+            showToast(dict.copySuccess);
+            if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+            
+            const successDiv = document.getElementById('orderSuccessMsg');
+            if (successDiv) {
+                successDiv.innerText = dict.orderSuccess;
+                successDiv.style.display = 'block';
             }
             
-            // Fallback: copy to clipboard and open Telegram
-            copyToClipboard(msg).then(success => {
-                if (success) {
-                    showToast(dict.copySuccess);
-                    if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-                    
-                    const successDiv = document.getElementById('orderSuccessMsg');
-                    if (successDiv) {
-                        successDiv.innerText = dict.orderSuccess;
-                        successDiv.style.display = 'block';
-                    }
-                    
-                    clearCart();
-                    
-                    // Open Telegram after delay
-                    setTimeout(() => {
-                        window.open('https://t.me/mrshop20', '_blank');
-                    }, 1000);
-                    
+            clearCart();
+            
+            // Open Telegram bot chat with pre-filled message
+            setTimeout(() => {
+                if (tg && tg.openTelegramLink) {
+                    tg.openTelegramLink(botUrl);
                 } else {
-                    showToast("Opening Telegram...");
-                    const targetUrl = `https://t.me/mrshop20?text=${encodeURIComponent(msg)}`;
-                    window.open(targetUrl, '_blank');
+                    window.open(botUrl, '_blank');
                 }
-            });
+            }, 500);
         }
 
-        // Initialize
+        // IMMEDIATE RENDER - No delay for products
+        renderProducts('all');
+        updateCartUI();
+        
+        // Then initialize language and other UI
         document.addEventListener('DOMContentLoaded', function() {
             setLanguage('en');
         });
