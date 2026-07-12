@@ -535,8 +535,8 @@
             <!-- NUOVE OPZIONI PAGAMENTO CRYPTO CON LOGO -->
             <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
                 <div class="pay-option-content">
-                    <div class="pay-logo">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Revolut_logo.png" alt="Revolut">
+                    <div class="pay-logo" style="background:#fff; padding:2px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Revolut_logo.png" alt="Revolut" style="object-fit:contain;">
                     </div>
                     <div>
                         <strong style="display:block;">Revolut Crypto</strong>
@@ -1554,34 +1554,90 @@
                 return; 
             }
             
-            let msg = `🛒 *NEW ORDER - MRSHOP20*\\n`;
-            msg += `👤 *Customer:* ${currentUser}\\n`;
-            msg += `🆔 *User ID:* ${tg?.initDataUnsafe?.user?.id || 'N/A'}\\n`;
-            msg += `----------------------------------------\\n`;
+            // NUOVO FORMATO MESSAGGIO ORDINE - PIÙ ORGANIZZATO E LEGGIBILE
+            const orderDate = new Date().toLocaleString();
+            const userId = tg?.initDataUnsafe?.user?.id || 'N/A';
+            const username = tg?.initDataUnsafe?.user?.username || 'N/A';
+            
+            let msg = `╔════════════════════════════════════════╗\\n`;
+            msg += `║     🛒 MRSHOP20 - NEW ORDER            ║\\n`;
+            msg += `╚════════════════════════════════════════╝\\n\\n`;
+            
+            // SEZIONE CLIENTE
+            msg += `👤 *CUSTOMER INFORMATION*\\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
+            msg += `• Name: ${currentUser}\\n`;
+            msg += `• Username: @${username}\\n`;
+            msg += `• User ID: ${userId}\\n`;
+            msg += `• Order Date: ${orderDate}\\n\\n`;
+            
+            // SEZIONE PRODOTTI
+            msg += `📦 *ORDER SUMMARY*\\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                msg += `• *${p.name}*: ${cart[id]}${unitLabel}\\n`;
+                const lineTotal = getConvertedPriceStr(p.price * cart[id]);
+                msg += `• ${p.name}\\n`;
+                msg += `  └ Qty: ${cart[id]}${unitLabel} × ${getConvertedPriceStr(p.price)} = ${lineTotal}\\n\\n`;
             });
-            if (metrics.giftApplied) msg += `• *Kit Free Gifts*: 1 🔥 (Clipper + Papers + Filters)\\n`;
-            if (metrics.discountEur > 0) msg += `🔥 *Discount Applied:* -${getConvertedPriceStr(metrics.discountEur)}\\n`;
-            msg += `----------------------------------------\\n`;
-            msg += `⚙️ *Shipping:* ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\\n`;
-            msg += `💰 *TOTAL:* ${getConvertedPriceStr(metrics.finalTotalEur)} (${activeCurrency})\\n\\n`;
-            msg += `📍 *DELIVERY DETAILS:*\\n`;
-            msg += `🏙️ City: ${citta}\\n`;
-            msg += `🏠 Address: ${indirizzo}\\n`;
-            msg += `📮 ZIP: ${cap}\\n`;
-            msg += `⏰ Time: ${orario}\\n\\n`;
-            msg += `💳 *PAYMENT:*\\n`;
             
-            if (currentSelectedPayment === 'crypto') msg += `➡ *Cryptocurrencies* (Waiting for address)\\n`;
-            else if (currentSelectedPayment === 'moonpay') msg += `➡ *Card via MoonPay*\\n⚠️ Buy BTC via MoonPay and transfer to the wallet provided in chat.`;
-            else if (currentSelectedPayment === 'paypal') msg += `➡ *PayPal* (Subject to live approval)\\n`;
-            else if (currentSelectedPayment === 'revolut') msg += `➡ *Revolut Crypto*\\n📱 Send via Revolut app to provided wallet address.`;
-            else if (currentSelectedPayment === 'bitpanda') msg += `➡ *Bitpanda Crypto*\\n📱 Send from Bitpanda brokerage to provided address.`;
-            else if (currentSelectedPayment === 'binance') msg += `➡ *Binance Crypto*\\n📱 Transfer via P2P or direct to provided wallet.`;
+            // REGALI
+            if (metrics.giftApplied) {
+                msg += `🎁 *FREE GIFTS INCLUDED*\\n`;
+                msg += `  └ Clipper Lighter + Rolling Papers + Filters\\n\\n`;
+            }
+            
+            // SEZIONE PREZZI
+            msg += `💰 *PRICE BREAKDOWN*\\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
+            msg += `• Subtotal: ${getConvertedPriceStr(metrics.baseTotalEur)}\\n`;
+            if (metrics.discountEur > 0) {
+                msg += `• Discount: -${getConvertedPriceStr(metrics.discountEur)}\\n`;
+            }
+            msg += `• Shipping: ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\\n`;
+            msg += `• Currency: ${activeCurrency}\\n`;
+            msg += `────────────────────────────────\\n`;
+            msg += `💵 *TOTAL TO PAY: ${getConvertedPriceStr(metrics.finalTotalEur)}*\\n\\n`;
+            
+            // SEZIONE CONSEGNA
+            msg += `📍 *DELIVERY DETAILS*\\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
+            msg += `• City: ${citta}\\n`;
+            msg += `• Address: ${indirizzo}\\n`;
+            msg += `• ZIP Code: ${cap}\\n`;
+            msg += `• Delivery Time: ${orario}\\n\\n`;
+            
+            // SEZIONE PAGAMENTO
+            msg += `💳 *PAYMENT METHOD*\\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
+            
+            const paymentMethods = {
+                'crypto': '🔐 Cryptocurrency (BTC/USDT/ETH/LTC)',
+                'moonpay': '💳 Credit Card via MoonPay',
+                'paypal': '💰 PayPal (Pending Approval)',
+                'revolut': '📱 Revolut Crypto Transfer',
+                'bitpanda': '🏦 Bitpanda Crypto Transfer',
+                'binance': '💎 Binance Wallet Transfer'
+            };
+            
+            msg += `• Method: ${paymentMethods[currentSelectedPayment] || currentSelectedPayment}\\n`;
+            
+            if (currentSelectedPayment === 'crypto') {
+                msg += `• Status: ⏳ Waiting for payment address\\n`;
+            } else if (currentSelectedPayment === 'moonpay') {
+                msg += `• Note: Customer needs guidance to buy BTC via MoonPay\\n`;
+            } else if (currentSelectedPayment === 'paypal') {
+                msg += `• Note: Requires manual approval before proceeding\\n`;
+            } else if (['revolut', 'bitpanda', 'binance'].includes(currentSelectedPayment)) {
+                msg += `• Note: Customer will send from ${currentSelectedPayment} wallet\\n`;
+            }
+            
+            msg += `\\n`;
+            msg += `╔════════════════════════════════════════╗\\n`;
+            msg += `║  ✅ Order received - Awaiting payment    ║\\n`;
+            msg += `╚════════════════════════════════════════╝`;
 
             const encodedMsg = encodeURIComponent(msg);
             const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
