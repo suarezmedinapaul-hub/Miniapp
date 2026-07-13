@@ -89,7 +89,6 @@
         }
         .gift-thumb { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
 
-        /* CATEGORIES SCROLLER - PIÙ SPAZIO IN BASSO */
         .categories-scroller {
             position: sticky; top: 0; z-index: 100;
             background: rgba(11, 11, 14, 0.98); backdrop-filter: blur(10px);
@@ -139,7 +138,6 @@
         .product-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .product-desc { font-size: 11px; color: var(--text-hint); height: 32px; overflow: hidden; line-height: 1.3; margin-bottom: 10px; }
         
-        /* SELETORE GRAMMI - SENZA LIMITE MASSIMO */
         .gram-selector-fluid {
             margin-top: auto;
             background: #222;
@@ -272,7 +270,7 @@
         .badge-card { background: #0052ff; color: #fff; }
         .badge-off { background: #555; color: #aaa; }
         
-        /* LOGHI PAGAMENTI CRYPTO CON IMMAGINI */
+        /* LOGHI PAGAMENTI */
         .pay-logo {
             width: 32px;
             height: 32px;
@@ -532,10 +530,10 @@
                 <span class="pay-badge badge-off" id="badge-req">REQUEST AVAIL.</span>
             </div>
 
-            <!-- NUOVE OPZIONI PAGAMENTO CRYPTO CON LOGO -->
+            <!-- REVOLUT CON SFONDO BIANCO PER VISIBILITÀ -->
             <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
                 <div class="pay-option-content">
-                    <div class="pay-logo" style="background:#fff; padding:2px;">
+                    <div class="pay-logo" style="background:#ffffff; padding:3px; border:1px solid #ddd;">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Revolut_logo.png" alt="Revolut" style="object-fit:contain;">
                     </div>
                     <div>
@@ -1271,7 +1269,6 @@
             });
         }
 
-        // NUOVA FUNZIONE PER SELEZIONE QUANTITA SENZA LIMITE
         function updateGramQuantity(productId, value) {
             const p = productsData.find(prod => prod.id === productId);
             if (!p) return;
@@ -1287,7 +1284,6 @@
             saveCartToStorage();
             updateCartUI();
             
-            // Update display
             const display = document.getElementById(`gram-display-${productId}`);
             const input = document.getElementById(`qty-input-${productId}`);
             const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
@@ -1322,7 +1318,6 @@
                 const qty = cart[p.id] || 0;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
                 
-                // NUOVO SELETTORE SENZA LIMITE MASSIMO
                 const gramSelectorHTML = `
                     <div class="gram-selector-fluid">
                         <div class="gram-display" id="gram-display-${p.id}">${qty}${unitLabel}</div>
@@ -1554,7 +1549,7 @@
                 return; 
             }
             
-            // NUOVO FORMATO MESSAGGIO ORDINE - PIÙ ORGANIZZATO E LEGGIBILE
+            // FORMATO MESSAGGIO ORDINE ORGANIZZATO PER TELEGRAM
             const orderDate = new Date().toLocaleString();
             const userId = tg?.initDataUnsafe?.user?.id || 'N/A';
             const username = tg?.initDataUnsafe?.user?.username || 'N/A';
@@ -1625,57 +1620,4 @@
             msg += `• Method: ${paymentMethods[currentSelectedPayment] || currentSelectedPayment}\\n`;
             
             if (currentSelectedPayment === 'crypto') {
-                msg += `• Status: ⏳ Waiting for payment address\\n`;
-            } else if (currentSelectedPayment === 'moonpay') {
-                msg += `• Note: Customer needs guidance to buy BTC via MoonPay\\n`;
-            } else if (currentSelectedPayment === 'paypal') {
-                msg += `• Note: Requires manual approval before proceeding\\n`;
-            } else if (['revolut', 'bitpanda', 'binance'].includes(currentSelectedPayment)) {
-                msg += `• Note: Customer will send from ${currentSelectedPayment} wallet\\n`;
-            }
-            
-            msg += `\\n`;
-            msg += `╔════════════════════════════════════════╗\\n`;
-            msg += `║  ✅ Order received - Awaiting payment    ║\\n`;
-            msg += `╚════════════════════════════════════════╝`;
-
-            const encodedMsg = encodeURIComponent(msg);
-            const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
-            
-            showToast(dict.copySuccess);
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-            
-            const successDiv = document.getElementById('orderSuccessMsg');
-            if (successDiv) {
-                successDiv.innerText = dict.orderSuccess;
-                successDiv.style.display = 'block';
-            }
-            
-            clearCart();
-            
-            setTimeout(() => {
-                if (tg && tg.openTelegramLink) {
-                    tg.openTelegramLink(botUrl);
-                } else {
-                    window.open(botUrl, '_blank');
-                }
-            }, 500);
-        }
-
-        // Initialize
-        renderProducts('all');
-        updateCartUI();
-        setLanguage('en');
-        
-        // Prevent double tap zoom
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-    </script>
-</body>
-</html>
+                msg +=
