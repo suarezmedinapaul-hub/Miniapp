@@ -530,11 +530,11 @@
                 <span class="pay-badge badge-off" id="badge-req">REQUEST AVAIL.</span>
             </div>
 
-            <!-- REVOLUT CON SFONDO BIANCO PER VISIBILITÀ -->
+            <!-- REVOLUT CON LOGO VISIBILE -->
             <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
                 <div class="pay-option-content">
-                    <div class="pay-logo" style="background:#ffffff; padding:3px; border:1px solid #ddd;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Revolut_logo.png" alt="Revolut" style="object-fit:contain;">
+                    <div class="pay-logo" style="background:linear-gradient(135deg, #00d4aa, #0077ff); color:white; font-size:10px; font-weight:bold;">
+                        REV
                     </div>
                     <div>
                         <strong style="display:block;">Revolut Crypto</strong>
@@ -1620,4 +1620,57 @@
             msg += `• Method: ${paymentMethods[currentSelectedPayment] || currentSelectedPayment}\\n`;
             
             if (currentSelectedPayment === 'crypto') {
-                msg +=
+                msg += `• Status: ⏳ Waiting for payment address\\n`;
+            } else if (currentSelectedPayment === 'moonpay') {
+                msg += `• Note: Customer needs guidance to buy BTC via MoonPay\\n`;
+            } else if (currentSelectedPayment === 'paypal') {
+                msg += `• Note: Requires manual approval before proceeding\\n`;
+            } else if (['revolut', 'bitpanda', 'binance'].includes(currentSelectedPayment)) {
+                msg += `• Note: Customer will send from ${currentSelectedPayment} wallet\\n`;
+            }
+            
+            msg += `\\n`;
+            msg += `╔════════════════════════════════════════╗\\n`;
+            msg += `║  ✅ Order received - Awaiting payment    ║\\n`;
+            msg += `╚════════════════════════════════════════╝`;
+
+            const encodedMsg = encodeURIComponent(msg);
+            const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
+            
+            showToast(dict.copySuccess);
+            if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+            
+            const successDiv = document.getElementById('orderSuccessMsg');
+            if (successDiv) {
+                successDiv.innerText = dict.orderSuccess;
+                successDiv.style.display = 'block';
+            }
+            
+            clearCart();
+            
+            setTimeout(() => {
+                if (tg && tg.openTelegramLink) {
+                    tg.openTelegramLink(botUrl);
+                } else {
+                    window.open(botUrl, '_blank');
+                }
+            }, 500);
+        }
+
+        // Initialize
+        renderProducts('all');
+        updateCartUI();
+        setLanguage('en');
+        
+        // Prevent double tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
