@@ -270,7 +270,6 @@
         .badge-card { background: #0052ff; color: #fff; }
         .badge-off { background: #555; color: #aaa; }
         
-        /* LOGHI PAGAMENTI */
         .pay-logo {
             width: 32px;
             height: 32px;
@@ -530,7 +529,6 @@
                 <span class="pay-badge badge-off" id="badge-req">REQUEST AVAIL.</span>
             </div>
 
-            <!-- REVOLUT CON LOGO VISIBILE -->
             <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
                 <div class="pay-option-content">
                     <div class="pay-logo" style="background:linear-gradient(135deg, #00d4aa, #0077ff); color:white; font-size:10px; font-weight:bold;">
@@ -1523,6 +1521,7 @@
             }
         });
 
+        // NUOVA FUNZIONE PROCESSORDERSEND - VERSIONE BREVE E ORDINATA
         function processOrderSend() {
             const metrics = calculateCartMetrics(); 
             const dict = i18n[currentLang];
@@ -1540,7 +1539,7 @@
             if (orario.includes('Specific') || orario.includes('Specifica')) { 
                 const specTime = document.getElementById('input-time-spec');
                 if (specTime) {
-                    orario = "Slot: " + specTime.value.trim(); 
+                    orario = specTime.value.trim(); 
                 }
             }
             
@@ -1549,90 +1548,42 @@
                 return; 
             }
             
-            // FORMATO MESSAGGIO ORDINE ORGANIZZATO PER TELEGRAM
-            const orderDate = new Date().toLocaleString();
             const userId = tg?.initDataUnsafe?.user?.id || 'N/A';
             const username = tg?.initDataUnsafe?.user?.username || 'N/A';
             
-            let msg = `╔════════════════════════════════════════╗\\n`;
-            msg += `║     🛒 MRSHOP20 - NEW ORDER            ║\\n`;
-            msg += `╚════════════════════════════════════════╝\\n\\n`;
+            // MESSAGGIO ORDINE BREVE E ORGANIZZATO
+            let msg = `🛒 *NEW ORDER - MRSHOP20*\\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━━\\n\\n`;
             
-            // SEZIONE CLIENTE
-            msg += `👤 *CUSTOMER INFORMATION*\\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
-            msg += `• Name: ${currentUser}\\n`;
-            msg += `• Username: @${username}\\n`;
-            msg += `• User ID: ${userId}\\n`;
-            msg += `• Order Date: ${orderDate}\\n\\n`;
-            
-            // SEZIONE PRODOTTI
-            msg += `📦 *ORDER SUMMARY*\\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
+            // Prodotti
+            msg += `📦 *Products:*\\n`;
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                const lineTotal = getConvertedPriceStr(p.price * cart[id]);
-                msg += `• ${p.name}\\n`;
-                msg += `  └ Qty: ${cart[id]}${unitLabel} × ${getConvertedPriceStr(p.price)} = ${lineTotal}\\n\\n`;
+                msg += `• ${p.name}: ${cart[id]}${unitLabel}\\n`;
             });
             
-            // REGALI
             if (metrics.giftApplied) {
-                msg += `🎁 *FREE GIFTS INCLUDED*\\n`;
-                msg += `  └ Clipper Lighter + Rolling Papers + Filters\\n\\n`;
+                msg += `• 🎁 Free Gifts (Lighter+Papers+Filters)\\n`;
             }
-            
-            // SEZIONE PREZZI
-            msg += `💰 *PRICE BREAKDOWN*\\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
-            msg += `• Subtotal: ${getConvertedPriceStr(metrics.baseTotalEur)}\\n`;
-            if (metrics.discountEur > 0) {
-                msg += `• Discount: -${getConvertedPriceStr(metrics.discountEur)}\\n`;
-            }
-            msg += `• Shipping: ${metrics.shippingFeeEur === 0 ? 'FREE' : getConvertedPriceStr(metrics.shippingFeeEur)}\\n`;
-            msg += `• Currency: ${activeCurrency}\\n`;
-            msg += `────────────────────────────────\\n`;
-            msg += `💵 *TOTAL TO PAY: ${getConvertedPriceStr(metrics.finalTotalEur)}*\\n\\n`;
-            
-            // SEZIONE CONSEGNA
-            msg += `📍 *DELIVERY DETAILS*\\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
-            msg += `• City: ${citta}\\n`;
-            msg += `• Address: ${indirizzo}\\n`;
-            msg += `• ZIP Code: ${cap}\\n`;
-            msg += `• Delivery Time: ${orario}\\n\\n`;
-            
-            // SEZIONE PAGAMENTO
-            msg += `💳 *PAYMENT METHOD*\\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n`;
-            
-            const paymentMethods = {
-                'crypto': '🔐 Cryptocurrency (BTC/USDT/ETH/LTC)',
-                'moonpay': '💳 Credit Card via MoonPay',
-                'paypal': '💰 PayPal (Pending Approval)',
-                'revolut': '📱 Revolut Crypto Transfer',
-                'bitpanda': '🏦 Bitpanda Crypto Transfer',
-                'binance': '💎 Binance Wallet Transfer'
-            };
-            
-            msg += `• Method: ${paymentMethods[currentSelectedPayment] || currentSelectedPayment}\\n`;
-            
-            if (currentSelectedPayment === 'crypto') {
-                msg += `• Status: ⏳ Waiting for payment address\\n`;
-            } else if (currentSelectedPayment === 'moonpay') {
-                msg += `• Note: Customer needs guidance to buy BTC via MoonPay\\n`;
-            } else if (currentSelectedPayment === 'paypal') {
-                msg += `• Note: Requires manual approval before proceeding\\n`;
-            } else if (['revolut', 'bitpanda', 'binance'].includes(currentSelectedPayment)) {
-                msg += `• Note: Customer will send from ${currentSelectedPayment} wallet\\n`;
-            }
-            
             msg += `\\n`;
-            msg += `╔════════════════════════════════════════╗\\n`;
-            msg += `║  ✅ Order received - Awaiting payment    ║\\n`;
-            msg += `╚════════════════════════════════════════╝`;
+            
+            // Prezzi
+            msg += `💰 *Total:* ${getConvertedPriceStr(metrics.finalTotalEur)}`;
+            if (metrics.discountEur > 0) {
+                msg += ` (Discount: -${getConvertedPriceStr(metrics.discountEur)})`;
+            }
+            msg += `\\n`;
+            msg += `💳 *Payment:* ${currentSelectedPayment.toUpperCase()}\\n\\n`;
+            
+            // Consegna
+            msg += `📍 *Delivery:*\\n`;
+            msg += `• ${indirizzo}, ${citta} ${cap}\\n`;
+            msg += `• Time: ${orario}\\n\\n`;
+            
+            // Cliente
+            msg += `👤 *Customer:* @${username} (ID: ${userId})`;
 
             const encodedMsg = encodeURIComponent(msg);
             const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
