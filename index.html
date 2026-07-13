@@ -1521,7 +1521,7 @@
             }
         });
 
-        // NUOVA FUNZIONE PROCESSORDERSEND - VERSIONE BREVE E ORDINATA
+        // NUOVA FUNZIONE PROCESSORDERSEND - VERSIONE BREVE COMPATTA E UNIVERSALE
         function processOrderSend() {
             const metrics = calculateCartMetrics(); 
             const dict = i18n[currentLang];
@@ -1538,7 +1538,7 @@
 
             if (orario.includes('Specific') || orario.includes('Specifica')) { 
                 const specTime = document.getElementById('input-time-spec');
-                if (specTime) {
+                if (specTime && specTime.value.trim()) {
                     orario = specTime.value.trim(); 
                 }
             }
@@ -1548,64 +1548,89 @@
                 return; 
             }
             
-            const userId = tg?.initDataUnsafe?.user?.id || 'N/A';
-            const username = tg?.initDataUnsafe?.user?.username || 'N/A';
+            const userId = tg?.initDataUnsafe?.user?.id || '';
+            const username = tg?.initDataUnsafe?.user?.username || 'Guest';
+            const firstName = tg?.initDataUnsafe?.user?.first_name || '';
             
-            // MESSAGGIO ORDINE BREVE E ORGANIZZATO
-            let msg = `🛒 *NEW ORDER - MRSHOP20*\\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━\\n\\n`;
+            // Messaggio breve e compatto senza formattazione complessa
+            let msg = `ORDINE MRSHOP20\n\n`;
             
-            // Prodotti
-            msg += `📦 *Products:*\\n`;
+            // Prodotti in formato compatto
+            const items = [];
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                msg += `• ${p.name}: ${cart[id]}${unitLabel}\\n`;
+                items.push(`${p.name} ${cart[id]}${unitLabel}`);
             });
             
             if (metrics.giftApplied) {
-                msg += `• 🎁 Free Gifts (Lighter+Papers+Filters)\\n`;
+                items.push(`REGALO Clipper+cartine+filtri`);
             }
-            msg += `\\n`;
             
-            // Prezzi
-            msg += `💰 *Total:* ${getConvertedPriceStr(metrics.finalTotalEur)}`;
+            msg += items.join('\n');
+            msg += `\n\n`;
+            
+            // Prezzo e pagamento
+            msg += `TOTALE ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
             if (metrics.discountEur > 0) {
-                msg += ` (Discount: -${getConvertedPriceStr(metrics.discountEur)})`;
+                msg += `Sconto ${getConvertedPriceStr(metrics.discountEur)}\n`;
             }
-            msg += `\\n`;
-            msg += `💳 *Payment:* ${currentSelectedPayment.toUpperCase()}\\n\\n`;
+            msg += `PAGAMENTO ${currentSelectedPayment.toUpperCase()}\n\n`;
             
             // Consegna
-            msg += `📍 *Delivery:*\\n`;
-            msg += `• ${indirizzo}, ${citta} ${cap}\\n`;
-            msg += `• Time: ${orario}\\n\\n`;
+            msg += `CONSEGNA\n`;
+            msg += `${indirizzo} ${citta} ${cap}\n`;
+            msg += `${orario}\n\n`;
             
             // Cliente
-            msg += `👤 *Customer:* @${username} (ID: ${userId})`;
+            msg += `CLIENTE @${username}`;
+            if (firstName) {
+                msg += ` (${firstName})`;
+            }
 
+            // Codifica sicura per URL
             const encodedMsg = encodeURIComponent(msg);
-            const botUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
             
+            // Metodo universale di invio
+            const botUsername = 'mrshop20';
+            const telegramUrl = `https://t.me/${botUsername}?text=${encodedMsg}`;
+            
+            // Feedback utente
             showToast(dict.copySuccess);
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
             
+            // Mostra messaggio di successo
             const successDiv = document.getElementById('orderSuccessMsg');
             if (successDiv) {
                 successDiv.innerText = dict.orderSuccess;
                 successDiv.style.display = 'block';
             }
             
+            // Pulisci carrello
             clearCart();
             
+            // Apri Telegram con delay per permettere il feedback visivo
             setTimeout(() => {
-                if (tg && tg.openTelegramLink) {
-                    tg.openTelegramLink(botUrl);
-                } else {
-                    window.open(botUrl, '_blank');
+                try {
+                    if (tg && tg.openTelegramLink) {
+                        // Metodo nativo Telegram WebApp
+                        tg.openTelegramLink(telegramUrl);
+                    } else if (tg && tg.openLink) {
+                        // Metodo alternativo
+                        tg.openLink(telegramUrl);
+                    } else {
+                        // Fallback per browser standard
+                        window.open(telegramUrl, '_blank');
+                    }
+                } catch (err) {
+                    console.error('Error opening Telegram:', err);
+                    // Fallback sicuro
+                    window.location.href = telegramUrl;
                 }
-            }, 500);
+            }, 600);
         }
 
         // Initialize
