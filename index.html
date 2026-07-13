@@ -390,6 +390,23 @@
             height: 18px;
             fill: #000;
         }
+        
+        .new-order-btn {
+            background: var(--primary-neon);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .new-order-btn:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -750,6 +767,14 @@
                 orderSuccess: "✅ Order sent to @mrshop20! Check your Telegram.",
                 copySuccess: "✅ Order sent to @mrshop20!",
                 contact: "Contact",
+                newOrder: "🛒 New Order",
+                orderTitle: "ORDER MRSHOP20",
+                totalLabel: "TOTAL",
+                discountLabel: "Discount",
+                paymentLabel: "PAYMENT",
+                deliveryLabel: "DELIVERY",
+                customerLabel: "CUSTOMER",
+                giftLabel: "GIFT Lighter+Papers+Filters",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -819,6 +844,14 @@
                 orderSuccess: "✅ Ordine inviato a @mrshop20! Controlla Telegram.",
                 copySuccess: "✅ Ordine inviato a @mrshop20!",
                 contact: "Contatta",
+                newOrder: "🛒 Nuovo Ordine",
+                orderTitle: "ORDINE MRSHOP20",
+                totalLabel: "TOTALE",
+                discountLabel: "Sconto",
+                paymentLabel: "PAGAMENTO",
+                deliveryLabel: "CONSEGNA",
+                customerLabel: "CLIENTE",
+                giftLabel: "REGALO Clipper+cartine+filtri",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -888,6 +921,14 @@
                 orderSuccess: "✅ Commande envoyée à @mrshop20! Vérifiez Telegram.",
                 copySuccess: "✅ Commande envoyée à @mrshop20!",
                 contact: "Contacter",
+                newOrder: "🛒 Nouvelle Commande",
+                orderTitle: "COMMANDE MRSHOP20",
+                totalLabel: "TOTAL",
+                discountLabel: "Réduction",
+                paymentLabel: "PAIEMENT",
+                deliveryLabel: "LIVRAISON",
+                customerLabel: "CLIENT",
+                giftLabel: "CADEAU Briquet+Papiers+Filtres",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -957,6 +998,14 @@
                 orderSuccess: "✅ Bestellung an @mrshop20 gesendet! Checken Sie Telegram.",
                 copySuccess: "✅ Bestellung an @mrshop20 gesendet!",
                 contact: "Kontakt",
+                newOrder: "🛒 Neue Bestellung",
+                orderTitle: "BESTELLUNG MRSHOP20",
+                totalLabel: "GESAMT",
+                discountLabel: "Rabatt",
+                paymentLabel: "ZAHLUNG",
+                deliveryLabel: "LIEFERUNG",
+                customerLabel: "KUNDE",
+                giftLabel: "GESCHENK Feuerzeug+Blättchen+Filter",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -1026,6 +1075,14 @@
                 orderSuccess: "✅ Заказ отправлен @mrshop20! Проверьте Telegram.",
                 copySuccess: "✅ Заказ отправлен @mrshop20!",
                 contact: "Связаться",
+                newOrder: "🛒 Новый Заказ",
+                orderTitle: "ЗАКАЗ MRSHOP20",
+                totalLabel: "ИТОГО",
+                discountLabel: "Скидка",
+                paymentLabel: "ОПЛАТА",
+                deliveryLabel: "ДОСТАВКА",
+                customerLabel: "КЛИЕНТ",
+                giftLabel: "ПОДАРОК Зажигалка+Бумага+Фильтры",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -1521,7 +1578,32 @@
             }
         });
 
-        // NUOVA FUNZIONE PROCESSORDERSEND - VERSIONE BREVE COMPATTA E UNIVERSALE
+        // FUNZIONE PER RESETTARE E FARE UN NUOVO ORDINE
+        function resetForNewOrder() {
+            // Nascondi messaggio di successo
+            const successDiv = document.getElementById('orderSuccessMsg');
+            if (successDiv) successDiv.style.display = 'none';
+            
+            // Resetta i campi del form
+            document.getElementById('input-city').value = '';
+            document.getElementById('input-address').value = '';
+            document.getElementById('input-cap').value = '';
+            document.getElementById('select-time').selectedIndex = 0;
+            document.getElementById('input-time-spec').value = '';
+            document.getElementById('input-time-spec').style.display = 'none';
+            
+            // Resetta il metodo di pagamento a crypto
+            setPaymentMethod('crypto');
+            
+            // Torna al menu dei prodotti
+            switchTab('menu');
+            
+            // Mostra conferma
+            const dict = i18n[currentLang];
+            showToast(dict.newOrder || 'New Order');
+        }
+
+        // NUOVA FUNZIONE PROCESSORDERSEND CON EMOJI E LOCALIZZAZIONE
         function processOrderSend() {
             const metrics = calculateCartMetrics(); 
             const dict = i18n[currentLang];
@@ -1552,39 +1634,39 @@
             const username = tg?.initDataUnsafe?.user?.username || 'Guest';
             const firstName = tg?.initDataUnsafe?.user?.first_name || '';
             
-            // Messaggio breve e compatto senza formattazione complessa
-            let msg = `ORDINE MRSHOP20\n\n`;
+            // Messaggio con emoji nella lingua corrente
+            let msg = `📦 ${dict.orderTitle}\n\n`;
             
-            // Prodotti in formato compatto
+            // Prodotti
             const items = [];
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                items.push(`${p.name} ${cart[id]}${unitLabel}`);
+                items.push(`🌿 ${p.name} ${cart[id]}${unitLabel}`);
             });
             
             if (metrics.giftApplied) {
-                items.push(`REGALO Clipper+cartine+filtri`);
+                items.push(`🎁 ${dict.giftLabel}`);
             }
             
             msg += items.join('\n');
             msg += `\n\n`;
             
             // Prezzo e pagamento
-            msg += `TOTALE ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
+            msg += `💰 ${dict.totalLabel} ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
             if (metrics.discountEur > 0) {
-                msg += `Sconto ${getConvertedPriceStr(metrics.discountEur)}\n`;
+                msg += `🏷️ ${dict.discountLabel} ${getConvertedPriceStr(metrics.discountEur)}\n`;
             }
-            msg += `PAGAMENTO ${currentSelectedPayment.toUpperCase()}\n\n`;
+            msg += `💳 ${dict.paymentLabel} ${currentSelectedPayment.toUpperCase()}\n\n`;
             
             // Consegna
-            msg += `CONSEGNA\n`;
-            msg += `${indirizzo} ${citta} ${cap}\n`;
-            msg += `${orario}\n\n`;
+            msg += `🚚 ${dict.deliveryLabel}\n`;
+            msg += `📍 ${indirizzo} ${citta} ${cap}\n`;
+            msg += `⏰ ${orario}\n\n`;
             
             // Cliente
-            msg += `CLIENTE @${username}`;
+            msg += `👤 ${dict.customerLabel} @${username}`;
             if (firstName) {
                 msg += ` (${firstName})`;
             }
@@ -1602,32 +1684,31 @@
                 tg.HapticFeedback.notificationOccurred('success');
             }
             
-            // Mostra messaggio di successo
+            // Mostra messaggio di successo con bottone per nuovo ordine
             const successDiv = document.getElementById('orderSuccessMsg');
             if (successDiv) {
-                successDiv.innerText = dict.orderSuccess;
+                successDiv.innerHTML = `
+                    <div>${dict.orderSuccess}</div>
+                    <button class="new-order-btn" onclick="resetForNewOrder()">${dict.newOrder}</button>
+                `;
                 successDiv.style.display = 'block';
             }
             
             // Pulisci carrello
             clearCart();
             
-            // Apri Telegram con delay per permettere il feedback visivo
+            // Apri Telegram con delay
             setTimeout(() => {
                 try {
                     if (tg && tg.openTelegramLink) {
-                        // Metodo nativo Telegram WebApp
                         tg.openTelegramLink(telegramUrl);
                     } else if (tg && tg.openLink) {
-                        // Metodo alternativo
                         tg.openLink(telegramUrl);
                     } else {
-                        // Fallback per browser standard
                         window.open(telegramUrl, '_blank');
                     }
                 } catch (err) {
                     console.error('Error opening Telegram:', err);
-                    // Fallback sicuro
                     window.location.href = telegramUrl;
                 }
             }, 600);
