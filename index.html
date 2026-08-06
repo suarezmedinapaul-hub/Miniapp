@@ -407,49 +407,11 @@
             transform: scale(0.95);
             opacity: 0.9;
         }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 11, 14, 0.95);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 100002;
-            flex-direction: column;
-        }
-        .loading-overlay.active {
-            display: flex;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(0, 255, 102, 0.3);
-            border-top-color: var(--primary-neon);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loading-text {
-            margin-top: 15px;
-            color: var(--primary-neon);
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
 
-    <div class="toast-notification" id="toast">✅ Order sent to @mrshop20!</div>
-
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <div class="loading-text">Sending order...</div>
-    </div>
+    <div class="toast-notification" id="toast">✅ Order copied! Paste to @mrshop20</div>
 
     <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
@@ -512,7 +474,7 @@
 
     <div id="view-chat" class="app-view">
         <h2 id="txt-cart-title" style="margin-bottom:15px;">🛒 Your Cart</h2>
-        <div class="success-message" id="orderSuccessMsg">✅ Order sent successfully! Cart cleared.</div>
+        <div class="success-message" id="orderSuccessMsg"></div>
         <div id="cartItemsContainer"></div>
         
         <div class="checkout-form" id="checkoutFormBlock" style="display:none;">
@@ -685,7 +647,6 @@
     </div>
 
     <script>
-        // Inizializzazione Telegram WebApp
         const tg = window.Telegram?.WebApp;
         if (tg) { 
             tg.expand(); 
@@ -721,14 +682,6 @@
             toast.innerText = message;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        function showLoading() {
-            document.getElementById('loadingOverlay').classList.add('active');
-        }
-
-        function hideLoading() {
-            document.getElementById('loadingOverlay').classList.remove('active');
         }
 
         function openLightbox(src) {
@@ -811,8 +764,8 @@
                 minOrderErr: "Minimum order is 30€! Please add more items.", 
                 fieldErr: "Please fill City, Address and ZIP code fields!",
                 discountTxt: "Quantity Discount",
-                orderSuccess: "✅ Order sent to @mrshop20! Check your Telegram.",
-                copySuccess: "✅ Order sent to @mrshop20!",
+                orderSuccess: "✅ Order copied to clipboard!",
+                copySuccess: "✅ Order copied! Paste it to @mrshop20",
                 contact: "Contact",
                 newOrder: "🛒 New Order",
                 orderTitle: "ORDER MRSHOP20",
@@ -822,6 +775,11 @@
                 deliveryLabel: "DELIVERY",
                 customerLabel: "CUSTOMER",
                 giftLabel: "GIFT Lighter+Papers+Filters",
+                pasteInstructions: "Order copied to clipboard!",
+                openTelegramInstructions: "Open Telegram and paste this message to @mrshop20 to complete your order.",
+                openChatBtn: "Open @mrshop20",
+                manualCopyTitle: "Copy the order manually",
+                manualCopyInstructions: "Select and copy the text below, then send it to @mrshop20:",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -888,8 +846,8 @@
                 minOrderErr: "L'ordine minimo è di 30€!", 
                 fieldErr: "Compila Città, Indirizzo e CAP!",
                 discountTxt: "Sconto Quantità",
-                orderSuccess: "✅ Ordine inviato a @mrshop20! Controlla Telegram.",
-                copySuccess: "✅ Ordine inviato a @mrshop20!",
+                orderSuccess: "✅ Ordine copiato negli appunti!",
+                copySuccess: "✅ Ordine copiato! Incollalo su @mrshop20",
                 contact: "Contatta",
                 newOrder: "🛒 Nuovo Ordine",
                 orderTitle: "ORDINE MRSHOP20",
@@ -899,6 +857,11 @@
                 deliveryLabel: "CONSEGNA",
                 customerLabel: "CLIENTE",
                 giftLabel: "REGALO Clipper+cartine+filtri",
+                pasteInstructions: "Ordine copiato negli appunti!",
+                openTelegramInstructions: "Apri Telegram e incolla questo messaggio a @mrshop20 per completare l'ordine.",
+                openChatBtn: "Apri @mrshop20",
+                manualCopyTitle: "Copia l'ordine manualmente",
+                manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @mrshop20:",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -965,8 +928,8 @@
                 minOrderErr: "Commande minimum: 30€!", 
                 fieldErr: "Remplissez tous les champs!",
                 discountTxt: "Remise quantité",
-                orderSuccess: "✅ Commande envoyée à @mrshop20! Vérifiez Telegram.",
-                copySuccess: "✅ Commande envoyée à @mrshop20!",
+                orderSuccess: "✅ Commande copiée dans le presse-papiers !",
+                copySuccess: "✅ Commande copiée ! Collez-la sur @mrshop20",
                 contact: "Contacter",
                 newOrder: "🛒 Nouvelle Commande",
                 orderTitle: "COMMANDE MRSHOP20",
@@ -976,6 +939,11 @@
                 deliveryLabel: "LIVRAISON",
                 customerLabel: "CLIENT",
                 giftLabel: "CADEAU Briquet+Papiers+Filtres",
+                pasteInstructions: "Commande copiée dans le presse-papiers !",
+                openTelegramInstructions: "Ouvrez Telegram et collez ce message à @mrshop20 pour compléter votre commande.",
+                openChatBtn: "Ouvrir @mrshop20",
+                manualCopyTitle: "Copiez la commande manuellement",
+                manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous, puis envoyez-le à @mrshop20 :",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -1042,8 +1010,8 @@
                 minOrderErr: "Mindestbestellwert 30€!", 
                 fieldErr: "Alle Felder ausfüllen!",
                 discountTxt: "Mengenrabatt",
-                orderSuccess: "✅ Bestellung an @mrshop20 gesendet! Checken Sie Telegram.",
-                copySuccess: "✅ Bestellung an @mrshop20 gesendet!",
+                orderSuccess: "✅ Bestellung in Zwischenablage kopiert!",
+                copySuccess: "✅ Bestellung kopiert! Fügen Sie sie bei @mrshop20 ein",
                 contact: "Kontakt",
                 newOrder: "🛒 Neue Bestellung",
                 orderTitle: "BESTELLUNG MRSHOP20",
@@ -1053,6 +1021,11 @@
                 deliveryLabel: "LIEFERUNG",
                 customerLabel: "KUNDE",
                 giftLabel: "GESCHENK Feuerzeug+Blättchen+Filter",
+                pasteInstructions: "Bestellung in Zwischenablage kopiert!",
+                openTelegramInstructions: "Öffnen Sie Telegram und fügen Sie diese Nachricht bei @mrshop20 ein, um Ihre Bestellung abzuschließen.",
+                openChatBtn: "@mrshop20 öffnen",
+                manualCopyTitle: "Bestellung manuell kopieren",
+                manualCopyInstructions: "Wählen und kopieren Sie den untenstehenden Text, senden Sie ihn dann an @mrshop20:",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -1119,8 +1092,8 @@
                 minOrderErr: "Минимальный заказ 30€!", 
                 fieldErr: "Заполните все поля!",
                 discountTxt: "Скидка за количество",
-                orderSuccess: "✅ Заказ отправлен @mrshop20! Проверьте Telegram.",
-                copySuccess: "✅ Заказ отправлен @mrshop20!",
+                orderSuccess: "✅ Заказ скопирован в буфер обмена!",
+                copySuccess: "✅ Заказ скопирован! Вставьте его @mrshop20",
                 contact: "Связаться",
                 newOrder: "🛒 Новый Заказ",
                 orderTitle: "ЗАКАЗ MRSHOP20",
@@ -1130,6 +1103,11 @@
                 deliveryLabel: "ДОСТАВКА",
                 customerLabel: "КЛИЕНТ",
                 giftLabel: "ПОДАРОК Зажигалка+Бумага+Фильтры",
+                pasteInstructions: "Заказ скопирован в буфер обмена!",
+                openTelegramInstructions: "Откройте Telegram и вставьте это сообщение @mrshop20, чтобы завершить заказ.",
+                openChatBtn: "Открыть @mrshop20",
+                manualCopyTitle: "Скопируйте заказ вручную",
+                manualCopyInstructions: "Выберите и скопируйте текст ниже, затем отправьте его @mrshop20:",
                 cats: { 
                     flowers: "🌿 Weed", 
                     hash: "🍯 Hash", 
@@ -1644,7 +1622,7 @@
             showToast(dict.newOrder || 'New Order');
         }
 
-        // FUNZIONE PRINCIPALE MIGLIORATA PER INVIO A @MRSHOP20
+        // NUOVA FUNZIONE: Copia negli appunti e mostra istruzioni
         function processOrderSend() {
             const metrics = calculateCartMetrics(); 
             const dict = i18n[currentLang];
@@ -1671,9 +1649,6 @@
                 return; 
             }
             
-            // Mostra loading
-            showLoading();
-            
             const userId = tg?.initDataUnsafe?.user?.id || '';
             const username = tg?.initDataUnsafe?.user?.username || '';
             const firstName = tg?.initDataUnsafe?.user?.first_name || '';
@@ -1681,7 +1656,7 @@
             // Costruzione messaggio dettagliato
             let msg = `📦 ${dict.orderTitle}\n\n`;
             
-            // Lista prodotti con prezzi
+            // Lista prodotti
             const items = [];
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
@@ -1723,58 +1698,99 @@
             if (firstName) msg += ` (${firstName})`;
             if (!username && !firstName) msg += ` Guest`;
 
-            // URL encode del messaggio
-            const encodedMsg = encodeURIComponent(msg);
-            const telegramUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
+            // Copia negli appunti
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(msg).then(() => {
+                    showOrderSuccess(msg, dict, true);
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    copyFallback(msg, dict);
+                });
+            } else {
+                copyFallback(msg, dict);
+            }
+        }
+
+        // Fallback per copiare il testo
+        function copyFallback(text, dict) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
             
-            // Nascondi loading
-            hideLoading();
-            
-            // Feedback utente
-            showToast(dict.copySuccess);
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                if (successful) {
+                    showOrderSuccess(text, dict, true);
+                } else {
+                    showOrderSuccess(text, dict, false);
+                }
+            } catch (err) {
+                document.body.removeChild(textArea);
+                console.error('Fallback copy failed:', err);
+                showOrderSuccess(text, dict, false);
+            }
+        }
+
+        // Mostra successo con istruzioni
+        function showOrderSuccess(orderText, dict, copied) {
+            // Feedback aptico
             if (tg && tg.HapticFeedback) {
                 tg.HapticFeedback.notificationOccurred('success');
             }
             
-            // Mostra messaggio successo
+            // Mostra messaggio di successo
             const successDiv = document.getElementById('orderSuccessMsg');
             if (successDiv) {
-                successDiv.innerHTML = `
-                    <div style="margin-bottom:10px;">${dict.orderSuccess}</div>
-                    <button class="new-order-btn" onclick="resetForNewOrder()">${dict.newOrder}</button>
-                `;
+                if (copied) {
+                    successDiv.innerHTML = `
+                        <div style="font-size:18px; margin-bottom:10px;">✅ ${dict.pasteInstructions}</div>
+                        <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; margin:15px 0; text-align:left; font-size:13px; color:#fff;">
+                            <div style="color:var(--primary-neon); font-weight:bold; margin-bottom:8px;">📋 ${dict.openTelegramInstructions}</div>
+                        </div>
+                        <button class="new-order-btn" onclick="openMrshop20Chat()" style="margin-right:10px;">${dict.openChatBtn}</button>
+                        <button class="new-order-btn" onclick="resetForNewOrder()" style="background:transparent; border:2px solid var(--primary-neon); color:var(--primary-neon);">${dict.newOrder}</button>
+                    `;
+                } else {
+                    successDiv.innerHTML = `
+                        <div style="font-size:18px; margin-bottom:10px;">⚠️ ${dict.manualCopyTitle}</div>
+                        <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; margin:15px 0; text-align:left;">
+                            <div style="color:var(--primary-neon); font-weight:bold; margin-bottom:10px; font-size:13px;">${dict.manualCopyInstructions}</div>
+                            <textarea readonly style="width:100%; height:120px; background:#1a1a1a; border:1px solid #333; color:#fff; padding:10px; border-radius:6px; font-size:12px; resize:none;" onclick="this.select()">${orderText}</textarea>
+                        </div>
+                        <button class="new-order-btn" onclick="openMrshop20Chat()" style="margin-right:10px;">${dict.openChatBtn}</button>
+                        <button class="new-order-btn" onclick="resetForNewOrder()" style="background:transparent; border:2px solid var(--primary-neon); color:var(--primary-neon);">${dict.newOrder}</button>
+                    `;
+                }
                 successDiv.style.display = 'block';
             }
+            
+            showToast(dict.copySuccess);
             
             // Pulisci carrello
             clearCart();
             
-            // Apertura link Telegram con metodi multipli per compatibilità
-            setTimeout(() => {
-                try {
-                    // Metodo 1: Telegram WebApp nativo
-                    if (tg && tg.openTelegramLink) {
-                        tg.openTelegramLink(telegramUrl);
-                    } 
-                    // Metodo 2: openLink per WebApp
-                    else if (tg && tg.openLink) {
-                        tg.openLink(telegramUrl);
-                    } 
-                    // Metodo 3: Browser normale - nuova tab
-                    else {
-                        const newWindow = window.open(telegramUrl, '_blank');
-                        
-                        // Se popup bloccato, reindirizza
-                        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                            window.location.href = telegramUrl;
-                        }
-                    }
-                } catch (err) {
-                    console.error('Error opening Telegram:', err);
-                    // Fallback sicuro
-                    window.location.href = telegramUrl;
-                }
-            }, 800);
+            // Scrolla al messaggio di successo
+            if (successDiv) {
+                successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Apre la chat con mrshop20
+        function openMrshop20Chat() {
+            const url = 'https://t.me/mrshop20';
+            if (tg && tg.openTelegramLink) {
+                tg.openTelegramLink(url);
+            } else if (tg && tg.openLink) {
+                tg.openLink(url);
+            } else {
+                window.open(url, '_blank');
+            }
         }
 
         // Initialize
