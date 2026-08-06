@@ -407,11 +407,49 @@
             transform: scale(0.95);
             opacity: 0.9;
         }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 11, 14, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100002;
+            flex-direction: column;
+        }
+        .loading-overlay.active {
+            display: flex;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 255, 102, 0.3);
+            border-top-color: var(--primary-neon);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            margin-top: 15px;
+            color: var(--primary-neon);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
     <div class="toast-notification" id="toast">✅ Order sent to @mrshop20!</div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Sending order...</div>
+    </div>
 
     <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
@@ -647,6 +685,7 @@
     </div>
 
     <script>
+        // Inizializzazione Telegram WebApp
         const tg = window.Telegram?.WebApp;
         if (tg) { 
             tg.expand(); 
@@ -682,6 +721,14 @@
             toast.innerText = message;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('active');
         }
 
         function openLightbox(src) {
@@ -1574,17 +1621,14 @@
         document.getElementById('select-time').addEventListener('change', function() {
             const specInput = document.getElementById('input-time-spec');
             if (specInput) {
-                specInput.style.display = (this.value.includes('Specific') || this.value.includes('Specifica')) ? 'block' : 'none';
+                specInput.style.display = (this.value.includes('Specific') || this.value.includes('Specifica') || this.value.includes('указать')) ? 'block' : 'none';
             }
         });
 
-        // FUNZIONE PER RESETTARE E FARE UN NUOVO ORDINE
         function resetForNewOrder() {
-            // Nascondi messaggio di successo
             const successDiv = document.getElementById('orderSuccessMsg');
             if (successDiv) successDiv.style.display = 'none';
             
-            // Resetta i campi del form
             document.getElementById('input-city').value = '';
             document.getElementById('input-address').value = '';
             document.getElementById('input-cap').value = '';
@@ -1592,18 +1636,15 @@
             document.getElementById('input-time-spec').value = '';
             document.getElementById('input-time-spec').style.display = 'none';
             
-            // Resetta il metodo di pagamento a crypto
             setPaymentMethod('crypto');
             
-            // Torna al menu dei prodotti
             switchTab('menu');
             
-            // Mostra conferma
             const dict = i18n[currentLang];
             showToast(dict.newOrder || 'New Order');
         }
 
-        // NUOVA FUNZIONE PROCESSORDERSEND CON EMOJI E LOCALIZZAZIONE
+        // FUNZIONE PRINCIPALE MIGLIORATA PER INVIO A @MRSHOP20
         function processOrderSend() {
             const metrics = calculateCartMetrics(); 
             const dict = i18n[currentLang];
@@ -1618,7 +1659,7 @@
             const cap = document.getElementById('input-cap').value.trim();
             let orario = document.getElementById('select-time').value;
 
-            if (orario.includes('Specific') || orario.includes('Specifica')) { 
+            if (orario.includes('Specific') || orario.includes('Specifica') || orario.includes('указать')) { 
                 const specTime = document.getElementById('input-time-spec');
                 if (specTime && specTime.value.trim()) {
                     orario = specTime.value.trim(); 
@@ -1630,20 +1671,24 @@
                 return; 
             }
             
+            // Mostra loading
+            showLoading();
+            
             const userId = tg?.initDataUnsafe?.user?.id || '';
-            const username = tg?.initDataUnsafe?.user?.username || 'Guest';
+            const username = tg?.initDataUnsafe?.user?.username || '';
             const firstName = tg?.initDataUnsafe?.user?.first_name || '';
             
-            // Messaggio con emoji nella lingua corrente
+            // Costruzione messaggio dettagliato
             let msg = `📦 ${dict.orderTitle}\n\n`;
             
-            // Prodotti
+            // Lista prodotti con prezzi
             const items = [];
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
                 const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                items.push(`🌿 ${p.name} ${cart[id]}${unitLabel}`);
+                const itemTotal = p.price * cart[id];
+                items.push(`🌿 ${p.name}: ${cart[id]}${unitLabel} (${getConvertedPriceStr(itemTotal)})`);
             });
             
             if (metrics.giftApplied) {
@@ -1653,30 +1698,37 @@
             msg += items.join('\n');
             msg += `\n\n`;
             
-            // Prezzo e pagamento
-            msg += `💰 ${dict.totalLabel} ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
+            // Riepilogo prezzi
+            msg += `💰 ${dict.totalLabel}: ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
             if (metrics.discountEur > 0) {
-                msg += `🏷️ ${dict.discountLabel} ${getConvertedPriceStr(metrics.discountEur)}\n`;
+                msg += `🏷️ ${dict.discountLabel}: -${getConvertedPriceStr(metrics.discountEur)}\n`;
             }
-            msg += `💳 ${dict.paymentLabel} ${currentSelectedPayment.toUpperCase()}\n\n`;
+            if (metrics.shippingFeeEur > 0) {
+                msg += `🚚 ${dict.shippingCostText}: ${getConvertedPriceStr(metrics.shippingFeeEur)}\n`;
+            } else {
+                msg += `🚚 ${dict.shippingCostText}: ${dict.free}\n`;
+            }
+            msg += `💳 ${dict.paymentLabel}: ${currentSelectedPayment.toUpperCase()}\n\n`;
             
-            // Consegna
-            msg += `🚚 ${dict.deliveryLabel}\n`;
-            msg += `📍 ${indirizzo} ${citta} ${cap}\n`;
-            msg += `⏰ ${orario}\n\n`;
+            // Dati consegna
+            msg += `📍 ${dict.deliveryLabel}:\n`;
+            msg += `🏙️ ${dict.city}: ${citta}\n`;
+            msg += `🏠 ${dict.address}: ${indirizzo}\n`;
+            msg += `📮 ${dict.cap}: ${cap}\n`;
+            msg += `⏰ ${dict.time}: ${orario}\n\n`;
             
             // Cliente
-            msg += `👤 ${dict.customerLabel} @${username}`;
-            if (firstName) {
-                msg += ` (${firstName})`;
-            }
+            msg += `👤 ${dict.customerLabel}:`;
+            if (username) msg += ` @${username}`;
+            if (firstName) msg += ` (${firstName})`;
+            if (!username && !firstName) msg += ` Guest`;
 
-            // Codifica sicura per URL
+            // URL encode del messaggio
             const encodedMsg = encodeURIComponent(msg);
+            const telegramUrl = `https://t.me/mrshop20?text=${encodedMsg}`;
             
-            // Metodo universale di invio
-            const botUsername = 'mrshop20';
-            const telegramUrl = `https://t.me/${botUsername}?text=${encodedMsg}`;
+            // Nascondi loading
+            hideLoading();
             
             // Feedback utente
             showToast(dict.copySuccess);
@@ -1684,11 +1736,11 @@
                 tg.HapticFeedback.notificationOccurred('success');
             }
             
-            // Mostra messaggio di successo con bottone per nuovo ordine
+            // Mostra messaggio successo
             const successDiv = document.getElementById('orderSuccessMsg');
             if (successDiv) {
                 successDiv.innerHTML = `
-                    <div>${dict.orderSuccess}</div>
+                    <div style="margin-bottom:10px;">${dict.orderSuccess}</div>
                     <button class="new-order-btn" onclick="resetForNewOrder()">${dict.newOrder}</button>
                 `;
                 successDiv.style.display = 'block';
@@ -1697,21 +1749,32 @@
             // Pulisci carrello
             clearCart();
             
-            // Apri Telegram con delay
+            // Apertura link Telegram con metodi multipli per compatibilità
             setTimeout(() => {
                 try {
+                    // Metodo 1: Telegram WebApp nativo
                     if (tg && tg.openTelegramLink) {
                         tg.openTelegramLink(telegramUrl);
-                    } else if (tg && tg.openLink) {
+                    } 
+                    // Metodo 2: openLink per WebApp
+                    else if (tg && tg.openLink) {
                         tg.openLink(telegramUrl);
-                    } else {
-                        window.open(telegramUrl, '_blank');
+                    } 
+                    // Metodo 3: Browser normale - nuova tab
+                    else {
+                        const newWindow = window.open(telegramUrl, '_blank');
+                        
+                        // Se popup bloccato, reindirizza
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                            window.location.href = telegramUrl;
+                        }
                     }
                 } catch (err) {
                     console.error('Error opening Telegram:', err);
+                    // Fallback sicuro
                     window.location.href = telegramUrl;
                 }
-            }, 600);
+            }, 800);
         }
 
         // Initialize
