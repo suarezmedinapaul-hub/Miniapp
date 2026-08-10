@@ -1288,10 +1288,14 @@
             tg.setBackgroundColor('#0b0b0e');
         }
 
-        // Config
+        // Config - MODIFICATO PER @Botordini_bot
         const STORAGE_KEY = 'mrshop20_cart_v1';
-        const BOT_USERNAME = 'MiniMrshop20_bot';
-        const TARGET_GROUP = '-5354914831';  // ← ID GRUPPO AGGIORNATO
+        const BOT_USERNAME = 'Botordini_bot';  // ← BOT AGGIORNATO
+        
+        // IMPORTANTE: Sostituisci con il Chat ID reale del gruppo https://t.me/+ZhY_600WVPIxZWY8
+        // Il formato è tipicamente -100xxxxxxxxxx (deve iniziare con -100 per supergruppi)
+        // Per ottenerlo: aggiungi @userinfobot al gruppo o controlla i log del bot
+        const TARGET_GROUP = '-1001234567890';  // ← SOSTITUISCI CON IL CHAT ID REALE DEL GRUPPO
         
         let cart = {};
         let currentLang = 'en';
@@ -1308,7 +1312,7 @@
             RUB: { symbol: '₽', rate: 98.2 }
         };
 
-        // Translations
+        // Translations - AGGIORNATO CON NUOVO BOT
         const i18n = {
             en: {
                 all: "All Strains",
@@ -1363,7 +1367,7 @@
                 discountTxt: "Quantity Discount",
                 orderSuccess: "✅ Order sent successfully!",
                 orderSent: "✅ Your order has been sent to our team! We will contact you soon.",
-                copySuccess: "✅ Order copied! Paste it to @MiniMrshop20_bot",
+                copySuccess: "✅ Order copied! Paste it to @Botordini_bot",  // ← AGGIORNATO
                 contact: "Contact",
                 newOrder: "🛒 New Order",
                 orderTitle: "📦 ORDER MRSHOP20",
@@ -1374,13 +1378,13 @@
                 customerLabel: "CUSTOMER",
                 giftLabel: "🎁 Gift: Lighter + Papers + Filters",
                 pasteInstructions: "Order copied to clipboard!",
-                openTelegramInstructions: "Open Telegram and paste this message to @MiniMrshop20_bot to complete your order.",
-                openChatBtn: "Open @MiniMrshop20_bot Chat",
+                openTelegramInstructions: "Open Telegram and paste this message to @Botordini_bot to complete your order.",  // ← AGGIORNATO
+                openChatBtn: "Open @Botordini_bot Chat",  // ← AGGIORNATO
                 manualCopyTitle: "Copy the order manually",
-                manualCopyInstructions: "Select and copy the text below, then send it to @MiniMrshop20_bot:",
+                manualCopyInstructions: "Select and copy the text below, then send it to @Botordini_bot:",  // ← AGGIORNATO
                 orderPreview: "Order Preview:",
                 sendingOrder: "Sending order...",
-                orderError: "❌ Error sending order. Please try again or contact @MiniMrshop20_bot",
+                orderError: "❌ Error sending order. Please try again or contact @Botordini_bot",  // ← AGGIORNATO
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1451,7 +1455,7 @@
                 discountTxt: "Sconto Quantità",
                 orderSuccess: "✅ Ordine inviato con successo!",
                 orderSent: "✅ Il tuo ordine è stato inviato al nostro team! Ti contatteremo presto.",
-                copySuccess: "✅ Ordine copiato! Incollalo su @MiniMrshop20_bot",
+                copySuccess: "✅ Ordine copiato! Incollalo su @Botordini_bot",  // ← AGGIORNATO
                 contact: "Contatta",
                 newOrder: "🛒 Nuovo Ordine",
                 orderTitle: "📦 ORDINE MRSHOP20",
@@ -1462,13 +1466,13 @@
                 customerLabel: "CLIENTE",
                 giftLabel: "🎁 Regalo: Accendino+Cartine+Filtri",
                 pasteInstructions: "Ordine copiato negli appunti!",
-                openTelegramInstructions: "Apri Telegram e incolla questo messaggio a @MiniMrshop20_bot per completare l'ordine.",
-                openChatBtn: "Apri chat @MiniMrshop20_bot",
+                openTelegramInstructions: "Apri Telegram e incolla questo messaggio a @Botordini_bot per completare l'ordine.",  // ← AGGIORNATO
+                openChatBtn: "Apri chat @Botordini_bot",  // ← AGGIORNATO
                 manualCopyTitle: "Copia l'ordine manualmente",
-                manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @MiniMrshop20_bot:",
+                manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @Botordini_bot:",  // ← AGGIORNATO
                 orderPreview: "Anteprima Ordine:",
                 sendingOrder: "Invio ordine in corso...",
-                orderError: "❌ Errore nell'invio dell'ordine. Riprova o contatta @MiniMrshop20_bot",
+                orderError: "❌ Errore nell'invio dell'ordine. Riprova o contatta @Botordini_bot",  // ← AGGIORNATO
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1539,7 +1543,7 @@
                 discountTxt: "Remise quantité",
                 orderSuccess: "✅ Commande envoyée!",
                 orderSent: "✅ Votre commande a été envoyée à notre équipe! Nous vous contacterons bientôt.",
-                copySuccess: "✅ Commande copiée! Collez-la sur @MiniMrshop20_bot",
+                copySuccess: "✅ Commande copiée! Collez-la sur @Botordini_bot",  // ← AGGIORNATO
                 contact: "Contacter",
                 newOrder: "🛒 Nouvelle Commande",
                 orderTitle: "📦 COMMANDE MRSHOP20",
@@ -1550,13 +1554,13 @@
                 customerLabel: "CLIENT",
                 giftLabel: "🎁 Cadeau: Briquet+Papiers+Filtres",
                 pasteInstructions: "Commande copiée!",
-                openTelegramInstructions: "Ouvrez Telegram et collez ce message à @MiniMrshop20_bot.",
-                openChatBtn: "Ouvrir @MiniMrshop20_bot",
+                openTelegramInstructions: "Ouvrez Telegram et collez ce message à @Botordini_bot.",  // ← AGGIORNATO
+                openChatBtn: "Ouvrir @Botordini_bot",  // ← AGGIORNATO
                 manualCopyTitle: "Copiez la commande manuellement",
-                manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous:",
+                manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous:",  // ← AGGIORNATO
                 orderPreview: "Aperçu Commande:",
                 sendingOrder: "Envoi en cours...",
-                orderError: "❌ Erreur d'envoi. Réessayez ou contactez @MiniMrshop20_bot",
+                orderError: "❌ Erreur d'envoi. Réessayez ou contactez @Botordini_bot",  // ← AGGIORNATO
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1627,7 +1631,7 @@
                 discountTxt: "Mengenrabatt",
                 orderSuccess: "✅ Bestellung gesendet!",
                 orderSent: "✅ Ihre Bestellung wurde an unser Team gesendet! Wir werden Sie bald kontaktieren.",
-                copySuccess: "✅ Bestellung kopiert! Fügen Sie sie bei @MiniMrshop20_bot ein",
+                copySuccess: "✅ Bestellung kopiert! Fügen Sie sie bei @Botordini_bot ein",  // ← AGGIORNATO
                 contact: "Kontakt",
                 newOrder: "🛒 Neue Bestellung",
                 orderTitle: "📦 BESTELLUNG MRSHOP20",
@@ -1638,13 +1642,13 @@
                 customerLabel: "KUNDE",
                 giftLabel: "🎁 Geschenk: Feuerzeug+Blättchen+Filter",
                 pasteInstructions: "Bestellung kopiert!",
-                openTelegramInstructions: "Öffnen Sie Telegram und fügen Sie diese Nachricht bei @MiniMrshop20_bot ein.",
-                openChatBtn: "@MiniMrshop20_bot öffnen",
+                openTelegramInstructions: "Öffnen Sie Telegram und fügen Sie diese Nachricht bei @Botordini_bot ein.",  // ← AGGIORNATO
+                openChatBtn: "@Botordini_bot öffnen",  // ← AGGIORNATO
                 manualCopyTitle: "Bestellung manuell kopieren",
-                manualCopyInstructions: "Wählen und kopieren Sie den Text:",
+                manualCopyInstructions: "Wählen und kopieren Sie den Text:",  // ← AGGIORNATO
                 orderPreview: "Bestellvorschau:",
                 sendingOrder: "Sendung läuft...",
-                orderError: "❌ Sendefehler. Versuchen Sie es erneut oder kontaktieren Sie @MiniMrshop20_bot",
+                orderError: "❌ Sendefehler. Versuchen Sie es erneut oder kontaktieren Sie @Botordini_bot",  // ← AGGIORNATO
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1715,7 +1719,7 @@
                 discountTxt: "Скидка за количество",
                 orderSuccess: "✅ Заказ отправлен!",
                 orderSent: "✅ Ваш заказ отправлен нашей команде! Мы скоро свяжемся с вами.",
-                copySuccess: "✅ Заказ скопирован! Вставьте его @MiniMrshop20_bot",
+                copySuccess: "✅ Заказ скопирован! Вставьте его @Botordini_bot",  // ← AGGIORNATO
                 contact: "Связаться",
                 newOrder: "🛒 Новый Заказ",
                 orderTitle: "📦 ЗАКАЗ MRSHOP20",
@@ -1726,13 +1730,13 @@
                 customerLabel: "КЛИЕНТ",
                 giftLabel: "🎁 Подарок: Зажигалка+Бумага+Фильтры",
                 pasteInstructions: "Заказ скопирован в буфер обмена!",
-                openTelegramInstructions: "Откройте Telegram и вставьте это сообщение @MiniMrshop20_bot.",
-                openChatBtn: "Открыть @MiniMrshop20_bot",
+                openTelegramInstructions: "Откройте Telegram и вставьте это сообщение @Botordini_bot.",  // ← AGGIORNATO
+                openChatBtn: "Открыть @Botordini_bot",  // ← AGGIORNATO
                 manualCopyTitle: "Скопируйте заказ вручную",
-                manualCopyInstructions: "Выберите и скопируйте текст ниже:",
+                manualCopyInstructions: "Выберите и скопируйте текст ниже:",  // ← AGGIORNATO
                 orderPreview: "Предпросмотр заказа:",
                 sendingOrder: "Отправка заказа...",
-                orderError: "❌ Ошибка отправки. Повторите попытку или свяжитесь с @MiniMrshop20_bot",
+                orderError: "❌ Ошибка отправки. Повторите попытку или свяжитесь с @Botordini_bot",  // ← AGGIORNATO
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -2384,7 +2388,7 @@
                 },
                 extras: {
                     gift_applied: metrics.giftApplied,
-                    target_group: TARGET_GROUP
+                    target_group: TARGET_GROUP  // ID del gruppo dove il bot deve inoltrare l'ordine
                 },
                 timestamp: new Date().toISOString()
             };
@@ -2483,7 +2487,7 @@
                 successDiv.innerHTML = `
                     <h3>📋 ${dict.copySuccess}</h3>
                     <p style="margin: 15px 0; color: #ccc;">${dict.openTelegramInstructions}</p>
-                    <button class="new-order-btn" onclick="openMiniMrshop20Bot()" style="margin-top: 15px;">
+                    <button class="new-order-btn" onclick="openBotOrdini()" style="margin-top: 15px;">
                         📱 ${dict.openChatBtn}
                     </button>
                     <div class="order-preview" style="margin-top: 20px;">
@@ -2499,7 +2503,7 @@
                         <div class="order-preview-label">${dict.orderPreview}</div>
                         <pre>${orderText.replace(/</g, '&lt;')}</pre>
                     </div>
-                    <button class="new-order-btn" onclick="openMiniMrshop20Bot()" style="margin-top: 15px;">
+                    <button class="new-order-btn" onclick="openBotOrdini()" style="margin-top: 15px;">
                         📱 ${dict.openChatBtn}
                     </button>
                 `;
@@ -2513,7 +2517,7 @@
             
             // Apri automaticamente il bot dopo 1.5 secondi
             setTimeout(() => {
-                openMiniMrshop20Bot();
+                openBotOrdini();
             }, 1500);
         }
 
@@ -2545,13 +2549,19 @@
             }
         }
 
-        function openMiniMrshop20Bot() {
+        // Funzione aggiornata per aprire @Botordini_bot
+        function openBotOrdini() {
             const url = `https://t.me/${BOT_USERNAME}`;
             if (tg && tg.openTelegramLink) {
                 tg.openTelegramLink(url);
             } else {
                 window.open(url, '_blank');
             }
+        }
+
+        // Mantengo la funzione originale per compatibilità
+        function openMiniMrshop20Bot() {
+            openBotOrdini();
         }
 
         function showOrderSuccess(dict) {
