@@ -1288,20 +1288,22 @@
             tg.setBackgroundColor('#0b0b0e');
         }
 
-        // Config - MODIFICATO PER @Botordini_bot
+        // CONFIGURAZIONE - MODIFICA QUI
         const STORAGE_KEY = 'mrshop20_cart_v1';
-        const BOT_USERNAME = 'Botordini_bot';  // ← BOT AGGIORNATO
-        
-        // IMPORTANTE: Sostituisci con il Chat ID reale del gruppo https://t.me/+ZhY_600WVPIxZWY8
-        // Il formato è tipicamente -100xxxxxxxxxx (deve iniziare con -100 per supergruppi)
-        // Per ottenerlo: aggiungi @userinfobot al gruppo o controlla i log del bot
-        const TARGET_GROUP = '-5354914831';  // ← SOSTITUISCI CON IL CHAT ID REALE DEL GRUPPO
+        const BOT_TOKEN = 'INSERISCI_QUI_IL_TOKEN_DEL_BOT';  // ← TOKEN @Botordini_bot
+        const TARGET_GROUP = '-5354914831';  // ← ID Gruppo
+        const BOT_USERNAME = 'Botordini_bot';
         
         let cart = {};
         let currentLang = 'en';
         let currentSelectedPayment = 'crypto';
         let activeCategoryFilter = 'all';
         let activeCurrency = 'EUR';
+
+        // Verifica configurazione
+        if (BOT_TOKEN === 'INSERISCI_QUI_IL_TOKEN_DEL_BOT') {
+            console.error('⚠️ ERRORE: Devi inserire il TOKEN del bot nel codice!');
+        }
 
         // Currency Config
         const currencyConfig = {
@@ -1312,7 +1314,7 @@
             RUB: { symbol: '₽', rate: 98.2 }
         };
 
-        // Translations - AGGIORNATO CON NUOVO BOT
+        // Translations
         const i18n = {
             en: {
                 all: "All Strains",
@@ -1367,7 +1369,7 @@
                 discountTxt: "Quantity Discount",
                 orderSuccess: "✅ Order sent successfully!",
                 orderSent: "✅ Your order has been sent to our team! We will contact you soon.",
-                copySuccess: "✅ Order copied! Paste it to @Botordini_bot",  // ← AGGIORNATO
+                copySuccess: "✅ Order copied! Paste it to @Botordini_bot",
                 contact: "Contact",
                 newOrder: "🛒 New Order",
                 orderTitle: "📦 ORDER MRSHOP20",
@@ -1378,13 +1380,13 @@
                 customerLabel: "CUSTOMER",
                 giftLabel: "🎁 Gift: Lighter + Papers + Filters",
                 pasteInstructions: "Order copied to clipboard!",
-                openTelegramInstructions: "Open Telegram and paste this message to @Botordini_bot to complete your order.",  // ← AGGIORNATO
-                openChatBtn: "Open @Botordini_bot Chat",  // ← AGGIORNATO
+                openTelegramInstructions: "Open Telegram and paste this message to @Botordini_bot to complete your order.",
+                openChatBtn: "Open @Botordini_bot Chat",
                 manualCopyTitle: "Copy the order manually",
-                manualCopyInstructions: "Select and copy the text below, then send it to @Botordini_bot:",  // ← AGGIORNATO
+                manualCopyInstructions: "Select and copy the text below, then send it to @Botordini_bot:",
                 orderPreview: "Order Preview:",
                 sendingOrder: "Sending order...",
-                orderError: "❌ Error sending order. Please try again or contact @Botordini_bot",  // ← AGGIORNATO
+                orderError: "❌ Error sending order. Please try again or contact @Botordini_bot",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1455,7 +1457,7 @@
                 discountTxt: "Sconto Quantità",
                 orderSuccess: "✅ Ordine inviato con successo!",
                 orderSent: "✅ Il tuo ordine è stato inviato al nostro team! Ti contatteremo presto.",
-                copySuccess: "✅ Ordine copiato! Incollalo su @Botordini_bot",  // ← AGGIORNATO
+                copySuccess: "✅ Ordine copiato! Incollalo su @Botordini_bot",
                 contact: "Contatta",
                 newOrder: "🛒 Nuovo Ordine",
                 orderTitle: "📦 ORDINE MRSHOP20",
@@ -1466,13 +1468,13 @@
                 customerLabel: "CLIENTE",
                 giftLabel: "🎁 Regalo: Accendino+Cartine+Filtri",
                 pasteInstructions: "Ordine copiato negli appunti!",
-                openTelegramInstructions: "Apri Telegram e incolla questo messaggio a @Botordini_bot per completare l'ordine.",  // ← AGGIORNATO
-                openChatBtn: "Apri chat @Botordini_bot",  // ← AGGIORNATO
+                openTelegramInstructions: "Apri Telegram e incolla questo messaggio a @Botordini_bot per completare l'ordine.",
+                openChatBtn: "Apri chat @Botordini_bot",
                 manualCopyTitle: "Copia l'ordine manualmente",
-                manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @Botordini_bot:",  // ← AGGIORNATO
+                manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @Botordini_bot:",
                 orderPreview: "Anteprima Ordine:",
                 sendingOrder: "Invio ordine in corso...",
-                orderError: "❌ Errore nell'invio dell'ordine. Riprova o contatta @Botordini_bot",  // ← AGGIORNATO
+                orderError: "❌ Errore nell'invio dell'ordine. Riprova o contatta @Botordini_bot",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1543,7 +1545,7 @@
                 discountTxt: "Remise quantité",
                 orderSuccess: "✅ Commande envoyée!",
                 orderSent: "✅ Votre commande a été envoyée à notre équipe! Nous vous contacterons bientôt.",
-                copySuccess: "✅ Commande copiée! Collez-la sur @Botordini_bot",  // ← AGGIORNATO
+                copySuccess: "✅ Commande copiée! Collez-la sur @Botordini_bot",
                 contact: "Contacter",
                 newOrder: "🛒 Nouvelle Commande",
                 orderTitle: "📦 COMMANDE MRSHOP20",
@@ -1554,13 +1556,13 @@
                 customerLabel: "CLIENT",
                 giftLabel: "🎁 Cadeau: Briquet+Papiers+Filtres",
                 pasteInstructions: "Commande copiée!",
-                openTelegramInstructions: "Ouvrez Telegram et collez ce message à @Botordini_bot.",  // ← AGGIORNATO
-                openChatBtn: "Ouvrir @Botordini_bot",  // ← AGGIORNATO
+                openTelegramInstructions: "Ouvrez Telegram et collez ce message à @Botordini_bot.",
+                openChatBtn: "Ouvrir @Botordini_bot",
                 manualCopyTitle: "Copiez la commande manuellement",
-                manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous:",  // ← AGGIORNATO
+                manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous:",
                 orderPreview: "Aperçu Commande:",
                 sendingOrder: "Envoi en cours...",
-                orderError: "❌ Erreur d'envoi. Réessayez ou contactez @Botordini_bot",  // ← AGGIORNATO
+                orderError: "❌ Erreur d'envoi. Réessayez ou contactez @Botordini_bot",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1631,7 +1633,7 @@
                 discountTxt: "Mengenrabatt",
                 orderSuccess: "✅ Bestellung gesendet!",
                 orderSent: "✅ Ihre Bestellung wurde an unser Team gesendet! Wir werden Sie bald kontaktieren.",
-                copySuccess: "✅ Bestellung kopiert! Fügen Sie sie bei @Botordini_bot ein",  // ← AGGIORNATO
+                copySuccess: "✅ Bestellung kopiert! Fügen Sie sie bei @Botordini_bot ein",
                 contact: "Kontakt",
                 newOrder: "🛒 Neue Bestellung",
                 orderTitle: "📦 BESTELLUNG MRSHOP20",
@@ -1642,13 +1644,13 @@
                 customerLabel: "KUNDE",
                 giftLabel: "🎁 Geschenk: Feuerzeug+Blättchen+Filter",
                 pasteInstructions: "Bestellung kopiert!",
-                openTelegramInstructions: "Öffnen Sie Telegram und fügen Sie diese Nachricht bei @Botordini_bot ein.",  // ← AGGIORNATO
-                openChatBtn: "@Botordini_bot öffnen",  // ← AGGIORNATO
+                openTelegramInstructions: "Öffnen Sie Telegram und fügen Sie diese Nachricht bei @Botordini_bot ein.",
+                openChatBtn: "@Botordini_bot öffnen",
                 manualCopyTitle: "Bestellung manuell kopieren",
-                manualCopyInstructions: "Wählen und kopieren Sie den Text:",  // ← AGGIORNATO
+                manualCopyInstructions: "Wählen und kopieren Sie den Text:",
                 orderPreview: "Bestellvorschau:",
                 sendingOrder: "Sendung läuft...",
-                orderError: "❌ Sendefehler. Versuchen Sie es erneut oder kontaktieren Sie @Botordini_bot",  // ← AGGIORNATO
+                orderError: "❌ Sendefehler. Versuchen Sie es erneut oder kontaktieren Sie @Botordini_bot",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1719,7 +1721,7 @@
                 discountTxt: "Скидка за количество",
                 orderSuccess: "✅ Заказ отправлен!",
                 orderSent: "✅ Ваш заказ отправлен нашей команде! Мы скоро свяжемся с вами.",
-                copySuccess: "✅ Заказ скопирован! Вставьте его @Botordini_bot",  // ← AGGIORNATO
+                copySuccess: "✅ Заказ скопирован! Вставьте его @Botordini_bot",
                 contact: "Связаться",
                 newOrder: "🛒 Новый Заказ",
                 orderTitle: "📦 ЗАКАЗ MRSHOP20",
@@ -1730,13 +1732,13 @@
                 customerLabel: "КЛИЕНТ",
                 giftLabel: "🎁 Подарок: Зажигалка+Бумага+Фильтры",
                 pasteInstructions: "Заказ скопирован в буфер обмена!",
-                openTelegramInstructions: "Откройте Telegram и вставьте это сообщение @Botordini_bot.",  // ← AGGIORNATO
-                openChatBtn: "Открыть @Botordini_bot",  // ← AGGIORNATO
+                openTelegramInstructions: "Откройте Telegram и вставьте это сообщение @Botordini_bot.",
+                openChatBtn: "Открыть @Botordini_bot",
                 manualCopyTitle: "Скопируйте заказ вручную",
-                manualCopyInstructions: "Выберите и скопируйте текст ниже:",  // ← AGGIORNATO
+                manualCopyInstructions: "Выберите и скопируйте текст ниже:",
                 orderPreview: "Предпросмотр заказа:",
                 sendingOrder: "Отправка заказа...",
-                orderError: "❌ Ошибка отправки. Повторите попытку или свяжитесь с @Botordini_bot",  // ← AGGIORNATO
+                orderError: "❌ Ошибка отправки. Повторите попытку или свяжитесь с @Botordini_bot",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1878,7 +1880,6 @@
             const dict = i18n[lang];
             if (!dict) return;
 
-            // Update all text elements
             const elements = {
                 'txt-header-sub': dict.sub,
                 'txt-promo': dict.promo,
@@ -1935,7 +1936,6 @@
                 }
             }
 
-            // Update delivery status if visible
             const statusBox = document.getElementById('inlineDeliveryStatus');
             if (statusBox && statusBox.style.display === 'block') {
                 if (statusBox.innerHTML.includes('❌')) {
@@ -1979,7 +1979,6 @@
             const dict = i18n[currentLang];
             if (!dict || !dict.cats) return;
 
-            // All button
             const allCard = document.createElement('div');
             allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
             allCard.innerText = dict.all;
@@ -1990,7 +1989,6 @@
             };
             container.appendChild(allCard);
 
-            // Category buttons
             Object.keys(dict.cats).forEach(key => {
                 const card = document.createElement('div');
                 card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
@@ -2019,7 +2017,6 @@
             saveCartToStorage();
             updateCartUI();
 
-            // Update display
             const display = document.getElementById(`gram-display-${productId}`);
             const input = document.getElementById(`qty-input-${productId}`);
             const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
@@ -2027,7 +2024,6 @@
             if (display) display.innerText = `${qty}${unitLabel}`;
             if (input) input.value = qty;
 
-            // Update quick buttons
             document.querySelectorAll(`#gram-quick-${productId} .gram-quick-btn`).forEach(btn => {
                 btn.classList.remove('active');
                 if (parseInt(btn.dataset.qty) === qty) {
@@ -2113,12 +2109,11 @@
                 }
             });
 
-            // Calculate discount
             let discountEur = 0;
             let discountReason = '';
             
             if (totalWeedGrams >= 10) {
-                discountEur = totalWeedGrams * 3; // 3€ off per 10g+
+                discountEur = totalWeedGrams * 3;
                 discountReason = `${totalWeedGrams}g Weed (-3€/g)`;
             } else if (baseProductsTotalEur >= 150) {
                 discountEur = baseProductsTotalEur * 0.10;
@@ -2173,7 +2168,6 @@
             formBlock.style.display = 'block';
             let html = '';
 
-            // Cart items
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
@@ -2197,7 +2191,6 @@
 
             const metrics = calculateCartMetrics();
 
-            // Discount row
             if (metrics.discountEur > 0) {
                 html += `
                     <div class="discount-row">
@@ -2206,7 +2199,6 @@
                     </div>`;
             }
 
-            // Shipping row
             html += `
                 <div class="shipping-row">
                     <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
@@ -2215,7 +2207,6 @@
                     </div>
                 </div>`;
 
-            // Gift row
             if (metrics.giftApplied) {
                 html += `
                     <div class="gift-row">
@@ -2224,12 +2215,10 @@
                     </div>`;
             }
 
-            // Min order error
             if (metrics.finalProductsTotalEur < 30) {
                 html += `<div class="error-message show" style="display: block; margin-top: 15px;">⚠️ ${dict.minOrderErr}</div>`;
             }
 
-            // Total
             html += `
                 <div class="total-row">
                     ${dict.totEff}: <span>${getConvertedPriceStr(metrics.finalTotalEur)}</span>
@@ -2250,20 +2239,17 @@
         }
 
         function switchTab(tabId) {
-            // Hide success/error messages
             const successMsg = document.getElementById('orderSuccessMsg');
             const errorMsg = document.getElementById('errorMsg');
             if (successMsg) successMsg.style.display = 'none';
             if (errorMsg) errorMsg.classList.remove('show');
 
-            // Switch views
             document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
 
             document.getElementById(`view-${tabId}`).classList.add('active');
             document.getElementById(`tab-btn-${tabId}`).classList.add('active');
 
-            // Refresh content
             if (tabId === 'chat') renderCartPage();
             else if (tabId === 'menu') renderProducts(activeCategoryFilter);
             else if (tabId === 'reviews') renderReviews(i18n[currentLang]);
@@ -2271,7 +2257,6 @@
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
         }
 
-        // Delivery check
         function checkInlineDelivery() {
             const cityInput = document.getElementById('inlineGateCity').value.trim();
             const dict = i18n[currentLang];
@@ -2300,7 +2285,6 @@
             }
         }
 
-        // Time select handler
         document.getElementById('select-time').addEventListener('change', function() {
             const specInput = document.getElementById('input-time-spec');
             const dict = i18n[currentLang];
@@ -2309,12 +2293,87 @@
             if (isSpecific) specInput.placeholder = dict.p_spec;
         });
 
-        // Process Order - INVIA AL BOT TELEGRAM
+        // NUOVA FUNZIONE: Invia direttamente al gruppo via API Telegram
+        async function sendOrderToGroupDirect(orderPayload) {
+            // Costruisci il messaggio HTML
+            let message = `🆕 <b>NUOVO ORDINE MRSHOP20</b>\n`;
+            message += `═══════════════════════\n\n`;
+            
+            const user = orderPayload.user;
+            message += `👤 <b>Cliente:</b> ${user.first_name || ''} ${user.last_name || ''}\n`;
+            if (user.username) message += `📱 <b>Username:</b> @${user.username}\n`;
+            if (user.id) message += `🆔 <b>User ID:</b> <code>${user.id}</code>\n`;
+            message += `🌍 <b>Lingua:</b> ${user.language?.toUpperCase() || 'IT'}\n\n`;
+            
+            message += `📦 <b>PRODOTTI:</b>\n`;
+            orderPayload.items.forEach(item => {
+                message += `• ${item.name}: <b>${item.quantity}${item.unit}</b> = €${item.total_eur.toFixed(2)}\n`;
+            });
+            
+            if (orderPayload.extras.gift_applied) {
+                message += `• 🎁 <b>REGALO:</b> Accendino + Cartine + Filtri\n`;
+            }
+            
+            message += `\n💰 <b>TOTALE:</b> ${orderPayload.pricing.total_converted}\n`;
+            
+            if (orderPayload.pricing.discount_eur > 0) {
+                message += `🏷 <b>Sconto:</b> -€${orderPayload.pricing.discount_eur.toFixed(2)}\n`;
+            }
+            
+            const shipping = orderPayload.pricing.shipping_eur === 0 ? 'GRATIS' : `€${orderPayload.pricing.shipping_eur.toFixed(2)}`;
+            message += `🚚 <b>Spedizione:</b> ${shipping}\n`;
+            message += `💳 <b>Pagamento:</b> ${orderPayload.payment.method.toUpperCase()}\n\n`;
+            
+            const del = orderPayload.delivery;
+            message += `📍 <b>CONSEGNA:</b>\n`;
+            message += `• Città: ${del.city}\n`;
+            message += `• Indirizzo: ${del.address}\n`;
+            message += `• CAP: ${del.zip}\n`;
+            message += `• Orario: ${del.time}\n\n`;
+            
+            message += `🆔 <b>Order ID:</b> <code>${orderPayload.order_id}</code>\n`;
+            message += `⏰ <b>Data:</b> ${new Date().toLocaleString('it-IT')}`;
+
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TARGET_GROUP,
+                        text: message,
+                        parse_mode: 'HTML',
+                        disable_web_page_preview: true
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.ok) {
+                    console.log('✅ Ordine inviato al gruppo, message_id:', data.result.message_id);
+                    return true;
+                } else {
+                    console.error('❌ Errore API Telegram:', data.description);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Errore di rete:', error);
+                return false;
+            }
+        }
+
+        // Process Order - MODIFICATA per inviare direttamente al gruppo
         async function processOrderSend() {
             const metrics = calculateCartMetrics();
             const dict = i18n[currentLang];
 
-            // Validation
+            // Verifica token configurato
+            if (BOT_TOKEN === 'INSERISCI_QUI_IL_TOKEN_DEL_BOT') {
+                showError("⚠️ Configurazione incompleta: inserisci il TOKEN del bot nel codice!");
+                return;
+            }
+
             if (metrics.finalProductsTotalEur < 30) {
                 showError(dict.minOrderErr);
                 return;
@@ -2337,13 +2396,14 @@
                 return;
             }
 
-            // Get user info from Telegram
+            const sendingOverlay = document.getElementById('sendingOverlay');
+            sendingOverlay.classList.add('show');
+
             const userId = tg?.initDataUnsafe?.user?.id || '';
             const username = tg?.initDataUnsafe?.user?.username || '';
             const firstName = tg?.initDataUnsafe?.user?.first_name || '';
             const lastName = tg?.initDataUnsafe?.user?.last_name || '';
 
-            // Build order items
             const orderItems = Object.keys(cart).map(id => {
                 const p = productsData.find(prod => prod.id === id);
                 return {
@@ -2356,7 +2416,6 @@
                 };
             });
 
-            // Build complete order payload
             const orderPayload = {
                 type: "new_order",
                 order_id: `ORD_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -2387,181 +2446,22 @@
                     total_converted: getConvertedPriceStr(metrics.finalTotalEur)
                 },
                 extras: {
-                    gift_applied: metrics.giftApplied,
-                    target_group: TARGET_GROUP  // ID del gruppo dove il bot deve inoltrare l'ordine
+                    gift_applied: metrics.giftApplied
                 },
                 timestamp: new Date().toISOString()
             };
 
-            // Mostra overlay di caricamento
-            const sendingOverlay = document.getElementById('sendingOverlay');
-            sendingOverlay.classList.add('show');
-
-            // Verifica se possiamo usare sendData (WebApp aperto dal bot)
-            if (tg && tg.sendData) {
-                try {
-                    // Prepara il testo formattato per il bot (come backup visivo)
-                    const formattedText = formatOrderText(dict, metrics, citta, indirizzo, cap, orario, userId, username, firstName, lastName);
-                    
-                    // Invia dati al bot tramite Telegram WebApp
-                    // Questo chiuderà il WebApp e invierà i dati al bot
-                    tg.sendData(JSON.stringify({
-                        ...orderPayload,
-                        formatted_text: formattedText
-                    }));
-                    
-                    // Se siamo ancora qui (sendData non ha chiuso), mostra successo
-                    sendingOverlay.classList.remove('show');
-                    showOrderSuccess(dict);
-                    
-                } catch (err) {
-                    console.error('sendData failed:', err);
-                    sendingOverlay.classList.remove('show');
-                    // Fallback al metodo manuale
-                    await manualOrderFallback(dict, metrics, citta, indirizzo, cap, orario, userId, username, firstName, lastName);
-                }
+            // INVIA DIRETTAMENTE AL GRUPPO
+            const success = await sendOrderToGroupDirect(orderPayload);
+            
+            sendingOverlay.classList.remove('show');
+            
+            if (success) {
+                showOrderSuccess(dict);
+                clearCart();
             } else {
-                // Fallback: WebApp non aperto dal bot
-                sendingOverlay.classList.remove('show');
-                await manualOrderFallback(dict, metrics, citta, indirizzo, cap, orario, userId, username, firstName, lastName);
+                showError(dict.orderError);
             }
-        }
-
-        function formatOrderText(dict, metrics, citta, indirizzo, cap, orario, userId, username, firstName, lastName) {
-            let msg = `${dict.orderTitle}\n`;
-            msg += `═══════════════════════\n\n`;
-
-            // Products
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                const itemTotal = p.price * cart[id];
-                msg += `• ${p.name}: ${cart[id]}${unitLabel} = ${getConvertedPriceStr(itemTotal)}\n`;
-            });
-
-            if (metrics.giftApplied) {
-                msg += `• ${dict.giftLabel} = ${dict.free}\n`;
-            }
-
-            msg += `\n`;
-
-            // Pricing
-            msg += `💰 ${dict.totalLabel}: ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
-            if (metrics.discountEur > 0) {
-                msg += `🏷️ ${dict.discountLabel}: -${getConvertedPriceStr(metrics.discountEur)}\n`;
-            }
-            if (metrics.shippingFeeEur > 0) {
-                msg += `🚚 ${dict.shippingCostText}: ${getConvertedPriceStr(metrics.shippingFeeEur)}\n`;
-            } else {
-                msg += `🚚 ${dict.shippingCostText}: ${dict.free}\n`;
-            }
-            msg += `💳 ${dict.paymentLabel}: ${currentSelectedPayment.toUpperCase()}\n\n`;
-
-            // Delivery
-            msg += `📍 ${dict.deliveryLabel}:\n`;
-            msg += `   ${dict.city}: ${citta}\n`;
-            msg += `   ${dict.address}: ${indirizzo}\n`;
-            msg += `   ${dict.cap}: ${cap}\n`;
-            msg += `   ${dict.time}: ${orario}\n\n`;
-
-            // Customer
-            msg += `👤 ${dict.customerLabel}:`;
-            if (username) msg += ` @${username}`;
-            if (firstName) msg += ` ${firstName}`;
-            if (lastName) msg += ` ${lastName}`;
-            if (!username && !firstName) msg += ` Guest`;
-            msg += `\n`;
-            if (userId) msg += `   ID: ${userId}`;
-
-            return msg;
-        }
-
-        async function manualOrderFallback(dict, metrics, citta, indirizzo, cap, orario, userId, username, firstName, lastName) {
-            const orderText = formatOrderText(dict, metrics, citta, indirizzo, cap, orario, userId, username, firstName, lastName);
-            const copied = await copyToClipboard(orderText);
-            
-            const successDiv = document.getElementById('orderSuccessMsg');
-            
-            if (copied) {
-                successDiv.innerHTML = `
-                    <h3>📋 ${dict.copySuccess}</h3>
-                    <p style="margin: 15px 0; color: #ccc;">${dict.openTelegramInstructions}</p>
-                    <button class="new-order-btn" onclick="openBotOrdini()" style="margin-top: 15px;">
-                        📱 ${dict.openChatBtn}
-                    </button>
-                    <div class="order-preview" style="margin-top: 20px;">
-                        <div class="order-preview-label">${dict.orderPreview}</div>
-                        <pre>${orderText.replace(/</g, '&lt;')}</pre>
-                    </div>
-                `;
-            } else {
-                successDiv.innerHTML = `
-                    <h3>⚠️ ${dict.orderError}</h3>
-                    <p style="margin: 15px 0; color: #ccc;">${dict.manualCopyInstructions}</p>
-                    <div class="order-preview">
-                        <div class="order-preview-label">${dict.orderPreview}</div>
-                        <pre>${orderText.replace(/</g, '&lt;')}</pre>
-                    </div>
-                    <button class="new-order-btn" onclick="openBotOrdini()" style="margin-top: 15px;">
-                        📱 ${dict.openChatBtn}
-                    </button>
-                `;
-            }
-            
-            successDiv.style.display = 'block';
-            
-            if (copied) {
-                showToast(dict.copySuccess);
-            }
-            
-            // Apri automaticamente il bot dopo 1.5 secondi
-            setTimeout(() => {
-                openBotOrdini();
-            }, 1500);
-        }
-
-        async function copyToClipboard(text) {
-            try {
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    await navigator.clipboard.writeText(text);
-                    return true;
-                }
-            } catch (err) {
-                console.error('Clipboard API failed:', err);
-            }
-            
-            // Fallback
-            try {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-9999px";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                const successful = document.execCommand('copy');
-                document.body.removeChild(textArea);
-                return successful;
-            } catch (err) {
-                console.error('Fallback copy failed:', err);
-                return false;
-            }
-        }
-
-        // Funzione aggiornata per aprire @Botordini_bot
-        function openBotOrdini() {
-            const url = `https://t.me/${BOT_USERNAME}`;
-            if (tg && tg.openTelegramLink) {
-                tg.openTelegramLink(url);
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-
-        // Mantengo la funzione originale per compatibilità
-        function openMiniMrshop20Bot() {
-            openBotOrdini();
         }
 
         function showOrderSuccess(dict) {
@@ -2584,7 +2484,6 @@
             successDiv.style.display = 'block';
             showToast(dict.orderSuccess);
             
-            clearCart();
             successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
@@ -2606,7 +2505,6 @@
             showToast(dict.newOrder || 'New Order');
         }
 
-        // Prevent double tap zoom
         let lastTouchEnd = 0;
         document.addEventListener('touchend', (e) => {
             const now = Date.now();
