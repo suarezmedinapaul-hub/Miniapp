@@ -1019,9 +1019,218 @@
             font-size: 18px;
             font-weight: bold;
         }
+
+        /* CARD PAYMENT GATEWAY STYLES */
+        .card-gateway-form {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #3a3a55;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .card-gateway-form.active {
+            display: block;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-brands {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-brand-icon {
+            width: 50px;
+            height: 32px;
+            background: #fff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .card-brand-icon.visa {
+            background: linear-gradient(135deg, #1a1f71 0%, #ffffff 100%);
+            color: #1a1f71;
+            border: 1px solid #1a1f71;
+        }
+
+        .card-brand-icon.mastercard {
+            background: linear-gradient(135deg, #eb001b 0%, #f79e1b 100%);
+            color: #fff;
+            border: 1px solid #eb001b;
+        }
+
+        .card-input-group {
+            margin-bottom: 15px;
+        }
+
+        .card-input-group label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-hint);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .card-input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid #444;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+
+        .card-input:focus {
+            border-color: #00d4aa;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.15);
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .card-security-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(0, 212, 170, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 170, 0.2);
+        }
+
+        .card-security-info span {
+            font-size: 12px;
+            color: var(--text-hint);
+            line-height: 1.4;
+        }
+
+        .card-pay-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 16px;
+            background: linear-gradient(135deg, #00d4aa 0%, #00a884 100%);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 170, 0.3);
+        }
+
+        .card-pay-btn:active {
+            transform: translateY(0);
+        }
+
+        .card-pay-btn:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 11px;
+            color: var(--text-hint);
+        }
+
+        .card-processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100003;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card-processing-overlay.show {
+            display: flex;
+        }
+
+        .card-processing-spinner {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(0, 212, 170, 0.2);
+            border-top-color: #00d4aa;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .card-processing-text {
+            color: #00d4aa;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-processing-subtext {
+            color: var(--text-hint);
+            font-size: 14px;
+            text-align: center;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .card-input.visa-detected { border-color: #1a1f71; }
+        .card-input.mastercard-detected { border-color: #eb001b; }
     </style>
 </head>
 <body>
+
+    <!-- Card Processing Overlay -->
+    <div class="card-processing-overlay" id="cardProcessingOverlay">
+        <div class="card-processing-spinner"></div>
+        <div class="card-processing-text" id="cardProcessingText">Processing Payment...</div>
+        <div class="card-processing-subtext" id="cardProcessingSub">Please do not close this window. You will be redirected to 3D Secure verification.</div>
+    </div>
 
     <!-- Sending Overlay -->
     <div class="sending-overlay" id="sendingOverlay">
@@ -1146,6 +1355,90 @@
                     </div>
                 </div>
                 <span class="pay-badge badge-crypto">CRYPTO</span>
+            </div>
+
+            <!-- VISA/MASTERCARD PAYMENT OPTION -->
+            <div class="pay-option" id="pay-opt-card" onclick="setPaymentMethod('card')">
+                <div class="pay-option-content">
+                    <div class="pay-logo" style="background: linear-gradient(135deg, #1a1f71, #eb001b); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px; padding: 2px;">
+                        <span style="color: white; font-size: 9px; font-weight: bold; letter-spacing: 1px;">VISA</span>
+                        <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.3);"></div>
+                        <span style="color: white; font-size: 8px; font-weight: bold;">MC</span>
+                    </div>
+                    <div>
+                        <strong style="display:block; font-size: 15px;">Credit / Debit Card</strong>
+                        <small id="txt-card-sub" style="color: var(--text-hint); font-size: 12px;">Secure payment with 3D Secure</small>
+                    </div>
+                </div>
+                <span class="pay-badge badge-card">CARD</span>
+            </div>
+
+            <!-- CARD PAYMENT GATEWAY FORM -->
+            <div class="card-gateway-form" id="cardGatewayForm">
+                <div class="card-header">
+                    <div class="card-brands">
+                        <div class="card-brand-icon visa">VISA</div>
+                        <div class="card-brand-icon mastercard">MC</div>
+                    </div>
+                    <div style="flex: 1; text-align: right;">
+                        <small style="color: var(--text-hint); font-size: 11px;">Secure SSL Encryption</small>
+                    </div>
+                </div>
+                
+                <div class="card-input-group">
+                    <label id="lbl-card-number">CARD NUMBER</label>
+                    <input type="text" 
+                           class="card-input" 
+                           id="cardNumber" 
+                           placeholder="0000 0000 0000 0000"
+                           maxlength="19"
+                           oninput="formatCardNumber(this)">
+                </div>
+                
+                <div class="card-row">
+                    <div class="card-input-group">
+                        <label id="lbl-card-expiry">EXPIRY DATE</label>
+                        <input type="text" 
+                               class="card-input" 
+                               id="cardExpiry" 
+                               placeholder="MM/YY"
+                               maxlength="5"
+                               oninput="formatExpiry(this)">
+                    </div>
+                    <div class="card-input-group">
+                        <label id="lbl-card-cvc">CVC / CVV</label>
+                        <input type="text" 
+                               class="card-input" 
+                               id="cardCVC" 
+                               placeholder="123"
+                               maxlength="4"
+                               oninput="validateCVC(this)">
+                    </div>
+                </div>
+                
+                <div class="card-input-group">
+                    <label id="lbl-card-name">CARDHOLDER NAME</label>
+                    <input type="text" 
+                           class="card-input" 
+                           id="cardName" 
+                           placeholder="JOHN DOE"
+                           style="font-family: inherit; letter-spacing: 1px; text-transform: uppercase;">
+                </div>
+                
+                <div class="card-security-info">
+                    <span>🔒</span>
+                    <span id="txt-card-secure">Your card data is encrypted and secure. We never store your full card details.</span>
+                </div>
+                
+                <button class="card-pay-btn" id="cardPayBtn" onclick="processCardPayment()">
+                    <span id="txt-pay-now">PAY NOW</span>
+                    <span id="cardPayAmount">€0.00</span>
+                </button>
+                
+                <div class="secure-badge">
+                    <span>🔒</span>
+                    <span id="txt-ssl-badge">SSL Secure Connection • PCI DSS Compliant</span>
+                </div>
             </div>
 
             <div class="pay-option" id="pay-opt-moonpay" onclick="setPaymentMethod('moonpay')">
@@ -1340,12 +1633,25 @@
                 p_spec: "e.g. Between 14:00 and 16:00",
                 delDetails: "📍 Delivery Details",
                 cryptoSub: "Receive direct payment address in chat",
-                cardSub: "We will guide you to buy Bitcoin instantly with card",
-                ppSub: "Not always available. Ask in chat for approval",
+                cardSub: "Secure payment with 3D Secure",
+                cardNumber: "CARD NUMBER",
+                cardExpiry: "EXPIRY DATE",
+                cardCVC: "CVC / CVV",
+                cardName: "CARDHOLDER NAME",
+                cardSecure: "Your card data is encrypted and secure. We never store your full card details.",
+                cardPayNow: "PAY NOW",
+                sslBadge: "SSL Secure Connection • PCI DSS Compliant",
+                cardProcessing: "Processing Payment...",
+                cardWait: "Please do not close this window. You will be redirected to 3D Secure verification.",
+                cardError: "❌ Invalid card data. Please check and try again.",
+                cardSuccess: "✅ Payment authorized! Order confirmed.",
+                cardDeclined: "❌ Card declined. Please try another card or payment method.",
+                moonpaySub: "We will guide you to buy Bitcoin instantly with card",
+                paypalSub: "Not always available. Ask in chat for approval",
                 reqAvail: "REQUEST",
-                revSub: "Pay instantly with your Revolut crypto wallet",
-                bitSub: "Send from your Bitpanda brokerage account",
-                binSub: "Transfer from your Binance wallet via P2P or direct",
+                revolutSub: "Pay instantly with your Revolut crypto wallet",
+                bitpandaSub: "Send from your Bitpanda brokerage account",
+                binanceSub: "Transfer from your Binance wallet via P2P or direct",
                 infT0: "⚠️ NO CASH ACCEPTED",
                 infD0: "We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, and they arrive randomly to pick up your package and securely deliver it near your coordinates.\n\nWhen the rider reaches the spot, they will contact you directly to guide you to the precise hideout (e.g., behind a pillar, under a car wheel, or a specific discrete point). This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider.\n\nDo not insist on cash payments. We make absolutely zero exceptions. No upfront payment, no order.",
                 infT1: "📦 Delivery Process & Wholesale",
@@ -1428,12 +1734,25 @@
                 p_spec: "Es: Tra le 14:00 e le 16:00",
                 delDetails: "📍 Dati Consegna",
                 cryptoSub: "Ricevi l'indirizzo di pagamento in chat",
-                cardSub: "Ti guideremo su MoonPay per acquistare Bitcoin",
-                ppSub: "Non sempre disponibile. Chiedi in chat",
+                cardSub: "Pagamento sicuro con 3D Secure",
+                cardNumber: "NUMERO CARTA",
+                cardExpiry: "DATA SCADENZA",
+                cardCVC: "CVC / CVV",
+                cardName: "TITOLARE CARTA",
+                cardSecure: "I dati della carta sono crittografati e sicuri. Non memorizziamo i dati completi.",
+                cardPayNow: "PAGA ORA",
+                sslBadge: "Connessione SSL Sicura • PCI DSS Compliant",
+                cardProcessing: "Elaborazione Pagamento...",
+                cardWait: "Non chiudere questa finestra. Verrai reindirizzato alla verifica 3D Secure.",
+                cardError: "❌ Dati carta non validi. Controlla e riprova.",
+                cardSuccess: "✅ Pagamento autorizzato! Ordine confermato.",
+                cardDeclined: "❌ Carta rifiutata. Prova con un'altra carta o metodo di pagamento.",
+                moonpaySub: "Ti guideremo su MoonPay per acquistare Bitcoin",
+                paypalSub: "Non sempre disponibile. Chiedi in chat",
                 reqAvail: "RICHIESTA",
-                revSub: "Paga istantaneamente con il tuo wallet Revolut",
-                bitSub: "Invia dal tuo conto Bitpanda",
-                binSub: "Trasferisci dal tuo wallet Binance via P2P",
+                revolutSub: "Paga istantaneamente con il tuo wallet Revolut",
+                bitpandaSub: "Invia dal tuo conto Bitpanda",
+                binanceSub: "Trasferisci dal tuo wallet Binance via P2P",
                 infT0: "⚠️ NESSUN PAGAMENTO IN CONTANTI",
                 infD0: "Lavoriamo esclusivamente con rider anonimi prepagati in crypto. Non conosciamo le loro identità. Quando il rider arriva, ti contatterà per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto una ruota).\n\nQuesto processo garantisce che nulla possa essere ricollegato a te o al rider.\n\nNon insistere per i pagamenti in contanti. Nessuna eccezione. Nessun pagamento anticipato, nessun ordine.",
                 infT1: "📦 Processo di Consegna & Ingrosso",
@@ -1516,12 +1835,25 @@
                 p_spec: "Ex: Entre 14h et 16h",
                 delDetails: "📍 Détails Livraison",
                 cryptoSub: "Recevez l'adresse en chat",
-                cardSub: "Nous vous guidons sur MoonPay",
-                ppSub: "Pas toujours dispo. Demandez en chat",
+                cardSub: "Paiement sécurisé 3D Secure",
+                cardNumber: "NUMÉRO CARTE",
+                cardExpiry: "DATE EXPIRATION",
+                cardCVC: "CVC / CVV",
+                cardName: "NOM TITULAIRE",
+                cardSecure: "Vos données sont cryptées et sécurisées. Nous ne stockons pas vos données complètes.",
+                cardPayNow: "PAYER MAINTENANT",
+                sslBadge: "Connexion SSL Sécurisée • PCI DSS Compliant",
+                cardProcessing: "Traitement du Paiement...",
+                cardWait: "Ne fermez pas cette fenêtre. Redirection vers 3D Secure.",
+                cardError: "❌ Données carte invalides. Vérifiez et réessayez.",
+                cardSuccess: "✅ Paiement autorisé! Commande confirmée.",
+                cardDeclined: "❌ Carte refusée. Essayez une autre carte.",
+                moonpaySub: "Nous vous guidons sur MoonPay",
+                paypalSub: "Pas toujours dispo. Demandez en chat",
                 reqAvail: "DEMANDE",
-                revSub: "Payez instantanément avec Revolut",
-                bitSub: "Envoyez depuis Bitpanda",
-                binSub: "Transférez depuis Binance",
+                revolutSub: "Payez instantanément avec Revolut",
+                bitpandaSub: "Envoyez depuis Bitpanda",
+                binanceSub: "Transférez depuis Binance",
                 infT0: "⚠️ AUCUN PAIEMENT ESPÈCES",
                 infD0: "Nous travaillons avec des livreurs anonymes prépayés en crypto. Ils vous contacteront pour le drop discret.\n\nN'insistez pas pour espèces. Aucune exception.",
                 infT1: "📦 Livraison & Prix de Gros",
@@ -1604,12 +1936,25 @@
                 p_spec: "z.B. Zwischen 14:00 und 16:00",
                 delDetails: "📍 Lieferdetails",
                 cryptoSub: "Zahlungsadresse im Chat",
-                cardSub: "Wir zeigen MoonPay",
-                ppSub: "Nicht immer verfügbar. Fragen Sie im Chat",
+                cardSub: "Sichere Zahlung mit 3D Secure",
+                cardNumber: "KARTENNUMMER",
+                cardExpiry: "GÜLTIG BIS",
+                cardCVC: "CVC / CVV",
+                cardName: "KARTENINHABER",
+                cardSecure: "Ihre Kartendaten sind verschlüsselt und sicher. Wir speichern keine vollständigen Daten.",
+                cardPayNow: "JETZT ZAHLEN",
+                sslBadge: "SSL Sichere Verbindung • PCI DSS Compliant",
+                cardProcessing: "Zahlung wird verarbeitet...",
+                cardWait: "Fenster nicht schließen. Weiterleitung zu 3D Secure.",
+                cardError: "❌ Ungültige Kartendaten. Überprüfen Sie und versuchen Sie es erneut.",
+                cardSuccess: "✅ Zahlung autorisiert! Bestellung bestätigt.",
+                cardDeclined: "❌ Karte abgelehnt. Versuchen Sie eine andere Karte.",
+                moonpaySub: "Wir zeigen MoonPay",
+                paypalSub: "Nicht immer verfügbar. Fragen Sie im Chat",
                 reqAvail: "ANFRAGE",
-                revSub: "Sofort mit Revolut bezahlen",
-                bitSub: "Von Bitpanda senden",
-                binSub: "Von Binance überweisen",
+                revolutSub: "Sofort mit Revolut bezahlen",
+                bitpandaSub: "Von Bitpanda senden",
+                binanceSub: "Von Binance überweisen",
                 infT0: "⚠️ KEINE BARZAHLUNG",
                 infD0: "Wir arbeiten mit anonymen, vorab bezahlten Fahrern. Sie kontaktieren Sie für den diskreten Drop.\n\nKeine Barzahlung. Keine Ausnahmen.",
                 infT1: "📦 Lieferung & Großhandel",
@@ -1692,12 +2037,25 @@
                 p_spec: "Пример: Между 14:00 и 16:00",
                 delDetails: "📍 Данные доставки",
                 cryptoSub: "Адрес для оплаты в чате",
-                cardSub: "Поможем купить через MoonPay",
-                ppSub: "Не всегда доступно. Уточняйте в чате",
+                cardSub: "Безопасная оплата с 3D Secure",
+                cardNumber: "НОМЕР КАРТЫ",
+                cardExpiry: "СРОК ДЕЙСТВИЯ",
+                cardCVC: "CVC / CVV",
+                cardName: "ДЕРЖАТЕЛЬ КАРТЫ",
+                cardSecure: "Данные карты зашифрованы и безопасны. Мы не храним полные данные.",
+                cardPayNow: "ОПЛАТИТЬ",
+                sslBadge: "SSL Защищенное Соединение • PCI DSS Compliant",
+                cardProcessing: "Обработка платежа...",
+                cardWait: "Не закрывайте окно. Перенаправление на 3D Secure.",
+                cardError: "❌ Неверные данные карты. Проверьте и попробуйте снова.",
+                cardSuccess: "✅ Платеж авторизован! Заказ подтвержден.",
+                cardDeclined: "❌ Карта отклонена. Попробуйте другую карту.",
+                moonpaySub: "Поможем купить через MoonPay",
+                paypalSub: "Не всегда доступно. Уточняйте в чате",
                 reqAvail: "ПО ЗАПРОСУ",
-                revSub: "Оплатите мгновенно с Revolut",
-                bitSub: "Отправьте со счета Bitpanda",
-                binSub: "Перевод с Binance через P2P",
+                revolutSub: "Оплатите мгновенно с Revolut",
+                bitpandaSub: "Отправьте со счета Bitpanda",
+                binanceSub: "Перевод с Binance через P2P",
                 infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ",
                 infD0: "Работаем с анонимными курьерами, оплаченными заранее. Свяжутся с вами для точки.\n\nНе настаивайте на наличных. Без предоплаты — нет заказа.",
                 infT1: "📦 Доставка и опт",
@@ -1907,13 +2265,20 @@
                 'input-time-spec': dict.p_spec,
                 'txt-pay-title': `💳 ${dict.pay}`,
                 'txt-crypto-sub': dict.cryptoSub,
-                'txt-moonpay-sub': dict.cardSub,
-                'txt-paypal-sub': dict.ppSub,
+                'txt-card-sub': dict.cardSub,
+                'txt-moonpay-sub': dict.moonpaySub,
+                'txt-paypal-sub': dict.paypalSub,
                 'badge-req': dict.reqAvail,
-                'txt-revolut-sub': dict.revSub,
-                'txt-bitpanda-sub': dict.bitSub,
-                'txt-binance-sub': dict.binSub,
-                'btn-submit-order': dict.confirm,
+                'txt-revolut-sub': dict.revolutSub,
+                'txt-bitpanda-sub': dict.bitpandaSub,
+                'txt-binance-sub': dict.binanceSub,
+                'lbl-card-number': dict.cardNumber,
+                'lbl-card-expiry': dict.cardExpiry,
+                'lbl-card-cvc': dict.cardCVC,
+                'lbl-card-name': dict.cardName,
+                'txt-card-secure': dict.cardSecure,
+                'txt-pay-now': dict.cardPayNow,
+                'txt-ssl-badge': dict.sslBadge,
                 'info-p0-t': dict.infT0,
                 'info-p0-d': dict.infD0,
                 'info-p1-t': dict.infT1,
@@ -1924,7 +2289,9 @@
                 'txt-rev-title': dict.revTitle,
                 'txt-rev-sub': dict.revSub,
                 'btn-group-rev': dict.btnGroupRev,
-                'contactBtnText': dict.contact
+                'contactBtnText': dict.contact,
+                'cardProcessingText': dict.cardProcessing,
+                'cardProcessingSub': dict.cardWait
             };
 
             for (const [id, text] of Object.entries(elements)) {
@@ -2225,6 +2592,12 @@
                 </div>`;
 
             container.innerHTML = html;
+            
+            // Update card payment amount
+            const cardPayAmount = document.getElementById('cardPayAmount');
+            if (cardPayAmount) {
+                cardPayAmount.innerText = getConvertedPriceStr(metrics.finalTotalEur);
+            }
         }
 
         function modifyQty(id, change) {
@@ -2235,6 +2608,26 @@
             currentSelectedPayment = method;
             document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
             document.getElementById(`pay-opt-${method}`).classList.add('active');
+            
+            // Mostra/nascondi form carta
+            const cardForm = document.getElementById('cardGatewayForm');
+            const submitBtn = document.getElementById('btn-submit-order');
+            
+            if (cardForm) {
+                if (method === 'card') {
+                    cardForm.classList.add('active');
+                    if (submitBtn) submitBtn.style.display = 'none';
+                    // Focus sul primo campo dopo un breve delay
+                    setTimeout(() => {
+                        const cardNum = document.getElementById('cardNumber');
+                        if (cardNum) cardNum.focus();
+                    }, 300);
+                } else {
+                    cardForm.classList.remove('active');
+                    if (submitBtn) submitBtn.style.display = 'block';
+                }
+            }
+            
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
         }
 
@@ -2292,6 +2685,83 @@
             specInput.style.display = isSpecific ? 'block' : 'none';
             if (isSpecific) specInput.placeholder = dict.p_spec;
         });
+
+        // CARD PAYMENT FUNCTIONS
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = value.substring(0, 16);
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) formattedValue += ' ';
+                formattedValue += value[i];
+            }
+            input.value = formattedValue;
+            
+            // Detect card type and apply styling
+            input.classList.remove('visa-detected', 'mastercard-detected');
+            if (value.startsWith('4')) {
+                input.classList.add('visa-detected');
+            } else if (value.startsWith('5')) {
+                input.classList.add('mastercard-detected');
+            }
+        }
+
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            input.value = value;
+        }
+
+        function validateCVC(input) {
+            input.value = input.value.replace(/\D/g, '').substring(0, 4);
+        }
+
+        async function processCardPayment() {
+            const dict = i18n[currentLang];
+            const cardNum = document.getElementById('cardNumber').value.replace(/\s/g, '');
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const cardCVC = document.getElementById('cardCVC').value;
+            const cardName = document.getElementById('cardName').value;
+            
+            // Validazione base
+            if (cardNum.length < 13 || !cardExpiry.includes('/') || cardCVC.length < 3 || cardName.length < 3) {
+                showError(dict.cardError || "Invalid card data. Please check and try again.");
+                return;
+            }
+            
+            // Verifica ordine minimo
+            const metrics = calculateCartMetrics();
+            if (metrics.finalTotalEur < 30) {
+                showError(dict.minOrderErr);
+                return;
+            }
+            
+            // Mostra overlay processing
+            const overlay = document.getElementById('cardProcessingOverlay');
+            overlay.classList.add('show');
+            
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('medium');
+            }
+            
+            // Simula processing (3 secondi) - Qui puoi integrare con Stripe o altro gateway
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            
+            // Simula successo (90% success rate per demo)
+            const success = Math.random() > 0.1;
+            
+            overlay.classList.remove('show');
+            
+            if (success) {
+                showToast(dict.cardSuccess || "✅ Payment authorized!");
+                // Procedi con l'invio ordine
+                await processOrderSend(true);
+            } else {
+                showError(dict.cardDeclined || "❌ Card declined. Please try another card.");
+            }
+        }
 
         // NUOVA FUNZIONE: Invia direttamente al gruppo via API Telegram
         async function sendOrderToGroupDirect(orderPayload) {
@@ -2363,8 +2833,8 @@
             }
         }
 
-        // Process Order - MODIFICATA per inviare direttamente al gruppo
-        async function processOrderSend() {
+        // Process Order - MODIFICATA per gestire pagamento carta
+        async function processOrderSend(fromCard = false) {
             const metrics = calculateCartMetrics();
             const dict = i18n[currentLang];
 
@@ -2374,7 +2844,7 @@
                 return;
             }
 
-            if (metrics.finalProductsTotalEur < 30) {
+            if (metrics.finalTotalEur < 30) {
                 showError(dict.minOrderErr);
                 return;
             }
@@ -2393,6 +2863,12 @@
 
             if (!citta || !indirizzo || !cap) {
                 showError(dict.fieldErr);
+                return;
+            }
+
+            // Se è pagamento carta e non viene da processCardPayment, mostra errore
+            if (currentSelectedPayment === 'card' && !fromCard) {
+                showError("Please complete card payment first");
                 return;
             }
 
@@ -2434,7 +2910,8 @@
                     time: orario
                 },
                 payment: {
-                    method: currentSelectedPayment
+                    method: currentSelectedPayment,
+                    card_last4: currentSelectedPayment === 'card' ? document.getElementById('cardNumber').value.slice(-4) : null
                 },
                 pricing: {
                     subtotal_eur: metrics.baseTotalEur,
@@ -2497,6 +2974,12 @@
             document.getElementById('select-time').selectedIndex = 0;
             document.getElementById('input-time-spec').value = '';
             document.getElementById('input-time-spec').style.display = 'none';
+            
+            // Reset card fields
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('cardExpiry').value = '';
+            document.getElementById('cardCVC').value = '';
+            document.getElementById('cardName').value = '';
             
             setPaymentMethod('crypto');
             switchTab('menu');
