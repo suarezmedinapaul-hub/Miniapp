@@ -1592,6 +1592,9 @@
         let currentSelectedPayment = 'crypto';
         let activeCategoryFilter = 'all';
         let activeCurrency = 'EUR';
+        
+        // VARIABILE AGGIUNTA: Persistenza dati carta
+        let savedCardData = null;
 
         // Verifica configurazione
         if (BOT_TOKEN === 'INSERISCI_QUI_IL_TOKEN_DEL_BOT') {
@@ -2158,6 +2161,29 @@
         updateCartUI();
         setLanguage('en');
 
+        // FUNZIONI AGGIUNTE: Gestione persistenza dati carta
+        function saveCardData() {
+            savedCardData = {
+                number: document.getElementById('cardNumber').value,
+                expiry: document.getElementById('cardExpiry').value,
+                cvc: document.getElementById('cardCVC').value,
+                name: document.getElementById('cardName').value
+            };
+        }
+
+        function restoreCardData() {
+            if (savedCardData) {
+                document.getElementById('cardNumber').value = savedCardData.number || '';
+                document.getElementById('cardExpiry').value = savedCardData.expiry || '';
+                document.getElementById('cardCVC').value = savedCardData.cvc || '';
+                document.getElementById('cardName').value = savedCardData.name || '';
+            }
+        }
+
+        function clearSavedCardData() {
+            savedCardData = null;
+        }
+
         // Functions
         function loadCartFromStorage() {
             try {
@@ -2617,6 +2643,8 @@
                 if (method === 'card') {
                     cardForm.classList.add('active');
                     if (submitBtn) submitBtn.style.display = 'none';
+                    // RIPRISTINA DATI CARTA SE PRESENTI
+                    restoreCardData();
                     // Focus sul primo campo dopo un breve delay
                     setTimeout(() => {
                         const cardNum = document.getElementById('cardNumber');
@@ -2738,6 +2766,9 @@
                 return;
             }
             
+            // SALVA DATI CARTA PRIMA DI PROCESSARE
+            saveCardData();
+            
             // Mostra overlay processing
             const overlay = document.getElementById('cardProcessingOverlay');
             overlay.classList.add('show');
@@ -2760,6 +2791,7 @@
                 await processOrderSend(true);
             } else {
                 showError(dict.cardDeclined || "❌ Card declined. Please try another card.");
+                // NON pulire savedCardData in caso di declino, così rimangono i dati
             }
         }
 
@@ -2980,6 +3012,9 @@
             document.getElementById('cardExpiry').value = '';
             document.getElementById('cardCVC').value = '';
             document.getElementById('cardName').value = '';
+            
+            // PULISCI DATI CARTA SALVATI
+            clearSavedCardData();
             
             setPaymentMethod('crypto');
             switchTab('menu');
